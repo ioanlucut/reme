@@ -9,14 +9,14 @@ angular.module("site", ["ngAnimate", "ui.router", "ui.bootstrap.bindHtml", "acco
 
             // Home page
             .state("home", {
-                url: "/",
+                url: "/home",
                 templateUrl: "app/site/partials/home.html",
                 controller: "HomeCtrl",
-                title: "home",
+                title: "Home",
                 resolve: {
                     helloMessage: function () {
                         return {
-                            message: 'Hello!'
+                            message: 'I am home!'
                         };
                     }
                 }
