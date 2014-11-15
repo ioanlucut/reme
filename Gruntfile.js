@@ -1,0 +1,196 @@
+module.exports = function(grunt) {
+
+    grunt.initConfig({
+        pkg: grunt.file.readJSON("package.json"),
+
+        concat: {
+            options: {
+                separator: ";"
+            },
+            frameworks: {
+                src: [
+                    "bower_components/jquery/dist/jquery.js",
+                    "bower_components/lodash/dist/lodash.js",
+                    "bower_components/underscore.string/dist/underscore.string.min.js",
+                    "bower_components/cookies-js/src/cookies.js",
+                    "bower_components/mousetrap/mousetrap.js",
+                    "bower_components/uploader/uploader.js",
+                    "bower_components/momentjs/moment.js",
+                    "bower_components/url-to/url-to.js",
+                    "bower_components/hello/dist/hello.all.js",
+                    "bower_components/hello/src/modules/facebook.js",
+                    "bower_components/hello/src/modules/google.js",
+                    "bower_components/angular/angular.js",
+                    "bower_components/angular-animate/angular-animate.js",
+                    "bower_components/angular-sanitize/angular-sanitize.js",
+                    "bower_components/angular-i18n/angular-locale_ro.js",
+                    "bower_components/angular-ui-router/release/angular-ui-router.js",
+                    "bower_components/angular-inflector/dist/angular-inflector.js",
+                    "bower_components/angular-restmod/dist/angular-restmod-bundle.js",
+                    "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js"
+                ],
+                dest: "build/js/frameworks.js"
+            },
+            app: {
+                src: [
+                    "src/common/analytics/analytics.js",
+                    "src/common/analytics/**/*.js",
+
+                    "src/common/common/common.js",
+                    "src/common/common/**/*.js",
+
+                    "src/app/account/account.js",
+                    "src/app/account/**/*.js",
+
+                    "src/app/story/story.js",
+                    "src/app/story/**/*.js",
+
+                    "src/app/site/site.js",
+                    "src/app/site/**/*.js",
+
+                    "src/app/app.js",
+                    "src/app/app.ctrl.js",
+
+                    "build/partials/partials.js"
+
+
+                ],
+                dest: "build/js/app.js"
+            }
+        },
+
+        ngAnnotate: {
+            app: {
+                files: {
+                    "<%= concat.app.dest %>": "<%= concat.app.dest %>"
+                }
+            }
+        },
+
+        uglify: {
+            options: {
+                banner: "/*! <%= pkg.name %> <%= pkg.version %> - <%= grunt.template.today('yyyy-dd-mm, h:MM:ss TT') %> */\n"
+            },
+            dist: {
+                files: {
+                    "build/js/frameworks.min.js":    ["<%= concat.frameworks.dest %>"],
+                    "build/js/app.min.js":           ["<%= concat.app.dest %>"]
+                }
+            }
+        },
+
+        sass: {
+            dist: {
+                options: {
+                    style: "expanded",
+                    lineNumbers : true
+                },
+                files: {
+                    "build/css/app.css": "src/sass/bootstrap.scss"
+                }
+            }
+        },
+
+        cssmin: {
+            minify: {
+                options: {
+                    keepSpecialComments: 0,
+                    banner: "/*! <%= pkg.name %> <%= pkg.version %> - <%= grunt.template.today('yyyy-dd-mm, h:MM:ss TT') %> */"
+                },
+                expand: true,
+                cwd: 'build/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'build/css/',
+                ext: '.min.css'
+            }
+        },
+
+        jshint: {
+            files: ["Gruntfile.js", "src/**/*.js"],
+            options: {
+
+                // Options here to override JSHint defaults
+                globals: {
+                    angular: true,
+                    jQuery: true,
+                    console: true,
+                    document: true
+                }
+            }
+        },
+
+        copy: {
+            images: {
+                expand: true,
+                cwd: "src",
+                src: ["assets/img/**/*"],
+                dest: "build"
+            },
+            fonts: {
+                expand: true,
+                cwd: "src",
+                src: ["assets/fonts/**/*"],
+                dest: "build"
+            }
+        },
+
+        html2js: {
+            options: {
+                module: "partials"
+            },
+            main: {
+                src: [
+
+                    "src/app/site/partials/**/*.html",
+                    "src/app/account/partials/**/*.html",
+                    "src/app/story/partials/**/*.html",
+                    "src/common/common/**/*.html"
+                ],
+                dest: "build/partials/partials.js"
+            }
+        },
+
+        watch: {
+            images: {
+                files: ["src/assets/img/**/*"],
+                tasks: ["copy:images"]
+            },
+            fonts: {
+                files: ["src/assets/fonts/**/*"],
+                tasks: ["copy:fonts"]
+            },
+            javascript: {
+                files: ["Gruntfile.js", "src/**/*.js"],
+                tasks: ["concat"]
+            },
+            partials: {
+                files: [
+                    "src/app/site/partials/**/*.html",
+                    "src/app/account/partials/**/*.html",
+                    "src/app/story/partials/**/*.html",
+                    "src/common/common/**/*.html"
+                ],
+                tasks: ["html2js", "concat"]
+            },
+            sass: {
+                files: ["src/**/*.scss"],
+                tasks: ["sass"]
+            }
+        }
+    });
+
+    grunt.loadNpmTasks("grunt-contrib-concat");
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-sass");
+    grunt.loadNpmTasks("grunt-contrib-cssmin");
+    grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-ng-annotate");
+    grunt.loadNpmTasks("grunt-html2js");
+
+    grunt.registerTask("default", ["html2js", "concat", "sass", "copy"]);
+    grunt.registerTask("test", ["jshint"]);
+    grunt.registerTask("build", ["html2js", "concat", "ngAnnotate", "uglify", "sass", "cssmin", "copy"]);
+
+};
