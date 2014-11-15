@@ -1,0 +1,23 @@
+{
+    "name": "reme.io",
+    "version": "2.0.0",
+    "dependencies": {
+        "bootstrap-sass": "3.0.2",
+        "jquery": "2.1.1",
+        "lodash": "2.4.1",
+        "underscore.string": "2.3.3",
+        "cookies-js": "0.4.0",
+        "mousetrap": "1.4.6",
+        "uploader": "0.9.1",
+        "angular": "1.2.17",
+        "angular-animate": "1.2.17",
+        "angular-sanitize": "1.2.17",
+        "angular-i18n": "1.2.17",
+        "angular-ui-router": "0.2.10",
+        "angular-ui-bootstrap": "0.11.0",
+        "angular-restmod": "1.1.2",
+        "url-to": "0.1.1",
+        "momentjs": "2.6.0",
+        "hello": "1.2.2"
+    }
+}
