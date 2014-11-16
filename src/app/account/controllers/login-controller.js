@@ -12,7 +12,6 @@ angular.module("account").controller("LoginCtrl", function ($scope, LoginService
 
             // Then
             .then(function (response) {
-                console.log(response);
 
                 $scope.authError = false;
             })

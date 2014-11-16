@@ -19,7 +19,7 @@ angular.module("account").service("LoginService", function ($q) {
             var deferred = $q.defer();
 
             setTimeout(function () {
-                deferred.resolve(true);
+                deferred.reject(true);
             }, 2000);
 
             return deferred.promise;
