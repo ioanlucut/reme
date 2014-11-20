@@ -3,8 +3,10 @@
 angular.module("app", [
         "ngAnimate",
         "ui.router",
+        "ngCookies",
         "partials",
-        "site"
+        "site",
+        "common"
     ])
     .config(function($locationProvider) {
 
@@ -15,7 +17,7 @@ angular.module("app", [
         });
     })
 
-    .run(function() {
+    .run(function () {
 
         // Set the base API URL
         URLTo.apiBase("https://uat.reme.io/api");
