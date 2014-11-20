@@ -34,11 +34,8 @@ module.exports = function(grunt) {
             },
             app: {
                 src: [
-                    "src/common/analytics/analytics.js",
-                    "src/common/analytics/**/*.js",
-
-                    "src/common/common/common.js",
-                    "src/common/common/**/*.js",
+                    "src/app/common/common.js",
+                    "src/app/common/**/*.js",
 
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
@@ -145,7 +142,7 @@ module.exports = function(grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/story/partials/**/*.html",
-                    "src/common/common/**/*.html"
+                    "src/app/common/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
             }
@@ -169,7 +166,7 @@ module.exports = function(grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/story/partials/**/*.html",
-                    "src/common/common/**/*.html"
+                    "src/app/common/**/*.html"
                 ],
                 tasks: ["html2js", "concat"]
             },
