@@ -2,27 +2,68 @@
  * Created by ilucut on 11/15/14.
  */
 
-angular.module("account").service("LoginService", function ($q) {
+angular.module("account").service("LoginService", function ($rootScope, $q, $cookies, AUTH_EVENTS, SessionService) {
 
-    return {
-        login: function (name, password) {
-            var deferred = $q.defer();
+    /**
+     * Login functionality
+     *
+     * @param name
+     * @param password
+     * @returns {*}
+     */
+    this.login = function (name, password) {
+        var deferred = $q.defer();
 
-            setTimeout(function () {
-                deferred.reject(true);
-            }, 2000);
+        setTimeout(function () {
+            if (name === 'ilu' && password === 'ilu') {
 
-            return deferred.promise;
-        },
+                SessionService.create({
+                    name: name,
+                    town: 'Vienna',
+                    postalCode: '1040'
+                });
 
-        logout: function (name, password) {
-            var deferred = $q.defer();
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, 'Welcome' + name);
 
-            setTimeout(function () {
-                deferred.reject(true);
-            }, 2000);
+                deferred.resolve('Welcome' + name);
+            }
+            else {
+                $rootScope.$broadcast(AUTH_EVENTS.loginFailed, 'Error');
 
-            return deferred.promise;
-        }
+                deferred.reject('Username and password is wrong.');
+            }
+        }, 2000);
+
+        return deferred.promise;
+    };
+
+    /**
+     * Logout functionality
+     *
+     * @param name
+     * @param password
+     * @returns {*}
+     */
+    this.logout = function (name, password) {
+        var deferred = $q.defer();
+
+        setTimeout(function () {
+            SessionService.destroy();
+
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess, 'Logout success');
+
+            deferred.resolve('Logged out.');
+        }, 2000);
+
+        return deferred.promise;
+    };
+
+    /**
+     * Is User already authenticated ?
+     * @returns {*}
+     */
+    this.isAuthenticated = function () {
+        return SessionService.isEmpty();
     }
+
 });

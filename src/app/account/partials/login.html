@@ -1,31 +1,34 @@
-<div class="pull-right">
-    <a class="btn btn-danger" ui-sref="account:logout">LOGOUT</a>
-</div>
+<div header></div>
 
+<!-- Contact form -->
 <div class="container">
-    <div class="jumbotron">
+    <div class="login-container__wrapper">
 
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-
-                <form role="form" class="form-horizontal" name="loginForm"
-                      ng-submit="login(user.userName, user.password)" novalidate>
-
-                    <div class="alert alert-danger" ng-if="authError">Please try again</div>
-
-                    <input class="form-control" ng-class="{'has-error' : authError}" name="userName"
-                           placeholder="E-mail"
-                           ng-model="user.userName" required/>
-
-                    <input class="form-control" ng-class="{'has-error' : authError}" name="userPassword"
-                           placeholder="Password"
-                           ng-model="user.password" type="password" required/>
-
-                    <button type="submit" class="btn btn-success">SUBMIT</button>
-
-                </form>
-            </div>
+        <div ng-class="isAuthenticationErrorOcurred ? 'flash-error' : 'flash-success'"
+             ng-if="message && message.length > 0">
+            <span>{{message}}</span>
         </div>
+
+        <form name="loginForm" class="form-horizontal" role="form" novalidate
+              ng-submit="login(user.userName, user.password, loginForm)">
+
+            <input id="name" name="userName" type="text" ng-model="user.userName" required
+                   ng-class="{ 'has-error' : loginForm.userName.$invalid && !loginForm.userName.$pristine }"
+                   placeholder="Name"/>
+            <span for="userName" class="label-error"
+                  ng-show="loginForm.userName.$invalid && !loginForm.userName.$pristine">Please provide a name.</span>
+
+            <input id="email" name="userPassword" type="password" class="form-control"
+                   ng-model="user.password"
+                   required
+                   ng-class="{ 'has-error' : loginForm.userPassword.$invalid && !loginForm.userPassword.$pristine }"
+                   placeholder="Email"/>
+            <span for="userPassword" class="label-error"
+                  ng-show="loginForm.userPassword.$invalid && !loginForm.userPassword.$pristine">Please provide a valid email address.</span>
+
+            <button type="submit" id="submit-button" class="btn btn-block btn-primary btn-sm">Log in</button>
+
+        </form>
 
     </div>
 </div>

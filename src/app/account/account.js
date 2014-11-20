@@ -27,4 +27,10 @@ angular.module("account", ["ui.router", "restmod"])
                 url: "/account/logout",
                 controller: "LogoutCtrl"
             })
+    })
+    .run(function ($rootScope, AuthFilter) {
+
+        // Setup route filters
+        $rootScope.$on("$stateChangeStart", AuthFilter);
+
     });
