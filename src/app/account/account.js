@@ -10,7 +10,7 @@ angular.module("account", ["ui.router", "restmod"])
             // Login page
             .state("account:login", {
                 url: "/account/login",
-                templateUrl: "app/account/partials/login.html",
+                templateUrl: "app/account/partials/account.html",
                 controller: "LoginCtrl",
                 title: "Login",
                 resolve: {
