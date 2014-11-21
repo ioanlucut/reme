@@ -4,7 +4,7 @@
 <div class="account__sections">
 
     <!--Sign in-->
-    <div class="account__section" ng-controller="LoginCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_STATE.login" ng-controller="LoginCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Intră în cont</h1>
@@ -36,6 +36,69 @@
                 <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">CONTINUĂ</button>
             </div>
         </form>
+
+        <!-- Reset password -->
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.passwordRecovery)">Resetează parola</a>
+
+        <!-- Horizontal rule -->
+        <hr/>
+
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.signUp)">Cont nou</a>
+
+    </div>
+    <!--Sign in-->
+     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.signUp" ng-controller="SignUpCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Creează un cont nou pe reme.io</h1>
+
+        <!-- Signup form -->
+        <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="signUpData.lastName" required />
+                        <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.submitted">Numele tău este obligatoriu.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Prenume" name="firstName" ng-model="signUpData.firstName" required />
+                        <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.submitted">Prenumele tău este obligatoriu.</span>
+                    </div>
+                </div>
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Adresa ta de email" name="email" ng-model="signUpData.email" required valid-email unique-email />
+                        <span class="help-block" ng-if="signUpForm.email.$error.required && signUpForm.submitted">Adresa ta de email este obligatorie.</span>
+                        <span class="help-block" ng-if="! signUpForm.email.$error.required && (signUpForm.email.$error.email || signUpForm.email.$error.validEmail) && signUpForm.submitted">Această adresă de email este incorectă.</span>
+                        <span class="help-block" ng-if="! signUpForm.email.$error.required && ! signUpForm.email.$error.email && ! signUpForm.email.$error.validEmail && signUpForm.email.$error.uniqueEmail && signUpForm.submitted">Această adresă de email este deja folosită.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="password" placeholder="Alegeți o parolă" name="password" ng-model="signUpData.password" required strong-password />
+                        <span class="help-block" ng-if="signUpForm.password.$error.required && signUpForm.submitted">Alege o parolă.</span>
+                        <span class="help-block" ng-if="! signUpForm.password.$error.required && signUpForm.password.$error.strongPassword && signUpForm.submitted">Parola trebuie sa contină minimum 7 caractere.</span>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">CREEAZĂ CONT NOU</button>
+            </div>
+        </form>
+
+         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.login)">Cont existent</a>
 
     </div>
 
