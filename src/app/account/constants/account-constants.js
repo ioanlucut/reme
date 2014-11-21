@@ -1,23 +1,23 @@
 /**
- * Created by ilucut on 11/15/14.
+ * Account related constants.
  */
-
-angular.module("account")
+angular
+    .module("account")
     .constant("AUTH_EVENTS", {
-        isLoggedIn:       "auth-is-logged-in",
-        loginSuccess:     "auth-login-success",
-        loginFailed:      "auth-login-failed",
-        logoutSuccess:    "auth-logout-success",
-        sessionTimeout:   "auth-session-timeout",
+        isLoggedIn: "auth-is-logged-in",
+        loginSuccess: "auth-login-success",
+        loginFailed: "auth-login-failed",
+        logoutSuccess: "auth-logout-success",
+        sessionTimeout: "auth-session-timeout",
         notAuthenticated: "auth-not-authenticated",
-        notAuthorized:    "auth-not-authorized"
+        notAuthorized: "auth-not-authorized"
     })
     .constant("STATES", {
         home: "home"
     })
     .constant("ACCOUNT_STATE", {
-        login:            "login",
-        logout:           "logout",
-        signUp:           "signUp",
+        login: "login",
+        logout: "logout",
+        signUp: "signUp",
         passwordRecovery: "passwordRecovery"
     });

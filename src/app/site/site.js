@@ -1,7 +1,13 @@
-/* Site module */
-
-angular.module("site", ["ngAnimate", "ui.router", "ui.bootstrap.bindHtml", "account"])
-
+/**
+ * Main site module declaration including ui templates.
+ */
+angular
+    .module("site", [
+        "ngAnimate",
+        "ui.router",
+        "ui.bootstrap.bindHtml",
+        "account"
+    ])
     .config(function ($stateProvider) {
 
         // Home
