@@ -6,7 +6,8 @@ angular.module("app", [
         "ngCookies",
         "partials",
         "site",
-        "common"
+        "common",
+        "account"
     ])
     .config(function($locationProvider) {
 
