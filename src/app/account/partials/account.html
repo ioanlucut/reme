@@ -1,0 +1,42 @@
+<div header></div>
+
+<!-- Account sections -->
+<div class="account__sections">
+
+    <!--Sign in-->
+    <div class="account__section" ng-controller="LoginCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Intră în cont</h1>
+
+        <!-- Login form -->
+        <form name="loginForm" ng-submit="login(loginData.email, loginData.password)" novalidate>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- General error -->
+                <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Adresa de email și parola nu se potrivesc. Te rugăm să verifici cu atenție.</div>
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Adresa de email" ng-model="loginData.email" auto-focus-on="auth-login-failed" />
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="password" placeholder="Parola" ng-model="loginData.password" />
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">CONTINUĂ</button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
