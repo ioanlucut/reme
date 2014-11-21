@@ -1,7 +1,8 @@
-/* Account module */
-
-angular.module("account", ["ui.router", "restmod"])
-
+/**
+ * Main account module declaration including ui templates.
+ */
+angular
+    .module("account", ["ui.router", "restmod"])
     .config(function ($stateProvider) {
 
         // Home

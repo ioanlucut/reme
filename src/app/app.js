@@ -1,6 +1,8 @@
-/* App module */
-
-angular.module("app", [
+/**
+ * Main app module declaration.
+ */
+angular
+    .module("app", [
         "ngAnimate",
         "ui.router",
         "ngCookies",
@@ -9,7 +11,7 @@ angular.module("app", [
         "common",
         "account"
     ])
-    .config(function($locationProvider) {
+    .config(function ($locationProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({
@@ -17,7 +19,6 @@ angular.module("app", [
             requireBase: false
         });
     })
-
     .run(function () {
 
         // Set the base API URL
