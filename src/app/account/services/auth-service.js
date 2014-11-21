@@ -2,7 +2,7 @@
  * Created by ilucut on 11/15/14.
  */
 
-angular.module("account").service("LoginService", function ($rootScope, $q, $cookies, AUTH_EVENTS, SessionService) {
+angular.module("account").service("AuthService", function ($rootScope, $q, $cookies, AUTH_EVENTS, SessionService) {
 
     /**
      * Login functionality
@@ -15,7 +15,7 @@ angular.module("account").service("LoginService", function ($rootScope, $q, $coo
         var deferred = $q.defer();
 
         setTimeout(function () {
-            if (name === 'ilu' && password === 'ilu') {
+            if (name === 'ilu@ilu.ilu' && password === 'ilu') {
 
                 SessionService.create({
                     name: name,

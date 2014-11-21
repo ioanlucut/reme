@@ -1,8 +1,7 @@
 /**
  * Login controller responsible for user login actions.
- * Created by ilucut on 11/15/14.
  */
-angular.module("account").controller("LoginCtrl", function ($state, $scope, LoginService, AUTH_EVENTS, STATES) {
+angular.module("account").controller("LoginCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, STATES) {
 
     /**
      * Flag which tells if the authentication went well or not.
@@ -14,9 +13,9 @@ angular.module("account").controller("LoginCtrl", function ($state, $scope, Logi
      * Login user information.
      * @type {{username: string, password: string}}
      */
-    $scope.user = {
-        username: '',
-        password: ''
+    $scope.loginData = {
+        email: "",
+        password: ""
     };
 
     /**
@@ -27,39 +26,26 @@ angular.module("account").controller("LoginCtrl", function ($state, $scope, Logi
 
     /**
      * Login functionality.
-     * @param name
+     * @param email
      * @param password
      * @param loginForm
      */
-    $scope.login = function (name, password, loginForm) {
+    $scope.login = function (email, password) {
 
-        if (loginForm.$invalid) {
-            if (loginForm.userName.$pristine) {
-                loginForm.userName.$invalid = true;
-                loginForm.userName.$pristine = false;
-            }
-            if (loginForm.userPassword.$pristine) {
-                loginForm.userPassword.$invalid = true;
-                loginForm.userPassword.$pristine = false;
-            }
-        }
-        else {
+        AuthService.login(email, password)
+            .then(function (response) {
+                $scope.message = response;
 
-            LoginService.login(name, password)
-                .then(function (response) {
-                    $scope.message = response;
+                $scope.isAuthenticationErrorOcurred = false;
 
-                    $scope.isAuthenticationErrorOcurred = false;
+                setTimeout(function () {
+                    $state.go(STATES.home);
+                }, 300);
+            })
+            .catch(function (response) {
+                $scope.message = response;
 
-                    setTimeout(function () {
-                        $state.go(STATES.home);
-                    }, 300);
-                })
-                .catch(function (response) {
-                    $scope.message = response;
-
-                    $scope.isAuthenticationErrorOcurred = true;
-                });
-        }
+                $scope.isAuthenticationErrorOcurred = true;
+            });
     }
 });
