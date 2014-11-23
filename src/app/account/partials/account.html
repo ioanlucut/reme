@@ -7,7 +7,7 @@
     <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_STATE.login" ng-controller="LoginCtrl">
 
         <!-- Title -->
-        <h1 class="account__title">Intră în cont</h1>
+        <h1 class="account__title">Welcome!</h1>
 
         <!-- Login form -->
         <form name="loginForm" ng-submit="login(loginData.email, loginData.password)" novalidate>
@@ -16,7 +16,7 @@
             <div class="account__controls">
 
                 <!-- General error -->
-                <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Adresa de email și parola nu se potrivesc. Te rugăm să verifici cu atenție.</div>
+                <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups account__controls__form-groups--last">
@@ -33,7 +33,7 @@
                 </div>
 
                 <!-- Button container -->
-                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">CONTINUĂ</button>
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">Sign in</button>
             </div>
         </form>
 
