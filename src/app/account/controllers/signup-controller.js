@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("SignUpCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, STATES) {
+    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler) {
 
         /**
          * Sign up user information.
@@ -25,7 +25,7 @@ angular
                 AuthService.login(signUpData.email, signUpData.password)
                     .then(function () {
                         setTimeout(function () {
-                            $state.go(STATES.home);
+                            StatesHandler.goHome();
                         }, 300);
                     });
             }

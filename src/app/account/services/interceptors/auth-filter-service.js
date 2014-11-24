@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .service("AuthFilter", function ($state, SessionService, STATES) {
+    .service("AuthFilter", function (SessionService, StatesHandler) {
 
         return function (event, toState) {
             if ( toState.url === '/account/login' && SessionService.sessionExists() ) {
@@ -12,7 +12,7 @@ angular
                 event.preventDefault();
 
                 // Go to the home state
-                $state.go(STATES.home);
+                StatesHandler.goHome();
             }
         };
 
