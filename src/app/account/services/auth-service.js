@@ -65,6 +65,21 @@ angular
          */
         this.isAuthenticated = function () {
             return SessionService.isEmpty();
+        };
+
+        /**
+         * Request password reset functionality
+         * @param email
+         * @returns {*}
+         */
+        this.requestPasswordReset = function (email) {
+            var deferred = $q.defer();
+
+            setTimeout(function () {
+                deferred.resolve('Email sent');
+            }, 2000);
+
+            return deferred.promise;
         }
 
     });
