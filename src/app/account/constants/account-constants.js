@@ -19,5 +19,6 @@ angular
         login: "login",
         logout: "logout",
         signUp: "signUp",
-        passwordRecovery: "passwordRecovery"
+        forgotPassword: "forgotPassword",
+        forgotPasswordEmailSent: "forgotPasswordEmailSent"
     });
