@@ -12,9 +12,6 @@ angular
         notAuthenticated: "auth-not-authenticated",
         notAuthorized: "auth-not-authorized"
     })
-    .constant("STATES", {
-        home: "home"
-    })
     .constant("ACCOUNT_STATE", {
         login: "login",
         logout: "logout",

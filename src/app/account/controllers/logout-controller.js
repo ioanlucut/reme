@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", function ($state, $scope, AuthService, $cookies, STATES) {
+    .controller("LogoutCtrl", function ($scope, AuthService, $cookies, StatesHandler) {
 
         /**
          * Logout functionality.
@@ -12,7 +12,7 @@ angular
             .then(function (message) {
                 $scope.message = message;
 
-                $state.go(STATES.home);
+                StatesHandler.goHome();
             })
             .catch(function (message) {
                 $scope.message = message;

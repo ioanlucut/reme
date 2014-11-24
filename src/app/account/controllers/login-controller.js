@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, STATES) {
+    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, StatesHandler) {
 
         /**
          * Flag which tells if the authentication went well or not.
@@ -40,7 +40,7 @@ angular
                     $scope.isAuthenticationErrorOcurred = false;
 
                     setTimeout(function () {
-                        $state.go(STATES.home);
+                        StatesHandler.goHome();
                     }, 300);
                 })
                 .catch(function (response) {
