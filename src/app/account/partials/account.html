@@ -38,14 +38,15 @@
         </form>
 
         <!-- Reset password -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.passwordRecovery)">Resetează parola</a>
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.forgotPassword)">Resetează parola</a>
 
         <!-- Horizontal rule -->
-        <hr/>
+        <hr />
 
         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.signUp)">Cont nou</a>
 
     </div>
+
     <!--Sign in-->
      <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.signUp" ng-controller="SignUpCtrl">
 
@@ -100,6 +101,64 @@
 
          <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.login)">Cont existent</a>
 
+    </div>
+
+       <!-- Recover password section -->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Resetează parola</h1>
+
+        <!-- Horizontal rule -->
+        <hr />
+
+        <!-- Explain -->
+        <span class="account__explain">
+            Vă vom trimite instrucțiuni pentru resetarea parolei, pe adresa <br />
+            de email folosită la înregistrarea contului RomaniaOne.
+        </span>
+
+        <!-- Forgot password form -->
+        <form name="forgotPasswordForm" ng-submit="requestPasswordReset(forgotPasswordData.email)" novalidate focus-first-error-on-submit>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Adresa de email" name="email" ng-model="forgotPasswordData.email" required valid-email />
+                        <span class="help-block" ng-if="forgotPasswordForm.email.$error.required && forgotPasswordForm.submitted">Scrie adresa ta de email.</span>
+                        <span class="help-block" ng-if="! forgotPasswordForm.email.$error.required && forgotPasswordForm.email.$error.validEmail && forgotPasswordForm.submitted">Această adresă de email este invalidă.</span>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">RESETEAZĂ PAROLA</button>
+            </div>
+        </form>
+
+        <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">Înapoi</a>
+    </div>
+
+    <!-- Password recovery email sent section -->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.forgotPasswordEmailSent">
+
+        <!-- Title -->
+        <h1 class="account__title">V-am trimis un email!</h1>
+
+        <!-- Horizontal rule -->
+        <hr />
+
+        <!-- Explain -->
+            <span class="account__explain">
+                Intrucțiunile pentru resetarea parolei au fost trimise la adresa dvs. de email.
+            </span>
+
+        <!-- Button container -->
+        <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">CONTINUĂ</a>
     </div>
 
 </div>
