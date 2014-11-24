@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
@@ -71,8 +71,8 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    "build/js/frameworks.min.js":    ["<%= concat.frameworks.dest %>"],
-                    "build/js/app.min.js":           ["<%= concat.app.dest %>"]
+                    "build/js/frameworks.min.js": ["<%= concat.frameworks.dest %>"],
+                    "build/js/app.min.js": ["<%= concat.app.dest %>"]
                 }
             }
         },
@@ -81,7 +81,7 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     style: "expanded",
-                    lineNumbers : true
+                    lineNumbers: true
                 },
                 files: {
                     "build/css/app.css": "src/sass/bootstrap.scss"
@@ -149,6 +149,9 @@ module.exports = function(grunt) {
         },
 
         watch: {
+            options: {
+                livereload: true
+            },
             images: {
                 files: ["src/assets/img/**/*"],
                 tasks: ["copy:images"]
