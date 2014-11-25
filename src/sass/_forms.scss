@@ -22,12 +22,10 @@ fieldset {
   padding: $padding-base-vertical $padding-base-horizontal;
   font-size: $input-font-size;
   letter-spacing: 0.33px;
-  line-height: $line-height-base;
-  color: $input-color;
   vertical-align: middle;
-  background-color: $input-bg;
+  background-color: $input-color-bg;
   //background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid $input-border;
+  border: solid 2px $color-secondary;
   border-radius: $input-border-radius;
   outline: none;
   //@include box-shadow(inset 0 3px 2px #d8d8d8);
@@ -51,7 +49,7 @@ fieldset {
   &[readonly],
   fieldset[disabled] & {
     cursor: not-allowed;
-    background-color: $input-bg-disabled;
+    background-color: $input-color-bg-disabled;
   }
 
   // [converter] extracted textarea& to textarea.form-control
