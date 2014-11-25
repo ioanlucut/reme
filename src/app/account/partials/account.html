@@ -17,21 +17,21 @@
                 <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
 
                 <!-- Form groups -->
-                <div class="account__controls__form-groups account__controls__form-groups--last">
+                <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
-                        <input class="form-control form-control-fixed-width" type="email" placeholder="email" ng-model="loginData.email" auto-focus-on="auth-login-failed" />
+                        <input class="form-control" type="email" placeholder="email" ng-model="loginData.email" auto-focus-on="auth-login-failed" />
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
-                        <input class="form-control form-control-fixed-width" type="password" placeholder="password" ng-model="loginData.password" />
+                        <input class="form-control" type="password" placeholder="password" ng-model="loginData.password" />
                     </div>
                 </div>
 
                 <!-- Button container -->
-                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">Sign in</button>
+                <button class="btn account__button" type="submit">Sign in</button>
             </div>
         </form>
 
