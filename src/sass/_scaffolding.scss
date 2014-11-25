@@ -24,6 +24,7 @@ body {
   height: 100%;
   font-family: $font-family-base;
   font-size: $font-size-base;
+  font-weight: $font-weight-regular;
   line-height: $line-height-base;
   color: $text-color;
   background-color: $body-bg;
@@ -39,7 +40,7 @@ input,
 button,
 select,
 textarea {
-  font-family: inherit;
+  font-family: $font-family-base;
   font-size: inherit;
   line-height: inherit;
 }
@@ -50,10 +51,12 @@ textarea {
 a {
   color: $link-color;
   text-decoration: none;
+  //font-size: 14px;
 
   &:hover,
   &:focus {
     text-decoration: none;
+    color: $link-color-hover;
   }
 
   &:active,
@@ -82,40 +85,6 @@ img {
   @include img-responsive();
 }
 
-// Rounded corners
-.img-rounded {
-  border-radius: $border-radius-large;
-}
-
-// Image thumbnails
-//
-// Heads up! This is mixin-ed into thumbnails.less for `.thumbnail`.
-.img-thumbnail {
-  padding: $thumbnail-padding;
-  line-height: $line-height-base;
-  background-color: $thumbnail-bg;
-  border: 1px solid $thumbnail-border;
-  border-radius: $thumbnail-border-radius;
-  @include transition(all .2s ease-in-out);
-
-  // Keep them at most 100% wide
-  @include img-responsive(inline-block);
-}
-
-// Perfect circle
-.img-circle {
-  border-radius: 50%; // set radius in percents
-}
-
-
-// Horizontal rules
-
-hr {
-  margin-top:    $line-height-computed;
-  margin-bottom: $line-height-computed;
-  border: 0;
-  border-top: 1px solid $hr-border;
-}
 
 
 // Only display content to screen readers
