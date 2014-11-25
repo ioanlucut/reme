@@ -48,7 +48,7 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp" ng-controller="SignUpCtrl">
 
         <!-- Title -->
-        <h1 class="account__title">Creează un cont nou pe reme.io</h1>
+        <h1 class="account__title">Create a new Reme account</h1>
 
         <!-- Signup form -->
         <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
@@ -60,15 +60,15 @@
                 <div class="account__controls__form-groups">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="signUpData.lastName" required />
-                        <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.submitted">Numele tău este obligatoriu.</span>
+                    <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.submitted}">
+                        <input class="form-control" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
+                        <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.submitted">Please tell us your First Name.</span>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Prenume" name="firstName" ng-model="signUpData.firstName" required />
-                        <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.submitted">Prenumele tău este obligatoriu.</span>
+                    <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.submitted}">
+                        <input class="form-control" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
+                        <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.submitted">Please tell us your Last Name.</span>
                     </div>
                 </div>
 
@@ -77,17 +77,17 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Adresa ta de email" name="email" ng-model="signUpData.email" required valid-email unique-email />
-                        <span class="help-block" ng-if="signUpForm.email.$error.required && signUpForm.submitted">Adresa ta de email este obligatorie.</span>
-                        <span class="help-block" ng-if="! signUpForm.email.$error.required && (signUpForm.email.$error.email || signUpForm.email.$error.validEmail) && signUpForm.submitted">Această adresă de email este incorectă.</span>
-                        <span class="help-block" ng-if="! signUpForm.email.$error.required && ! signUpForm.email.$error.email && ! signUpForm.email.$error.validEmail && signUpForm.email.$error.uniqueEmail && signUpForm.submitted">Această adresă de email este deja folosită.</span>
+                        <input class="form-control" type="email" placeholder="Your email address" name="email" ng-model="signUpData.email" required valid-email unique-email />
+                        <span class="help-block" ng-if="signUpForm.email.$error.required && signUpForm.submitted">Your email address is mandatory.</span>
+                        <span class="help-block" ng-if="! signUpForm.email.$error.required && (signUpForm.email.$error.email || signUpForm.email.$error.validEmail) && signUpForm.submitted">This email address is not valid.</span>
+                        <span class="help-block" ng-if="! signUpForm.email.$error.required && ! signUpForm.email.$error.email && ! signUpForm.email.$error.validEmail && signUpForm.email.$error.uniqueEmail && signUpForm.submitted">This email address is already used.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="password" placeholder="Alegeți o parolă" name="password" ng-model="signUpData.password" required strong-password />
-                        <span class="help-block" ng-if="signUpForm.password.$error.required && signUpForm.submitted">Alege o parolă.</span>
-                        <span class="help-block" ng-if="! signUpForm.password.$error.required && signUpForm.password.$error.strongPassword && signUpForm.submitted">Parola trebuie sa contină minimum 7 caractere.</span>
+                        <input class="form-control" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
+                        <span class="help-block" ng-if="signUpForm.password.$error.required && signUpForm.submitted">Please choose a password.</span>
+                        <span class="help-block" ng-if="! signUpForm.password.$error.required && signUpForm.password.$error.strongPassword && signUpForm.submitted">Your password needs to be at least 7 characters long.</span>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
             </div>
         </form>
 
-         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Cont existent</a>
+         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
 
     </div>
 
@@ -104,15 +104,12 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
 
         <!-- Title -->
-        <h1 class="account__title">Resetează parola</h1>
-
-        <!-- Horizontal rule -->
-        <hr />
+        <h1 class="account__title">Can't remember your password?</h1>
 
         <!-- Explain -->
         <span class="account__explain">
-            Vă vom trimite instrucțiuni pentru resetarea parolei, pe adresa <br />
-            de email folosită la înregistrarea contului RomaniaOne.
+            Enter below the e-mail you use to log in. <br/>
+            We'll send you instructions on how to reset your password.
         </span>
 
         <!-- Forgot password form -->
@@ -126,32 +123,29 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Adresa de email" name="email" ng-model="forgotPasswordData.email" required valid-email />
-                        <span class="help-block" ng-if="forgotPasswordForm.email.$error.required && forgotPasswordForm.submitted">Scrie adresa ta de email.</span>
-                        <span class="help-block" ng-if="! forgotPasswordForm.email.$error.required && forgotPasswordForm.email.$error.validEmail && forgotPasswordForm.submitted">Această adresă de email este invalidă.</span>
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
+                        <span class="help-block" ng-if="forgotPasswordForm.email.$error.required && forgotPasswordForm.submitted">Please write your email address.</span>
+                        <span class="help-block" ng-if="! forgotPasswordForm.email.$error.required && forgotPasswordForm.email.$error.validEmail && forgotPasswordForm.submitted">This email address is not valid.</span>
                     </div>
                 </div>
 
                 <!-- Button container -->
-                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">RESETEAZĂ PAROLA</button>
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">Reset password</button>
             </div>
         </form>
 
-        <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">Înapoi</a>
+        <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">Nevermind, take me back!</a>
     </div>
 
     <!-- Password recovery email sent section -->
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPasswordEmailSent">
 
         <!-- Title -->
-        <h1 class="account__title">V-am trimis un email!</h1>
-
-        <!-- Horizontal rule -->
-        <hr />
+        <h1 class="account__title">Email has been sent!</h1>
 
         <!-- Explain -->
             <span class="account__explain">
-                Intrucțiunile pentru resetarea parolei au fost trimise la adresa dvs. de email.
+                We've sent you an email with the instructions on how to reset your password.
             </span>
 
         <!-- Button container -->
