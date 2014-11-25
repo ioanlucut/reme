@@ -27,12 +27,15 @@ fieldset {
   //background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: solid 2px $color-secondary;
   border-radius: $input-border-radius;
-  outline: none;
+  //outline: none;
+
   //@include box-shadow(inset 0 3px 2px #d8d8d8);
   //@include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
 
   &:focus {
     border-color: $brand-primary;
+    outline: 0;
+    //outline-color: lighten($brand-primary, 30%);
   }
 
   // Placeholder
