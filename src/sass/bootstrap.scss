@@ -1,9 +1,15 @@
 // Import Google Font
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,900);
+
+// Bourbon
+@import "../../bower_components/bourbon/bourbon";
+//@import "../../bower_components/base/base";
+//@import "../../bower_components/neat/neat";
+
 // Core variables and mixins
 @import "variables";
 @import "mixins";
-@import "animate";
+//@import "animate";
 
 // Reset
 @import "../../bower_components/bootstrap-sass/lib/normalize";
@@ -11,7 +17,7 @@
 
 // Core CSS
 @import "scaffolding";
-@import "../../bower_components/bootstrap-sass/lib/type";
+//@import "../../bower_components/bootstrap-sass/lib/type";
 //@import "../../bower_components/bootstrap-sass/lib/code";
 //@import "../../bower_components/bootstrap-sass/lib/grid";
 //@import "../../bower_components/bootstrap-sass/lib/tables";
@@ -19,11 +25,11 @@
 @import "buttons";
 
 // Fonts
-@import "fonts/app-icons";
-@import "fonts/freight-text-pro";
+//@import "fonts/app-icons";
+//@import "fonts/freight-text-pro";
 
 // Components
-@import "../../bower_components/bootstrap-sass/lib/component-animations";
+//@import "../../bower_components/bootstrap-sass/lib/component-animations";
 //@import "../../bower_components/bootstrap-sass/lib/glyphicons";
 //@import "../../bower_components/bootstrap-sass/lib/dropdowns";
 //@import "../../bower_components/bootstrap-sass/lib/button-groups";
@@ -39,7 +45,7 @@
 //@import "../../bower_components/bootstrap-sass/lib/thumbnails";
 //@import "../../bower_components/bootstrap-sass/lib/alerts";
 //@import "../../bower_components/bootstrap-sass/lib/progress-bars";
-@import "../../bower_components/bootstrap-sass/lib/media";
+//@import "../../bower_components/bootstrap-sass/lib/media";
 //@import "../../bower_components/bootstrap-sass/lib/list-group";
 //@import "../../bower_components/bootstrap-sass/lib/panels";
 //@import "../../bower_components/bootstrap-sass/lib/wells";
@@ -52,12 +58,9 @@
 //@import "../../bower_components/bootstrap-sass/lib/carousel";
 
 // Utility classes
-@import "../../bower_components/bootstrap-sass/lib/utilities";
-@import "../../bower_components/bootstrap-sass/lib/responsive-utilities";
+//@import "../../bower_components/bootstrap-sass/lib/utilities";
+//@import "../../bower_components/bootstrap-sass/lib/responsive-utilities";
 
-@import "../../bower_components/bourbon/bourbon";
-@import "../../bower_components/base/base";
-@import "../../bower_components/neat/neat";
 
 @import "../app/account/sass/account";
 @import "../app/common/sass/common";
