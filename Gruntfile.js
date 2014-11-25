@@ -150,7 +150,7 @@ module.exports = function (grunt) {
 
         watch: {
             options: {
-                livereload: true
+                livereload: false
             },
             images: {
                 files: ["src/assets/img/**/*"],
