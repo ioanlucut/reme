@@ -30,23 +30,22 @@
                     </div>
                 </div>
 
+                <!-- Reset password -->
+                <div class="form-group">
+                    <a class="link-secondary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.forgotPassword)">Forgot login details?</a>
+                </div>
+
                 <!-- Button container -->
                 <button class="btn account__button" type="submit">Sign in</button>
             </div>
         </form>
 
-        <!-- Reset password -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.forgotPassword)">Resetează parola</a>
-
-        <!-- Horizontal rule -->
-        <hr />
-
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.signUp)">Cont nou</a>
+        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.signUp)">Don't have an account yet? Sign up!</a>
 
     </div>
 
-    <!--Sign in-->
-     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.signUp" ng-controller="SignUpCtrl">
+    <!--Sign up-->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.signUp" ng-controller="SignUpCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Creează un cont nou pe reme.io</h1>
@@ -101,7 +100,7 @@
 
     </div>
 
-       <!-- Recover password section -->
+    <!-- Recover password section -->
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
 
         <!-- Title -->
