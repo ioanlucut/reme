@@ -22,6 +22,7 @@
   line-height: $font-size-accent;
   color: #fff;
   border-radius: 3px;
+  height: $input-height-base;
 
   //@include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $border-radius-base);
   @include user-select(none);
