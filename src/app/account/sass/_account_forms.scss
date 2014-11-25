@@ -1,132 +1,19 @@
-.login-container {
-  $hero-background-top: #7F99BE;
-  $hero-background-bottom: #20392B;
-  $hero-color: white;
-  $gradient-angle: 10deg;
-
-  background-repeat: no-repeat;
-  background-position: top;
-  background-size: cover;
-  padding-bottom: 4em;
-
-  .login-container__inner {
-    @include outer-container;
-    @include clearfix;
-    padding: 3em;
-    margin: auto;
-    text-align: center;
-    color: $hero-color;
-
-    @include span-columns(6);
-    @include shift(3);
-
-    .hero-copy {
-      text-align: center;
-
-      h1 {
-        font-size: 1.6em;
-        margin-bottom: .5em;
-
-        @include media($large-screen) {
-          font-size: 1.8em;
-        }
-      }
-
-      p {
-        font-family: $serif;
-        margin: auto;
-        margin-bottom: 3em;
-        font-weight: 200;
-        line-height: 1.4em;
-
-        @include media($large-screen) {
-          font-size: 1.1em;
-          max-width: 40%;
-        }
-      }
-    }
-  }
-}
-
 /* Account */
-
-.account-modal,
-.account-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1200;
-  font-size: 15px;
-
-  .form-group {
-    position: relative;
-    display: inline-block;
-    margin: 0 0 20px 0;
-
-    &:nth-child(2n) {
-      margin-left: 20px;
-    }
-  }
-
-  .help-block {
-    position: absolute;
-    left: 0;
-    top: -18px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-  }
+input[type="email"],
+input[type="password"],
+button {
+  //@include box-sizing(border-box);
+  height: 50px;
+  border: solid 2px $color-secondary;
+  box-shadow: none;
+  font-size: $font-size-accent;
 }
 
-.account-modal {
-  display: none;
-  background-color: rgba(255, 255, 255, 0.97);
-}
-
-.account-modal--open {
-  display: block;
-}
-
-.account-modal--opening {
-  @include animation(zoom-in 0.4s);
-}
-
-.account-modal--closing {
-  @include animation(zoom-out 0.4s);
-}
-
-.account-modal__close {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 40px;
-  height: 40px;
-  padding: 10px 0 0 0px;
-  background-color: $brand-primary;
-  border-radius: 40px;
-  font-size: 19px;
-  color: #fff;
-}
-
-.account__logo {
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 142px;
-  height: 40px;
-  background-image: url("../assets/img/logo-text-black@2x.png");
-  background-size: 142px 40px;
-  @include text-hide();
-}
 
 .account__sections {
   position: relative;
   width: auto;
-  max-width: 760px;
+  max-width: 300px;
   margin: 120px auto 0;
   text-align: center;
 }
@@ -136,9 +23,8 @@
   margin-bottom: 20px;
   line-height: 25px;
   text-align: center;
-  font-weight: $font-weight-light;
   font-size: 20px;
-  //color: $gray7;
+  font-weight: $font-weight-regular;
 }
 
 .account__explain {
@@ -150,42 +36,10 @@
   color: $gray7;
 }
 
-.account_oauth2-buttons {
-  margin: 40px 0 30px;
-}
-
-.account_oauth2-button {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-  padding: 8px;
-  overflow: hidden;
-  border-radius: 40px;
-  font-size: 22px;
-  color: #fff;
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &:hover,
-  &:focus {
-    color: #fff;
-  }
-}
-
-.account_oauth2-button--facebook {
-  background-color: $facebook-color;
-}
-
-.account_oauth2-button--google {
-  background-color: $google-color;
-}
-
 
 .account__controls {
   position: relative;
+  padding-top: 40px;
 }
 
 .account__controls__general-error {
@@ -193,69 +47,26 @@
   top: -24px;
   left: 0;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 15px 0;
+  padding: 10px 5px;
   text-align: center;
   font-size: 12px;
   color: $brand-danger;
+  border: solid 2px lighten($brand-danger, 30%);
+  border-radius: 3px;
+  background-color: lighten($brand-danger, 70%);
 }
 
 .account__controls__form-groups--last {
   margin-bottom: 10px;
+
+  input {
+    //height: 50px;
+  }
 }
 
 .account__button {
   display: block;
   margin: 0 auto 15px;
-}
-
-
-.account__avatar-upload {
-  display: block;
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 20px;
-  padding-top: 50px;
-  border-radius: 150px;
-  background-size: cover;
-  text-align: center;
-
-  &:hover {
-    .account__avatar-upload__button {
-      opacity: 1;
-    }
-  }
-}
-
-.account__avatar-upload__button {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  padding-top: 8px;
-  opacity: 0;
-  overflow: hidden;
-  border-radius: 50px;
-  background-color: $brand-primary;
-  color: #fff;
-  @include transition(opacity 0.4s);
-
-  &:hover,
-  &:focus {
-    color: #fff;
-  }
-
-  .icon {
-    font-size: 26px;
-  }
-
-  input {
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-    font-size: 200px;
-    outline: none;
-    opacity: 0;
-  }
+  width: 100%;
 }
