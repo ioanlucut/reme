@@ -9,8 +9,8 @@ angular
         $stateProvider
 
             // Login page
-            .state("account:login", {
-                url: "/account/login",
+            .state("account", {
+                url: "/account",
                 templateUrl: "app/account/partials/account.html",
                 controller: "LoginCtrl",
                 title: "Login",
