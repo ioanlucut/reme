@@ -19,9 +19,10 @@ angular
                 if ( name === 'ilu@ilu.ilu' && password === 'ilu' ) {
 
                     SessionService.create({
-                        name: name,
-                        town: 'Vienna',
-                        postalCode: '1040'
+                        userId: '123555',
+                        firstName: 'Ionel',
+                        lastName: 'Lucut',
+                        email: 'ioan.lucut88@gmail.com'
                     });
 
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, 'Welcome' + name);
@@ -33,7 +34,7 @@ angular
 
                     deferred.reject('Username and password is wrong.');
                 }
-            }, 2000);
+            }, 1000);
 
             return deferred.promise;
         };
@@ -64,7 +65,7 @@ angular
          * @returns {*}
          */
         this.isAuthenticated = function () {
-            return SessionService.isEmpty();
+            return SessionService.sessionExists();
         };
 
         /**

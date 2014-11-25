@@ -34,17 +34,11 @@ angular
         $scope.login = function (email, password) {
 
             AuthService.login(email, password)
-                .then(function (response) {
-                    $scope.message = response;
-
+                .then(function () {
                     $scope.isAuthenticationErrorOcurred = false;
-
-                    setTimeout(function () {
-                        StatesHandler.goHome();
-                    }, 300);
+                    StatesHandler.goHome();
                 })
-                .catch(function (response) {
-                    $scope.message = response;
+                .catch(function () {
 
                     $scope.isAuthenticationErrorOcurred = true;
                 });

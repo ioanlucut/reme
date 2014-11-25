@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler) {
+    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler, User) {
 
         /**
          * Sign up user information.
@@ -22,11 +22,13 @@ angular
          */
         $scope.signUp = function (signUpData) {
             if ( $scope.signUpForm.$valid ) {
-                AuthService.login(signUpData.email, signUpData.password)
-                    .then(function () {
-                        setTimeout(function () {
-                            StatesHandler.goHome();
-                        }, 300);
+
+                // Create a new user
+                User.$create(signUpData)
+                    .$then(function () {
+
+                        // Log in the user
+                        AuthService.login(signUpData.email, signUpData.password);
                     });
             }
             else {

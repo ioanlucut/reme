@@ -10,11 +10,6 @@ angular
          */
         AuthService.logout()
             .then(function (message) {
-                $scope.message = message;
-
                 StatesHandler.goHome();
-            })
-            .catch(function (message) {
-                $scope.message = message;
             });
     });

@@ -3,17 +3,17 @@
  */
 angular
     .module("account")
-    .service("AuthFilter", function (SessionService, StatesHandler) {
+    .service("AuthFilter", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
-            if ( toState.url === '/account/login' && SessionService.sessionExists() ) {
+          /*  if ( toState.url === '/account' && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
 
                 // Go to the home state
                 StatesHandler.goHome();
-            }
+            }*/
         };
 
     });
