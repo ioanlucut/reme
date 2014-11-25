@@ -17,8 +17,8 @@ fieldset {
 .form-control {
   display: block;
   width: 100%;
-  //height: $input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
-  height: 50px;
+  height: $input-height-base;
+  line-height: 100%;
   padding: $padding-base-vertical $padding-base-horizontal;
   font-size: $input-font-size;
   letter-spacing: 0.33px;
