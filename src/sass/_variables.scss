@@ -109,13 +109,15 @@ $padding-base-horizontal:        12px !default;
 
 $input-font-size:         20px;
 
-$input-color:             #gray6;
-$input-bg:                #fff !default;
-$input-bg-disabled:       $gray5;
+$input-color-text:        $gray6;
+$input-color-bg:          #fff !default;
+$input-color-bg-disabled: $gray5;
 
 $input-border:            2px;
 $input-border-radius:     3px;
 $input-border-focus:      $brand-primary;
+
+$input-height-base:       50px;
 
 
 // Media queries breakpoints
