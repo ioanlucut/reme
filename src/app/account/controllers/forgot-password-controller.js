@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_STATE, AccountFormToggle) {
+    .controller("ForgotPasswordCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Request password reset up user information.
@@ -19,7 +19,7 @@ angular
             if ( $scope.forgotPasswordForm.$valid ) {
                 AuthService.requestPasswordReset($scope.forgotPasswordData.email)
                     .then(function () {
-                        AccountFormToggle.setState(ACCOUNT_STATE.forgotPasswordEmailSent);
+                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
                     });
             }
             else {
