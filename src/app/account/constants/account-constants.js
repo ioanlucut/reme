@@ -12,10 +12,11 @@ angular
         notAuthenticated: "auth-not-authenticated",
         notAuthorized: "auth-not-authorized"
     })
-    .constant("ACCOUNT_STATE", {
+    .constant("ACCOUNT_FORM_STATE", {
         login: "login",
         logout: "logout",
         signUp: "signUp",
+        updateProfile: "updateProfile",
         forgotPassword: "forgotPassword",
         forgotPasswordEmailSent: "forgotPasswordEmailSent"
     });

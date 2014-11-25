@@ -2,7 +2,7 @@
 <div class="account__sections">
 
     <!--Sign in-->
-    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_STATE.login" ng-controller="LoginCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
@@ -32,7 +32,7 @@
 
                 <!-- Reset password -->
                 <div class="form-group">
-                    <a class="link-secondary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.forgotPassword)">Forgot login details?</a>
+                    <a class="link-secondary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
                 </div>
 
                 <!-- Button container -->
@@ -40,12 +40,12 @@
             </div>
         </form>
 
-        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.signUp)">Don't have an account yet? Sign up!</a>
+        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp)">Don't have an account yet? Sign up!</a>
 
     </div>
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.signUp" ng-controller="SignUpCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp" ng-controller="SignUpCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Creează un cont nou pe reme.io</h1>
@@ -96,12 +96,12 @@
             </div>
         </form>
 
-         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_STATE.login)">Cont existent</a>
+         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Cont existent</a>
 
     </div>
 
     <!-- Recover password section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Resetează parola</h1>
@@ -141,7 +141,7 @@
     </div>
 
     <!-- Password recovery email sent section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_STATE.forgotPasswordEmailSent">
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPasswordEmailSent">
 
         <!-- Title -->
         <h1 class="account__title">V-am trimis un email!</h1>
@@ -158,4 +158,40 @@
         <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">CONTINUĂ</a>
     </div>
 
+    <!-- Profile section -->
+    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Modifică profilul</h1>
+
+        <!-- Profile form -->
+        <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
+                        <span class="help-block" ng-if="profileForm.firstName.$invalid && profileForm.submitted">Prenumele tău este obligatoriu.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
+                        <span class="help-block" ng-if="profileForm.lastName.$invalid && profileForm.submitted">Numele tău este obligatoriu.</span>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">SALVEAZĂ MODIFICĂRILE</button>
+            </div>
+        </form>
+    </div>
+
+    <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">MODIFY PROFILE</a>
 </div>
+
