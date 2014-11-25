@@ -141,17 +141,17 @@ input[type="checkbox"],
 // Apply contextual and semantic states to individual form controls.
 
 // Warning
-//.has-warning {
-//  @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
-//}
+.has-warning {
+  @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
+}
 // Error
-//.has-error {
-//  @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
-//}
-//// Success
-//.has-success {
-//  @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
-//}
+.has-error {
+  @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
+}
+// Success
+.has-success {
+  @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
+}
 
 
 // Static form control text
