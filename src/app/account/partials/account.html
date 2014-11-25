@@ -152,40 +152,5 @@
         <a href="#" ng-click="AccountFormToggle.setState(AccountFormToggle.previousState)">Continue</a>
     </div>
 
-    <!-- Profile section -->
-    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
-
-        <!-- Title -->
-        <h1 class="account__title">Modifică profilul</h1>
-
-        <!-- Profile form -->
-        <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate>
-
-            <!-- Account controls -->
-            <div class="account__controls">
-
-                <!-- Form groups -->
-                <div class="account__controls__form-groups account__controls__form-groups--last">
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
-                        <span class="help-block" ng-if="profileForm.firstName.$invalid && profileForm.submitted">Prenumele tău este obligatoriu.</span>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
-                        <span class="help-block" ng-if="profileForm.lastName.$invalid && profileForm.submitted">Numele tău este obligatoriu.</span>
-                    </div>
-                </div>
-
-                <!-- Button container -->
-                <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">SALVEAZĂ MODIFICĂRILE</button>
-            </div>
-        </form>
-    </div>
-
-    <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">MODIFY PROFILE</a>
 </div>
 
