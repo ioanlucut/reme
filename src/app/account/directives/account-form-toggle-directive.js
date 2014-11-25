@@ -3,12 +3,12 @@
  */
 angular
     .module("account")
-    .directive("accountFormToggle", function (AccountFormToggle, ACCOUNT_STATE) {
+    .directive("accountFormToggle", function (AccountFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
             link: function (scope) {
                 scope.AccountFormToggle = AccountFormToggle;
-                scope.ACCOUNT_STATE = ACCOUNT_STATE;
+                scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
             }
         };
     });
