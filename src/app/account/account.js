@@ -23,6 +23,21 @@ angular
                 }
             })
 
+            // Profile page
+            .state("profile", {
+                url: "/profile",
+                templateUrl: "app/account/partials/profile.html",
+                controller: "ProfileCtrl",
+                title: "Profile",
+                resolve: {
+                    helloMessage: function () {
+                        return {
+                            message: 'I am in login page!'
+                        };
+                    }
+                }
+            })
+
             // Logout page
             .state("account:logout", {
                 url: "/account/logout",
