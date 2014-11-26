@@ -14,7 +14,7 @@ angular
          */
         this.login = function (email, password) {
 
-            return $http.post(URLTo.api(AUTH_URLS.create), {
+            return $http.post(URLTo.api(AUTH_URLS.login), {
                 email: email,
                 password: password
             }).then(function (response) {
@@ -37,13 +37,10 @@ angular
          * @returns {*}
          */
         this.logout = function () {
-            var deferred = $q.defer();
-
-            SessionService.destroy();
-            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-            deferred.resolve();
-
-            return deferred.promise;
+            return $http.post(URLTo.api(AUTH_URLS.logout), {}).then(function () {
+                SessionService.destroy();
+                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            });
         };
 
         /**

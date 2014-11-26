@@ -9,7 +9,7 @@ angular
          * Logout functionality.
          */
         AuthService.logout()
-            .then(function (message) {
+            .then(function () {
                 StatesHandler.goHome();
             });
     });

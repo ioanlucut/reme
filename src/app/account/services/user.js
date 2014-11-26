@@ -1,7 +1,7 @@
 angular
     .module("account")
     .factory("User", function (restmod, SessionService, AUTH_URLS) {
-        return restmod.model(URLTo.api(AUTH_URLS.currentUser)).mix({
+        return restmod.model(URLTo.api(AUTH_URLS.create)).mix({
             $config: {
                 primaryKey: 'userId'
             },

@@ -33,6 +33,9 @@ angular
 
                         // Log in the user
                         AuthService.login(signUpData.email, signUpData.password);
+
+                        // Go home
+                        StatesHandler.goHome();
                     });
             }
             else {
