@@ -13,7 +13,8 @@ angular
             firstName: "",
             lastName: "",
             email: "",
-            password: ""
+            password: "",
+            timezone: ""
         };
 
         /**
@@ -22,6 +23,9 @@ angular
          */
         $scope.signUp = function (signUpData) {
             if ( $scope.signUpForm.$valid ) {
+
+                // Compute timezone
+                $scope.signUpData.timezone = jstz.determine().name();
 
                 // Create a new user
                 User.$create(signUpData)

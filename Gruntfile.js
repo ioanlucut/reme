@@ -28,7 +28,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-inflector/dist/angular-inflector.js",
                     "bower_components/angular-restmod/dist/angular-restmod-bundle.js",
                     "bower_components/angular-cookies/angular-cookies.js",
-                    "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js"
+                    "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
+                    "bower_components/jstz-detect/jstz.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
