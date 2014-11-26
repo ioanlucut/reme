@@ -12,6 +12,17 @@ angular
         notAuthenticated: "auth-not-authenticated",
         notAuthorized: "auth-not-authorized"
     })
+    .constant("AUTH_URLS", {
+        login: "auth/login",
+        logout: "auth/logout",
+        currentUser: "auth/user",
+        auth: "accounts",
+        create: "accounts/create",
+        update: "accounts/update",
+        requestPasswordReset: "accounts/requestPasswordReset",
+        validatePasswordResetToken: "accounts/validatePasswordResetToken",
+        resetPasswordWithToken: "accounts/resetPasswordWithToken"
+    })
     .constant("ACCOUNT_FORM_STATE", {
         login: "login",
         logout: "logout",
