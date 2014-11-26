@@ -8,7 +8,7 @@
         <h1 class="account__title">Welcome!</h1>
 
         <!-- Login form -->
-        <form name="loginForm" ng-submit="login(loginData.email, loginData.password)" novalidate>
+        <form name="loginForm" ng-submit="login(loginData)" novalidate>
 
             <!-- Account controls -->
             <div class="account__controls">
@@ -20,13 +20,15 @@
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
-                        <input class="form-control" type="email" placeholder="email" ng-model="loginData.email" auto-focus-on="auth-login-failed" />
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.email.$invalid && loginForm.submitted)}">
+                        <input class="form-control" type="email" placeholder="Your email address" name="email" ng-model="loginData.email" required />
+                        <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.submitted">Your email address is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred}">
-                        <input class="form-control" type="password" placeholder="password" ng-model="loginData.password" />
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.password.$invalid && loginForm.submitted)}">
+                        <input class="form-control" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
+                        <span class="help-block" ng-if="loginForm.password.$invalid && loginForm.submitted">Your password is mandatory.</span>
                     </div>
                 </div>
 
@@ -108,7 +110,7 @@
 
         <!-- Explain -->
         <span class="account__explain">
-            Enter below the e-mail you use to log in. <br/>
+            Enter below the e-mail you use to log in. <br />
             We'll send you instructions on how to reset your password.
         </span>
 

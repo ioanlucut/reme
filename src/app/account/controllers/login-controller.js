@@ -21,26 +21,25 @@ angular
         };
 
         /**
-         * General messages which are to be shown during login process.
-         * @type {string}
-         */
-        $scope.message = '';
-
-        /**
          * Login functionality.
-         * @param email
-         * @param password
+         * @param loginData
          */
-        $scope.login = function (email, password) {
+        $scope.login = function (loginData) {
+            if ( $scope.loginForm.$valid ) {
 
-            AuthService.login(email, password)
-                .then(function () {
-                    $scope.isAuthenticationErrorOcurred = false;
-                    StatesHandler.goHome();
-                })
-                .catch(function () {
+                AuthService.login(loginData.email, loginData.password)
+                    .then(function () {
+                        $scope.isAuthenticationErrorOcurred = false;
+                        StatesHandler.goHome();
+                    })
+                    .catch(function () {
 
-                    $scope.isAuthenticationErrorOcurred = true;
-                });
+                        $scope.isAuthenticationErrorOcurred = true;
+                    });
+            }
+            else {
+                $scope.loginForm.submitted = true;
+            }
+
         }
     });
