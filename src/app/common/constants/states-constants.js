@@ -4,5 +4,7 @@
 angular
     .module("common")
     .constant("STATES", {
-        home: "home"
+        home: "home",
+        profile: "profile",
+        reminders: "reminders"
     });
