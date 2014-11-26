@@ -40,11 +40,28 @@ $brand-primary:         #8471B1 !default;
 $color-base:            #000000 !default;
 $color-secondary:       $gray9;
 
-//$brand-secondary:       #c5244d !default;
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #c5244d !default;
-$brand-info:            #5bc0de !default;
+//$brand-secondary:       //#c5244d !default;
+$brand-success:         #468847 !default;//#5cb85c !default;
+$brand-warning:         #c09853 !default;//#f0ad4e !default;
+$brand-danger:          #b94a48 !default;//#c5244d !default;
+$brand-info:            #3a87ad !default;//#5bc0de !default;
+
+$state-success-text:             $brand-success;
+$state-success-bg:               #dff0d8 !default;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+
+$state-info-text:                $brand-info;
+$state-info-bg:                  #d9edf7 !default;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+
+$state-warning-text:             $brand-warning;
+$state-warning-bg:               #fcf8e3 !default;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+
+$state-danger-text:              $brand-danger;
+$state-danger-bg:                #f2dede !default;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
 
 // Colors for social networks
 $facebook-color:        #3b5998;
@@ -109,13 +126,15 @@ $padding-base-horizontal:        12px !default;
 
 $input-font-size:         20px;
 
-$input-color:             #gray6;
-$input-bg:                #fff !default;
-$input-bg-disabled:       $gray5;
+$input-color-text:        $gray6;
+$input-color-bg:          #fff !default;
+$input-color-bg-disabled: $gray5;
 
 $input-border:            2px;
 $input-border-radius:     3px;
 $input-border-focus:      $brand-primary;
+
+$input-height-base:       50px;
 
 
 // Media queries breakpoints

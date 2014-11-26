@@ -17,24 +17,25 @@ fieldset {
 .form-control {
   display: block;
   width: 100%;
-  //height: $input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
-  height: 50px;
+  height: $input-height-base;
+  line-height: 100%;
   padding: $padding-base-vertical $padding-base-horizontal;
   font-size: $input-font-size;
   letter-spacing: 0.33px;
-  line-height: $line-height-base;
-  color: $input-color;
   vertical-align: middle;
-  background-color: $input-bg;
+  background-color: $input-color-bg;
   //background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid $input-border;
+  border: solid 2px $color-secondary;
   border-radius: $input-border-radius;
-  outline: none;
+  //outline: none;
+
   //@include box-shadow(inset 0 3px 2px #d8d8d8);
   //@include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
 
   &:focus {
     border-color: $brand-primary;
+    outline: 0;
+    //outline-color: lighten($brand-primary, 30%);
   }
 
   // Placeholder
@@ -51,7 +52,7 @@ fieldset {
   &[readonly],
   fieldset[disabled] & {
     cursor: not-allowed;
-    background-color: $input-bg-disabled;
+    background-color: $input-color-bg-disabled;
   }
 
   // [converter] extracted textarea& to textarea.form-control
@@ -143,17 +144,17 @@ input[type="checkbox"],
 // Apply contextual and semantic states to individual form controls.
 
 // Warning
-//.has-warning {
-//  @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
-//}
+.has-warning {
+  @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
+}
 // Error
-//.has-error {
-//  @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
-//}
-//// Success
-//.has-success {
-//  @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
-//}
+.has-error {
+  @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
+}
+// Success
+.has-success {
+  @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
+}
 
 
 // Static form control text

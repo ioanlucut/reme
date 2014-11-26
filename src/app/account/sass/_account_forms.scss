@@ -2,9 +2,6 @@
 input[type="email"],
 input[type="password"],
 button {
-  //@include box-sizing(border-box);
-  height: 50px;
-  border: solid 2px $color-secondary;
   box-shadow: none;
   font-size: $font-size-accent;
 }
@@ -58,11 +55,8 @@ button {
 }
 
 .account__controls__form-groups--last {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
-  input {
-    //height: 50px;
-  }
 }
 
 .account__button {
