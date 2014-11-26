@@ -3,59 +3,45 @@
  */
 angular
     .module("account")
-    .service("AuthService", function ($rootScope, $q, $cookies, AUTH_EVENTS, SessionService) {
+    .service("AuthService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS) {
 
         /**
          * Login functionality
          *
-         * @param name
+         * @param email
          * @param password
          * @returns {*}
          */
-        this.login = function (name, password) {
-            var deferred = $q.defer();
+        this.login = function (email, password) {
 
-            setTimeout(function () {
-                if ( name === 'ilu@ilu.ilu' && password === 'ilu' ) {
+            return $http.post(URLTo.api(AUTH_URLS.create), {
+                email: email,
+                password: password
+            }).then(function (response) {
 
-                    SessionService.create({
-                        userId: '123555',
-                        firstName: 'Ionel',
-                        lastName: 'Lucut',
-                        email: 'ioan.lucut88@gmail.com'
-                    });
+                SessionService.create(response.data);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, 'Welcome' + name);
+                return response;
+            }).catch(function (response) {
 
-                    deferred.resolve('Welcome' + name);
-                }
-                else {
-                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed, 'Error');
+                $rootScope.$broadcast(AUTH_EVENTS.loginFailed, response);
 
-                    deferred.reject('Username and password is wrong.');
-                }
-            }, 1000);
-
-            return deferred.promise;
+                return response;
+            });
         };
 
         /**
          * Logout functionality
          *
-         * @param name
-         * @param password
          * @returns {*}
          */
-        this.logout = function (name, password) {
+        this.logout = function () {
             var deferred = $q.defer();
 
-            setTimeout(function () {
-                SessionService.destroy();
-
-                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess, 'Logout success');
-
-                deferred.resolve('Logged out.');
-            }, 2000);
+            SessionService.destroy();
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            deferred.resolve();
 
             return deferred.promise;
         };
@@ -74,13 +60,45 @@ angular
          * @returns {*}
          */
         this.requestPasswordReset = function (email) {
-            var deferred = $q.defer();
+            return $http.post(URLTo.api(AUTH_URLS.requestPasswordReset), {
+                email: email
+            });
+        };
 
-            setTimeout(function () {
-                deferred.resolve('Email sent');
-            }, 2000);
+        /**
+         * Validate password reset token.
+         *
+         * @param token
+         * @returns {*}
+         */
+        this.validatePasswordResetToken = function (token) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.validatePasswordResetToken), {
+                    token: token
+                })
+                .then(function (response) {
+                    return response.data.email;
+                });
 
-            return deferred.promise;
-        }
+        };
 
+        /**
+         * Reset password with token.
+         *
+         * @param email
+         * @param password
+         * @param passwordConfirm
+         * @returns {*}
+         */
+        this.resetPasswordWithToken = function (email, password, passwordConfirm) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken), {
+                    email: email,
+                    password: password,
+                    passwordConfirm: passwordConfirm
+                })
+                .then(function (response) {
+                    return response.data;
+                });
+        };
     });
