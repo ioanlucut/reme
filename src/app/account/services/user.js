@@ -37,19 +37,32 @@ angular
                      * @returns {*}
                      */
                     $save: function () {
-                        return AuthService.updateAccount(this);
+                        var toBeSaved = {};
+                        var originalUser = this;
+                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
+                            this[property] = originalUser[property];
+                        }, toBeSaved));
+
+                        return AuthService.updateAccount(toBeSaved);
                     },
 
                     /**
-                     * Creates a user account with given userData.
-                     * @param userData
+                     * Creates a user account with given fromData.
+                     * @param fromData
                      * @returns {*}
                      */
-                    $create: function (userData) {
+                    $create: function (fromData) {
                         _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
-                            this[property] = userData[property];
+                            this[property] = fromData[property];
                         }, this));
-                        return AuthService.createAccount(this);
+
+                        var toBeSaved = {};
+                        var originalUser = this;
+                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
+                            this[property] = originalUser[property];
+                        }, toBeSaved));
+
+                        return AuthService.createAccount(toBeSaved);
                     }
 
                 }
