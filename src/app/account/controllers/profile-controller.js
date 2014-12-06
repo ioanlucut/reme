@@ -3,9 +3,12 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($scope, $rootScope, AuthService, StatesHandler, User) {
+    .controller("ProfileCtrl", function ($scope, $rootScope, AuthService, StatesHandler, User, AccountFormToggle, ACCOUNT_FORM_STATE) {
 
         $scope.user = $rootScope.currentUser;
+
+        // Default state
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
 
         /**
          * Profile user information.
@@ -30,7 +33,7 @@ angular
                 // Update the user
                 $scope.user.$save()
 
-                    .$then(function () {
+                    .then(function () {
 
                         // Save to the also to session
                         $scope.user.saveToSession();
