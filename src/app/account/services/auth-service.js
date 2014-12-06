@@ -3,7 +3,15 @@
  */
 angular
     .module("account")
-    .service("AuthService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS) {
+    .service("AuthService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+
+        /**
+         * Is User already authenticated ?
+         * @returns {*}
+         */
+        this.isAuthenticated = function () {
+            return SessionService.sessionExists();
+        };
 
         /**
          * Login functionality
@@ -19,15 +27,16 @@ angular
                 password: password
             }).then(function (response) {
 
-                SessionService.create(response.data);
+                SessionService.create(response.data, response.headers()[AUTH_TOKEN_HEADER]);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, response);
 
                 return response;
             }).catch(function (response) {
 
+                SessionService.destroy();
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed, response);
 
-                return response;
+                return $q.reject(response);
             });
         };
 
@@ -37,18 +46,13 @@ angular
          * @returns {*}
          */
         this.logout = function () {
-            return $http.post(URLTo.api(AUTH_URLS.logout), {}).then(function () {
-                SessionService.destroy();
-                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-            });
-        };
+            var defer = $q.defer();
 
-        /**
-         * Is User already authenticated ?
-         * @returns {*}
-         */
-        this.isAuthenticated = function () {
-            return SessionService.sessionExists();
+            SessionService.destroy();
+            $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+            defer.resolve();
+
+            return defer.promise;
         };
 
         /**
@@ -63,23 +67,6 @@ angular
         };
 
         /**
-         * Validate password reset token.
-         *
-         * @param token
-         * @returns {*}
-         */
-        this.validatePasswordResetToken = function (token) {
-            return $http
-                .post(URLTo.api(AUTH_URLS.validatePasswordResetToken), {
-                    token: token
-                })
-                .then(function (response) {
-                    return response.data.email;
-                });
-
-        };
-
-        /**
          * Reset password with token.
          *
          * @param email
@@ -89,13 +76,61 @@ angular
          */
         this.resetPasswordWithToken = function (email, password, passwordConfirm) {
             return $http
-                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken), {
+                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, {":token": SessionService.getJwtToken}),
+                {
                     email: email,
                     password: password,
                     passwordConfirm: passwordConfirm
+                },
+                {
+                    skipAuthorization: true
                 })
                 .then(function (response) {
                     return response.data;
                 });
+        };
+
+        /**
+         * Validate password reset token.
+         *
+         * @param token
+         * @returns {*}
+         */
+        this.validatePasswordResetToken = function (token) {
+            return $http
+                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, {":token": token}),
+                {
+                    skipAuthorization: true
+                }).then(function (response) {
+                    return response.data;
+                });
+        };
+
+        /**
+         * Update password.
+         *
+         * @param oldPassword
+         * @param newPassword
+         * @param newPasswordConfirmation
+         * @returns {*}
+         */
+        this.updatePassword = function (oldPassword, newPassword, newPasswordConfirmation) {
+            return $http
+                .post(URLTo.api(AUTH_URLS.updatePassword),
+                {
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                    newPasswordConfirmation: newPasswordConfirmation
+                }).then(function (response) {
+                    return response.data;
+                });
+        };
+
+        this.updateAccount = function (account) {
+            return $http.post(URLTo.api(AUTH_URLS.update), account);
+        };
+
+        this.createAccount = function (account) {
+            return $http.post(URLTo.api(AUTH_URLS.create), account);
         };
     });
