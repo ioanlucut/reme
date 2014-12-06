@@ -10,9 +10,12 @@ angular
 
                 // Prevent transition
                 event.preventDefault();
-
-                // Go to the home state
                 StatesHandler.goHome();
+            } else if ( toState.url === '/profile' && !AuthService.isAuthenticated() ) {
+
+                // Prevent transition
+                event.preventDefault();
+                StatesHandler.goToLogin();
             }
         };
 
