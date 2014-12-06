@@ -19,15 +19,21 @@ angular
         auth: "accounts",
         create: "accounts/create",
         update: "accounts/update",
-        requestPasswordReset: "accounts/requestPasswordReset",
-        validatePasswordResetToken: "accounts/validatePasswordResetToken",
-        resetPasswordWithToken: "accounts/resetPasswordWithToken"
+        requestPasswordReset: "accounts/request_password_reset_token",
+        validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
+        updatePassword: "accounts/update_password",
+        resetPasswordWithToken: "accounts/reset_password_with_token/:token"
     })
     .constant("ACCOUNT_FORM_STATE", {
         login: "login",
         logout: "logout",
         signUp: "signUp",
-        updateProfile: "updateProfile",
         forgotPassword: "forgotPassword",
-        forgotPasswordEmailSent: "forgotPasswordEmailSent"
-    });
+        forgotPasswordEmailSent: "forgotPasswordEmailSent",
+        updateProfile: "updateProfile",
+        resetPassword: "resetPassword",
+        resetPasswordSuccessfully: "resetPasswordSuccessfully",
+        updatePassword: "updatePassword",
+        updatePasswordSuccessfully: "updatePasswordSuccessfully"
+    })
+    .constant("AUTH_TOKEN_HEADER", "authtoken");
