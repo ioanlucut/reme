@@ -2,7 +2,7 @@
 <div class="account__sections">
 
     <!-- Profile section -->
-    <div class="account__section" ng-controller="ProfileCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Modify profile</h1>
@@ -33,6 +33,71 @@
                 <button class="btn btn-primary btn-fixed-width btn-rounded account__button" type="submit">SAVE</button>
             </div>
         </form>
+
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
+    </div>
+
+    <!-- Update password section -->
+    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updatePassword" ng-controller="UpdatePasswordCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Welcome!</h1>
+
+        <!-- Update password form -->
+        <form name="updatePasswordForm" ng-submit="updatePassword(updatePasswordData)" novalidate>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- General error -->
+                <div class="account__controls__general-error" ng-if="isUpdatePasswordErrorOcurred">
+                     <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                </div>
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.oldPassword.$invalid && updatePasswordForm.submitted)}">
+                        <input class="form-control" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" required />
+                        <span class="help-block" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.submitted">Your old password is mandatory.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPassword.$invalid && updatePasswordForm.submitted)}">
+                        <input class="form-control" type="password" placeholder="New password" name="newPassword" ng-model="updatePasswordData.newPassword" required />
+                        <span class="help-block" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.submitted">Your confirm password is mandatory.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.submitted)}">
+                        <input class="form-control" type="password" placeholder="New password confirmation" name="newPasswordConfirmation" ng-model="updatePasswordData.newPasswordConfirmation" required />
+                        <span class="help-block" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.submitted">Your confirm password is mandatory.</span>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn account__button" type="submit">Update password</button>
+            </div>
+        </form>
+
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Nevermind, take me back!</a>
+
+    </div>
+
+    <!-- Change password section successfully-->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully">
+
+        <!-- Title -->
+        <h1 class="account__title">Successfully</h1>
+
+        <!-- Explain -->
+            <span class="account__explain">
+                We've successfully updated your new password.
+            </span>
+
+        <!-- Button container -->
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Continue</a>
     </div>
 
 </div>
