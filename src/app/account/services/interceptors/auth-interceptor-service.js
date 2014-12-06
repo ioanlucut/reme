@@ -3,19 +3,9 @@
  */
 angular
     .module("account")
-    .factory("AuthInterceptor", function ($rootScope, $q, AUTH_EVENTS) {
+    .factory("AuthInterceptor", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
+
         return {
-
-            /**
-             * Request interceptor.
-             *
-             * @param config
-             * @returns {*}
-             */
-            request: function (config) {
-
-                return config;
-            },
 
             /**
              * Response error interceptor.
