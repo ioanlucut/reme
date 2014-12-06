@@ -9,6 +9,7 @@ angular
         "partials",
         "site",
         "common",
+        "reminders",
         "account"
     ])
     .config(function ($locationProvider) {
