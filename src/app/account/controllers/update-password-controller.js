@@ -43,6 +43,11 @@ angular
                         if ( _.isEmpty($scope.errorMessages) ) {
                             $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
                         }
+
+                        // remove data from inputs
+                        $scope.updatePasswordData.oldPassword = "";
+                        $scope.updatePasswordData.newPassword = "";
+                        $scope.updatePasswordData.newPasswordConfirmation = "";
                     });
             }
             else {
