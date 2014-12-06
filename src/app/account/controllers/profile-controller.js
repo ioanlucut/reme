@@ -29,10 +29,6 @@ angular
 
             if ( $scope.profileForm.$valid ) {
 
-                $scope.user.firstName = profileData.firstName;
-                $scope.user.lastName = profileData.lastName;
-                $scope.user.email = profileData.email;
-
                 // Update the user
                 $scope.user.$save()
 
@@ -46,6 +42,10 @@ angular
 
                         // Set form to pristine
                         $scope.profileForm.$setPristine();
+
+                        $scope.user.firstName = profileData.firstName;
+                        $scope.user.lastName = profileData.lastName;
+                        $scope.user.email = profileData.email;
                     });
             }
             else {
