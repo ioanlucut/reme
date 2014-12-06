@@ -22,5 +22,5 @@ angular
     .run(function () {
 
         // Set the base API URL
-        URLTo.apiBase("http://private-dfdf2-reme.apiary-mock.com");
+        URLTo.apiBase("http://beta-api.reme.io");
     });
