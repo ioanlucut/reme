@@ -71,16 +71,17 @@ angular
          *
          * @param email
          * @param password
-         * @param passwordConfirm
+         * @param passwordConfirmation
+         * @param token
          * @returns {*}
          */
-        this.resetPasswordWithToken = function (email, password, passwordConfirm) {
+        this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
             return $http
-                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, {":token": SessionService.getJwtToken}),
+                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, {":token": token}),
                 {
                     email: email,
                     password: password,
-                    passwordConfirm: passwordConfirm
+                    passwordConfirmation: passwordConfirmation
                 },
                 {
                     skipAuthorization: true
