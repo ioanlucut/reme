@@ -14,6 +14,14 @@ angular
             this.go(STATES.reminders);
         };
 
+        this.goToLogin = function () {
+            this.go(STATES.account);
+        };
+
+        this.goToResetPassword = function () {
+            this.go(STATES.account);
+        };
+
         this.go = function (state) {
             $state.go(state);
         }
