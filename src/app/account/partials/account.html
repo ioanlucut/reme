@@ -14,6 +14,8 @@
             <div class="account__controls">
 
                 <!-- General error -->
+                <div class="account__controls__general-error" ng-if="loggedIn">Welcome back!</div>
+
                 <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
 
                 <!-- Form groups -->
@@ -57,6 +59,11 @@
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                   <!-- General error -->
+                <div class="account__controls__general-error" ng-if="isSignUpErrorOcurred">
+                     <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                </div>
 
                 <!-- Form groups -->
                 <div>
@@ -120,6 +127,11 @@
             <!-- Account controls -->
             <div class="account__controls">
 
+                  <!-- General error -->
+                <div class="account__controls__general-error" ng-if="isRequestPasswordErrorOcurred">
+                     <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                </div>
+
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
@@ -136,7 +148,7 @@
             </div>
         </form>
 
-        <a href="#" ng-click="AccountFormToggle.state == ACCOUNT_FORM_STATE.login">Nevermind, take me back!</a>
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Nevermind, take me back!</a>
     </div>
 
     <!-- Password recovery email sent section -->
