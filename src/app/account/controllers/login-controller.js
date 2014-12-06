@@ -3,13 +3,14 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, StatesHandler) {
+    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, StatesHandler, $timeout) {
 
         /**
          * Flag which tells if the authentication went well or not.
          * @type {boolean}
          */
         $scope.isAuthenticationErrorOcurred = false;
+        $scope.loggedIn = false;
 
         /**
          * Login user information.
@@ -30,7 +31,10 @@ angular
                 AuthService.login(loginData.email, loginData.password)
                     .then(function () {
                         $scope.isAuthenticationErrorOcurred = false;
-                        StatesHandler.goHome();
+                        $scope.loggedIn = true;
+                        $timeout(function () {
+                            StatesHandler.goHome();
+                        }, 1000);
                     })
                     .catch(function () {
 
