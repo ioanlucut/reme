@@ -16,7 +16,9 @@ angular
          */
         $scope.profileData = {
             firstName: $scope.user.firstName,
-            lastName: $scope.user.lastName
+            lastName: $scope.user.lastName,
+            email: $scope.user.email,
+            timezone: $scope.user.timezone
         };
 
         /**
@@ -29,6 +31,7 @@ angular
 
                 $scope.user.firstName = profileData.firstName;
                 $scope.user.lastName = profileData.lastName;
+                $scope.user.email = profileData.email;
 
                 // Update the user
                 $scope.user.$save()

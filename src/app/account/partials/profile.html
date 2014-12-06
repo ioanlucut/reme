@@ -13,6 +13,11 @@
             <!-- Account controls -->
             <div class="account__controls">
 
+                 <!-- General error -->
+                <div class="account__controls__general-error" ng-if="profileForm.updated">
+                   We've succssfully updated your account.
+                </div>
+
                 <!-- Form groups -->
                 <div class="account__controls__form-groups account__controls__form-groups--last">
 
@@ -26,6 +31,12 @@
                     <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.submitted}">
                         <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
                         <span class="help-block" ng-if="profileForm.lastName.$invalid && profileForm.submitted">Please tell us your Last Name.</span>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': profileForm.email.$invalid && profileForm.submitted}">
+                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Email" name="email" ng-model="profileData.email" required />
+                        <span class="help-block" ng-if="profileForm.email.$invalid && profileForm.submitted">Please tell us your email.</span>
                     </div>
                 </div>
 
