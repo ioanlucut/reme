@@ -2,8 +2,15 @@
  * Main account module declaration including ui templates.
  */
 angular
-    .module("account", ["ui.router", "restmod"])
-    .config(function ($stateProvider) {
+    .module("account", [
+        "ui.router",
+        "restmod",
+        "common"
+    ])
+    .config(function ($stateProvider, $httpProvider) {
+
+        // Register AuthInterceptor
+        $httpProvider.interceptors.push("AuthInterceptor");
 
         // Home
         $stateProvider
@@ -43,10 +50,19 @@ angular
                 url: "/account/logout",
                 controller: "LogoutCtrl"
             })
+
+            // Validate password reset token
+            .state({
+                name: "account:validatePasswordResetToken",
+                url: "/account/validatePasswordResetToken/{token}",
+                templateUrl: "app/account/partials/validate_password_reset_token.html"
+            })
     })
-    .run(function ($rootScope, AuthFilter) {
+
+    .run(function ($rootScope, AuthFilter, ResetPasswordFilter) {
 
         // Setup route filters
         $rootScope.$on("$stateChangeStart", AuthFilter);
+        $rootScope.$on("$stateChangeStart", ResetPasswordFilter);
 
     });
