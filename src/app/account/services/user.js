@@ -1,15 +1,12 @@
 angular
     .module("account")
-    .factory("User", function (restmod, SessionService, AUTH_URLS) {
-        return restmod.model(URLTo.api(AUTH_URLS.create)).mix({
-            $config: {
-                primaryKey: 'userId'
-            },
-            $extend: {
-                Record: {
+    .factory("User", function (SessionService, AuthService) {
+        return {
 
+            $new: function () {
+                return {
                     /**
-                     * Loads a user from session
+                     * Loads a user from cookies.
                      * @returns {*}
                      */
                     loadFromSession: function () {
@@ -18,13 +15,11 @@ angular
                             this[property] = sessionData[property];
                         }, this));
 
-                        this.$pk = this.userId;
-
                         return this;
                     },
 
                     /**
-                     * Saves a user to the session
+                     * Saves a user to cookies.
                      * @returns {*}
                      */
                     saveToSession: function () {
@@ -35,8 +30,30 @@ angular
                         SessionService.setData(sessionData);
 
                         return this;
+                    },
+
+                    /**
+                     * Updates a user account.
+                     * @returns {*}
+                     */
+                    $save: function () {
+                        return AuthService.updateAccount(this);
+                    },
+
+                    /**
+                     * Creates a user account with given userData.
+                     * @param userData
+                     * @returns {*}
+                     */
+                    $create: function (userData) {
+                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
+                            this[property] = userData[property];
+                        }, this));
+                        return AuthService.createAccount(this);
                     }
+
                 }
             }
-        });
+
+        }
     });
