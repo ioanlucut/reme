@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .factory("User", function (SessionService, AuthService) {
+    .factory("User", function (SessionService, AuthService, $q) {
         return {
 
             $new: function () {
@@ -36,11 +36,10 @@ angular
                      * Updates a user account.
                      * @returns {*}
                      */
-                    $save: function () {
+                    $save: function (fromData) {
                         var toBeSaved = {};
-                        var originalUser = this;
-                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
-                            this[property] = originalUser[property];
+                        _.each(["firstName", "lastName", "email", "timezone"], _.bind(function (property) {
+                            this[property] = fromData[property];
                         }, toBeSaved));
 
                         return AuthService.updateAccount(toBeSaved);
@@ -63,6 +62,23 @@ angular
                         }, toBeSaved));
 
                         return AuthService.createAccount(toBeSaved);
+                    },
+
+                    $refresh: function () {
+                        var originalUser = this;
+
+                        return AuthService.retrieveDetails()
+                            .then(function (response) {
+                                _.each(["userId", "firstName", "lastName", "email", "timezone"], function (property) {
+                                    originalUser[property] = response.data[property];
+                                });
+                                originalUser.saveToSession();
+
+                                return response;
+                            })
+                            .catch(function (response) {
+                                return $q.reject(response);
+                            });
                     }
 
                 }

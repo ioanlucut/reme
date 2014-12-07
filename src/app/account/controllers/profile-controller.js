@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($scope, $rootScope, AuthService, StatesHandler, User, AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, AuthService, StatesHandler, User, AccountFormToggle, ACCOUNT_FORM_STATE) {
 
         $scope.user = $rootScope.currentUser;
 
@@ -11,8 +11,7 @@ angular
         AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
 
         /**
-         * Profile user information.
-         * @type {{firstName: string, lastName: string}}
+         * Profile user information
          */
         $scope.profileData = {
             firstName: $scope.user.firstName,
@@ -23,29 +22,23 @@ angular
 
         /**
          * Update profile functionality.
-         * @param profileData
          */
         $scope.updateProfile = function (profileData) {
 
             if ( $scope.profileForm.$valid ) {
 
                 // Update the user
-                $scope.user.$save()
-
+                $q.all($scope.user.$save(profileData))
+                    .then($scope.user.$refresh())
                     .then(function () {
-
-                        // Save to the also to session
-                        $scope.user.saveToSession();
-
                         // Set for updated to true
                         $scope.profileForm.updated = true;
 
                         // Set form to pristine
                         $scope.profileForm.$setPristine();
+                    })
+                    .catch(function (error) {
 
-                        $scope.user.firstName = profileData.firstName;
-                        $scope.user.lastName = profileData.lastName;
-                        $scope.user.email = profileData.email;
                     });
             }
             else {
