@@ -23,7 +23,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.email.$invalid && loginForm.submitted)}">
-                        <input class="form-control" type="email" placeholder="Your email address" name="email" ng-model="loginData.email" required />
+                        <input class="form-control" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
                         <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.submitted">Your email address is mandatory.</span>
                     </div>
 
