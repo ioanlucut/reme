@@ -127,10 +127,30 @@ angular
                 });
         };
 
+        /**
+         * Refreshes current token.
+         * @returns {*}
+         */
+        this.refreshToken = function () {
+            return $http
+                .post(URLTo.api(AUTH_URLS.refreshToken));
+
+        };
+
+        /**
+         * Updates given account.
+         * @param account
+         * @returns {*}
+         */
         this.updateAccount = function (account) {
             return $http.post(URLTo.api(AUTH_URLS.update), account);
         };
 
+        /**
+         * Creates the account.
+         * @param account
+         * @returns {*}
+         */
         this.createAccount = function (account) {
             return $http.post(URLTo.api(AUTH_URLS.create), account);
         };

@@ -1,5 +1,5 @@
-/*
-angular.module('common', [])
+angular
+    .module('common')
     .service('JWTHelper', function () {
 
         this.urlBase64Decode = function (str) {
@@ -67,4 +67,3 @@ angular.module('common', [])
             return !(d.valueOf() > new Date().valueOf());
         };
     });
-*/

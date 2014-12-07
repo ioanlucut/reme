@@ -22,7 +22,8 @@ angular
         requestPasswordReset: "accounts/request_password_reset_token",
         validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
         updatePassword: "accounts/update_password",
-        resetPasswordWithToken: "accounts/reset_password_with_token/:token"
+        resetPasswordWithToken: "accounts/reset_password_with_token/:token",
+        refreshToken: "auth/refresh_token"
     })
     .constant("ACCOUNT_FORM_STATE", {
         login: "login",

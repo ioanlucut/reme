@@ -7,7 +7,7 @@ angular
 
         var config = this;
 
-        this.$get = function ($q, $injector, $rootScope, SessionService) {
+        this.$get = function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
             return {
                 request: function (request) {
                     if ( request.skipAuthorization ) {
@@ -18,6 +18,10 @@ angular
                     // Already has an Authorization header
                     if ( request.headers[config.authHeader] ) {
                         return request;
+                    }
+
+                    if ( SessionService.sessionExists() ) {
+                        JWTTokenRefresher.refreshTokenIfExpired();
                     }
 
                     var tokenPromise = $q.when($injector.invoke(function () {
