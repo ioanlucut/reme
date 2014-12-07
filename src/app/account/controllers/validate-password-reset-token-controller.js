@@ -2,22 +2,39 @@ angular
     .module("account")
     .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, AccountFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
+        /**
+         * Flag which tells if user is currently authenticated while coming to this page.
+         */
         $scope.isUserAuthenticated = AuthService.isAuthenticated();
 
+        /**
+         * Flag which says if errors have ocured while trying to reset the password.
+         * @type {boolean}
+         */
         $scope.isResetPasswordErrorOcurred = false;
 
+        /**
+         * Error messages
+         * @type {string}
+         */
         $scope.errorMessages = "";
 
-        $scope.resetPasswordData = {
-            email: "",
-            password: "",
-            passwordConfirmation: "",
-            token: $stateParams.token
-        };
-
+        /**
+         * If validation is successful, then fetch the email, and build form data.
+         */
         if ( validateTokenResult.successful ) {
-            // Take the email from
-            $scope.resetPasswordData.email = validateTokenResult.email;
+
+            /**
+             * Reset password data (used if
+             * @type {{email: string, password: string, passwordConfirmation: string, token: *}}
+             */
+            $scope.resetPasswordData = {
+                email: validateTokenResult.email,
+                password: "",
+                passwordConfirmation: "",
+                token: $stateParams.token
+            };
+
             $scope.isTokenValid = true;
         }
         else {
@@ -57,10 +74,16 @@ angular
 
         };
 
+        /**
+         * Continues to login page.
+         */
         $scope.continueToLogin = function () {
             StatesHandler.goToLogin();
         };
 
+        /**
+         * Continues to reset password page. (try again functionality)
+         */
         $scope.continueToResetPassword = function () {
             if ( $scope.isUserAuthenticated ) {
                 AuthService.logout();
