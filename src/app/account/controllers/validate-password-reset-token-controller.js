@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, AccountFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         $scope.isUserAuthenticated = AuthService.isAuthenticated();
 
@@ -15,19 +15,14 @@ angular
             token: $stateParams.token
         };
 
-        $scope.isTokenResultValidated = AuthService.validatePasswordResetToken($scope.resetPasswordData.token)
-            .then(function (response) {
-
-                // Take the email from
-                $scope.resetPasswordData.email = response.email;
-
-                return true;
-            }).catch(function (response) {
-
-                $scope.errorMessages = response.data && response.data.errors;
-
-                return false;
-            });
+        if ( validateTokenResult.successful ) {
+            // Take the email from
+            $scope.resetPasswordData.email = validateTokenResult.email;
+            $scope.isTokenValid = true;
+        }
+        else {
+            $scope.errorMessages = validateTokenResult.errors;
+        }
 
         /**
          * Reset password data functionality.
@@ -39,6 +34,7 @@ angular
                 AuthService.resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
                     .then(function () {
                         $scope.isResetPasswordErrorOcurred = false;
+                        $scope.successfullyReseted = true;
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
                     })
                     .catch(function (response) {

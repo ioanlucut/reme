@@ -55,7 +55,30 @@ angular
             .state({
                 name: "account:validatePasswordResetToken",
                 url: "/account/validatePasswordResetToken/{token}",
-                templateUrl: "app/account/partials/validate_password_reset_token.html"
+                templateUrl: "app/account/partials/validate_password_reset_token.html",
+
+                controller: "ValidatePasswordResetTokenCtrl",
+                resolve: {
+                    validateTokenResult: function ($stateParams, $q, AuthService) {
+                        var deferred = $q.defer();
+
+                        AuthService.validatePasswordResetToken($stateParams.token)
+                            .then(function (response) {
+
+                                // Take the email from
+                                deferred.resolve({successful: true, email: response.email});
+
+                                return response;
+                            }).catch(function (response) {
+
+                                deferred.resolve({successful: false, errors: response.data && response.data.errors});
+
+                                return response;
+                            });
+
+                        return deferred.promise;
+                    }
+                }
             })
     })
 
