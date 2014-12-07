@@ -19,6 +19,7 @@ angular
         auth: "accounts",
         create: "accounts/create",
         update: "accounts/update",
+        details: "accounts/details",
         requestPasswordReset: "accounts/request_password_reset_token",
         validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
         updatePassword: "accounts/update_password",
