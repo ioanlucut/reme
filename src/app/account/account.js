@@ -54,7 +54,7 @@ angular
             // Validate password reset token
             .state({
                 name: "account:validatePasswordResetToken",
-                url: "/account/validatePasswordResetToken/{token}",
+                url: "/account/reset-password/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token.html",
 
                 controller: "ValidatePasswordResetTokenCtrl",
