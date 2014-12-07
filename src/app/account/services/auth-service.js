@@ -138,12 +138,11 @@ angular
         };
 
         /**
-         * Updates given account.
-         * @param account
+         * Retrieves details about the current account.
          * @returns {*}
          */
-        this.updateAccount = function (account) {
-            return $http.post(URLTo.api(AUTH_URLS.update), account);
+        this.retrieveDetails = function () {
+            return $http.get(URLTo.api(AUTH_URLS.details));
         };
 
         /**
@@ -153,5 +152,14 @@ angular
          */
         this.createAccount = function (account) {
             return $http.post(URLTo.api(AUTH_URLS.create), account);
+        };
+
+        /**
+         * Updates given account.
+         * @param account
+         * @returns {*}
+         */
+        this.updateAccount = function (account) {
+            return $http.post(URLTo.api(AUTH_URLS.update), account);
         };
     });
