@@ -20,6 +20,9 @@
         "momentjs": "2.6.0",
         "hello": "1.2.2",
         "jstz-detect": "1.0.5",
-        "humps": "0.4.2"
+        "humps": "0.4.2",
+        "perfect-scrollbar": "0.4.6",
+        "bootstrap": "3.0.3",
+        "sugar-date": "1.4.1"
     }
 }
