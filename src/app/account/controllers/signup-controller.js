@@ -3,14 +3,24 @@
  */
 angular
     .module("account")
-    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler, User) {
+    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler, User, $timeout, jstz) {
 
         /**
-         * Flag which tells if the sign up action went well or not.
+         * Flag which tells if the sign up error occurred.
          * @type {boolean}
          */
         $scope.isSignUpErrorOcurred = false;
 
+        /**
+         * Flag which tells if the sign up action went well.
+         * @type {boolean}
+         */
+        $scope.isSignedUp = false;
+
+        /**
+         * Error messages.
+         * @type {string}
+         */
         $scope.errorMessages = "";
 
         /**
@@ -41,10 +51,12 @@ angular
                         $scope.isSignUpErrorOcurred = false;
 
                         // Log in the user
-                        AuthService.login(signUpData.email, signUpData.password);
-
-                        // Go home
-                        StatesHandler.goHome();
+                        AuthService.login(signUpData.email, signUpData.password).then(function () {
+                            $scope.isSignedUp = true;
+                            $timeout(function () {
+                                StatesHandler.goToReminders();
+                            }, 2500);
+                        });
                     }).catch(function (response) {
 
                         $scope.errorMessages = response.data && response.data.errors;
