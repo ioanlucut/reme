@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", function ($scope, AuthService, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("UpdatePasswordCtrl", function ($scope, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
 
         /**
          * Flag which tells if the update password action went well or not.
@@ -33,7 +33,7 @@ angular
                 AuthService.updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
                     .then(function () {
                         $scope.isUpdatePasswordErrorOcurred = false;
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
+                        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
                     })
                     .catch(function (response) {
                         $scope.isUpdatePasswordErrorOcurred = true;

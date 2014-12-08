@@ -1,8 +1,8 @@
 <!-- Account sections -->
-<div class="account__sections">
+<div class="account__sections" profile-form-toggle>
 
     <!-- Profile section -->
-    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
+    <div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Modify profile</h1>
@@ -45,11 +45,11 @@
             </div>
         </form>
 
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
+        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
     </div>
 
     <!-- Update password section -->
-    <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.updatePassword" ng-controller="UpdatePasswordCtrl">
+    <div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword" ng-controller="UpdatePasswordCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Welcome!</h1>
@@ -92,12 +92,12 @@
             </div>
         </form>
 
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Nevermind, take me back!</a>
+        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Nevermind, take me back!</a>
 
     </div>
 
     <!-- Change password section successfully-->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully">
+    <div class="account__section" ng-if="ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully">
 
         <!-- Title -->
         <h1 class="account__title">Successfully</h1>
@@ -108,7 +108,7 @@
             </span>
 
         <!-- Button container -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Continue</a>
+        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Continue</a>
     </div>
 
 </div>

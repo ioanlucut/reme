@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, AccountFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -52,7 +52,7 @@ angular
                     .then(function () {
                         $scope.isResetPasswordErrorOcurred = false;
                         $scope.successfullyReseted = true;
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
+                        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
                     })
                     .catch(function (response) {
                         $scope.isResetPasswordErrorOcurred = true;
@@ -88,7 +88,7 @@ angular
             if ( $scope.isUserAuthenticated ) {
                 AuthService.logout();
             }
-            AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
+            ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
             $scope.continueToLogin();
         }
     });
