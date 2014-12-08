@@ -15,7 +15,7 @@ angular
 
             // Home page
             .state("home", {
-                url: "/home",
+                url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "HomeCtrl",
                 title: "Home",
