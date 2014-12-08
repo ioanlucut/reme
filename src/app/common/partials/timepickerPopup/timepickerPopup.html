@@ -1,0 +1,8 @@
+<button type="button" class="btn btn-default bg-sprite dropdown-toggle" animate animate-on="nlpDate:timeChange" animate-class="animated highlight-button">
+    {{date | date:'hh:mm a'}}
+</button>
+<ul class="dropdown-menu dropdown-menu-time-picker" perfect-scrollbar suppress-scroll-x="true" wheel-speed="52" update-on="perfectScrollbar:update">
+    <li ng-repeat="time in times" ng-class="{selected: highlightSelected && time.index == selectedIndex}">
+        <a href ng-click="setTime(time.index, time.hour, time.minute)">{{time.timestamp | date:'hh:mm a'}}</a>
+    </li>
+</ul>
