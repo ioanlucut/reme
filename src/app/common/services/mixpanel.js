@@ -5,5 +5,4 @@ angular
     .factory("mixpanel", [function () {
 
         return window.mixpanel;
-
     }]);
