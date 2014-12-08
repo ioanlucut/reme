@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler) {
 
         /**
          * Current user.
@@ -59,5 +59,9 @@ angular
             else {
                 $scope.profileForm.submitted = true;
             }
+        };
+
+        $scope.getMeBack = function () {
+            StatesHandler.goToReminders();
         }
     });
