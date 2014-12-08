@@ -1,0 +1,10 @@
+<div ng-repeat="email in emails track by $index">
+    <ng-form name="emailForm">
+        <div class="form-group" ng-class="{'has-error': emailForm.email.$invalid && parentForm.submitted}">
+            <input class="form-control bg-sprite" type="email" placeholder="Your friend's email address" name="email" ng-model="emails[$index]" required />
+            <a href="#" class="close" tabindex="-1" ng-click="removeEmail($index)">×</a>
+        </div>
+    </ng-form>
+</div>
+
+<a class="btn-add-emails" href="#" ng-click="addEmail()" ng-show="canAddEmail">Add another email recipient</a>
