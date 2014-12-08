@@ -53,11 +53,14 @@
         <!-- Title -->
         <h1 class="account__title">Create a new Reme account</h1>
 
-        <!-- Signup form -->
+        <!-- Sign-up form -->
         <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                 <!-- Welcome -->
+                <div class="account__controls__general-error" ng-if="isSignedUp">{{currentUser.lastName}}, welcome to Reme!</div>
 
                    <!-- General error -->
                 <div class="account__controls__general-error" ng-if="isSignUpErrorOcurred">
