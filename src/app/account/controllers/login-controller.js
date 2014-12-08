@@ -3,7 +3,9 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, StatesHandler, $timeout) {
+    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
+
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
 
         /**
          * Flag which tells if the authentication went well or not.

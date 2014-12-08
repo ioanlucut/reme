@@ -18,16 +18,7 @@ angular
             // Login page
             .state("account", {
                 url: "/account",
-                templateUrl: "app/account/partials/account.html",
-                controller: "LoginCtrl",
-                title: "Login",
-                resolve: {
-                    helloMessage: function () {
-                        return {
-                            message: 'I am in login page!'
-                        };
-                    }
-                }
+                templateUrl: "app/account/partials/account.html"
             })
 
             // Profile page
@@ -90,10 +81,9 @@ angular
             })
     })
 
-    .run(function ($rootScope, AuthFilter, ResetPasswordFilter) {
+    .run(function ($rootScope, AuthFilter) {
 
         // Setup route filters
         $rootScope.$on("$stateChangeStart", AuthFilter);
-        $rootScope.$on("$stateChangeStart", ResetPasswordFilter);
 
     });
