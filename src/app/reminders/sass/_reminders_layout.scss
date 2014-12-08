@@ -1,0 +1,45 @@
+.centered-global-width {
+  width: $global-width;
+  margin: 0 auto;
+}
+
+.reminders__header {
+  height: 100px;
+}
+
+.reminder {
+  border: solid 2px $color-secondary;
+  border-radius: 3px;
+  width: $global-width;
+  height: 90px;
+  padding: 10px;
+  margin-bottom: 22px;
+  position: relative;
+
+  .reminder__title {
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+  }
+
+  .reminder__info {
+    display: inline-block;
+    padding-right: 0px;
+    color: $color-secondary;
+    //margin-top: 20px;
+    position: absolute;
+    bottom: 10px;
+  }
+
+  .reminder__info--date {
+    left: 10px;
+  }
+
+  .reminder__info--time {
+    left: 220px;
+  }
+
+  .reminder__info--recurring {
+    left: 450px;
+    visibility: hidden;
+  }
+}
