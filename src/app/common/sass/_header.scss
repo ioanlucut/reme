@@ -23,6 +23,8 @@
 
       a {
         display: block;
+        font-weight: $font-weight-light;
+        color: $color-light-text;
       }
 
       .header__wrapper__menu__dropdown {
@@ -38,6 +40,7 @@
         background-color: #ffffff;
 
         .nav-link {
+          color: $link-color;
           display: block;
           padding: 5px;
           line-height: 14px;
