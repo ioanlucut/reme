@@ -10,7 +10,7 @@
 
   .header__wrapper {
     @include clearfix;
-    width: 700px;
+    width: $global-width;
     margin: 0 auto;
 
     .header__wrapper__logo {
