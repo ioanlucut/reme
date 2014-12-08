@@ -3,13 +3,15 @@
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", function ($scope, AuthService, $cookies, StatesHandler) {
+    .controller("LogoutCtrl", function ($scope, $timeout, AuthService, $cookies, StatesHandler, isSuccessfullyLoggedOut) {
+
+        $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 
         /**
-         * Logout functionality.
+         * Redirect to home after 1,5 sec.
          */
-        AuthService.logout()
-            .then(function () {
-                StatesHandler.goHome();
-            });
+        $timeout(function () {
+            StatesHandler.goHome();
+        }, 1500);
+
     });
