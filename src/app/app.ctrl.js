@@ -41,6 +41,5 @@ angular
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $rootScope.currentUser = User.$new();
             $log.log("Logged out.");
-            StatesHandler.goHome();
         });
     });

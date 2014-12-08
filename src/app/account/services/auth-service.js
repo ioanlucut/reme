@@ -46,13 +46,8 @@ angular
          * @returns {*}
          */
         this.logout = function () {
-            var defer = $q.defer();
-
             SessionService.destroy();
             $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
-            defer.resolve();
-
-            return defer.promise;
         };
 
         /**
