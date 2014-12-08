@@ -1,0 +1,74 @@
+<div ng-show="! isSaving" class="reminder-form-container">
+    <form class="reminder-form container box" name="reminderForm" ng-submit="saveReminder()" novalidate focus-first-error>
+
+        <div class="brand">
+            <a href="http://reme.io" class="logo" target="_self">
+                <span class="img">Logo Image</span>
+            </a>
+            <span class="text">
+                <a href="http://reme.io" class="name" target="_self">REME.IO</a>
+                <span class="beta">beta</span>
+                <span class="slogan">Create email reminders in seconds</span>
+            </span>
+        </div>
+
+        <hr />
+
+        <div class="form-group text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.submitted}">
+            <label>Remind me to:</label>
+            <input class="form-control input-lg" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.attributes.text" nlp-date date="reminder.attributes.due_on" separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus required />
+        </div>
+
+        <div class="date-and-time clearfix">
+            <div class="date">
+                <button type="button" class="btn btn-default bg-sprite" datepicker-popup ng-model="reminder.attributes.due_on" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="animated highlight-button">
+                    {{reminder.attributes.due_on | friendlyDate}}
+                </button>
+            </div>
+
+            <div class="time" timepicker-popup ng-model="reminder.attributes.due_on" step="30"></div>
+        </div>
+
+        <div class="addressees">
+            <div class="form-group" ng-class="{'has-error': reminderForm.createdBy.$invalid && reminderForm.submitted}">
+                <input class="form-control bg-sprite" type="email" placeholder="Your email address" name="createdBy" ng-model="reminder.attributes.created_by" required />
+            </div>
+
+            <div email-list ng-model="reminder.attributes.additional_addressees" max-emails="5" parent-form="reminderForm"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-create">{{isNew ? "Create reminder" : "Update reminder"}}</button>
+
+    </form>
+
+    <div class="utility-links">
+        <a href="#" class="utility-link" scroll-to="#about-section" ng-show="isNew">About</a>
+        <span class="separator" ng-show="isNew">&#8226;</span>
+        <a href="#" class="utility-link" ng-click="openFeedbackModal()">Feedback</a>
+        <span class="separator">&#8226;</span>
+        <div class="utility-link dropdown dropdown-social">
+            <a href="#" class="dropdown-toggle">Follow <span class="carret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="https://twitter.com/reme_io" target="_blank" class="twitter bg-sprite">Twitter</a></li>
+                <li class="divider"></li>
+                <li><a href="https://www.facebook.com/reme.io" target="_blank" class="facebook bg-sprite">Facebook</a></li>
+                <li class="divider"></li>
+                <li><a href="https://plus.google.com/112681489216240842366" target="_blank" class="google-plus bg-sprite">Google+</a></li>
+            </ul>
+        </div>
+        <span class="separator">&#8226;</span>
+        <div class="utility-link dropdown dropdown-social">
+            <a href="#" class="dropdown-toggle">Share <span class="carret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="https://twitter.com/intent/tweet?source=webclient&text=Create%20email%20reminders%20in%20seconds%20with%20%40reme_io.%20It%27s%20free%20and%20no%20signup%20required.%20www.reme.io" target="_blank" class="twitter bg-sprite">Twitter</a></li>
+                <li class="divider"></li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.reme.io" target="_blank" class="facebook bg-sprite">Facebook</a></li>
+                <li class="divider"></li>
+                <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.reme.io" target="_blank" class="google-plus bg-sprite" rel="publisher">Google+</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="reminder-saving" ng-show="isSaving">Saving reminder..</div>
