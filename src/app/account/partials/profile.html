@@ -13,9 +13,14 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-                 <!-- General error -->
+                 <!--Successfully message-->
                 <div class="account__controls__general-error" ng-if="profileForm.updated">
                    We've successfully updated your account.
+                </div>
+
+                <!-- General error -->
+                <div class="account__controls__general-error" ng-if="errorMessages">
+                   <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
                 </div>
 
                 <!-- Form groups -->
