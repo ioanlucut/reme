@@ -30,7 +30,17 @@ module.exports = function (grunt) {
                     "bower_components/angular-cookies/angular-cookies.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/jstz-detect/jstz.js",
-                    "bower_components/humps/humps.js"
+                    "bower_components/humps/humps.js",
+                    "bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
+                    "bower_components/perfect-scrollbar/src/jquery.mousewheel.js",
+                    "bower_components/sugar-date/date.sugar.js",
+                    "bower_components/angular-ui-bootstrap/src/position/position.js",
+                    "bower_components/angular-ui-bootstrap/src/transition/transition.js",
+                    "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
+                    "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
+                    "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
+                    "bower_components/angular-ui-bootstrap/src/popover/popover.js",
+                    "bower_components/angular-ui-bootstrap/src/modal/modal.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
@@ -50,6 +60,9 @@ module.exports = function (grunt) {
 
                     "src/app/reminders/reminders.js",
                     "src/app/reminders/**/*.js",
+
+                    "src/app/feedback/feedback.js",
+                    "src/app/feedback/**/*.js",
 
                     "src/app/app.js",
                     "src/app/app.ctrl.js",
@@ -139,13 +152,24 @@ module.exports = function (grunt) {
 
         html2js: {
             options: {
-                module: "partials"
+                module: "partials",
+                rename: function (modulePath) {
+
+                    // For the Angular UI Bootstrap templates, rewrite the module path
+                    if ( modulePath.indexOf("app/common/partials/ui-bootstrap") > -1 ) {
+                        return modulePath.replace("app/common/partials/ui-bootstrap", "template");
+                    }
+
+                    return modulePath;
+                }
             },
+
             main: {
                 src: [
 
                     "src/app/site/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
+                    "src/app/feedback/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
@@ -175,6 +199,7 @@ module.exports = function (grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
+                    "src/app/feedback/partials/**/*.html",
                     "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
