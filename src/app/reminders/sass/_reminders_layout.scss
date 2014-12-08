@@ -16,30 +16,89 @@
   margin-bottom: 22px;
   position: relative;
 
-  .reminder__title {
+  &__title {
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
   }
 
-  .reminder__info {
+  &__info {
     display: inline-block;
     padding-right: 0px;
     color: $color-secondary;
     //margin-top: 20px;
     position: absolute;
     bottom: 10px;
+
+    &--date {
+      left: 10px;
+    }
+
+    &--time {
+      left: 220px;
+    }
+
+    &--recurring {
+      left: 450px;
+      visibility: hidden;
+    }
   }
 
-  .reminder__info--date {
-    left: 10px;
+  &__menu {
+    background-color: rgba(255,255,255,1);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    text-align: center;
+    @include transition(all 0.3s);
+
+    &__option {
+      //border: solid 1px #ff0000;
+      display: inline-block;
+      width: 130px;
+      height: 72px;
+      margin: 7px 10px;
+      border-radius: 3px;
+
+      span {
+        //border: solid 1px #ff0000;
+        display: block;
+        margin-top: 30px;
+      }
+
+      &--edit {
+        //background-image: ; //set the icon here
+
+        &:hover {
+          background-color: lighten($brand-info, 40%);
+          color: $brand-info;
+        }
+      }
+
+      &--complete {
+        //background-image: ; //set the icon here
+
+        &:hover {
+          background-color: lighten($brand-success, 40%);
+          color: $brand-success;
+        }
+      }
+
+      &--delete {
+        //background-image: ; //set the icon here
+
+        &:hover {
+          background-color: lighten($brand-danger, 40%);
+          color: $brand-danger;
+        }
+      }
+
+    }
   }
 
-  .reminder__info--time {
-    left: 220px;
-  }
-
-  .reminder__info--recurring {
-    left: 450px;
-    visibility: hidden;
+  &:hover .reminder__menu {
+    opacity: 1;
   }
 }
