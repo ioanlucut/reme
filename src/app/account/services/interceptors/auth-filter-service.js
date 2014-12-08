@@ -6,12 +6,12 @@ angular
     .service("AuthFilter", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
-            if ( toState.url === '/account' && AuthService.isAuthenticated() ) {
+            if ( (toState.url === '/account' || toState.url === "/") && AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
-                StatesHandler.goHome();
-            } else if ( (toState.url === '/profile' || toState.url === '/reminders') && !AuthService.isAuthenticated() ) {
+                StatesHandler.goToReminders();
+            } else if ( (toState.url === '/profile' || toState.url === '/reminders' || toState.url === '/') && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
