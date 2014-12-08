@@ -2,7 +2,7 @@
 <html ng-app="app" ng-controller="AppCtrl" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/build/css/app.css"/>
+    <link rel="stylesheet" href="/build/css/app.css" />
     <script src="/build/js/frameworks.js"></script>
     <script src="/build/js/app.js"></script>
     <title ng-bind="$state.current.title" class="ng-binding">reme.io</title>
@@ -11,13 +11,5 @@
 
     <!-- View container -->
     <div class="view-container" ui-view autoscroll="true"></div>
-
-    <!-- Account modal -->
-    <div class="account-modal" account-form-toggle></div>
-
-    <!-- Cookie policy -->
-    <!--
-    <div class="cookie-policy-dialog" ng-show="! isCookiePolicyAccepted" cookie-policy-dialog></div>
-    -->
 </body>
 </html>
