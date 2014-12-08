@@ -3,12 +3,9 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, AuthService, StatesHandler, User, AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope) {
 
         $scope.user = $rootScope.currentUser;
-
-        // Default state
-        AccountFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
 
         /**
          * Profile user information
