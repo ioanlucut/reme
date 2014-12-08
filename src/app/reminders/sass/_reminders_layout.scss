@@ -16,22 +16,31 @@
   margin-bottom: 22px;
   position: relative;
 
-  .reminder__title {
+  &__title {
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
   }
 
-  .reminder__info {
+  &__info {
     display: inline-block;
     padding-right: 0px;
     color: $color-secondary;
     //margin-top: 20px;
     position: absolute;
     bottom: 10px;
-  }
 
-  .reminder__info--date {
-    left: 10px;
+    &--date {
+      left: 10px;
+    }
+
+    &--time {
+      left: 220px;
+    }
+
+    &--recurring {
+      left: 450px;
+      visibility: hidden;
+    }
   }
 
   &__menu {
