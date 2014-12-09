@@ -6,7 +6,6 @@ button {
   font-size: $font-size-accent;
 }
 
-
 .account__sections {
   position: relative;
   width: auto;
@@ -15,12 +14,11 @@ button {
   text-align: center;
 }
 
-
 .account__title {
   margin-bottom: 20px;
   line-height: 25px;
   text-align: center;
-  font-size: 20px;
+  font-size: $font-size-h1;
   font-weight: $font-weight-regular;
 }
 
@@ -32,7 +30,6 @@ button {
   font-size: 15px;
   color: $gray7;
 }
-
 
 .account__controls {
   position: relative;
