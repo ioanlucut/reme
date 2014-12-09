@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+
+        /**
+         * Set default state.
+         */
+        ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile);
 
         /**
          * Current user.
@@ -44,7 +49,7 @@ angular
                             $scope.errorMessages = "";
 
                             // Set for updated to true
-                            $scope.profileForm.updated = true;
+                            $scope.isProfileUpdated = true;
                         });
                     }).catch(function (response) {
                         $scope.errorMessages = response.data && response.data.errors && response.data.errors.email;
@@ -53,7 +58,7 @@ angular
                             $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
                         }
 
-                        $scope.isProfileUpdated = true;
+                        $scope.isProfileUpdated = false;
                     });
             }
             else {

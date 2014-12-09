@@ -12,12 +12,6 @@ angular
         $scope.isSignUpErrorOcurred = false;
 
         /**
-         * Flag which tells if the sign up action went well.
-         * @type {boolean}
-         */
-        $scope.isSignedUp = false;
-
-        /**
          * Error messages.
          * @type {string}
          */
@@ -52,10 +46,7 @@ angular
 
                         // Log in the user
                         AuthService.login(signUpData.email, signUpData.password).then(function () {
-                            $scope.isSignedUp = true;
-                            $timeout(function () {
-                                StatesHandler.goToReminders();
-                            }, 2500);
+                            StatesHandler.goToReminders();
                         });
                     }).catch(function (response) {
 
