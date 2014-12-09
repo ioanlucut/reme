@@ -21,11 +21,12 @@ fieldset {
   line-height: 100%;
   padding: $padding-base-vertical $padding-base-horizontal;
   font-size: $input-font-size;
+  font-weight: $font-weight-light;
   letter-spacing: 0.33px;
   vertical-align: middle;
   background-color: $input-color-bg;
   //background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: solid 2px $color-secondary;
+  border: solid 1px $color-secondary;
   border-radius: $input-border-radius;
   //outline: none;
 
@@ -34,8 +35,8 @@ fieldset {
 
   &:focus {
     border-color: $brand-primary;
-    outline: 0;
-    //outline-color: lighten($brand-primary, 30%);
+    outline: 2;
+    outline-color: lighten($brand-primary, 30%);
   }
 
   // Placeholder
