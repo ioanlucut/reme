@@ -2,14 +2,13 @@
 
 @font-face {
   font-family: "reme-icons";
-  src:url("../../assets/fonts/app-icons/reme-icons.eot");
-  src:url("../../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"),
-    url("../../assets/fonts/app-icons/reme-icons.woff") format("woff"),
-    url("../../assets/fonts/app-icons/reme-icons.ttf") format("truetype"),
-    url("../../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
+  src:url("../assets/fonts/app-icons/reme-icons.eot");
+  src:url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"),
+    url("../assets/fonts/app-icons/reme-icons.woff") format("woff"),
+    url("../assets/fonts/app-icons/reme-icons.ttf") format("truetype"),
+    url("../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
   font-weight: normal;
   font-style: normal;
-
 }
 
 [data-icon]:before {
