@@ -39,21 +39,6 @@ button {
   padding-top: 40px;
 }
 
-.account__controls__general-error {
-  position: absolute;
-  top: -24px;
-  left: 0;
-  width: 100%;
-  margin: 15px 0;
-  padding: 10px 5px;
-  text-align: center;
-  font-size: 12px;
-  color: $brand-danger;
-  border: solid 2px lighten($brand-danger, 30%);
-  border-radius: 3px;
-  background-color: lighten($brand-danger, 70%);
-}
-
 .account__controls__form-groups--last {
   margin-bottom: 20px;
 
