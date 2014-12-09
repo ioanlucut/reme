@@ -3,14 +3,18 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, StatesHandler, $timeout) {
+    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
+
+        /**
+         * Set default state.
+         */
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
 
         /**
          * Flag which tells if the authentication went well or not.
          * @type {boolean}
          */
         $scope.isAuthenticationErrorOcurred = false;
-        $scope.loggedIn = false;
 
         /**
          * Login user information.
@@ -31,10 +35,7 @@ angular
                 AuthService.login(loginData.email, loginData.password)
                     .then(function () {
                         $scope.isAuthenticationErrorOcurred = false;
-                        $scope.loggedIn = true;
-                        $timeout(function () {
-                            StatesHandler.goHome();
-                        }, 1000);
+                        StatesHandler.goHome();
                     })
                     .catch(function () {
 

@@ -14,12 +14,12 @@
             <div class="account__controls">
 
                  <!--Successfully message-->
-                <div class="account__controls__general-error" ng-if="profileForm.updated">
+                <div class="alert alert-success" ng-if="isProfileUpdated">
                    We've successfully updated your account.
                 </div>
 
                 <!-- General error -->
-                <div class="account__controls__general-error" ng-if="errorMessages">
+                <div class="alert alert-danger" ng-if="errorMessages && !isProfileUpdated">
                    <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
                 </div>
 
@@ -69,7 +69,7 @@
             <div class="account__controls">
 
                 <!-- General error -->
-                <div class="account__controls__general-error" ng-if="isUpdatePasswordErrorOcurred">
+                <div class="alert alert-danger" ng-if="isUpdatePasswordErrorOcurred">
                      <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
                 </div>
 
