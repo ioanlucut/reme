@@ -13,9 +13,9 @@
             <div class="account__controls">
 
                 <!-- General error -->
-                <div class="account__controls__general-error" ng-if="loggedIn">Welcome back!</div>
+                <div class="alert alert-success" ng-if="loggedIn">Welcome back!</div>
 
-                <div class="account__controls__general-error" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
+                <div class="alert alert-danger" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
@@ -60,10 +60,10 @@
             <div class="account__controls">
 
                  <!-- Welcome -->
-                <div class="account__controls__general-error" ng-if="isSignedUp">{{currentUser.lastName}}, welcome to Reme!</div>
+                <div class="alert alert-success" ng-if="isSignedUp">{{currentUser.lastName}}, welcome to Reme!</div>
 
                    <!-- General error -->
-                <div class="account__controls__general-error" ng-if="isSignUpErrorOcurred">
+                <div class="alert alert-danger" ng-if="isSignUpErrorOcurred">
                      <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
                 </div>
 
@@ -130,7 +130,7 @@
             <div class="account__controls">
 
                   <!-- General error -->
-                <div class="account__controls__general-error" ng-if="isRequestPasswordErrorOcurred">
+                <div class="alert alert-danger" ng-if="isRequestPasswordErrorOcurred">
                      <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
                 </div>
 
