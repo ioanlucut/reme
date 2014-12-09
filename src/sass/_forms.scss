@@ -193,39 +193,39 @@ input[type="checkbox"],
 //
 // Heads up! This is mixin-ed into `.navbar-form` in navbars.less.
 
-.form-inline {
-
-  // Kick in the inline
-  @media (min-width: $screen-sm) {
-    // Inline-block all the things for "inline"
-    .form-group  {
-      display: inline-block;
-      margin-bottom: 0;
-      vertical-align: middle;
-    }
-
-    // In navbar-form, allow folks to *not* use `.form-group`
-    .form-control {
-      display: inline-block;
-    }
-
-    // Remove default margin on radios/checkboxes that were used for stacking, and
-    // then undo the floating of radios and checkboxes to match (which also avoids
-    // a bug in WebKit: https://github.com/twbs/bootstrap/issues/1969).
-    .radio,
-    .checkbox {
-      display: inline-block;
-      margin-top: 0;
-      margin-bottom: 0;
-      padding-left: 0;
-    }
-    .radio input[type="radio"],
-    .checkbox input[type="checkbox"] {
-      float: none;
-      margin-left: 0;
-    }
-  }
-}
+//.form-inline {
+//
+//  // Kick in the inline
+//  @media (min-width: $screen-sm) {
+//    // Inline-block all the things for "inline"
+//    .form-group  {
+//      display: inline-block;
+//      margin-bottom: 0;
+//      vertical-align: middle;
+//    }
+//
+//    // In navbar-form, allow folks to *not* use `.form-group`
+//    .form-control {
+//      display: inline-block;
+//    }
+//
+//    // Remove default margin on radios/checkboxes that were used for stacking, and
+//    // then undo the floating of radios and checkboxes to match (which also avoids
+//    // a bug in WebKit: https://github.com/twbs/bootstrap/issues/1969).
+//    .radio,
+//    .checkbox {
+//      display: inline-block;
+//      margin-top: 0;
+//      margin-bottom: 0;
+//      padding-left: 0;
+//    }
+//    .radio input[type="radio"],
+//    .checkbox input[type="checkbox"] {
+//      float: none;
+//      margin-left: 0;
+//    }
+//  }
+//}
 
 
 // Horizontal forms
@@ -233,32 +233,32 @@ input[type="checkbox"],
 // Horizontal forms are built on grid classes and allow you to create forms with
 // labels on the left and inputs on the right.
 
-.form-horizontal {
-
-  // Consistent vertical alignment of labels, radios, and checkboxes
-  .control-label,
-  .radio,
-  .checkbox,
-  .radio-inline,
-  .checkbox-inline {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: ($padding-base-vertical + 1); // Default padding plus a border
-  }
-
-  // Make form groups behave like rows
-//  .form-group {
-//    @include make-row();
+//.form-horizontal {
+//
+//  // Consistent vertical alignment of labels, radios, and checkboxes
+//  .control-label,
+//  .radio,
+//  .checkbox,
+//  .radio-inline,
+//  .checkbox-inline {
+//    margin-top: 0;
+//    margin-bottom: 0;
+//    padding-top: ($padding-base-vertical + 1); // Default padding plus a border
 //  }
-
-  .form-control-static {
-    padding-top: ($padding-base-vertical + 1);
-  }
-
-  // Only right align form labels here when the columns stop stacking
-  @media (min-width: $screen-sm-min) {
-    .control-label {
-      text-align: right;
-    }
-  }
-}
+//
+//  // Make form groups behave like rows
+////  .form-group {
+////    @include make-row();
+////  }
+//
+//  .form-control-static {
+//    padding-top: ($padding-base-vertical + 1);
+//  }
+//
+//  // Only right align form labels here when the columns stop stacking
+//  @media (min-width: $screen-sm-min) {
+//    .control-label {
+//      text-align: right;
+//    }
+//  }
+//}
