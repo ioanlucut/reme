@@ -154,7 +154,7 @@ $caret-width-large:              5px !default;
 // Forms
 // ------------------------
 
-$input-font-size:         20px;
+$input-font-size:         $font-size-base;
 
 $input-color-text:        $gray6;
 $input-color-bg:          #fff !default;
