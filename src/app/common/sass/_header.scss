@@ -7,7 +7,6 @@
   height: $header-height;
   line-height: $header-height;
 
-
   .header__wrapper {
     @include clearfix;
     width: $global-width;
@@ -25,7 +24,6 @@
       a {
         display: block;
         font-weight: $font-weight-light;
-        color: $color-light-text;
       }
 
       .header__wrapper__menu__dropdown {

@@ -2,222 +2,263 @@
 // Variables
 // --------------------------------------------------
 
-
-
 // Global values
 // --------------------------------------------------
 
 // Grays
 // -------------------------
 
-$gray-darker:            lighten(#000, 13.5%) !default; // #222
-$gray-dark:              lighten(#000, 20%) !default;   // #333
-$gray:                   lighten(#000, 33.5%) !default; // #555
-$gray-light:             lighten(#000, 60%) !default;   // #999
-$gray-lighter:           lighten(#000, 93.5%) !default; // #eee
+$gray-darker: lighten(#000, 13.5%) !default;
+// #222
+$gray-dark: lighten(#000, 20%) !default;
+// #333
+$gray: lighten(#000, 33.5%) !default;
+// #555
+$gray-light: lighten(#000, 60%) !default;
+// #999
+$gray-lighter: lighten(#000, 93.5%) !default;
+// #eee
 
 // More grays
 // -------------------------
 
-$gray1:                  #0e1012 !default;
-$gray2:                  #161616 !default;
-$gray3:                  #24282b !default;
-$gray4:                  #3b4045 !default;
-$gray5:                  #52585e !default;
-$gray6:                  #6b7178 !default;
-$gray7:                  #848b91 !default;
-$gray8:                  #9fa5ab !default;
-$gray9:                  #bbbfc4 !default;
-$gray10:                 #d7dbde !default;
-$gray11:                 #e6e9eb !default;
-$gray12:                 #f5f6f7 !default;
+$gray1: #0e1012 !default;
+$gray2: #161616 !default;
+$gray3: #24282b !default;
+$gray4: #3b4045 !default;
+$gray5: #52585e !default;
+$gray6: #6b7178 !default;
+$gray7: #848b91 !default;
+$gray8: #9fa5ab !default;
+$gray9: #bbbfc4 !default;
+$gray10: #d7dbde !default;
+$gray11: #e6e9eb !default;
+$gray12: #f5f6f7 !default;
 
 // Brand colors
 // -------------------------
 
-$brand-primary:         #6B6C98;//#8471B1 !default;
+$brand-primary: #6B6C98;
+//#8471B1 !default;
 
-$color-base:            #000000 !default;
-$color-secondary:       $gray9;
-$color-light-bg:        $gray12;
-$color-light-text:      #ffffff;
+$color-base: #000000 !default;
+$color-secondary: $gray9;
+$color-light-bg: $gray12;
+$color-light-text: #ffffff;
 
 //$brand-secondary:       //#c5244d !default;
-$brand-success:         #468847 !default;//#5cb85c !default;
-$brand-warning:         #c09853 !default;//#f0ad4e !default;
-$brand-danger:          #b94a48 !default;//#c5244d !default;
-$brand-info:            #3a87ad !default;//#5bc0de !default;
+$brand-success: #468847 !default;
+//#5cb85c !default;
+$brand-warning: #c09853 !default;
+//#f0ad4e !default;
+$brand-danger: #b94a48 !default;
+//#c5244d !default;
+$brand-info: #3a87ad !default;
+//#5bc0de !default;
 
-$state-success-text:             $brand-success;
-$state-success-bg:               #dff0d8 !default;
-$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-text: $brand-success;
+$state-success-bg: #dff0d8 !default;
+$state-success-border: darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
-$state-info-text:                $brand-info;
-$state-info-bg:                  #d9edf7 !default;
-$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
+$state-info-text: $brand-info;
+$state-info-bg: #d9edf7 !default;
+$state-info-border: darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
-$state-warning-text:             $brand-warning;
-$state-warning-bg:               #fcf8e3 !default;
-$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
+$state-warning-text: $brand-warning;
+$state-warning-bg: #fcf8e3 !default;
+$state-warning-border: darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
-$state-danger-text:              $brand-danger;
-$state-danger-bg:                #f2dede !default;
-$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
-
+$state-danger-text: $brand-danger;
+$state-danger-bg: #f2dede !default;
+$state-danger-border: darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
 // Colors for social networks
-$facebook-color:        #3b5998;
-$google-color:          #4285f4;
-$twitter-color:         #55acee;
-
+$facebook-color: #3b5998;
+$google-color: #4285f4;
+$twitter-color: #55acee;
 
 // Scaffolding
 // -------------------------
 
-$body-bg:               $gray12;//#fff !default;
-$text-color:            $color-base;
+$body-bg: $gray12;
+//#fff !default;
+$text-color: $color-base;
 
-$global-width:            700px;
+$global-width: 700px;
 
 // Links
 // -------------------------
 
-$link-color:            $color-secondary !default;
-$link-color-hover:      darken($link-color, 10%);
+$link-color: $color-secondary !default;
+$link-color-hover: darken($link-color, 10%);
 
 // Typography
 // -------------------------
 
 //$font-family-sans-serif:  "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-sans-serif: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 //$font-family-serif:       "FreightText Pro", Georgia, "Times New Roman", Times, serif !default;
 //$font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace !default;
-$font-family-base:        $font-family-sans-serif !default;
+$font-family-base: $font-family-sans-serif !default;
 
-$font-size-base:          14px !default;
-$font-size-large:         ceil($font-size-base * 1.25) !default; // ~18px
-$font-size-small:         ceil($font-size-base * 0.85) !default; // ~12px
+$font-size-base: 14px !default;
+$font-size-large: ceil($font-size-base * 1.25) !default;
+// ~18px
+$font-size-small: ceil($font-size-base * 0.85) !default;
+// ~12px
 
 //$font-weight-extra-light: 200 !default;
-$font-weight-light:       300 !default;
-$font-weight-regular:     400 !default;
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
 //$font-weight-semi-bold:   600 !default;
-$font-weight-bold:        700 !default;
+$font-weight-bold: 700 !default;
 
-$font-size-accent:        20px;
+$font-size-accent: 20px;
 
-$font-size-h1:            floor($font-size-base * 2.6) !default; // ~36px
+$font-size-h1: floor($font-size-base * 2.6) !default;
+// ~36px
 //$font-size-h2:            floor($font-size-base * 2.15) !default; // ~30px
 //$font-size-h3:            ceil($font-size-base * 1.7) !default; // ~24px
 //$font-size-h4:            ceil($font-size-base * 1.25) !default; // ~18px
 //$font-size-h5:            $font-size-base !default;
 //$font-size-h6:            ceil($font-size-base * 0.85) !default; // ~12px
 
-$line-height-base:        1.428571429 !default; // 20/14
-$line-height-computed:    floor($font-size-base * $line-height-base) !default; // ~20px
+$line-height-base: 1.428571429 !default;
+// 20/14
+$line-height-computed: floor($font-size-base * $line-height-base) !default;
+// ~20px
 
 //$headings-font-family:    $font-family-base !default;
 //$headings-font-weight:    500 !default;
 //$headings-line-height:    1.1 !default;
 //$headings-color:          inherit !default;
 
-
-
 // Components
 // -------------------------
 // Based on 14px font-size and 1.428 line-height (~20px to start)
 
-$padding-base-vertical:          6px !default;
-$padding-base-horizontal:        12px !default;
+$padding-base-vertical: 6px !default;
+$padding-base-horizontal: 12px !default;
 
-$padding-large-vertical:         10px !default;
-$padding-large-horizontal:       16px !default;
+$padding-large-vertical: 10px !default;
+$padding-large-horizontal: 16px !default;
 
-$padding-small-vertical:         5px !default;
-$padding-small-horizontal:       10px !default;
+$padding-small-vertical: 5px !default;
+$padding-small-horizontal: 10px !default;
 
-$line-height-large:              1.33 !default;
-$line-height-small:              1.5 !default;
+$line-height-large: 1.33 !default;
+$line-height-small: 1.5 !default;
 
-$border-radius-base:             4px !default;
-$border-radius-large:            6px !default;
-$border-radius-small:            3px !default;
+$border-radius-base: 4px !default;
+$border-radius-large: 6px !default;
+$border-radius-small: 3px !default;
 
-$component-active-color:         #fff !default;
-$component-active-bg:            $brand-primary !default;
+$component-active-color: #fff !default;
+$component-active-bg: $brand-primary !default;
 
-$caret-width-base:               4px !default;
-$caret-width-large:              5px !default;
-
-
+$caret-width-base: 4px !default;
+$caret-width-large: 5px !default;
 
 // Forms
 // ------------------------
 
-$input-font-size:         $font-size-base;
+$input-font-size: $font-size-base;
 
-$input-color-text:        $gray6;
-$input-color-bg:          #fff !default;
+$input-color-text: $gray6;
+$input-color-bg: #fff !default;
 $input-color-bg-disabled: $gray5;
 
-$input-border:            2px;
-$input-border-radius:     3px;
-$input-border-focus:      $brand-primary;
+$input-border: 2px;
+$input-border-radius: 3px;
+$input-border-focus: $brand-primary;
 
-$input-height-base:       50px;
-
+$input-height-base: 50px;
 
 // Media queries breakpoints
 // --------------------------------------------------
 
 // Extra small screen / phone
 // Note: Deprecated $screen-xs and $screen-phone as of v3.0.1
-$screen-xs:                  480px !default;
-$screen-xs-min:              $screen-xs !default;
-$screen-phone:               $screen-xs-min !default;
+$screen-xs: 480px !default;
+$screen-xs-min: $screen-xs !default;
+$screen-phone: $screen-xs-min !default;
 
 // Small screen / tablet
 // Note: Deprecated $screen-sm and $screen-tablet as of v3.0.1
-$screen-sm:                  768px !default;
-$screen-sm-min:              $screen-sm !default;
-$screen-tablet:              $screen-sm-min !default;
+$screen-sm: 768px !default;
+$screen-sm-min: $screen-sm !default;
+$screen-tablet: $screen-sm-min !default;
 
 // Medium screen / desktop
 // Note: Deprecated $screen-md and $screen-desktop as of v3.0.1
-$screen-md:                  992px !default;
-$screen-md-min:              $screen-md !default;
-$screen-desktop:             $screen-md-min !default;
+$screen-md: 992px !default;
+$screen-md-min: $screen-md !default;
+$screen-desktop: $screen-md-min !default;
 
 // Large screen / wide desktop
 // Note: Deprecated $screen-lg and $screen-lg-desktop as of v3.0.1
-$screen-lg:                  1200px !default;
-$screen-lg-min:              $screen-lg !default;
-$screen-lg-desktop:          $screen-lg-min !default;
+$screen-lg: 1200px !default;
+$screen-lg-min: $screen-lg !default;
+$screen-lg-desktop: $screen-lg-min !default;
 
 // So media queries don't overlap when required, provide a maximum
-$screen-xs-max:              ($screen-sm-min - 1) !default;
-$screen-sm-max:              ($screen-md-min - 1) !default;
-$screen-md-max:              ($screen-lg-min - 1) !default;
-
+$screen-xs-max: ($screen-sm-min - 1) !default;
+$screen-sm-max: ($screen-md-min - 1) !default;
+$screen-md-max: ($screen-lg-min - 1) !default;
 
 // Alerts
 // -------------------------
-$alert-padding:               15px !default;
-$alert-border-radius:         $border-radius-base !default;
-$alert-link-font-weight:      bold !default;
+$alert-padding: 15px !default;
+$alert-border-radius: $border-radius-base !default;
+$alert-link-font-weight: bold !default;
 
-$alert-success-bg:            $state-success-bg !default;
-$alert-success-text:          $state-success-text !default;
-$alert-success-border:        $state-success-border !default;
+$alert-success-bg: $state-success-bg !default;
+$alert-success-text: $state-success-text !default;
+$alert-success-border: $state-success-border !default;
 
-$alert-info-bg:               $state-info-bg !default;
-$alert-info-text:             $state-info-text !default;
-$alert-info-border:           $state-info-border !default;
+$alert-info-bg: $state-info-bg !default;
+$alert-info-text: $state-info-text !default;
+$alert-info-border: $state-info-border !default;
 
-$alert-warning-bg:            $state-warning-bg !default;
-$alert-warning-text:          $state-warning-text !default;
-$alert-warning-border:        $state-warning-border !default;
+$alert-warning-bg: $state-warning-bg !default;
+$alert-warning-text: $state-warning-text !default;
+$alert-warning-border: $state-warning-border !default;
 
-$alert-danger-bg:             $state-danger-bg !default;
-$alert-danger-text:           $state-danger-text !default;
-$alert-danger-border:         $state-danger-border !default;
+$alert-danger-bg: $state-danger-bg !default;
+$alert-danger-text: $state-danger-text !default;
+$alert-danger-border: $state-danger-border !default;
+
+// Dropdowns
+// -------------------------
+
+$dropdown-bg: #fff !default;
+$dropdown-border: rgba(0, 0, 0, .15) !default;
+$dropdown-fallback-border: #ccc !default;
+$dropdown-divider-bg: #e5e5e5 !default;
+
+$dropdown-link-color: $gray-dark !default;
+$dropdown-link-hover-color: darken($gray-dark, 5%) !default;
+$dropdown-link-hover-bg: #f5f5f5 !default;
+
+$dropdown-link-active-color: $component-active-color !default;
+$dropdown-link-active-bg: $component-active-bg !default;
+
+$dropdown-link-disabled-color: $gray-light !default;
+
+$dropdown-header-color: $gray-light !default;
+
+$dropdown-caret-color: #000 !default;
+
+// COMPONENT VARIABLES
+// --------------------------------------------------
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+$zindex-navbar: 1000 !default;
+$zindex-dropdown: 1000 !default;
+
+// Point at which the navbar stops collapsing
+$grid-float-breakpoint: $screen-sm-min !default;
