@@ -70,32 +70,8 @@
         font-size: 40px;
       }
 
-      &--edit {
-        //background-image: ; //set the icon here
-
-        &:hover {
-          background-color: lighten($brand-info, 40%);
-          color: $brand-info;
-        }
       }
 
-      &--complete {
-        //background-image: ; //set the icon here
-
-        &:hover {
-          background-color: lighten($brand-success, 40%);
-          color: $brand-success;
-        }
-      }
-
-      &--delete {
-        //background-image: ; //set the icon here
-
-        &:hover {
-          background-color: lighten($brand-danger, 40%);
-          color: $brand-danger;
-        }
-      }
 
     }
   }
