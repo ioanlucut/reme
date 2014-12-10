@@ -8,16 +8,11 @@
 // Grays
 // -------------------------
 
-$gray-darker: lighten(#000, 13.5%) !default;
-// #222
-$gray-dark: lighten(#000, 20%) !default;
-// #333
-$gray: lighten(#000, 33.5%) !default;
-// #555
-$gray-light: lighten(#000, 60%) !default;
-// #999
-$gray-lighter: lighten(#000, 93.5%) !default;
-// #eee
+$gray-darker: lighten(#000, 13.5%) !default;// #222
+$gray-dark: lighten(#000, 20%) !default;// #333
+$gray: lighten(#000, 33.5%) !default;// #555
+$gray-light: lighten(#000, 60%) !default;// #999
+$gray-lighter: lighten(#000, 93.5%) !default;// #eee
 
 // More grays
 // -------------------------
@@ -85,6 +80,7 @@ $body-bg: $gray12;
 $text-color: $color-base;
 
 $global-width: 700px;
+$header-height: 50px;
 
 // Links
 // -------------------------
