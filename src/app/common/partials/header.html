@@ -5,8 +5,8 @@
             Reme
         </div>
 
-        <div class="header__wrapper__menu" dropdown>
-            <a ng-show="currentUser.email" class="dropdown-toggle" dropdown-toggle href="javascript:void(0)">{{currentUser.email}}</a>
+        <div class="header__wrapper__menu dropdown" dropdown>
+            <a ng-show="currentUser.email" class="dropdown-toggle" dropdown-toggle href="javascript:void(0)">{{currentUser.email}}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="reminders">My reminders</a></li>
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Settings</a></li>
