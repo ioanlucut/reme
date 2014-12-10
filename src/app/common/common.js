@@ -4,7 +4,13 @@
 angular
     .module("common", [
         "ui.router",
-        "restmod"
+        "restmod",
+        "ui.bootstrap.transition",
+        "ui.bootstrap.datepicker",
+        "ui.bootstrap.dropdown",
+        "ui.bootstrap.tooltip",
+        "ui.bootstrap.popover",
+        "ui.bootstrap.modal"
     ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
