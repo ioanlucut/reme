@@ -1,5 +1,6 @@
 .centered-global-width {
-  width: $global-width;
+  max-width: $global-width;
+  width: 96%;
   margin: 0 auto;
 }
 
@@ -15,7 +16,8 @@
 .reminder {
   border: solid 0px $body-bg;
   border-radius: 3px;
-  width: $global-width;
+  width: 100%;
+  //max-width: $global-width;
   height: 90px;
   padding: 10px;
   margin-bottom: 22px;
@@ -30,30 +32,35 @@
   }
 
   &__info {
-    display: inline-block;
-    padding-right: 0px;
-    color: $color-secondary;
     position: absolute;
     bottom: 10px;
+    width: 97%;
+    @include clearfix();
 
-    span {
-      padding-top: 15px;
-      margin-right: 2px;
-      line-height: 15px;
-      font-size: 15px;
-    }
+    &__item {
+      color: $color-secondary;
+      padding: 0 5px;
 
-    &--date {
-      left: 10px;
-    }
+      span {
+        display: inline;
+        margin-top: 10px;
+        //font-size: 10px;
+        vertical-align: middle;
+      }
 
-    &--time {
-      left: 220px;
-    }
+      &--date {
+        float: left;
+      }
 
-    &--recurring {
-      left: 450px;
-      visibility: hidden;
+      &--recurring {
+        visibility: hidden;
+        float: right;
+      }
+
+      &--time {
+        margin: 0 auto;
+        text-align: center;
+      }
     }
   }
 
