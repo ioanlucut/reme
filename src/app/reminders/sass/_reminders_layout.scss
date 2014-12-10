@@ -5,29 +5,43 @@
 
 .reminders__header {
   height: 100px;
+  width: 100%;
+
+  &__btn {
+    margin: 50px auto;
+  }
 }
 
 .reminder {
-  border: solid 2px $color-secondary;
+  border: solid 0px $body-bg;
   border-radius: 3px;
   width: $global-width;
   height: 90px;
   padding: 10px;
   margin-bottom: 22px;
   position: relative;
+  background-color: #ffffff;
+  @include transition(all 0.3s);
 
   &__title {
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
+    @include transition(all 0.5s);
   }
 
   &__info {
     display: inline-block;
     padding-right: 0px;
     color: $color-secondary;
-    //margin-top: 20px;
     position: absolute;
     bottom: 10px;
+
+    span {
+      padding-top: 15px;
+      margin-right: 2px;
+      line-height: 15px;
+      font-size: 15px;
+    }
 
     &--date {
       left: 10px;
@@ -44,39 +58,43 @@
   }
 
   &__menu {
-    background-color: rgba(255,255,255,1);
-    width: 100%;
-    height: 100%;
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     opacity: 0;
-    text-align: center;
-    @include transition(all 0.3s);
+    text-align: right;
+    @include transition(all 0.4s);
 
     &__option {
-      //border: solid 1px #ff0000;
       display: inline-block;
-      width: 130px;
-      height: 80px;
-      margin: 3px 10px;
+      width: 30px;
+      height: 25px;
+      margin: 3px 5px;
       border-radius: 3px;
-      //font-size: 40px;
+
+      &:hover {
+        color: #000000;
+      }
 
       span {
         //border: solid 1px #ff0000;
         display: block;
         margin: 0;
-        font-size: 40px;
+        font-size: 30px;
+        text-align: center;
       }
-
-      }
-
-
     }
   }
 
-  &:hover .reminder__menu {
-    opacity: 1;
+  &:hover {
+    border-left: solid 15px $brand-primary;
+
+    .reminder__title {
+      padding-left: 20px;
+    }
+
+    .reminder__menu {
+      opacity: 1;
+    }
   }
 }
