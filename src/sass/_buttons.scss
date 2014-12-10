@@ -73,6 +73,32 @@
 }
 
 
+// Reme btn styles
+// --------------------------------------------------
+.btn-outline {
+  text-align: center;
+  line-height: 100%;
+  display: block;
+  border: solid 2px $brand-primary;
+  border-radius: 3px;
+  width: 200px;
+  height: 40px;
+  padding: 10px;
+  color: $brand-primary;
+  //font-weight: $font-weight-light;
+  font-size: 16px;
+  @include transition(all 0.4s);
+
+  &:hover {
+    color: invert($color-base);
+    background-color: $brand-primary;
+  }
+}
+
+
+
+
+
 // Alternate buttons
 // --------------------------------------------------
 /*
