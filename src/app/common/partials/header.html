@@ -5,14 +5,14 @@
             Reme
         </div>
 
-        <div class="header__wrapper__menu">
-            <a ng-show="currentUser.email" href="#">{{currentUser.email}}</a>
-            <div class="header__wrapper__menu__dropdown">
-                <a class="nav-link" href="javascript:void(0)" ui-sref="reminders">My reminders</a>
-                <a class="nav-link" href="javascript:void(0)" ui-sref="profile">Settings</a>
-                <a class="nav-link" href="javascript:void(0)" ui-sref="profile">Help</a>
-                <a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a>
-            </div>
+        <div class="header__wrapper__menu" dropdown>
+            <a ng-show="currentUser.email" class="dropdown-toggle" dropdown-toggle href="javascript:void(0)">{{currentUser.email}}</a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a class="nav-link" href="javascript:void(0)" ui-sref="reminders">My reminders</a></li>
+                <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Settings</a></li>
+                <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Help</a></li>
+                <li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+              </ul>
         </div>
 
     </div>
