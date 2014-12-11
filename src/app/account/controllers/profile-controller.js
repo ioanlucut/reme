@@ -40,8 +40,8 @@ angular
             if ( $scope.profileForm.$valid ) {
 
                 // Update the user
-                $scope.user.$save(profileData)
-
+                $scope.user
+                    .$save(profileData)
                     .then(function () {
                         $scope.user.$refresh().then(function () {
                             // Set form to pristine
@@ -51,7 +51,8 @@ angular
                             // Set for updated to true
                             $scope.isProfileUpdated = true;
                         });
-                    }).catch(function (response) {
+                    })
+                    .catch(function (response) {
                         $scope.errorMessages = response.data && response.data.errors && response.data.errors.email;
 
                         if ( _.isEmpty($scope.errorMessages) ) {
@@ -60,9 +61,6 @@ angular
 
                         $scope.isProfileUpdated = false;
                     });
-            }
-            else {
-                $scope.profileForm.submitted = true;
             }
         };
 
