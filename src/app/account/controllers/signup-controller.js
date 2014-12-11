@@ -40,15 +40,19 @@ angular
                 $scope.signUpData.timezone = jstz.determine().name();
 
                 // Create a new user
-                User.$new().$create(signUpData)
+                User.$new()
+                    .$create(signUpData)
                     .then(function () {
                         $scope.isSignUpErrorOcurred = false;
 
                         // Log in the user
-                        AuthService.login(signUpData.email, signUpData.password).then(function () {
-                            StatesHandler.goToReminders();
-                        });
-                    }).catch(function (response) {
+                        AuthService
+                            .login(signUpData.email, signUpData.password)
+                            .then(function () {
+                                StatesHandler.goToReminders();
+                            });
+                    })
+                    .catch(function (response) {
 
                         $scope.errorMessages = response.data && response.data.errors;
 
@@ -58,9 +62,6 @@ angular
 
                         $scope.isSignUpErrorOcurred = true;
                     });
-            }
-            else {
-                $scope.signUpForm.submitted = true;
             }
 
         }
