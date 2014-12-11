@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .factory("User", function (SessionService, AuthService, $q) {
+    .factory("User", function (SessionService, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -42,7 +42,7 @@ angular
                             this[property] = fromData[property];
                         }, toBeSaved));
 
-                        return AuthService.updateAccount(toBeSaved);
+                        return this.updateAccount(toBeSaved);
                     },
 
                     /**
@@ -57,17 +57,17 @@ angular
 
                         var toBeSaved = {};
                         var originalUser = this;
-                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
-                            this[property] = originalUser[property];
-                        }, toBeSaved));
+                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], function (property) {
+                            toBeSaved[property] = originalUser[property];
+                        });
 
-                        return AuthService.createAccount(toBeSaved);
+                        return this.createAccount(toBeSaved);
                     },
 
                     $refresh: function () {
                         var originalUser = this;
 
-                        return AuthService.retrieveDetails()
+                        return this.retrieveDetails()
                             .then(function (response) {
                                 _.each(["userId", "firstName", "lastName", "email", "timezone"], function (property) {
                                     originalUser[property] = response.data[property];
@@ -79,6 +79,32 @@ angular
                             .catch(function (response) {
                                 return $q.reject(response);
                             });
+                    },
+
+                    /**
+                     * Retrieves details about the current account.
+                     * @returns {*}
+                     */
+                    retrieveDetails: function () {
+                        return $http.get(URLTo.api(AUTH_URLS.details));
+                    },
+
+                    /**
+                     * Creates the account.
+                     * @param account
+                     * @returns {*}
+                     */
+                    createAccount: function (account) {
+                        return $http.post(URLTo.api(AUTH_URLS.create), account);
+                    },
+
+                    /**
+                     * Updates given account.
+                     * @param account
+                     * @returns {*}
+                     */
+                    updateAccount: function (account) {
+                        return $http.post(URLTo.api(AUTH_URLS.update), account);
                     }
 
                 }
