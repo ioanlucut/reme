@@ -68,10 +68,6 @@ angular
                         $scope.resetPasswordData.newPasswordConfirmation = "";
                     });
             }
-            else {
-                $scope.resetPasswordForm.submitted = true;
-            }
-
         };
 
         /**
