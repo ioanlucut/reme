@@ -30,7 +30,8 @@ angular
         $scope.updatePassword = function (updatePasswordData) {
             if ( $scope.updatePasswordForm.$valid ) {
 
-                AuthService.updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
+                AuthService
+                    .updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
                     .then(function () {
                         $scope.isUpdatePasswordErrorOcurred = false;
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
@@ -50,9 +51,5 @@ angular
                         $scope.updatePasswordData.newPasswordConfirmation = "";
                     });
             }
-            else {
-                $scope.updatePasswordForm.submitted = true;
-            }
-
         }
     });

@@ -25,18 +25,17 @@ angular
          */
         $scope.requestPasswordReset = function () {
             if ( $scope.forgotPasswordForm.$valid ) {
-                AuthService.requestPasswordReset($scope.forgotPasswordData.email)
+                AuthService
+                    .requestPasswordReset($scope.forgotPasswordData.email)
                     .then(function () {
                         $scope.isRequestPasswordErrorOcurred = false;
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
-                    }).catch(function (response) {
+                    })
+                    .catch(function (response) {
                         $scope.isRequestPasswordErrorOcurred = true;
 
                         $scope.errorMessages = response.data && response.data.errors;
                     });
-            }
-            else {
-                $scope.forgotPasswordForm.submitted = true;
             }
 
         }
