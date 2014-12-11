@@ -1,6 +1,14 @@
-/**
- * Main site module declaration including ui templates.
- */
+/
+dsad
+@dsa.dsa * *
+* Main
+site
+module
+declaration
+including
+ui
+templates.
+    * /
 angular
     .module("reminders", [
         "ui.router",

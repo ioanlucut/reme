@@ -1,19 +1,6 @@
 <div ng-show="! isSaving" class="reminder-form-container">
     <form class="reminder-form container box" name="reminderForm" ng-submit="saveReminder()" novalidate focus-first-error>
 
-        <div class="brand">
-            <a href="http://reme.io" class="logo" target="_self">
-                <span class="img">Logo Image</span>
-            </a>
-            <span class="text">
-                <a href="http://reme.io" class="name" target="_self">REME.IO</a>
-                <span class="beta">beta</span>
-                <span class="slogan">Create email reminders in seconds</span>
-            </span>
-        </div>
-
-        <hr />
-
         <div class="form-group text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.submitted}">
             <label>Remind me to:</label>
             <input class="form-control input-lg" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.attributes.text" nlp-date date="reminder.attributes.due_on" separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus required />
@@ -26,7 +13,7 @@
                 </button>
             </div>
 
-            <div class="time" timepicker-popup ng-model="reminder.attributes.due_on" step="30"></div>
+            <div class="time" timepicker-popup dropdown ng-model="reminder.attributes.due_on" step="30"></div>
         </div>
 
         <div class="addressees">

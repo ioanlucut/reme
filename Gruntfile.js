@@ -95,6 +95,26 @@ module.exports = function (grunt) {
             }
         },
 
+        less: {
+            compile: {
+                options: {
+                    paths: [""]
+                },
+                files: {
+                    "build/css/app2.css": "src/less/bootstrap.less"
+                }
+            },
+            compileAndClean: {
+                options: {
+                    paths: [""],
+                    cleancss: true
+                },
+                files: {
+                    "build/css/app2.min.css": "src/less/bootstrap.less"
+                }
+            }
+        },
+
         sass: {
             dist: {
                 options: {
@@ -215,6 +235,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-sass");
+    grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -222,7 +243,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-html2js");
 
-    grunt.registerTask("default", ["html2js", "concat", "sass", "copy"]);
+    grunt.registerTask("default", ["html2js", "concat", "sass", "less", "copy"]);
     grunt.registerTask("test", ["jshint"]);
     grunt.registerTask("build", ["html2js", "concat", "ngAnnotate", "uglify", "sass", "cssmin", "copy"]);
 
