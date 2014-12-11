@@ -19,15 +19,19 @@
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.email.$invalid && loginForm.submitted)}">
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.email.$invalid && loginForm.$submitted)}">
                         <input class="form-control" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
-                        <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.submitted">Your email address is mandatory.</span>
+                        <div class="help-block" ng-if="loginForm.email.$touched || loginForm.$submitted">
+                            <div ng-if="loginForm.email.$error.required">Your email address is mandatory.</div>
+                        </div>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.password.$invalid && loginForm.submitted)}">
+                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || (loginForm.password.$invalid && loginForm.$submitted)}">
                         <input class="form-control" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
-                        <span class="help-block" ng-if="loginForm.password.$invalid && loginForm.submitted">Your password is mandatory.</span>
+                        <div class="help-block" ng-if="loginForm.password.$touched || loginForm.$submitted">
+                            <div ng-if="loginForm.password.$error.required">Your password is mandatory.</div>
+                        </div>
                     </div>
                 </div>
 
