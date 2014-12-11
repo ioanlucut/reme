@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
+    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
 
         /**
          * Set default state.
@@ -32,8 +32,10 @@ angular
         $scope.login = function (loginData) {
             if ( $scope.loginForm.$valid ) {
 
-                AuthService.login(loginData.email, loginData.password)
+                AuthService
+                    .login(loginData.email, loginData.password)
                     .then(function () {
+
                         $scope.isAuthenticationErrorOcurred = false;
                         StatesHandler.goHome();
                     })
@@ -42,9 +44,5 @@ angular
                         $scope.isAuthenticationErrorOcurred = true;
                     });
             }
-            else {
-                $scope.loginForm.submitted = true;
-            }
-
         }
     });
