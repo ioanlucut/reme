@@ -131,30 +131,4 @@ angular
                 .post(URLTo.api(AUTH_URLS.refreshToken));
 
         };
-
-        /**
-         * Retrieves details about the current account.
-         * @returns {*}
-         */
-        this.retrieveDetails = function () {
-            return $http.get(URLTo.api(AUTH_URLS.details));
-        };
-
-        /**
-         * Creates the account.
-         * @param account
-         * @returns {*}
-         */
-        this.createAccount = function (account) {
-            return $http.post(URLTo.api(AUTH_URLS.create), account);
-        };
-
-        /**
-         * Updates given account.
-         * @param account
-         * @returns {*}
-         */
-        this.updateAccount = function (account) {
-            return $http.post(URLTo.api(AUTH_URLS.update), account);
-        };
     });
