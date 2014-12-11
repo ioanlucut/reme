@@ -1,0 +1,71 @@
+// Animated
+// ---------------
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+// Highlight button animation
+// ----------------------------
+
+@-webkit-keyframes highlight-button {
+  0%, 100% {
+    background-color: @btn-default-bg;
+  }
+
+  50% {
+    background-color: @btn-highlight-bg;
+  }
+}
+
+@keyframes highlight-button {
+  0%, 100% {
+    background-color: @btn-default-bg;
+  }
+
+  50% {
+    background-color: @btn-highlight-bg;
+  }
+}
+
+.highlight-button {
+  -webkit-animation-name: highlight-button;
+  animation-name: highlight-button;
+}
+
+// Fade in down
+// --------------
+
+@-webkit-keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,146 @@
+// About section and the footer
+// ------------------------------
+
+.about-and-footer {
+  position: relative;
+  background-color: #fff;
+  padding-bottom: (@footer-height + 100);
+}
+
+// About
+// ---------------
+
+.about {
+  padding: 40px 0 0;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.about-title {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 32px;
+  color: @brand-primary;
+}
+
+.about-subtitle {
+  font-size: 16px;
+  color: @gray-light;
+  margin: 0 0 40px;
+}
+
+.faq-question {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.faq-answer {
+  margin: 0 0 40px;
+}
+
+.faq-examples {
+  margin: 10px 0 20px;
+
+  li {
+    margin: 0 0 6px;
+
+    strong {
+      color: @gray-light;
+    }
+  }
+}
+
+@media (max-width: @screen-custom) {
+  .about {
+    padding: 15px;
+  }
+
+  .about-title {
+    font-size: 16px;
+  }
+
+  .about-subtitle {
+    font-size: 14px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+  }
+}
+
+// Footer
+// --------------
+
+.footer {
+  position: absolute;
+  width: 100%;
+  height: @footer-height;
+  bottom: 0;
+  left: 0;
+
+  background-color: @body-bg;
+  color: #777;
+
+  a {
+    color: #777;
+
+    &:hover,
+    &:focus {
+      color: @gray;
+    }
+  }
+}
+
+.footer-inner {
+  width: 95%;
+  max-width: 550px;
+  min-width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-crafted {
+  padding: 25px 0 0;
+}
+
+.footer-utils {
+  padding: 15px 0 0;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.footer-share {
+  padding: 15px 0;
+
+  a {
+    display: inline-block;
+    text-indent: -9999px;
+    height: 32px;
+    width: 32px;
+    margin: 6px 2px 2px;
+
+    .transition(opacity 0.1s linear);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .twitter {
+    background-position: 0 -360px;
+  }
+
+  .facebook {
+    background-position: 0 -420px;
+  }
+
+  .google-plus {
+    background-position: 0 -480px;
+  }
+}

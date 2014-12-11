@@ -1,0 +1,227 @@
+// Reminder form container
+// -------------------------
+
+.reminder-form-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+// Reminder form
+// ---------------
+
+.reminder-form {
+
+  // Reminder datetime
+  // -------------------
+
+  .date-and-time {
+    margin-top: 30px;
+
+    // Reminder date and time
+    // -----------------------
+
+    .date,
+    .time {
+
+      & > .btn {
+        width: 100%;
+        padding-left: 50px;
+        text-align: left;
+      }
+
+      .dropdown-menu {
+        background: @datepicker-bg;
+        padding: 0;
+      }
+    }
+
+    // Reminder date
+    // ---------------
+
+    .date {
+      float: left;
+      position: relative;
+      width: 355px;
+      margin: 0 10px 10px 0;
+
+      .dropdown-menu {
+        min-width: 100%;
+      }
+
+      & > .btn {
+        background-position: 15px -172px;
+      }
+    }
+
+    // Reminder time
+    // ---------------
+
+    .time {
+      float: left;
+      position: relative;
+      margin-bottom: 10px;
+      width: 155px;
+
+      & > .btn {
+        background-position: 15px -231px;
+      }
+    }
+  }
+
+  // Reminder addressees
+  // --------------------
+
+  .addressees {
+    text-align: center;
+
+    // Form group
+    // -------------
+
+    .form-group {
+      position: relative;
+      margin-bottom: 6px;
+
+      &.has-error {
+        .form-control {
+          border: 1px solid @state-danger-text;
+        }
+      }
+    }
+
+    // Close button
+    // ---------------
+
+    .close {
+      display: block;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      position: absolute;
+      top: 11px;
+      right: -25px;
+    }
+
+    // Form control
+    // --------------
+
+    .form-control {
+      display: block;
+      background-color: @brand-tertiary;
+      background-position: 15px -288px;
+      border: none;
+
+      width: 100%;
+      height: 40px;
+      padding: 8px 20px 8px 50px;
+
+      .box-shadow(none);
+      .placeholder(lighten(@gray-light, 10%));
+
+      &:hover,
+      &:focus {
+        background-color: darken(@brand-tertiary, 5%);
+      }
+
+      &:focus {
+        border: none;
+        .box-shadow(none);
+      }
+    }
+
+    // Add emails button
+    // ------------------
+
+    .btn-add-emails {
+      display: inline-block;
+      font-size: 13px;
+    }
+  }
+
+  // Create button
+  //----------------
+
+  .btn-create {
+    display: block;
+    width: 200px;
+    position: relative;
+    margin: 30px auto 0;
+
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+}
+
+// Saving state
+// --------------
+
+.reminder-saving {
+  display: table-cell;
+  width: 150px;
+  margin: 0 auto;
+  padding: 100px 0 0 0;
+  vertical-align: middle;
+
+  text-align: center;
+  font-size: 14px;
+  color: @gray-light;
+
+  background: url("../img/loading.gif") no-repeat center center;
+}
+
+// RESPONSIVE
+// -------------
+
+@media (max-width: @screen-custom) {
+
+  .reminder-form {
+
+    .btn,
+    .form-control {
+      font-size: 13px;
+    }
+
+    .input-lg {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .date-and-time {
+      .date {
+        width: 100%;
+        margin-right: 0;
+
+        & > .btn {
+          background-position: 10px -172px;
+          padding-left: 40px;
+        }
+      }
+
+      .time {
+        width: 100%;
+
+        & > .btn {
+          background-position: 10px -231px;
+          padding-left: 40px;
+        }
+      }
+    }
+
+    .addressees {
+      .form-control {
+        background-position: 10px -288px;
+        padding-left: 40px;
+      }
+
+      .close {
+        position: absolute;
+        top: 8px;
+        right: 2px;
+      }
+    }
+
+    .btn-create {
+      margin-top: 20px;
+    }
+  }
+}
