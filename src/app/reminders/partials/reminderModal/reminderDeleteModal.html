@@ -1,0 +1,13 @@
+<!--Reminder form-->
+<div ng-show="! isDeleting" class="reminder-form-container">
+
+    <div class="reminder-form container box">
+        Are you sure you want to delete reminder with text <strong>{{reminder.model.text}}</strong> and with reminder id <strong>{{reminder.model.reminderId}}</strong>?
+        <br />
+        <a href="#" class="btn-outline reminders__header__btn" ng-click="deleteReminderAndClose(reminder)">Delete reminder</a>
+    </div>
+
+</div>
+
+<!--While saving-->
+<div class="reminder-saving" ng-show="isDeleting">Deleting reminder..</div>
