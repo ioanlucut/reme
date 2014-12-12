@@ -15,7 +15,7 @@ module.exports = function (grunt) {
                     "bower_components/cookies-js/src/cookies.js",
                     "bower_components/mousetrap/mousetrap.js",
                     "bower_components/uploader/uploader.js",
-                    "bower_components/momentjs/moment.js",
+                    "bower_components/moment/moment.js",
                     "bower_components/url-to/url-to.js",
                     "bower_components/hello/dist/hello.all.js",
                     "bower_components/hello/src/modules/facebook.js",
