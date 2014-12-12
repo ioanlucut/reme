@@ -4,6 +4,7 @@
 angular
     .module("app", [
         "ngAnimate",
+        "ngMessages",
         "ui.router",
         "ngCookies",
         "partials",
