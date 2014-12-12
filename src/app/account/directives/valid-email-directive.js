@@ -18,13 +18,9 @@ angular
                     return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
                 }
 
-                // Add parser to the model
-                ngModel.$parsers.unshift(function (value) {
-                    var validEmail = isValidEmail(value);
-                    ngModel.$setValidity('validEmail', validEmail);
-
-                    return validEmail ? value : undefined;
-                });
+                ngModel.$validators.validEmail = function (email) {
+                    return isValidEmail(email);
+                }
             }
         };
     });
