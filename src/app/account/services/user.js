@@ -4,16 +4,27 @@ angular
         return {
 
             $new: function () {
+
                 return {
+
+                    /**
+                     * User model (DTO)
+                     */
+                    model: {
+                        userId: "",
+                        firstName: "",
+                        lastName: "",
+                        email: "",
+                        password: "",
+                        timezone: ""
+                    },
+
                     /**
                      * Loads a user from cookies.
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        var sessionData = SessionService.getData() || {};
-                        _.each(["userId", "firstName", "lastName", "email", "timezone"], _.bind(function (property) {
-                            this[property] = sessionData[property];
-                        }, this));
+                        this.setSelectiveKey(this.model, SessionService.getData() || {});
 
                         return this;
                     },
@@ -24,9 +35,7 @@ angular
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        _.each(["userId", "firstName", "lastName", "email", "timezone"], _.bind(function (property) {
-                            sessionData[property] = this[property];
-                        }, this));
+                        this.setSelectiveKey(sessionData, this, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;
@@ -38,9 +47,7 @@ angular
                      */
                     $save: function (fromData) {
                         var toBeSaved = {};
-                        _.each(["firstName", "lastName", "email", "timezone"], _.bind(function (property) {
-                            this[property] = fromData[property];
-                        }, toBeSaved));
+                        this.setSelectiveKey(toBeSaved, fromData);
 
                         return this.updateAccount(toBeSaved);
                     },
@@ -51,28 +58,20 @@ angular
                      * @returns {*}
                      */
                     $create: function (fromData) {
-                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], _.bind(function (property) {
-                            this[property] = fromData[property];
-                        }, this));
+                        var toBeCreated = {};
+                        this.setSelectiveKey(toBeCreated, fromData);
 
-                        var toBeSaved = {};
-                        var originalUser = this;
-                        _.each(["userId", "firstName", "lastName", "email", "password", "timezone"], function (property) {
-                            toBeSaved[property] = originalUser[property];
-                        });
-
-                        return this.createAccount(toBeSaved);
+                        return this.createAccount(toBeCreated);
                     },
 
                     $refresh: function () {
-                        var originalUser = this;
+                        var that = this;
 
-                        return this.retrieveDetails()
+                        return this
+                            .retrieveDetails()
                             .then(function (response) {
-                                _.each(["userId", "firstName", "lastName", "email", "timezone"], function (property) {
-                                    originalUser[property] = response.data[property];
-                                });
-                                originalUser.saveToSession();
+                                that.setSelectiveKey(that, response.data);
+                                that.saveToSession();
 
                                 return response;
                             })
@@ -105,6 +104,20 @@ angular
                      */
                     updateAccount: function (account) {
                         return $http.post(URLTo.api(AUTH_URLS.update), account);
+                    },
+
+                    /**
+                     * Sets selective keys on a target object from a source object.
+                     * @param targetObject
+                     * @param sourceObject
+                     * @param skipKeys
+                     */
+                    setSelectiveKey: function (targetObject, sourceObject, skipKeys) {
+                        _.each(_.keys(this.model), function (key) {
+                            if ( !(skipKeys && _.contains(skipKeys, key)) ) {
+                                targetObject[key] = sourceObject[key];
+                            }
+                        });
                     }
 
                 }

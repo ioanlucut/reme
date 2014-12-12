@@ -26,10 +26,10 @@ angular
          * Profile user information
          */
         $scope.profileData = {
-            firstName: $scope.user.firstName,
-            lastName: $scope.user.lastName,
-            email: $scope.user.email,
-            timezone: $scope.user.timezone
+            firstName: $scope.user.model.firstName,
+            lastName: $scope.user.model.lastName,
+            email: $scope.user.model.email,
+            timezone: $scope.user.model.timezone
         };
 
         /**
