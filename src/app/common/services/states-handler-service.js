@@ -1,6 +1,6 @@
 angular
     .module("common")
-    .service("StatesHandler", function ($state, STATES) {
+    .service("StatesHandler", function ($state, $stateParams, STATES) {
 
         this.goHome = function () {
             this.go(STATES.home);
@@ -24,5 +24,13 @@ angular
 
         this.go = function (state) {
             $state.go(state);
+        };
+
+        this.refreshCurrentState = function () {
+            $state.transitionTo($state.current, $stateParams, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
         }
     });
