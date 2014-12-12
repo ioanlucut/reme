@@ -9,55 +9,28 @@ angular
             link: function (scope, el, attr, ngModel) {
 
                 /**
-                 * Check whether a string is a valid email address.
-                 *
-                 * @param email
-                 * @returns {boolean}
-                 */
-                function isValidEmail(email) {
-                    return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
-                }
-
-                /**
                  * Check whether an email address is unique.
                  *
                  * @param email
                  * @returns {promise|defer.promise}
                  */
-                function isUniqueEmail(email) {
-
-                    // Create deferred
+                ngModel.$asyncValidators.uniqueEmail = function (email) {
                     var deferred = $q.defer();
 
-                    if ( !isValidEmail(email) ) {
-                        deferred.resolve(false);
-                    } else {
-                        UserService.unique(email)
-
-                            .then(function (isUnique) {
-                                deferred.resolve(isUnique);
-                            });
-                    }
+                    UserService
+                        .isUnique(email)
+                        .then(function (response) {
+                            if ( !response.isUnique ) {
+                                deferred.reject();
+                            }
+                            else {
+                                deferred.resolve(response.isUnique);
+                            }
+                        });
 
                     return deferred.promise;
+
                 }
-
-                // Re-validate on change
-                scope.$watch("ngModel", function (value) {
-
-                    if ( isValidEmail(value) ) {
-
-                        // Set validity
-                        isUniqueEmail(value)
-                            .then(function (data) {
-
-                                // Make sure we are validating the latest value of the model (asynchronous responses)
-                                if ( data.email == ngModel.$viewValue ) {
-                                    ngModel.$setValidity('uniqueEmail', data.isUnique);
-                                }
-                            });
-                    }
-                });
             }
         };
     });
