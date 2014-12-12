@@ -2,21 +2,45 @@ angular
     .module("common")
     .service("CamelCaseTransform", function (humps) {
 
+        /**
+         * Transformation type. Can be camelize or decamelize only.
+         * @type {{CAMELIZE: string, DECAMELIZE: string}}
+         */
         this.TRANSFORMATION_TYPE = {
             CAMELIZE: "CAMELIZE",
             DECAMELIZE: "DECAMELIZE"
         };
 
-        this.transform = function (that, transformationType) {
+        /**
+         * Transforms an object camelized or decamelized.
+         * @param objectToTransform
+         * @param transformationType
+         */
+        this.transform = function (objectToTransform, transformationType) {
+            if ( objectToTransform && _.isArray(objectToTransform) ) {
+                _.each(objectToTransform, _.bind(function (arrayElement) {
+                    this.transformObject(arrayElement, transformationType);
+                }, this));
+            } else {
+                this.transformObject(objectToTransform, transformationType);
+            }
+        };
+
+        /**
+         * Transforms an object camelized or decamelized (handles only simple objects, non-array).
+         * @param objectToTransform
+         * @param transformationType
+         */
+        this.transformObject = function (objectToTransform, transformationType) {
             var thisService = this;
 
-            if ( that && typeof that === 'object' ) {
-                _.each(that, function (value, key) {
-                    if ( that.hasOwnProperty(key) ) {
+            if ( objectToTransform && _.isObject(objectToTransform) ) {
+                _.each(objectToTransform, function (value, key) {
+                    if ( objectToTransform.hasOwnProperty(key) ) {
                         var newKey = transformationType === thisService.TRANSFORMATION_TYPE.CAMELIZE ? humps.camelize(key) : humps.decamelize(key);
                         if ( key !== newKey ) {
-                            that[newKey] = that[key];
-                            delete that[key];
+                            objectToTransform[newKey] = objectToTransform[key];
+                            delete objectToTransform[key];
                         }
                     }
                 });
