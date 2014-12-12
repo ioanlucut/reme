@@ -5,6 +5,10 @@ angular
     .filter('friendlyDate', function () {
         return function (date) {
 
+            if ( !_.isDate(date) ) {
+                date = moment(date).toDate();
+            }
+
             var dateFormat = "{Weekday}, {dd} {Month} {yyyy}";
 
             // Use custom date format for Today and Tomorrow
