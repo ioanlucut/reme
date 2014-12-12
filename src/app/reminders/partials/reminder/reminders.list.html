@@ -1,0 +1,24 @@
+<div class="reminder" ng-repeat="reminder in reminderList">
+    <div class="reminder__title">
+        {{reminder.text}}
+    </div>
+    <div class="reminder__info">
+        <div class="reminder__info__item reminder__info__item--date">
+            <span class="icon-calendar"></span>
+            {{reminder.dueOn}}
+        </div>
+        <div class="reminder__info__item reminder__info__item--recurring">
+            <span class="icon-recurring"></span>
+            Every week on Monday
+        </div>
+        <div class="reminder__info__item reminder__info__item--time">
+            <span class="icon-clock"></span>
+            18:00
+        </div>
+    </div>
+    <div class="reminder__menu">
+        <a class="reminder__menu__option" href="#"><span class="icon-pencil"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
+        <a class="reminder__menu__option" href="#"><span class="icon-trash"></span></a>
+    </div>
+</div>
