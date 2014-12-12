@@ -1,11 +1,11 @@
-<div class="reminder" ng-repeat="reminder in reminderList">
+<div class="reminder" ng-repeat="reminder in reminderList | orderObjectBy : 'dueOn' : true">
     <div class="reminder__title">
         {{reminder.text}}
     </div>
     <div class="reminder__info">
         <div class="reminder__info__item reminder__info__item--date">
             <span class="icon-calendar"></span>
-            {{reminder.dueOn}}
+            {{reminder.dueOn | friendlyDate}}
         </div>
         <div class="reminder__info__item reminder__info__item--recurring">
             <span class="icon-recurring"></span>
@@ -13,7 +13,7 @@
         </div>
         <div class="reminder__info__item reminder__info__item--time">
             <span class="icon-clock"></span>
-            18:00
+            {{reminder.dueOn | friendlyHour}}
         </div>
     </div>
     <div class="reminder__menu">
