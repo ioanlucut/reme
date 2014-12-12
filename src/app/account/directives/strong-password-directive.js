@@ -18,12 +18,9 @@ angular
                     return !!password && password.length >= 7;
                 }
 
-                // Add parser
-                ngModel.$parsers.unshift(function (value) {
-                    var isValid = isStrongPassword(value);
-                    ngModel.$setValidity('strongPassword', isValid);
-                    return isValid ? value : undefined;
-                });
+                ngModel.$validators.strongPassword = function (password) {
+                    return isStrongPassword(password);
+                }
             }
         };
     });
