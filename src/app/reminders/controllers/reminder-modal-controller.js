@@ -1,13 +1,22 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$state", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "reminder", "$timeout", "StatesHandler", function ($scope, $rootScope, $state, $stateParams, $window, $, URLTo, ReminderModalService, reminder, $timeout, StatesHandler) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "reminder", "$timeout", "StatesHandler", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, reminder, $timeout, StatesHandler) {
 
-        $rootScope.$state = $state;
+        /**
+         * Reminder to be created (injected with few default values)
+         */
         $scope.reminder = reminder;
-        $scope.isSaving = false;
-        $scope.isNew = $scope.reminder.isNew();
 
-        // Reminder examples
+        /**
+         * Flag which represents wheter
+         * @type {boolean}
+         */
+        $scope.isSaving = false;
+
+        /**
+         * Reminder examples pool
+         * @type {string[]}
+         */
         var reminderExamples = [
             "Pay rent @tomorrow at 3pm",
             "Josh's birthday party @next Friday at 18:00",
@@ -17,36 +26,40 @@ angular
             "My brother's wedding next month @June 22"
         ];
 
-        // Get a random example
-        var index = Math.floor((Math.random() * reminderExamples.length));
-        $scope.randomExample = reminderExamples[index];
+        /**
+         * Random reminder example
+         * @type {string}
+         */
+        $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
+
+        // Focus the first input when modal is opened
+        ReminderModalService.modalInstance
+            .opened
+            .then(function () {
+                $scope.isOpen = true;
+            }
+        );
 
         // Save the reminder
         $scope.saveReminderAndClose = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
+
+                // Is saving reminder
                 $scope.isSaving = true;
+
                 $scope.reminder.create()
-                    .then(function (response) {
+                    .then(function () {
 
-                        // Reminder saved
-                        $scope.isSaving = false;
-                        $scope.isSent = true;
-
-                        StatesHandler.refreshCurrentState();
-                        // Wait 2 seconds, and close the modal
+                        // Wait 1 seconds, and close the modal
                         $timeout(function () {
                             ReminderModalService.modalInstance.close();
-                        }, 1500);
+                        }, 1000);
                     })
                     .catch(function () {
 
                         // Error
                         $scope.isSaving = false;
                         alert("Something went wrong. Please try again.");
-                    }).
-                    finally(function () {
-                        $scope.isSending = false;
-                        $scope.isOpen = false;
                     });
             }
         };
