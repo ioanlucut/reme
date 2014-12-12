@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -48,11 +48,21 @@ angular
         $scope.resetPassword = function (resetPasswordData) {
             if ( $scope.resetPasswordForm.$valid ) {
 
-                AuthService.resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
+                AuthService
+                    .resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
                     .then(function () {
                         $scope.isResetPasswordErrorOcurred = false;
                         $scope.successfullyReseted = true;
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
+
+                        // Log in the user, and forward it to the reminders page.
+                        AuthService
+                            .login(resetPasswordData.email, resetPasswordData.password)
+                            .then(function () {
+                                $timeout(function () {
+                                    StatesHandler.goToReminders();
+                                }, 1500);
+                            });
                     })
                     .catch(function (response) {
                         $scope.isResetPasswordErrorOcurred = true;
@@ -71,13 +81,6 @@ angular
         };
 
         /**
-         * Continues to login page.
-         */
-        $scope.continueToLogin = function () {
-            StatesHandler.goToLogin();
-        };
-
-        /**
          * Continues to reset password page. (try again functionality)
          */
         $scope.continueToResetPassword = function () {
@@ -85,6 +88,6 @@ angular
                 AuthService.logout();
             }
             ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
-            $scope.continueToLogin();
+            StatesHandler.goToLogin();
         }
     });
