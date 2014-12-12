@@ -15,7 +15,7 @@ angular
          * @param email
          * @returns {*}
          */
-        this.unique = function (email) {
+        this.isUnique = function (email) {
             // Create deferred
             var deferred = $q.defer();
 
