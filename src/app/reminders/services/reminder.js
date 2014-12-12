@@ -48,6 +48,10 @@ angular
                         return ReminderService.createReminder(toBeCreated);
                     },
 
+                    destroy: function () {
+                        return ReminderService.deleteReminder(this.model);
+                    },
+
                     fetch: function (reminderId) {
                         var that = this;
                         var deferred = $q.defer();
