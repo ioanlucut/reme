@@ -52,6 +52,7 @@ a {
   color: $link-color;
   text-decoration: none;
   //font-size: 14px;
+  @include transition(all 0.2s);
 
   &:hover,
   &:focus {

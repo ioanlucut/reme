@@ -69,6 +69,12 @@
 
   &:hover {
     color: darken($color-secondary, 15%);
+
+.link-dark-bg {
+  color: lighten($brand-primary, 35%);
+
+  &:hover {
+    color: #ffffff;
   }
 }
 
