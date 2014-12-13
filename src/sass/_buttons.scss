@@ -57,18 +57,20 @@
 }
 
 .link-primary {
-  color: $color-base;
+  color: $text-color-base;
 
   &:hover {
-    color: lighten($color-base, 35%);
+    color: lighten($text-color-base, 35%);
   }
 }
 
 .link-secondary {
-  color: $color-secondary;
+  color: $text-color-secondary;
 
   &:hover {
-    color: darken($color-secondary, 15%);
+    color: darken($text-color-secondary, 15%);
+  }
+}
 
 .link-dark-bg {
   color: lighten($brand-primary, 35%);
@@ -96,7 +98,7 @@
   @include transition(all 0.4s);
 
   &:hover {
-    color: invert($color-base);
+    color: invert($text-color-base);
     background-color: $brand-primary;
   }
 }

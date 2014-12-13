@@ -38,7 +38,7 @@
     @include clearfix();
 
     &__item {
-      color: $color-secondary;
+      color: $text-color-secondary;
       padding: 0 5px;
 
       span {

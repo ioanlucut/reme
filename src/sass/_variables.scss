@@ -35,8 +35,8 @@ $gray12: #f5f6f7 !default;
 
 $brand-primary: #8471B1 !default;
 
-$color-base: #000000 !default;
-$color-secondary: $gray9;
+$text-color-base: #000000 !default;
+$text-color-secondary: $gray9;
 $color-light-bg: $gray12;
 $color-light-text: #ffffff;
 
@@ -76,7 +76,7 @@ $twitter-color: #55acee;
 
 $body-bg: $gray12;
 //#fff !default;
-$text-color: $color-base;
+$text-color: $text-color-base;
 
 $global-width: 700px;
 $header-height: 50px;
@@ -84,7 +84,7 @@ $header-height: 50px;
 // Links
 // -------------------------
 
-$link-color: $color-secondary !default;
+$link-color: $text-color-secondary !default;
 $link-color-hover: darken($link-color, 10%);
 
 // Typography
