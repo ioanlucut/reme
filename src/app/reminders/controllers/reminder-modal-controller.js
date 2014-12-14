@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "reminder", "$timeout", "StatesHandler", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, reminder, $timeout, StatesHandler) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -8,7 +8,7 @@ angular
         $scope.reminder = reminder;
 
         /**
-         * Flag which represents wheter
+         * Flag which represents whether
          * @type {boolean}
          */
         $scope.isSaving = false;
@@ -48,12 +48,19 @@ angular
                 $scope.isSaving = true;
 
                 $scope.reminder.create()
-                    .then(function () {
+                    .then(function (reminderAsResponse) {
 
                         // Wait 1 seconds, and close the modal
                         $timeout(function () {
                             ReminderModalService.modalInstance.close();
                         }, 1000);
+
+                        $timeout(function () {
+                            $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
+                                reminder: reminderAsResponse,
+                                message: 'Reminder successfully created!'
+                            });
+                        }, 1500);
                     })
                     .catch(function () {
 
