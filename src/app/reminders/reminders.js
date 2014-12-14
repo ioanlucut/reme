@@ -39,8 +39,7 @@ angular
                                     .then(function (response) {
                                         deferred.resolve(response);
                                     }).catch(function () {
-                                        console.log('error');
-                                        deferred.resolve("nix");
+                                        deferred.resolve([]);
                                     });
 
                                 return deferred.promise;
