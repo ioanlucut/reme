@@ -2,7 +2,6 @@
 // Forms
 // --------------------------------------------------
 
-
 // Normalize non-controls
 //
 // Restyle and baseline non-control form elements.
@@ -12,7 +11,6 @@ fieldset {
   margin: 0;
   border: 0;
 }
-
 
 .form-control {
   display: block;
@@ -59,7 +57,6 @@ fieldset {
   // [converter] extracted textarea& to textarea.form-control
 }
 
-
 // Form groups
 //
 // Designed to help with the organization and spacing of vertical forms. For
@@ -68,7 +65,6 @@ fieldset {
 .form-group {
   margin-bottom: 10px;
 }
-
 
 // Checkboxes and radios
 //
@@ -139,7 +135,6 @@ input[type="checkbox"],
 
 //@include input-size('.input-lg', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
 
-
 // Form control feedback states
 //
 // Apply contextual and semantic states to individual form controls.
@@ -148,15 +143,16 @@ input[type="checkbox"],
 .has-warning {
   @include form-control-validation($state-warning-text, $state-warning-text, $state-warning-bg);
 }
+
 // Error
 .has-error {
   @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
 }
+
 // Success
 .has-success {
   @include form-control-validation($state-success-text, $state-success-text, $state-success-bg);
 }
-
 
 // Static form control text
 //
@@ -166,7 +162,6 @@ input[type="checkbox"],
 .form-control-static {
   margin-bottom: 0; // Remove default margin from `p`
 }
-
 
 // Help text
 //
@@ -180,8 +175,6 @@ input[type="checkbox"],
   //color: lighten($text-color, 25%); // lighten the text some for contrast
   color: $brand-danger;
 }
-
-
 
 // Inline forms
 //
@@ -228,7 +221,6 @@ input[type="checkbox"],
 //  }
 //}
 
-
 // Horizontal forms
 //
 // Horizontal forms are built on grid classes and allow you to create forms with
@@ -263,3 +255,10 @@ input[type="checkbox"],
 //    }
 //  }
 //}
+
+.alert-reme {
+  width: auto;
+  max-width: 300px;
+  margin: 10px auto 20px;
+  text-align: center;
+}
