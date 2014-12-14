@@ -1,3 +1,13 @@
+<!-- Subscribe to success flash messages. -->
+<div flash-alert="success" active-class="in" class="alert fade">
+    <strong class="alert-heading">Congrats!</strong>
+    <span class="alert-message">{{flash.message}}</span>
+</div>
+
+<!--Reminder list is empty-->
+<span ng-if="reminderList.length === 0">You don't have any reminders defined.</span>
+
+<!--Reminder list-->
 <div class="reminder" ng-repeat="reminder in reminderList | orderObjectBy : 'dueOn' : true">
     <div class="reminder__title">
         {{reminder.text}}
