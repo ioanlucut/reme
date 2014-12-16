@@ -1,6 +1,6 @@
 <!--Reminder form-->
 <div ng-show="! isSaving" class="reminder-form-container">
-    <form class="reminder-form container box" name="reminderForm" ng-submit="saveReminderAndClose(reminderForm)" novalidate focus-first-error>
+    <form class="reminder-form container box" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
 
         <!--Reminder text-->
         <div class="form-group text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
@@ -22,18 +22,18 @@
 
         <!--Reminder addresses-->
         <div class="addressees">
-            <div class="form-group" ng-class="{'has-error': reminderForm.createdBy.$invalid && reminderForm.$submitted}">
-                <input class="form-control bg-sprite" type="email" placeholder="Your email address" name="createdBy" ng-model="reminder.model.createdBy" required />
+            <div class="form-group">
+                <div class="form-control bg-sprite">{{currentUser.model.email}}</div>
             </div>
 
-            <div email-list ng-model="reminder.model.additionalAddressees" max-emails="5" parent-form="reminderForm"></div>
+            <div email-list ng-model="reminder.model.additionalAddresses" max-emails="5" parent-form="reminderForm"></div>
         </div>
 
         <!--Submit form button-->
-        <button type="submit" class="btn btn-primary btn-lg btn-create">Create reminder</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-create">{{isNew ? "Create reminder" : "Update reminder"}}</button>
 
     </form>
 </div>
 
 <!--While saving-->
-<div class="reminder-saving" ng-show="isSaving">Saving reminder..</div>
+<div class="reminder-saving" ng-show="isSaving">{{isNew ? "Saving reminder" : "Updating reminder"}}</div>
