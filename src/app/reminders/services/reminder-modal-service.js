@@ -24,7 +24,7 @@ angular
                             text: "",
                             dueOn: defaultDueOn,
                             timezone: jstz.determine().name(),
-                            additionalAddressees: []
+                            additionalAddresses: []
                         });
                     }]
                 }
