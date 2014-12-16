@@ -1,11 +1,16 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
          */
         $scope.reminder = reminder;
+
+        /**
+         * Flag which says whether reminder is new or not.
+         */
+        $scope.isNew = $scope.reminder.isNew();
 
         /**
          * Flag which represents whether
@@ -32,35 +37,28 @@ angular
          */
         $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
 
-        // Focus the first input when modal is opened
-        ReminderModalService.modalInstance
-            .opened
-            .then(function () {
-                $scope.isOpen = true;
-            }
-        );
-
         // Save the reminder
-        $scope.saveReminderAndClose = function (reminderForm) {
+        $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
 
                 // Is saving reminder
                 $scope.isSaving = true;
 
-                $scope.reminder.create()
+                $scope.reminder.save()
                     .then(function (reminderAsResponse) {
-
-                        // Wait 1 seconds, and close the modal
                         $timeout(function () {
-                            ReminderModalService.modalInstance.close();
-                        }, 1000);
+                            if ( $scope.isNew ) {
+                                ReminderModalService.modalInstance.close();
+                            }
+                            else {
+                                ReminderUpdateModalService.modalInstance.close();
+                            }
 
-                        $timeout(function () {
-                            $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
+                            $rootScope.$broadcast($scope.isNew ? REMINDER_EVENTS.isCreated : REMINDER_EVENTS.isUpdated, {
                                 reminder: reminderAsResponse,
-                                message: 'Reminder successfully created!'
+                                message: 'Reminder successfully saved!'
                             });
-                        }, 1500);
+                        }, 500);
                     })
                     .catch(function () {
 
