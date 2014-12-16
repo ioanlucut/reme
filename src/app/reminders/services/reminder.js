@@ -15,7 +15,7 @@ angular
                         text: "",
                         dueOn: "",
                         timezone: "",
-                        additionalAddressees: [],
+                        additionalAddresses: [],
                         createdBy: "",
                         sent: "",
                         createdAt: "",
@@ -23,33 +23,16 @@ angular
                     },
 
                     isNew: function () {
-                        return this.reminderId !== "";
+                        return this.model.reminderId === undefined;
                     },
 
-                    loadFrom: function (loadFromModel) {
-                        this.copyKeysFromTo(loadFromModel, this.model);
-
-                        return this;
-                    },
-
-                    update: function (fromData) {
+                    save: function (fromData) {
                         var toBeSaved = {};
                         this.copyKeysFromTo(fromData || this.model, toBeSaved);
                         toBeSaved["dueOn"] = toBeSaved["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+                        toBeSaved["additionalAddresses"] = toBeSaved["additionalAddresses"].join(",");
 
-                        return ReminderService.updateReminder(toBeSaved);
-                    },
-
-                    create: function (fromData) {
-                        var toBeCreated = {};
-                        this.copyKeysFromTo(fromData || this.model, toBeCreated);
-                        toBeCreated["dueOn"] = toBeCreated["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
-
-                        return ReminderService.createReminder(toBeCreated);
-                    },
-
-                    destroy: function () {
-                        return ReminderService.deleteReminder(this.model);
+                        return this.isNew() ? ReminderService.createReminder(toBeSaved) : ReminderService.updateReminder(toBeSaved);
                     },
 
                     fetch: function (reminderId) {
@@ -59,7 +42,7 @@ angular
                         ReminderService
                             .getDetails(reminderId || that.model.reminderId)
                             .then(function (response) {
-                                that.copyKeysFromTo(response, that.model);
+                                that.parseFromTo(response, that);
 
                                 deferred.resolve(that);
                                 return response;
@@ -71,12 +54,34 @@ angular
                         return deferred.promise;
                     },
 
+                    destroy: function () {
+                        return ReminderService.deleteReminder(this.model);
+                    },
+
                     copyKeysFromTo: function (sourceObject, targetObject, skipKeys) {
                         _.each(_.keys(this.model), function (key) {
                             if ( !(skipKeys && _.contains(skipKeys, key)) ) {
                                 targetObject[key] = sourceObject[key];
                             }
                         });
+                    },
+
+                    parseFromTo: function (sourceObject, targetObject) {
+                        targetObject.copyKeysFromTo(sourceObject, targetObject.model);
+                        targetObject.model["dueOn"] = moment(targetObject.model["dueOn"]).toDate();
+                        var additionAddresses = targetObject.model["additionalAddresses"];
+                        if ( additionAddresses === "" ) {
+                            targetObject.model["additionalAddresses"] = [];
+                        }
+                        else {
+                            targetObject.model["additionalAddresses"] = _.values(additionAddresses.split(","));
+                        }
+                    },
+
+                    loadFrom: function (loadFromModel) {
+                        this.copyKeysFromTo(loadFromModel, this.model);
+
+                        return this;
                     }
 
                 };
