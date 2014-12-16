@@ -262,3 +262,20 @@ input[type="checkbox"],
   margin: 10px auto 20px;
   text-align: center;
 }
+
+.reminder {
+  opacity: 1;
+}
+
+.reminder.ng-enter {
+  -webkit-transition: 3s;
+  transition: 3s;
+  opacity: 0;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+
+.reminder.ng-enter-active {
+  opacity: 1;
+}
