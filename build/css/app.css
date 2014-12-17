@@ -1,0 +1,1373 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+/*! normalize.css v2.1.3 | MIT License | git.io/normalize */
+/* line 11, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+/* line 30, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+/* line 41, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/* line 51, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+[hidden],
+template {
+  display: none;
+}
+
+/* line 66, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* line 76, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+body {
+  margin: 0;
+}
+
+/* line 88, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+a {
+  background: transparent;
+}
+
+/* line 96, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+a:focus {
+  outline: thin dotted;
+}
+
+/* line 104, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* line 118, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* line 127, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/* line 135, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+b,
+strong {
+  font-weight: bold;
+}
+
+/* line 144, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/* line 152, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+/* line 162, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+}
+
+/* line 171, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+
+/* line 183, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+pre {
+  white-space: pre-wrap;
+}
+
+/* line 191, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+/* line 199, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+small {
+  font-size: 80%;
+}
+
+/* line 207, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 215, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 219, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 231, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+img {
+  border: 0;
+}
+
+/* line 239, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* line 251, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+figure {
+  margin: 0;
+}
+
+/* line 263, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/* line 274, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+legend {
+  border: 0;
+  padding: 0;
+}
+
+/* line 285, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+}
+
+/* line 299, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button,
+input {
+  line-height: normal;
+}
+
+/* line 311, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button,
+select {
+  text-transform: none;
+}
+
+/* line 324, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+/* line 336, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+/* line 346, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* line 358, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 370, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* line 379, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 390, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* line 403, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 8, ../../src/sass/_scaffolding.scss */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 17, ../../src/sass/_scaffolding.scss */
+html {
+  height: 100%;
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* line 23, ../../src/sass/_scaffolding.scss */
+body {
+  height: 100%;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857;
+  color: #000000;
+  background-color: #f5f6f7;
+  text-rendering: optimizeLegibility;
+}
+
+/* line 34, ../../src/sass/_scaffolding.scss */
+body.scroll-disabled {
+  overflow: hidden;
+}
+
+/* line 39, ../../src/sass/_scaffolding.scss */
+input,
+button,
+select,
+textarea {
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* line 51, ../../src/sass/_scaffolding.scss */
+a {
+  color: #bbbfc4;
+  text-decoration: none;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+/* line 57, ../../src/sass/_scaffolding.scss */
+a:hover, a:focus {
+  text-decoration: none;
+  color: #a0a5ac;
+}
+/* line 63, ../../src/sass/_scaffolding.scss */
+a:active, a:focus {
+  outline: none;
+}
+
+/* line 70, ../../src/sass/_scaffolding.scss */
+.link-text:hover, .link-text:focus {
+  text-decoration: underline;
+}
+
+/* line 80, ../../src/sass/_scaffolding.scss */
+img {
+  vertical-align: middle;
+}
+
+/* line 85, ../../src/sass/_scaffolding.scss */
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* line 9, ../../src/sass/_forms.scss */
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/* line 15, ../../src/sass/_forms.scss */
+.form-control {
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 100%;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.33px;
+  vertical-align: middle;
+  background-color: #fff;
+  border: solid 1px #bbbfc4;
+  border-radius: 3px;
+}
+/* line 34, ../../src/sass/_forms.scss */
+.form-control:focus {
+  border-color: #8471B1;
+  outline: 2;
+  outline-color: #dad4e7;
+}
+/* line 57, ../../src/sass/_mixins.scss */
+.form-control:-moz-placeholder {
+  color: #bbbfc4;
+}
+/* line 58, ../../src/sass/_mixins.scss */
+.form-control::-moz-placeholder {
+  color: #bbbfc4;
+}
+/* line 59, ../../src/sass/_mixins.scss */
+.form-control:-ms-input-placeholder {
+  color: #bbbfc4;
+}
+/* line 60, ../../src/sass/_mixins.scss */
+.form-control::-webkit-input-placeholder {
+  color: #bbbfc4;
+}
+/* line 50, ../../src/sass/_forms.scss */
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #52585e;
+}
+
+/* line 65, ../../src/sass/_forms.scss */
+.form-group {
+  margin-bottom: 10px;
+}
+
+/*
+.radio,
+.checkbox {
+  display: block;
+  min-height: $line-height-computed; // clear the floating input if there is no label text
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  vertical-align: middle;
+  label {
+    display: inline;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+  }
+}
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  float: left;
+  margin-left: -20px;
+}
+.radio + .radio,
+.checkbox + .checkbox {
+  margin-top: -5px; // Move up sibling radios or checkboxes for tighter spacing
+}
+
+// Radios and checkboxes on same line
+.radio-inline,
+.checkbox-inline {
+  display: inline-block;
+  padding-left: 20px;
+  margin-bottom: 0;
+  vertical-align: middle;
+  font-weight: normal;
+  cursor: pointer;
+}
+.radio-inline + .radio-inline,
+.checkbox-inline + .checkbox-inline {
+  margin-top: 0;
+  margin-left: 10px; // space out consecutive inline controls
+}
+
+// Apply same disabled cursor tweak as for inputs
+//
+// Note: Neither radios nor checkboxes can be readonly.
+input[type="radio"],
+input[type="checkbox"],
+.radio,
+.radio-inline,
+.checkbox,
+.checkbox-inline {
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: not-allowed;
+  }
+}
+*/
+/* line 881, ../../src/sass/_mixins.scss */
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .radio,
+.has-warning .checkbox,
+.has-warning .radio-inline,
+.has-warning .checkbox-inline {
+  color: #c09853;
+}
+/* line 890, ../../src/sass/_mixins.scss */
+.has-warning .form-control {
+  border-color: #c09853;
+}
+/* line 892, ../../src/sass/_mixins.scss */
+.has-warning .form-control:focus {
+  border-color: #a47e3c;
+}
+/* line 897, ../../src/sass/_mixins.scss */
+.has-warning .input-group-addon {
+  color: #c09853;
+  border-color: #c09853;
+  background-color: #fcf8e3;
+}
+
+/* line 881, ../../src/sass/_mixins.scss */
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline {
+  color: #b94a48;
+}
+/* line 890, ../../src/sass/_mixins.scss */
+.has-error .form-control {
+  border-color: #b94a48;
+}
+/* line 892, ../../src/sass/_mixins.scss */
+.has-error .form-control:focus {
+  border-color: #953b39;
+}
+/* line 897, ../../src/sass/_mixins.scss */
+.has-error .input-group-addon {
+  color: #b94a48;
+  border-color: #b94a48;
+  background-color: #f2dede;
+}
+
+/* line 881, ../../src/sass/_mixins.scss */
+.has-success .help-block,
+.has-success .control-label,
+.has-success .radio,
+.has-success .checkbox,
+.has-success .radio-inline,
+.has-success .checkbox-inline {
+  color: #468847;
+}
+/* line 890, ../../src/sass/_mixins.scss */
+.has-success .form-control {
+  border-color: #468847;
+}
+/* line 892, ../../src/sass/_mixins.scss */
+.has-success .form-control:focus {
+  border-color: #356635;
+}
+/* line 897, ../../src/sass/_mixins.scss */
+.has-success .input-group-addon {
+  color: #468847;
+  border-color: #468847;
+  background-color: #dff0d8;
+}
+
+/* line 162, ../../src/sass/_forms.scss */
+.form-control-static {
+  margin-bottom: 0;
+}
+
+/* line 171, ../../src/sass/_forms.scss */
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #b94a48;
+}
+
+/* line 259, ../../src/sass/_forms.scss */
+.alert-reme {
+  width: auto;
+  max-width: 300px;
+  margin: 10px auto 20px;
+  text-align: center;
+}
+
+/* line 266, ../../src/sass/_forms.scss */
+.reminder {
+  opacity: 1;
+}
+
+/* line 270, ../../src/sass/_forms.scss */
+.reminder.ng-enter {
+  -webkit-transition: 2s;
+  transition: 2s;
+  opacity: 0;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+
+/* line 279, ../../src/sass/_forms.scss */
+.reminder.ng-enter-active {
+  opacity: 1;
+}
+
+/* line 283, ../../src/sass/_forms.scss */
+.reminder.ng-leave {
+  -webkit-transition: 2s;
+  transition: 2s;
+  opacity: 1;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: red;
+}
+
+/* line 292, ../../src/sass/_forms.scss */
+.reminder.ng-leave-active {
+  opacity: 0;
+}
+
+/* line 10, ../../src/sass/_buttons.scss */
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  background-color: #8471B1;
+  font-size: 20px;
+  line-height: 20px;
+  color: #fff;
+  border-radius: 3px;
+  height: 50px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+/* line 30, ../../src/sass/_buttons.scss */
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  outline: 0;
+}
+/* line 35, ../../src/sass/_buttons.scss */
+.btn:hover, .btn:focus {
+  background-color: #7661a8;
+  text-decoration: none;
+}
+/* line 41, ../../src/sass/_buttons.scss */
+.btn:active, .btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+/* line 48, ../../src/sass/_buttons.scss */
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 59, ../../src/sass/_buttons.scss */
+.link-primary {
+  color: #000000;
+}
+/* line 62, ../../src/sass/_buttons.scss */
+.link-primary:hover {
+  color: #595959;
+}
+
+/* line 67, ../../src/sass/_buttons.scss */
+.link-secondary {
+  color: #bbbfc4;
+}
+/* line 70, ../../src/sass/_buttons.scss */
+.link-secondary:hover {
+  color: #9298a0;
+}
+
+/* line 75, ../../src/sass/_buttons.scss */
+.link-dark-bg {
+  color: #e8e4f0;
+}
+/* line 78, ../../src/sass/_buttons.scss */
+.link-dark-bg:hover {
+  color: #ffffff;
+}
+
+/* line 86, ../../src/sass/_buttons.scss */
+.btn-outline {
+  text-align: center;
+  line-height: 100%;
+  display: block;
+  border: solid 2px #8471B1;
+  border-radius: 3px;
+  width: 200px;
+  height: 40px;
+  padding: 10px;
+  color: #8471B1;
+  font-size: 16px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+/* line 100, ../../src/sass/_buttons.scss */
+.btn-outline:hover {
+  color: white;
+  background-color: #8471B1;
+}
+
+/*
+.btn-default {
+  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+}
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+// Warning appears as orange
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
+// Success appears as green
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+
+
+// Link buttons
+// -------------------------
+
+// Make a button look and behave like a link
+.btn-link {
+  color: $link-color;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 0;
+
+  &,
+  &:active,
+  &[disabled],
+  fieldset[disabled] & {
+    background-color: transparent;
+    @include box-shadow(none);
+  }
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: transparent;
+  }
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+    text-decoration: underline;
+    background-color: transparent;
+  }
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      color: $btn-link-disabled-color;
+      text-decoration: none;
+    }
+  }
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+.btn-lg {
+  // line-height: ensure even-numbered height of button next to large input
+  @include button-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+}
+.btn-sm,
+.btn-xs {
+  // line-height: ensure proper height of button next to small input
+  @include button-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+}
+.btn-xs {
+  padding: 1px 5px;
+}
+
+
+// Block button
+// --------------------------------------------------
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Vertically space out multiple block buttons
+.btn-block + .btn-block {
+  margin-top: 5px;
+}
+
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  &.btn-block {
+    width: 100%;
+  }
+}
+*/
+@font-face {
+  font-family: "reme-icons";
+  src: url("../assets/fonts/app-icons/reme-icons.eot");
+  src: url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/app-icons/reme-icons.woff") format("woff"), url("../assets/fonts/app-icons/reme-icons.ttf") format("truetype"), url("../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 14, ../../src/sass/fonts/_app-icons.scss */
+[data-icon]:before {
+  font-family: "reme-icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 27, ../../src/sass/fonts/_app-icons.scss */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 40, ../../src/sass/fonts/_app-icons.scss */
+.icon-recurring:before {
+  content: "a";
+}
+
+/* line 43, ../../src/sass/fonts/_app-icons.scss */
+.icon-calendar:before {
+  content: "b";
+}
+
+/* line 46, ../../src/sass/fonts/_app-icons.scss */
+.icon-checkmark:before {
+  content: "c";
+}
+
+/* line 49, ../../src/sass/fonts/_app-icons.scss */
+.icon-pencil:before {
+  content: "d";
+}
+
+/* line 52, ../../src/sass/fonts/_app-icons.scss */
+.icon-clock:before {
+  content: "e";
+}
+
+/* line 55, ../../src/sass/fonts/_app-icons.scss */
+.icon-trash:before {
+  content: "f";
+}
+
+/* line 7, ../../src/sass/_dropdowns.scss */
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 4px solid #ffffff;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-bottom: 0 dotted;
+}
+
+/* line 22, ../../src/sass/_dropdowns.scss */
+.dropdown {
+  position: relative;
+}
+
+/* line 27, ../../src/sass/_dropdowns.scss */
+.dropdown-toggle:focus {
+  outline: 0;
+}
+
+/* line 32, ../../src/sass/_dropdowns.scss */
+.dropdown-menu {
+  position: absolute;
+  top: 75%;
+  right: 5px;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+/* line 52, ../../src/sass/_dropdowns.scss */
+.dropdown-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+/* line 58, ../../src/sass/_dropdowns.scss */
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+/* line 63, ../../src/sass/_dropdowns.scss */
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857;
+  color: #333333;
+  white-space: nowrap;
+}
+
+/* line 76, ../../src/sass/_dropdowns.scss */
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: #f5f5f5;
+}
+
+/* line 86, ../../src/sass/_dropdowns.scss */
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #8471B1;
+}
+
+/* line 101, ../../src/sass/_dropdowns.scss */
+.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+  color: #999999;
+}
+
+/* line 109, ../../src/sass/_dropdowns.scss */
+.dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  cursor: not-allowed;
+}
+
+/* line 122, ../../src/sass/_dropdowns.scss */
+.open > .dropdown-menu {
+  display: block;
+}
+/* line 127, ../../src/sass/_dropdowns.scss */
+.open > a {
+  outline: 0;
+}
+
+/* line 133, ../../src/sass/_dropdowns.scss */
+.dropdown-header {
+  display: block;
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 1.42857;
+  color: #999999;
+}
+
+/* line 142, ../../src/sass/_dropdowns.scss */
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 990;
+}
+
+/* line 152, ../../src/sass/_dropdowns.scss */
+.pull-right > .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+/* line 165, ../../src/sass/_dropdowns.scss */
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+  border-top: 0 dotted;
+  border-bottom: 4px solid #ffffff;
+  content: "";
+}
+/* line 173, ../../src/sass/_dropdowns.scss */
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 1px;
+}
+
+@media (min-width: 768px) {
+  /* line 187, ../../src/sass/_dropdowns.scss */
+  .navbar-right .dropdown-menu {
+    right: 0;
+    left: auto;
+  }
+}
+/* line 9, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+/* line 16, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+/* line 22, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert .alert-link {
+  font-weight: bold;
+}
+/* line 27, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+/* line 31, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert > p + p {
+  margin-top: 5px;
+}
+
+/* line 40, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-dismissable {
+  padding-right: 35px;
+}
+/* line 44, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-dismissable .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+
+/* line 56, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+/* line 443, ../../src/sass/_mixins.scss */
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+/* line 446, ../../src/sass/_mixins.scss */
+.alert-success .alert-link {
+  color: #356635;
+}
+
+/* line 59, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+/* line 443, ../../src/sass/_mixins.scss */
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+/* line 446, ../../src/sass/_mixins.scss */
+.alert-info .alert-link {
+  color: #2d6987;
+}
+
+/* line 62, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #c09853;
+}
+/* line 443, ../../src/sass/_mixins.scss */
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+/* line 446, ../../src/sass/_mixins.scss */
+.alert-warning .alert-link {
+  color: #a47e3c;
+}
+
+/* line 65, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #b94a48;
+}
+/* line 443, ../../src/sass/_mixins.scss */
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+/* line 446, ../../src/sass/_mixins.scss */
+.alert-danger .alert-link {
+  color: #953b39;
+}
+
+/* line 10, ../../bower_components/bootstrap-sass/lib/_component-animations.scss */
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+/* line 13, ../../bower_components/bootstrap-sass/lib/_component-animations.scss */
+.fade.in {
+  opacity: 1;
+}
+
+/* line 18, ../../bower_components/bootstrap-sass/lib/_component-animations.scss */
+.collapse {
+  display: none;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_component-animations.scss */
+.collapse.in {
+  display: block;
+}
+
+/* line 24, ../../bower_components/bootstrap-sass/lib/_component-animations.scss */
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+
+/* Import sub-modules */
+/* Account */
+/* line 2, ../../src/app/account/sass/_account_forms.scss */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+  box-shadow: none;
+  font-size: 20px;
+}
+
+/* line 10, ../../src/app/account/sass/_account_forms.scss */
+.account__sections {
+  position: relative;
+  width: auto;
+  max-width: 300px;
+  margin: 120px auto 0;
+  text-align: center;
+}
+
+/* line 18, ../../src/app/account/sass/_account_forms.scss */
+.account__title {
+  margin-bottom: 20px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+/* line 26, ../../src/app/account/sass/_account_forms.scss */
+.account__explain {
+  display: block;
+  margin-bottom: 50px;
+  line-height: 20px;
+  font-weight: 300;
+  font-size: 15px;
+  color: #848b91;
+}
+
+/* line 35, ../../src/app/account/sass/_account_forms.scss */
+.account__controls {
+  position: relative;
+  padding-top: 40px;
+}
+
+/* line 40, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form-groups--last {
+  margin-bottom: 20px;
+}
+
+/* line 45, ../../src/app/account/sass/_account_forms.scss */
+.account__button {
+  display: block;
+  margin: 0 auto 15px;
+  width: 100%;
+}
+
+/* Import sub-modules */
+/* line 1, ../../src/app/common/sass/_header.scss */
+.header {
+  background-color: #8471B1;
+  margin: 0;
+  height: 50px;
+  line-height: 50px;
+}
+/* line 8, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper {
+  width: 700px;
+  margin: 0 auto;
+}
+/* line 20, ../../src/sass/_mixins.scss */
+.header .header__wrapper:before, .header .header__wrapper:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../src/sass/_mixins.scss */
+.header .header__wrapper:after {
+  clear: both;
+}
+/* line 13, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__logo {
+  float: left;
+  color: #ffffff;
+}
+/* line 18, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu {
+  float: right;
+  position: relative;
+}
+/* line 22, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu a {
+  padding: 4px 8px;
+}
+/* line 26, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu .header__wrapper__menu__dropdown {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  width: 150px;
+  border: solid 2px #8471B1;
+  border-radius: 3px;
+  padding: 5px;
+  top: -20px;
+  background-color: #ffffff;
+}
+/* line 38, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu .header__wrapper__menu__dropdown .nav-link {
+  color: #bbbfc4;
+  display: block;
+  padding: 5px;
+  line-height: 14px;
+  margin: 2px 0;
+}
+/* line 45, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu .header__wrapper__menu__dropdown .nav-link:hover {
+  background-color: #f5f6f7;
+  color: #000000;
+}
+/* line 52, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu:hover .header__wrapper__menu__dropdown {
+  list-style: none;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+}
+
+/* Import sub-modules */
+/* line 1, ../../src/app/reminders/sass/_reminders_layout.scss */
+.centered-global-width {
+  max-width: 700px;
+  width: 96%;
+  margin: 0 auto;
+}
+
+/* line 7, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminders__header {
+  height: 100px;
+  width: 100%;
+}
+/* line 11, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminders__header__btn {
+  margin: 50px auto;
+}
+
+/* line 16, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder {
+  border: solid 0px #f5f6f7;
+  border-radius: 3px;
+  width: 100%;
+  height: 90px;
+  padding: 10px;
+  margin-bottom: 22px;
+  position: relative;
+  background-color: #ffffff;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+/* line 28, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__title {
+  font-size: 18px;
+  font-weight: 700;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+/* line 34, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info {
+  position: absolute;
+  bottom: 10px;
+  width: 97%;
+}
+/* line 20, ../../src/sass/_mixins.scss */
+.reminder__info:before, .reminder__info:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../src/sass/_mixins.scss */
+.reminder__info:after {
+  clear: both;
+}
+/* line 40, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info__item {
+  color: #bbbfc4;
+  padding: 0 5px;
+}
+/* line 44, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info__item span {
+  display: inline;
+  margin-top: 10px;
+  vertical-align: middle;
+}
+/* line 51, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info__item--date {
+  float: left;
+}
+/* line 55, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info__item--recurring {
+  visibility: hidden;
+  float: right;
+}
+/* line 60, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__info__item--time {
+  margin: 0 auto;
+  text-align: center;
+}
+/* line 67, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  text-align: right;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+/* line 75, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__menu__option {
+  display: inline-block;
+  width: 30px;
+  height: 25px;
+  margin: 3px 5px;
+  border-radius: 3px;
+}
+/* line 82, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__menu__option:hover {
+  color: #000000;
+}
+/* line 86, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__menu__option span {
+  display: block;
+  margin: 0;
+  font-size: 30px;
+  text-align: center;
+}
+/* line 94, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder__menu__option--complete {
+  display: none;
+}
+/* line 100, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover {
+  border-left: solid 15px #8471B1;
+}
+/* line 103, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover .reminder__title {
+  padding-left: 20px;
+}
+/* line 107, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover .reminder__menu {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=app.css.map */
