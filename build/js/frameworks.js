@@ -25269,7 +25269,7 @@ hello.init({
 			me : function(o){
 				formatError(o);
 				if(o && o.response){
-					o = o.response.loginData;
+					o = o.response.user;
 					formatUser(o);
 				}
 				return o;
