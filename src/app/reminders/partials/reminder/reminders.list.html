@@ -1,34 +1,38 @@
-<!-- Subscribe to success flash messages. -->
-<div flash-alert="success" active-class="in" class="alert fade">
-    <strong class="alert-heading">Congrats!</strong>
-    <span class="alert-message">{{flash.message}}</span>
-</div>
+<div class="centered-global-width">
 
-<!--Reminder list is empty-->
-<span ng-if="reminderList.length === 0">You don't have any reminders defined.</span>
+    <!-- Subscribe to success flash messages. -->
+    <div flash-alert="success" active-class="in" class="alert fade">
+        <strong class="alert-heading">Congrats!</strong>
+        <span class="alert-message">{{flash.message}}</span>
+    </div>
 
-<!--Reminder list-->
-<div class="reminder" ng-repeat="reminder in reminderList | orderObjectBy : 'dueOn' : true">
-    <div class="reminder__title">
-        {{reminder.text}}
-    </div>
-    <div class="reminder__info">
-        <div class="reminder__info__item reminder__info__item--date">
-            <span class="icon-calendar"></span>
-            {{reminder.dueOn | friendlyDate}}
+    <!--Reminder list is empty-->
+    <span ng-if="reminderList.length === 0">You don't have any reminders defined.</span>
+
+    <!--Reminder list-->
+    <div class="reminder" ng-repeat="reminder in reminderList | orderObjectBy : 'dueOn' : true">
+        <div class="reminder__title">
+            {{reminder.text}}
         </div>
-        <div class="reminder__info__item reminder__info__item--recurring">
-            <span class="icon-recurring"></span>
-            Every week on Monday
+        <div class="reminder__info">
+            <div class="reminder__info__item reminder__info__item--date">
+                <span class="icon-calendar"></span>
+                {{reminder.dueOn | friendlyDate}}
+            </div>
+            <div class="reminder__info__item reminder__info__item--recurring">
+                <span class="icon-recurring"></span>
+                Every week on Monday
+            </div>
+            <div class="reminder__info__item reminder__info__item--time">
+                <span class="icon-clock"></span>
+                {{reminder.dueOn | friendlyHour}}
+            </div>
         </div>
-        <div class="reminder__info__item reminder__info__item--time">
-            <span class="icon-clock"></span>
-            {{reminder.dueOn | friendlyHour}}
+        <div class="reminder__menu">
+            <a class="reminder__menu__option" href="#" ng-click="openUpdateReminderModalService(reminder)"><span class="icon-pencil"></span></a>
+            <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
+            <a class="reminder__menu__option" href="#" ng-click="openDeleteReminderModalService(reminder)"><span class="icon-trash"></span></a>
         </div>
     </div>
-    <div class="reminder__menu">
-        <a class="reminder__menu__option" href="#" ng-click="openUpdateReminderModalService(reminder)"><span class="icon-pencil"></span></a>
-        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
-        <a class="reminder__menu__option" href="#" ng-click="openDeleteReminderModalService(reminder)"><span class="icon-trash"></span></a>
-    </div>
+
 </div>
