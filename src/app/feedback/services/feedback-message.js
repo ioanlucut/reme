@@ -2,7 +2,7 @@
 
 angular
     .module("feedback")
-    .factory("FeedbackMessage", ["$http", "$q", "URLTo", function ($http, $q, URLTo) {
+    .factory("FeedbackMessage", function ($http, $q, URLTo) {
 
         function FeedbackMessage() {
 
@@ -39,4 +39,4 @@ angular
 
         return FeedbackMessage;
 
-    }]);
+    });

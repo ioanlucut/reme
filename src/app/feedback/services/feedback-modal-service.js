@@ -2,7 +2,7 @@
 
 angular
     .module("feedback")
-    .service("FeedbackModal", ["$modal", function ($modal) {
+    .service("FeedbackModal", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -18,4 +18,4 @@ angular
             });
         };
 
-    }]);
+    });

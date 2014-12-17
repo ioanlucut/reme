@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .controller("ReminderSavedCtrl", ["$rootScope", "$scope", "$state", "FeedbackModal", "reminder", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
+    .controller("ReminderSavedCtrl", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
 
         $rootScope.$state = $state;
         $scope.reminder = reminder;
@@ -12,4 +12,4 @@ angular
             FeedbackModal.open();
         };
 
-    }]);
+    });

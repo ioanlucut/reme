@@ -1,7 +1,7 @@
 /* Timepicker popup */
 
 angular.module("common").
-    directive("timepickerPopup", [function () {
+    directive("timepickerPopup", function () {
         return {
             require: "ngModel",
             scope: {
@@ -95,4 +95,4 @@ angular.module("common").
                 });
             }
         }
-    }]);
+    });

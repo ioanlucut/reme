@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderCtrl", ["$scope", "ReminderModalService", "$timeout", function ($scope, ReminderModalService, $timeout) {
+    .controller("ReminderCtrl", function ($scope, ReminderModalService) {
 
         $scope.cancel = function () {
             ReminderModalService.modalInstance.dismiss("cancel");
@@ -10,4 +10,4 @@ angular
         $scope.openReminderModalService = function () {
             ReminderModalService.open();
         };
-    }]);
+    });

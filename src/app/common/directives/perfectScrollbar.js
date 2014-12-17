@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("perfectScrollbar", [function () {
+    .directive("perfectScrollbar", function () {
         return {
             restrict: 'A',
             link: function (scope, el, attrs) {
@@ -26,4 +26,4 @@ angular
                 });
             }
         }
-    }]);
+    });

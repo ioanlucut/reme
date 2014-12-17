@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("autoFocus", ["$timeout", function ($timeout) {
+    .directive("autoFocus", function ($timeout) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -24,4 +24,4 @@ angular
                 }
             }
         }
-    }]);
+    });

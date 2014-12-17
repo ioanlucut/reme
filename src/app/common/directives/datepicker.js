@@ -14,7 +14,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
         maxDate: null
     })
 
-    .controller('DatepickerController', ['$scope', '$attrs', 'dateFilter', 'datepickerConfig', function ($scope, $attrs, dateFilter, dtConfig) {
+    .controller('DatepickerController', function ($scope, $attrs, dateFilter, dtConfig) {
         var format = {
                 day: getValue($attrs.dayFormat, dtConfig.dayFormat),
                 month: getValue($attrs.monthFormat, dtConfig.monthFormat),
@@ -121,9 +121,9 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
             var currentMode = this.modes[mode || 0];
             return ((this.minDate && currentMode.compare(date, this.minDate) < 0) || (this.maxDate && currentMode.compare(date, this.maxDate) > 0) || ($scope.dateDisabled && $scope.dateDisabled({date: date, mode: currentMode.name})));
         };
-    }])
+    })
 
-    .directive('datepicker', ['dateFilter', '$parse', 'datepickerConfig', '$log', function (dateFilter, $parse, datepickerConfig, $log) {
+    .directive('datepicker', function (dateFilter, $parse, datepickerConfig, $log) {
         return {
             restrict: 'EA',
             replace: true,
@@ -249,7 +249,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
                 }
             }
         };
-    }])
+    })
 
     .constant('datepickerPopupConfig', {
         dateFormat: 'yyyy-MM-dd',
