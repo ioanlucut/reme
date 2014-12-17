@@ -2,7 +2,7 @@
 
 angular
     .module("feedback")
-    .controller("FeedbackModalCtrl", ["$scope", "$timeout", "FeedbackModal", "FeedbackMessage", function ($scope, $timeout, FeedbackModal, FeedbackMessage) {
+    .controller("FeedbackModalCtrl", function ($scope, $timeout, FeedbackModal, FeedbackMessage) {
 
         $scope.isSending = false;
         $scope.isSent = false;
@@ -45,5 +45,4 @@ angular
             FeedbackModal.modalInstance.dismiss("cancel");
             $scope.isOpen = false;
         };
-
-    }]);
+    });

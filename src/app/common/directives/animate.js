@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("animate", [function () {
+    .directive("animate", function () {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -18,4 +18,4 @@ angular
                 });
             }
         }
-    }]);
+    });

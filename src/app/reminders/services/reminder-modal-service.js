@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .service("ReminderModalService", ["$modal", function ($modal) {
+    .service("ReminderModalService", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -31,4 +31,4 @@ angular
             });
         };
 
-    }]);
+    });

@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("nlpDate", ["$rootScope", "$", function ($rootScope, $) {
+    .directive("nlpDate", function ($rootScope, $) {
         return {
             require: 'ngModel',
             scope: {
@@ -63,4 +63,4 @@ angular
                 });
             }
         }
-    }]);
+    });
