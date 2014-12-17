@@ -14,20 +14,20 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
         maxDate: null
     })
 
-    .controller('DatepickerController', function ($scope, $attrs, dateFilter, dtConfig) {
+    .controller('DatepickerController', function ($scope, $attrs, dateFilter, datepickerConfig) {
         var format = {
-                day: getValue($attrs.dayFormat, dtConfig.dayFormat),
-                month: getValue($attrs.monthFormat, dtConfig.monthFormat),
-                year: getValue($attrs.yearFormat, dtConfig.yearFormat),
-                dayHeader: getValue($attrs.dayHeaderFormat, dtConfig.dayHeaderFormat),
-                dayTitle: getValue($attrs.dayTitleFormat, dtConfig.dayTitleFormat),
-                monthTitle: getValue($attrs.monthTitleFormat, dtConfig.monthTitleFormat)
+                day: getValue($attrs.dayFormat, datepickerConfig.dayFormat),
+                month: getValue($attrs.monthFormat, datepickerConfig.monthFormat),
+                year: getValue($attrs.yearFormat, datepickerConfig.yearFormat),
+                dayHeader: getValue($attrs.dayHeaderFormat, datepickerConfig.dayHeaderFormat),
+                dayTitle: getValue($attrs.dayTitleFormat, datepickerConfig.dayTitleFormat),
+                monthTitle: getValue($attrs.monthTitleFormat, datepickerConfig.monthTitleFormat)
             },
-            startingDay = getValue($attrs.startingDay, dtConfig.startingDay),
-            yearRange = getValue($attrs.yearRange, dtConfig.yearRange);
+            startingDay = getValue($attrs.startingDay, datepickerConfig.startingDay),
+            yearRange = getValue($attrs.yearRange, datepickerConfig.yearRange);
 
-        this.minDate = dtConfig.minDate ? new Date(dtConfig.minDate) : null;
-        this.maxDate = dtConfig.maxDate ? new Date(dtConfig.maxDate) : null;
+        this.minDate = datepickerConfig.minDate ? new Date(datepickerConfig.minDate) : null;
+        this.maxDate = datepickerConfig.maxDate ? new Date(datepickerConfig.maxDate) : null;
 
         function getValue(value, defaultValue) {
             return angular.isDefined(value) ? $scope.$parent.$eval(value) : defaultValue;
