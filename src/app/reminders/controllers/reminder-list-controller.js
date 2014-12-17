@@ -43,10 +43,7 @@ angular
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
             flash.success = args.message;
 
-            _.remove($scope.reminderList, function (reminder) {
-                return reminder.reminderId === args.reminder.reminderId
-            });
-
+            removeReminderFrom($scope.reminderList, args.reminder);
             $scope.reminderList.push(args.reminder);
         });
 
@@ -56,13 +53,23 @@ angular
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
             flash.success = args.message;
 
-            _.remove($scope.reminderList, function (reminderFromArray) {
-                var reminderId = _.parseInt(args.reminder.reminderId, 10);
-                if ( _.isNaN(reminderId) ) {
+            removeReminderFrom($scope.reminderList, args.reminder);
+        });
+
+        /**
+         * Removes given reminder from the list.
+         * @param reminderList
+         * @param reminderToBeRemoved
+         */
+        function removeReminderFrom(reminderList, reminderToBeRemoved) {
+            _.remove(reminderList, function (reminderFromArray) {
+                var reminderId = _.parseInt(reminderToBeRemoved.reminderId, 10);
+                var reminderFromArrayId = _.parseInt(reminderFromArray.reminderId, 10);
+                if ( _.isNaN(reminderFromArrayId) || _.isNaN(reminderId) ) {
                     return false;
                 }
 
-                return reminderFromArray.reminderId === reminderId;
+                return reminderFromArrayId === reminderId;
             });
-        });
+        }
     });
