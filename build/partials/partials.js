@@ -103,39 +103,43 @@ angular.module("app/reminders/partials/reminder/reminders.html", []).run(["$temp
 
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
-    "<!-- Subscribe to success flash messages. -->\n" +
-    "<div flash-alert=\"success\" active-class=\"in\" class=\"alert fade\">\n" +
-    "    <strong class=\"alert-heading\">Congrats!</strong>\n" +
-    "    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "</div>\n" +
+    "<div class=\"centered-global-width\">\n" +
     "\n" +
-    "<!--Reminder list is empty-->\n" +
-    "<span ng-if=\"reminderList.length === 0\">You don't have any reminders defined.</span>\n" +
+    "    <!-- Subscribe to success flash messages. -->\n" +
+    "    <div flash-alert=\"success\" active-class=\"in\" class=\"alert fade\">\n" +
+    "        <strong class=\"alert-heading\">Congrats!</strong>\n" +
+    "        <span class=\"alert-message\">{{flash.message}}</span>\n" +
+    "    </div>\n" +
     "\n" +
-    "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-repeat=\"reminder in reminderList | orderObjectBy : 'dueOn' : true\">\n" +
-    "    <div class=\"reminder__title\">\n" +
-    "        {{reminder.text}}\n" +
-    "    </div>\n" +
-    "    <div class=\"reminder__info\">\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--date\">\n" +
-    "            <span class=\"icon-calendar\"></span>\n" +
-    "            {{reminder.dueOn | friendlyDate}}\n" +
+    "    <!--Reminder list is empty-->\n" +
+    "    <span ng-if=\"reminderList.length === 0\">You don't have any reminders defined.</span>\n" +
+    "\n" +
+    "    <!--Reminder list-->\n" +
+    "    <div class=\"reminder\" ng-repeat=\"reminder in reminderList | orderObjectBy : 'dueOn' : true\">\n" +
+    "        <div class=\"reminder__title\">\n" +
+    "            {{reminder.text}}\n" +
     "        </div>\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
-    "            <span class=\"icon-recurring\"></span>\n" +
-    "            Every week on Monday\n" +
+    "        <div class=\"reminder__info\">\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--date\">\n" +
+    "                <span class=\"icon-calendar\"></span>\n" +
+    "                {{reminder.dueOn | friendlyDate}}\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
+    "                <span class=\"icon-recurring\"></span>\n" +
+    "                Every week on Monday\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--time\">\n" +
+    "                <span class=\"icon-clock\"></span>\n" +
+    "                {{reminder.dueOn | friendlyHour}}\n" +
+    "            </div>\n" +
     "        </div>\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
-    "            <span class=\"icon-clock\"></span>\n" +
-    "            {{reminder.dueOn | friendlyHour}}\n" +
+    "        <div class=\"reminder__menu\">\n" +
+    "            <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder)\"><span class=\"icon-pencil\"></span></a>\n" +
+    "            <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
+    "            <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openDeleteReminderModalService(reminder)\"><span class=\"icon-trash\"></span></a>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder)\"><span class=\"icon-pencil\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openDeleteReminderModalService(reminder)\"><span class=\"icon-trash\"></span></a>\n" +
-    "    </div>\n" +
+    "\n" +
     "</div>");
 }]);
 
