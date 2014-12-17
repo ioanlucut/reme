@@ -1,6 +1,4 @@
 .idea
 .sass-cache
-build
 bower_components
 node_modules
-build
