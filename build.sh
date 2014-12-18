@@ -62,4 +62,4 @@ build (){
      grunt build
 
      return 0
-}git
+}
