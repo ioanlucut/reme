@@ -3,7 +3,7 @@ angular
     .factory("Reminder", function ($q, $http, ReminderService) {
         return {
 
-            build: function (loadFromModel) {
+            build: function (modelToLoadFrom) {
 
                 var newReminder = {
 
@@ -26,13 +26,32 @@ angular
                         return this.model.reminderId === undefined;
                     },
 
-                    save: function (fromData) {
-                        var toBeSaved = {};
-                        this.copyKeysFromTo(fromData || this.model, toBeSaved);
-                        toBeSaved["dueOn"] = toBeSaved["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
-                        toBeSaved["additionalAddresses"] = toBeSaved["additionalAddresses"].join(",");
+                    /**
+                     * Saves a reminder and update model with response.
+                     * @returns {*}
+                     */
+                    save: function () {
+                        var that = this;
+                        var modelToBeSaved = {};
 
-                        return this.isNew() ? ReminderService.createReminder(toBeSaved) : ReminderService.updateReminder(toBeSaved);
+                        this.copyKeysFromTo(this.model, modelToBeSaved);
+                        modelToBeSaved["dueOn"] = modelToBeSaved["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+                        modelToBeSaved["additionalAddresses"] = modelToBeSaved["additionalAddresses"].join(",");
+
+                        var deferred = $q.defer();
+                        ReminderService
+                            [this.isNew() ? 'createReminder' : 'updateReminder'](modelToBeSaved)
+                            .then(function (response) {
+                                that.parseFromTo(response, that);
+
+                                deferred.resolve(that);
+                                return response;
+                            })
+                            .catch(function (response) {
+                                return $q.reject(response);
+                            });
+
+                        return deferred.promise;
                     },
 
                     fetch: function (reminderId) {
@@ -58,35 +77,40 @@ angular
                         return ReminderService.deleteReminder(this.model);
                     },
 
+                    parseFromTo: function (sourceObject) {
+                        if ( !sourceObject ) {
+                            return this;
+                        }
+
+                        this.copyKeysFromTo(sourceObject, this.model);
+
+                        // handle date conversion
+                        if ( this.model["dueOn"] ) {
+                            this.model["dueOn"] = moment(this.model["dueOn"]).toDate();
+                        }
+                        //handle addresses conversion
+                        var additionAddresses = this.model["additionalAddresses"];
+                        if ( _.isEmpty(additionAddresses) ) {
+                            this.model["additionalAddresses"] = [];
+                        }
+                        else {
+                            this.model["additionalAddresses"] = _.values(additionAddresses.split(","));
+                        }
+
+                        return this;
+                    },
+
                     copyKeysFromTo: function (sourceObject, targetObject, skipKeys) {
                         _.each(_.keys(this.model), function (key) {
                             if ( !(skipKeys && _.contains(skipKeys, key)) ) {
                                 targetObject[key] = sourceObject[key];
                             }
                         });
-                    },
-
-                    parseFromTo: function (sourceObject, targetObject) {
-                        targetObject.copyKeysFromTo(sourceObject, targetObject.model);
-                        targetObject.model["dueOn"] = moment(targetObject.model["dueOn"]).toDate();
-                        var additionAddresses = targetObject.model["additionalAddresses"];
-                        if ( additionAddresses === "" ) {
-                            targetObject.model["additionalAddresses"] = [];
-                        }
-                        else {
-                            targetObject.model["additionalAddresses"] = _.values(additionAddresses.split(","));
-                        }
-                    },
-
-                    loadFrom: function (loadFromModel) {
-                        this.copyKeysFromTo(loadFromModel, this.model);
-
-                        return this;
                     }
 
                 };
 
-                return newReminder.loadFrom(loadFromModel || {});
+                return newReminder.parseFromTo(modelToLoadFrom || {}, newReminder);
             }
 
         }
