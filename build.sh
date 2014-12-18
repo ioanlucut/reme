@@ -43,17 +43,23 @@ mergeInDev (){
 checkoutMaster (){
      #checkout master branch
      echo "checkout master branch $MASTER_BRANCH"
-     return git checkout "$MASTER_BRANCH"
+     git checkout "$MASTER_BRANCH"
+
+     return 0
 }
 
 mergeInMaster (){
      #merge develop branch to master
      echo "merge $DEVELOP_BRANCH to master branch $MASTER_BRANCH"
-     return git merge "$DEVELOP_BRANCH" --no-ff
+     git merge "$DEVELOP_BRANCH" --no-ff
+
+     return 0
 }
 
 build (){
      #run grunt build
      echo "run grunt build in master branch $MASTER_BRANCH"
-     return grunt build
-}
+     grunt build
+
+     return 0
+}git
