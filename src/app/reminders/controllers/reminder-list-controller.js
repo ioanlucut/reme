@@ -17,7 +17,7 @@ angular
          * @param reminder
          */
         $scope.openDeleteReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder.reminderId);
+            ReminderDeleteModalService.open(reminder);
         };
 
         /**
@@ -25,7 +25,7 @@ angular
          * @param reminder
          */
         $scope.openUpdateReminderModalService = function (reminder) {
-            ReminderUpdateModalService.open(reminder.reminderId);
+            ReminderUpdateModalService.open(reminder);
         };
 
         /**
@@ -42,9 +42,6 @@ angular
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
             flash.success = args.message;
-
-            removeReminderFrom($scope.reminderList, args.reminder);
-            $scope.reminderList.push(args.reminder);
         });
 
         /**
@@ -63,8 +60,8 @@ angular
          */
         function removeReminderFrom(reminderList, reminderToBeRemoved) {
             _.remove(reminderList, function (reminderFromArray) {
-                var reminderId = _.parseInt(reminderToBeRemoved.reminderId, 10);
-                var reminderFromArrayId = _.parseInt(reminderFromArray.reminderId, 10);
+                var reminderId = _.parseInt(reminderToBeRemoved.model.reminderId, 10);
+                var reminderFromArrayId = _.parseInt(reminderFromArray.model.reminderId, 10);
                 if ( _.isNaN(reminderFromArrayId) || _.isNaN(reminderId) ) {
                     return false;
                 }
