@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS, ReminderTransformerService) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -58,7 +58,7 @@ angular
                                 reminder: reminderAsResponse,
                                 message: 'Reminder successfully saved!'
                             });
-                        }, 500);
+                        }, 400);
                     })
                     .catch(function () {
 
