@@ -8,7 +8,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderId) {
+        this.open = function (reminderToBeDeleted) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -16,9 +16,9 @@ angular
                 controller: "ReminderDeleteModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["Reminder", function (Reminder) {
-                        return new Reminder.build({}).fetch(reminderId);
-                    }]
+                    reminder: function () {
+                        return reminderToBeDeleted;
+                    }
                 }
             });
         };
