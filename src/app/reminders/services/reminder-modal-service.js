@@ -16,17 +16,16 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["$window", "Reminder", "jstz", function ($window, Reminder, jstz) {
-                        // Make the reminder due the next hour
+                    reminder: function ($window, Reminder, jstz) {
                         var defaultDueOn = Date.create().addHours(1).set({minute: 0, second: 0});
 
-                        return new Reminder.build({
+                        return Reminder.build({
                             text: "",
                             dueOn: defaultDueOn,
                             timezone: jstz.determine().name(),
                             additionalAddresses: []
                         });
-                    }]
+                    }
                 }
             });
         };

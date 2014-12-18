@@ -30,19 +30,16 @@ angular
 
                 // Destroy reminder
                 $scope.reminder.destroy()
-                    .then(function (reminderAsResponse) {
+                    .then(function () {
 
                         // Wait 2 seconds, and close the modal
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
-                        }, 1000);
-
-                        $timeout(function () {
                             $rootScope.$broadcast(REMINDER_EVENTS.isDeleted, {
-                                reminder: $scope.reminder.model,
+                                reminder: $scope.reminder,
                                 message: 'Reminder successfully deleted!'
                             });
-                        }, 1500);
+                        }, 400);
                     })
                     .catch(function () {
 
