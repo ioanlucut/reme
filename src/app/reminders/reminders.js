@@ -32,12 +32,12 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: function ($q, ReminderService) {
+                            reminderList: function ($q, ReminderService, ReminderTransformerService) {
                                 var deferred = $q.defer();
                                 ReminderService
                                     .getAllReminders()
                                     .then(function (response) {
-                                        deferred.resolve(response);
+                                        deferred.resolve(ReminderTransformerService.transformRemindersToBusinessModel(response));
                                     }).catch(function () {
                                         deferred.resolve([]);
                                     });
