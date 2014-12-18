@@ -117,12 +117,12 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "    <!--Reminder list-->\n" +
     "    <div class=\"reminder\" ng-repeat=\"reminder in reminderList | orderObjectBy : 'dueOn' : true\">\n" +
     "        <div class=\"reminder__title\">\n" +
-    "            {{reminder.text}}\n" +
+    "            {{reminder.model.text}}\n" +
     "        </div>\n" +
     "        <div class=\"reminder__info\">\n" +
     "            <div class=\"reminder__info__item reminder__info__item--date\">\n" +
     "                <span class=\"icon-calendar\"></span>\n" +
-    "                {{reminder.dueOn | friendlyDate}}\n" +
+    "                {{reminder.model.dueOn | friendlyDate}}\n" +
     "            </div>\n" +
     "            <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
     "                <span class=\"icon-recurring\"></span>\n" +
@@ -130,7 +130,7 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "            </div>\n" +
     "            <div class=\"reminder__info__item reminder__info__item--time\">\n" +
     "                <span class=\"icon-clock\"></span>\n" +
-    "                {{reminder.dueOn | friendlyHour}}\n" +
+    "                {{reminder.model.dueOn | friendlyHour}}\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"reminder__menu\">\n" +

@@ -2361,12 +2361,12 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: ["$q", "ReminderService", function ($q, ReminderService) {
+                            reminderList: ["$q", "ReminderService", "ReminderTransformerService", function ($q, ReminderService, ReminderTransformerService) {
                                 var deferred = $q.defer();
                                 ReminderService
                                     .getAllReminders()
                                     .then(function (response) {
-                                        deferred.resolve(response);
+                                        deferred.resolve(ReminderTransformerService.toReminders(response));
                                     }).catch(function () {
                                         deferred.resolve([]);
                                     });
@@ -2441,19 +2441,16 @@ angular
 
                 // Destroy reminder
                 $scope.reminder.destroy()
-                    .then(function (reminderAsResponse) {
+                    .then(function () {
 
                         // Wait 2 seconds, and close the modal
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
-                        }, 1000);
-
-                        $timeout(function () {
                             $rootScope.$broadcast(REMINDER_EVENTS.isDeleted, {
-                                reminder: $scope.reminder.model,
+                                reminder: $scope.reminder,
                                 message: 'Reminder successfully deleted!'
                             });
-                        }, 1500);
+                        }, 400);
                     })
                     .catch(function () {
 
@@ -2483,7 +2480,7 @@ angular
          * @param reminder
          */
         $scope.openDeleteReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder.reminderId);
+            ReminderDeleteModalService.open(reminder);
         };
 
         /**
@@ -2491,7 +2488,7 @@ angular
          * @param reminder
          */
         $scope.openUpdateReminderModalService = function (reminder) {
-            ReminderUpdateModalService.open(reminder.reminderId);
+            ReminderUpdateModalService.open(reminder);
         };
 
         /**
@@ -2508,9 +2505,6 @@ angular
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
             flash.success = args.message;
-
-            removeReminderFrom($scope.reminderList, args.reminder);
-            $scope.reminderList.push(args.reminder);
         });
 
         /**
@@ -2529,8 +2523,8 @@ angular
          */
         function removeReminderFrom(reminderList, reminderToBeRemoved) {
             _.remove(reminderList, function (reminderFromArray) {
-                var reminderId = _.parseInt(reminderToBeRemoved.reminderId, 10);
-                var reminderFromArrayId = _.parseInt(reminderFromArray.reminderId, 10);
+                var reminderId = _.parseInt(reminderToBeRemoved.model.reminderId, 10);
+                var reminderFromArrayId = _.parseInt(reminderFromArray.model.reminderId, 10);
                 if ( _.isNaN(reminderFromArrayId) || _.isNaN(reminderId) ) {
                     return false;
                 }
@@ -2540,7 +2534,7 @@ angular
         }
     }]);;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", "ReminderTransformerService", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS, ReminderTransformerService) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2586,19 +2580,25 @@ angular
 
                 $scope.reminder.save()
                     .then(function (reminderAsResponse) {
-                        $timeout(function () {
-                            if ( $scope.isNew ) {
-                                ReminderModalService.modalInstance.close();
-                            }
-                            else {
-                                ReminderUpdateModalService.modalInstance.close();
-                            }
 
-                            $rootScope.$broadcast($scope.isNew ? REMINDER_EVENTS.isCreated : REMINDER_EVENTS.isUpdated, {
-                                reminder: reminderAsResponse,
-                                message: 'Reminder successfully saved!'
-                            });
-                        }, 500);
+                        if ( $scope.isNew ) {
+                            $timeout(function () {
+                                ReminderModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
+                                    reminder: reminderAsResponse,
+                                    message: 'Reminder successfully saved!'
+                                });
+                            }, 400);
+                        }
+                        else {
+                            $timeout(function () {
+                                ReminderUpdateModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
+                                    reminder: reminderAsResponse,
+                                    message: 'Reminder successfully updated!'
+                                });
+                            }, 400);
+                        }
                     })
                     .catch(function () {
 
@@ -2608,6 +2608,7 @@ angular
                     });
             }
         };
+
     }]);
 ;/* Saved reminder controller */
 
@@ -2634,7 +2635,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderId) {
+        this.open = function (reminderToBeDeleted) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -2642,9 +2643,9 @@ angular
                 controller: "ReminderDeleteModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["Reminder", function (Reminder) {
-                        return new Reminder.build({}).fetch(reminderId);
-                    }]
+                    reminder: function () {
+                        return reminderToBeDeleted;
+                    }
                 }
             });
         };
@@ -2669,10 +2670,9 @@ angular
                 windowClass: "modal-feedback",
                 resolve: {
                     reminder: ["$window", "Reminder", "jstz", function ($window, Reminder, jstz) {
-                        // Make the reminder due the next hour
                         var defaultDueOn = Date.create().addHours(1).set({minute: 0, second: 0});
 
-                        return new Reminder.build({
+                        return Reminder.build({
                             text: "",
                             dueOn: defaultDueOn,
                             timezone: jstz.determine().name(),
@@ -2757,6 +2757,85 @@ angular
                 });
         };
     }]);
+;/**
+ * Reminder transformer service which transforms a reminder DTO model object to a reminder business object.
+ */
+angular
+    .module("reminders")
+    .service("ReminderTransformerService", ["$injector", function ($injector) {
+
+        /**
+         * Converts a reminder business object model to a reminderDto object.
+         * @param reminder
+         * @param skipKeys
+         * @returns {{}}
+         */
+        this.toReminderDto = function (reminder, skipKeys) {
+            var reminderDto = {};
+
+            this.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
+            reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
+
+            return reminderDto;
+        };
+
+        /**
+         * Converts a reminderDto object to a reminder business object model.
+         * @param reminderDto
+         * @param reminder
+         * @param skipKeys
+         * @returns {*}
+         */
+        this.toReminder = function (reminderDto, reminder, skipKeys) {
+            reminder = reminder || $injector.get('Reminder').build();
+            this.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
+
+            // handle date conversion
+            if ( reminder.model["dueOn"] ) {
+                reminder.model["dueOn"] = moment(reminder.model["dueOn"]).toDate();
+            }
+            //handle addresses conversion
+            var additionAddresses = reminder.model["additionalAddresses"];
+            if ( _.isEmpty(additionAddresses) ) {
+                reminder.model["additionalAddresses"] = [];
+            }
+            else {
+                reminder.model["additionalAddresses"] = _.values(additionAddresses.split(","));
+            }
+
+            return reminder;
+        };
+
+        /**
+         * Transform a list of reminders as JSON to a list of reminders as business object.
+         * @param reminderDtos
+         * @returns {Array}
+         */
+        this.toReminders = function (reminderDtos) {
+            var reminders = [];
+
+            _.each(reminderDtos, _.bind(function (reminderDto) {
+                reminders.push(this.toReminder(reminderDto));
+            }, this));
+
+            return reminders;
+        };
+
+        /**
+         * Copies keys from a sourceObject to a targetObject, except given skipKeys.
+         * @param sourceObject
+         * @param targetObject
+         * @param skipKeys
+         */
+        this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
+            _.each(_.keys(sourceObject), function (key) {
+                if ( !(skipKeys && _.contains(skipKeys, key)) ) {
+                    targetObject[key] = sourceObject[key];
+                }
+            });
+        };
+    }]);
 ;/* Feedback modal */
 
 angular
@@ -2767,7 +2846,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderId) {
+        this.open = function (reminderToBeUpdated) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -2775,9 +2854,9 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["Reminder", function (Reminder) {
-                        return new Reminder.build({}).fetch(reminderId);
-                    }]
+                    reminder: function () {
+                        return reminderToBeUpdated;
+                    }
                 }
             });
         };
@@ -2785,96 +2864,107 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .factory("Reminder", ["$q", "$http", "ReminderService", function ($q, $http, ReminderService) {
-        return {
+    .factory("Reminder", ["$q", "$http", "ReminderService", "ReminderTransformerService", function ($q, $http, ReminderService, ReminderTransformerService) {
 
-            build: function (loadFromModel) {
+        /**
+         * Reminder class.
+         * @constructor
+         */
+        function Reminder() {
 
-                var newReminder = {
+            /**
+             * Represents the DTO model of the reminder.
+             */
+            this.model = {
+                reminderId: "",
+                text: "",
+                dueOn: "",
+                timezone: "",
+                additionalAddresses: [],
+                createdBy: "",
+                sent: "",
+                createdAt: "",
+                updatedAt: ""
+            };
 
-                    /**
-                     * Reminder model (DTO)
-                     */
-                    model: {
-                        reminderId: "",
-                        text: "",
-                        dueOn: "",
-                        timezone: "",
-                        additionalAddresses: [],
-                        createdBy: "",
-                        sent: "",
-                        createdAt: "",
-                        updatedAt: ""
-                    },
+            /**
+             * Is reminder new.
+             * @returns {boolean}
+             */
+            this.isNew = function () {
+                return this.model.reminderId === "" || _.isUndefined(this.model.reminderId);
+            };
 
-                    isNew: function () {
-                        return this.model.reminderId === undefined;
-                    },
+            /**
+             * Saves a reminder and update model with response.
+             * @returns {*}
+             */
+            this.save = function () {
+                var that = this;
+                var reminderDto = ReminderTransformerService.toReminderDto(this);
 
-                    save: function (fromData) {
-                        var toBeSaved = {};
-                        this.copyKeysFromTo(fromData || this.model, toBeSaved);
-                        toBeSaved["dueOn"] = toBeSaved["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
-                        toBeSaved["additionalAddresses"] = toBeSaved["additionalAddresses"].join(",");
+                var deferred = $q.defer();
+                ReminderService
+                    [this.isNew() ? 'createReminder' : 'updateReminder'](reminderDto)
+                    .then(function (response) {
+                        ReminderTransformerService.toReminder(response, that);
+                        deferred.resolve(that);
+                        return response;
+                    })
+                    .catch(function (response) {
+                        return $q.reject(response);
+                    });
 
-                        return this.isNew() ? ReminderService.createReminder(toBeSaved) : ReminderService.updateReminder(toBeSaved);
-                    },
+                return deferred.promise;
+            };
 
-                    fetch: function (reminderId) {
-                        var that = this;
-                        var deferred = $q.defer();
+            /**
+             * Fetches and updates existing reminder.
+             * @param reminderId
+             * @returns {*}
+             */
+            this.fetch = function (reminderId) {
+                var that = this;
+                var deferred = $q.defer();
 
-                        ReminderService
-                            .getDetails(reminderId || that.model.reminderId)
-                            .then(function (response) {
-                                that.parseFromTo(response, that);
+                ReminderService
+                    .getDetails(reminderId || that.model.reminderId)
+                    .then(function (response) {
+                        ReminderTransformerService.toReminder(response, that);
+                        deferred.resolve(that);
+                        return response;
+                    })
+                    .catch(function (response) {
+                        return $q.reject(response);
+                    });
 
-                                deferred.resolve(that);
-                                return response;
-                            })
-                            .catch(function (response) {
-                                return $q.reject(response);
-                            });
+                return deferred.promise;
+            };
 
-                        return deferred.promise;
-                    },
-
-                    destroy: function () {
-                        return ReminderService.deleteReminder(this.model);
-                    },
-
-                    copyKeysFromTo: function (sourceObject, targetObject, skipKeys) {
-                        _.each(_.keys(this.model), function (key) {
-                            if ( !(skipKeys && _.contains(skipKeys, key)) ) {
-                                targetObject[key] = sourceObject[key];
-                            }
-                        });
-                    },
-
-                    parseFromTo: function (sourceObject, targetObject) {
-                        targetObject.copyKeysFromTo(sourceObject, targetObject.model);
-                        targetObject.model["dueOn"] = moment(targetObject.model["dueOn"]).toDate();
-                        var additionAddresses = targetObject.model["additionalAddresses"];
-                        if ( additionAddresses === "" ) {
-                            targetObject.model["additionalAddresses"] = [];
-                        }
-                        else {
-                            targetObject.model["additionalAddresses"] = _.values(additionAddresses.split(","));
-                        }
-                    },
-
-                    loadFrom: function (loadFromModel) {
-                        this.copyKeysFromTo(loadFromModel, this.model);
-
-                        return this;
-                    }
-
-                };
-
-                return newReminder.loadFrom(loadFromModel || {});
-            }
+            /**
+             * Destroys (deletes) a reminder.
+             * @returns {*}
+             */
+            this.destroy = function () {
+                return ReminderService.deleteReminder(this.model);
+            };
 
         }
+
+        /**
+         * Builds a reminder with given data.
+         * @param data
+         * @returns {Reminder}
+         */
+        Reminder.build = function (data) {
+            if ( _.isEmpty(data) ) {
+                return new Reminder();
+            }
+
+            return ReminderTransformerService.toReminder(data, new Reminder());
+        };
+
+        return Reminder;
     }]);;angular
     .module("feedback", [
     ]);;/* Feedback modal controller */
@@ -3188,12 +3278,12 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "    <!--Reminder list-->\n" +
     "    <div class=\"reminder\" ng-repeat=\"reminder in reminderList | orderObjectBy : 'dueOn' : true\">\n" +
     "        <div class=\"reminder__title\">\n" +
-    "            {{reminder.text}}\n" +
+    "            {{reminder.model.text}}\n" +
     "        </div>\n" +
     "        <div class=\"reminder__info\">\n" +
     "            <div class=\"reminder__info__item reminder__info__item--date\">\n" +
     "                <span class=\"icon-calendar\"></span>\n" +
-    "                {{reminder.dueOn | friendlyDate}}\n" +
+    "                {{reminder.model.dueOn | friendlyDate}}\n" +
     "            </div>\n" +
     "            <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
     "                <span class=\"icon-recurring\"></span>\n" +
@@ -3201,7 +3291,7 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "            </div>\n" +
     "            <div class=\"reminder__info__item reminder__info__item--time\">\n" +
     "                <span class=\"icon-clock\"></span>\n" +
-    "                {{reminder.dueOn | friendlyHour}}\n" +
+    "                {{reminder.model.dueOn | friendlyHour}}\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"reminder__menu\">\n" +
