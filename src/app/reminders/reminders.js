@@ -37,7 +37,7 @@ angular
                                 ReminderService
                                     .getAllReminders()
                                     .then(function (response) {
-                                        deferred.resolve(ReminderTransformerService.transformRemindersToBusinessModel(response));
+                                        deferred.resolve(ReminderTransformerService.toReminders(response));
                                     }).catch(function () {
                                         deferred.resolve([]);
                                     });

@@ -46,19 +46,25 @@ angular
 
                 $scope.reminder.save()
                     .then(function (reminderAsResponse) {
-                        $timeout(function () {
-                            if ( $scope.isNew ) {
-                                ReminderModalService.modalInstance.close();
-                            }
-                            else {
-                                ReminderUpdateModalService.modalInstance.close();
-                            }
 
-                            $rootScope.$broadcast($scope.isNew ? REMINDER_EVENTS.isCreated : REMINDER_EVENTS.isUpdated, {
-                                reminder: reminderAsResponse,
-                                message: 'Reminder successfully saved!'
-                            });
-                        }, 400);
+                        if ( $scope.isNew ) {
+                            $timeout(function () {
+                                ReminderModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
+                                    reminder: reminderAsResponse,
+                                    message: 'Reminder successfully saved!'
+                                });
+                            }, 400);
+                        }
+                        else {
+                            $timeout(function () {
+                                ReminderUpdateModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
+                                    reminder: reminderAsResponse,
+                                    message: 'Reminder successfully updated!'
+                                });
+                            }, 400);
+                        }
                     })
                     .catch(function () {
 
@@ -68,4 +74,5 @@ angular
                     });
             }
         };
+
     });
