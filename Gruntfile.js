@@ -67,9 +67,8 @@ module.exports = function (grunt) {
                     "src/app/app.js",
                     "src/app/app.ctrl.js",
 
-                    "build/partials/partials.js"
-
-
+                    "build/partials/partials.js",
+                    '!**/*_test.js'
                 ],
                 dest: "build/js/app.js"
             }
