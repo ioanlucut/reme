@@ -113,6 +113,21 @@
 
     </div>
 
+    <!-- Sign up email sent section -->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully">
+
+        <!-- Title -->
+        <h1 class="account__title">Email has been sent!</h1>
+
+        <!-- Explain -->
+        <span class="account__explain">
+            We've sent you an email with the instructions on how to confirm your registration.
+        </span>
+
+        <!-- Button container -->
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+    </div>
+
     <!-- Recover password section -->
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.forgotPassword" ng-controller="ForgotPasswordCtrl">
 

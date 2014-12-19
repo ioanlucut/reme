@@ -30,6 +30,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-cookies/angular-cookies.js",
                     "bower_components/angular-messages/angular-messages.js",
                     "bower_components/angular-flash/dist/angular-flash.js",
+                    "bower_components/angular-mocks/angular-mocks.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/humps/humps.js",
@@ -53,9 +54,6 @@ module.exports = function (grunt) {
 
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
-
-                    "src/app/story/story.js",
-                    "src/app/story/**/*.js",
 
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
@@ -178,7 +176,7 @@ module.exports = function (grunt) {
                 rename: function (modulePath) {
 
                     // For the Angular UI Bootstrap templates, rewrite the module path
-                    if ( modulePath.indexOf("app/common/partials/ui-bootstrap") > -1 ) {
+                    if (modulePath.indexOf("app/common/partials/ui-bootstrap") > -1) {
                         return modulePath.replace("app/common/partials/ui-bootstrap", "template");
                     }
 
@@ -193,7 +191,6 @@ module.exports = function (grunt) {
                     "src/app/reminders/partials/**/*.html",
                     "src/app/feedback/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
-                    "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
@@ -222,7 +219,6 @@ module.exports = function (grunt) {
                     "src/app/account/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/feedback/partials/**/*.html",
-                    "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 tasks: ["html2js", "concat"]
