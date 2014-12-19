@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", function ($injector) {
+    .service("ReminderTransformerService", function ($injector, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.
@@ -14,7 +14,7 @@ angular
         this.toReminderDto = function (reminder, skipKeys) {
             var reminderDto = {};
 
-            this.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
+            TransformerUtils.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
             reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
 
@@ -30,7 +30,8 @@ angular
          */
         this.toReminder = function (reminderDto, reminder, skipKeys) {
             reminder = reminder || $injector.get('Reminder').build();
-            this.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
+
+            TransformerUtils.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
 
             // handle date conversion
             if ( reminder.model["dueOn"] ) {
@@ -61,19 +62,5 @@ angular
             }, this));
 
             return reminders;
-        };
-
-        /**
-         * Copies keys from a sourceObject to a targetObject, except given skipKeys.
-         * @param sourceObject
-         * @param targetObject
-         * @param skipKeys
-         */
-        this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
-            _.each(_.keys(sourceObject), function (key) {
-                if ( !(skipKeys && _.contains(skipKeys, key)) ) {
-                    targetObject[key] = sourceObject[key];
-                }
-            });
         };
     });
