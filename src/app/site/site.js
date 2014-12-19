@@ -4,9 +4,7 @@
 angular
     .module("site", [
         "ngAnimate",
-        "ui.router",
-        "ui.bootstrap.bindHtml",
-        "account"
+        "ui.router"
     ])
     .config(function ($stateProvider) {
 
@@ -18,13 +16,6 @@ angular
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "HomeCtrl",
-                title: "Home",
-                resolve: {
-                    helloMessage: function () {
-                        return {
-                            message: 'I am home!'
-                        };
-                    }
-                }
+                title: "Home - Reme.io"
             })
     });
