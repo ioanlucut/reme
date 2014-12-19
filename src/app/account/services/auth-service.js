@@ -103,6 +103,22 @@ angular
         };
 
         /**
+         * Validate registration email token.
+         *
+         * @param token
+         * @returns {*}
+         */
+        this.validateRegistrationToken = function (token) {
+            return $http
+                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, {":token": token}),
+                {
+                    skipAuthorization: true
+                }).then(function (response) {
+                    return response.data;
+                });
+        };
+
+        /**
          * Update password.
          *
          * @param oldPassword
