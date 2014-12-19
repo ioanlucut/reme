@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler, User, $timeout, jstz) {
+    .controller("SignUpCtrl", function ($scope, AuthService, StatesHandler, User, $timeout, jstz, AccountFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Flag which tells if the sign up error occurred.
@@ -45,12 +45,11 @@ angular
                     .then(function () {
                         $scope.isSignUpErrorOcurred = false;
 
-                        // Log in the user
-                        AuthService
-                            .login(signUpData.email, signUpData.password)
-                            .then(function () {
-                                StatesHandler.goToReminders();
-                            });
+                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUpSuccessfully);
+                        $timeout(function () {
+                            StatesHandler.goToLogin();
+                        }, 2000)
+
                     })
                     .catch(function (response) {
 
