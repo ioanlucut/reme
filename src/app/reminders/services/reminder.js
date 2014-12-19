@@ -36,22 +36,12 @@ angular
              * @returns {*}
              */
             this.save = function () {
-                var that = this;
-                var reminderDto = ReminderTransformerService.toReminderDto(this);
-
-                var deferred = $q.defer();
-                ReminderService
-                    [this.isNew() ? 'createReminder' : 'updateReminder'](reminderDto)
-                    .then(function (response) {
-                        ReminderTransformerService.toReminder(response, that);
-                        deferred.resolve(that);
-                        return response;
-                    })
-                    .catch(function (response) {
-                        return $q.reject(response);
-                    });
-
-                return deferred.promise;
+                if ( this.isNew() ) {
+                    return ReminderService.createReminder(this);
+                }
+                else {
+                    return ReminderService.updateReminder(this);
+                }
             };
 
             /**
@@ -60,21 +50,7 @@ angular
              * @returns {*}
              */
             this.fetch = function (reminderId) {
-                var that = this;
-                var deferred = $q.defer();
-
-                ReminderService
-                    .getDetails(reminderId || that.model.reminderId)
-                    .then(function (response) {
-                        ReminderTransformerService.toReminder(response, that);
-                        deferred.resolve(that);
-                        return response;
-                    })
-                    .catch(function (response) {
-                        return $q.reject(response);
-                    });
-
-                return deferred.promise;
+                return ReminderService.getDetails(reminderId);
             };
 
             /**
@@ -82,7 +58,7 @@ angular
              * @returns {*}
              */
             this.destroy = function () {
-                return ReminderService.deleteReminder(this.model);
+                return ReminderService.deleteReminder(this);
             };
 
         }
