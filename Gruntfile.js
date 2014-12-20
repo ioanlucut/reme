@@ -156,7 +156,7 @@ module.exports = function (grunt) {
                 rename: function (modulePath) {
 
                     // For the Angular UI Bootstrap templates, rewrite the module path
-                    if (modulePath.indexOf("app/common/partials/ui-bootstrap") > -1) {
+                    if ( modulePath.indexOf("app/common/partials/ui-bootstrap") > -1 ) {
                         return modulePath.replace("app/common/partials/ui-bootstrap", "template");
                     }
 
@@ -206,10 +206,6 @@ module.exports = function (grunt) {
             sass: {
                 files: ["src/**/*.scss"],
                 tasks: ["sass"]
-            },
-            less: {
-                files: ["src/**/*.less"],
-                tasks: ["less"]
             }
         }
     });
@@ -217,7 +213,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-sass");
-    grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -225,7 +220,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-html2js");
 
-    grunt.registerTask("default", ["html2js", "concat", "sass", "less", "copy"]);
+    grunt.registerTask("default", ["html2js", "concat", "sass", "copy"]);
     grunt.registerTask("test", ["jshint"]);
     grunt.registerTask("build", ["html2js", "concat", "ngAnnotate", "uglify", "sass", "cssmin", "copy"]);
 
