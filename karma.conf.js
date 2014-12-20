@@ -45,6 +45,7 @@ module.exports = function (config) {
             "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
             "bower_components/angular-ui-bootstrap/src/popover/popover.js",
             "bower_components/angular-ui-bootstrap/src/modal/modal.js",
+            "bower_components/angular-ui-bootstrap/src/tabs/tabs.js",
             "src/app/common/common.js",
             "src/app/common/**/*.js",
             "src/app/account/account.js",

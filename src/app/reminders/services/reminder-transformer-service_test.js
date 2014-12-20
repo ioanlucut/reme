@@ -3,28 +3,11 @@ describe('ReminderTransformerService', function () {
     // Inject app
     beforeEach(module("app"));
 
-    // Successfully injected
-    it('Should be successfully injected - truthy', inject(function (ReminderTransformerService) {
+    it('Should inject the service', inject(function (ReminderTransformerService) {
         expect(ReminderTransformerService).toBeTruthy();
     }));
 
-    it('Should be truthy even toReminders is called with empty params', inject(function (ReminderTransformerService) {
-        expect(ReminderTransformerService).toBeTruthy();
-        expect(ReminderTransformerService.toReminders()).toBeTruthy();
-        expect(ReminderTransformerService.toReminders()).toEqual([]);
-    }));
-
-    it('Should convert a Reminder model properly', inject(function (ReminderTransformerService, Reminder) {
-        var reminderDto = {
-            reminderId: "1"
-        };
-
-        var actual = ReminderTransformerService.toReminder(reminderDto);
-        expect(actual.model).toBeTruthy();
-        expect(actual.model.reminderId).toEqual(reminderDto.reminderId);
-    }));
-
-    it('Should convert a Reminder model properly', inject(function (ReminderTransformerService, Reminder) {
+    it('Should transform a reminder DTO to reminder business object', inject(function (ReminderTransformerService) {
         var reminderDto = {
             reminderId: "1",
             text: "ABC",
@@ -37,6 +20,58 @@ describe('ReminderTransformerService', function () {
         expect(actual.model.reminderId).toEqual(reminderDto.reminderId);
         expect(actual.model.dueOn).toEqual(reminderDto.dueOn);
         expect(actual.model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
+    }));
+
+    it('Should transform a reminder to a reminder DTO', inject(function (ReminderTransformerService, Reminder) {
+
+        var reminder = Reminder.build({
+            reminderId: "1",
+            text: "ABC",
+            additionalAddresses: ["xx@xx", "yy@yy"]
+        });
+
+        var actualReminderDto = ReminderTransformerService.toReminderDto(reminder);
+        expect(actualReminderDto).toBeTruthy();
+        expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
+        expect(actualReminderDto.additionalAddresses).toEqual("xx@xx,yy@yy");
+    }));
+
+    it('Should be truthy even toReminders is called with empty params', inject(function (ReminderTransformerService) {
+        expect(ReminderTransformerService).toBeTruthy();
+        expect(ReminderTransformerService.toReminders()).toBeTruthy();
+        expect(ReminderTransformerService.toReminders()).toEqual([]);
+    }));
+
+    it('Should transform a NULL reminder list of DTOs to empty list of reminders business object', inject(function (ReminderTransformerService) {
+        var actualReminders = ReminderTransformerService.toReminders(null);
+        expect(actualReminders).toBeTruthy();
+        expect(actualReminders.length).toBe(0);
+        expect(actualReminders).toEqual([]);
+    }));
+
+    it('Should transform a reminder list of DTOs to a list of reminders business object', inject(function (ReminderTransformerService) {
+        var reminderDto = {
+            reminderId: "1",
+            text: "ABC",
+            dueOn: new Date(),
+            additionalAddresses: "xx@xx,yy@yy"
+        };
+
+        var actualReminders = ReminderTransformerService.toReminders([reminderDto, reminderDto]);
+        expect(actualReminders).toBeTruthy();
+        expect(actualReminders.length).toBe(2);
+        expect(actualReminders[0]).toBeTruthy();
+        expect(actualReminders[1]).toBeTruthy();
+
+        expect(actualReminders[0].model).toBeTruthy();
+        expect(actualReminders[0].model.reminderId).toEqual(reminderDto.reminderId);
+        expect(actualReminders[0].model.dueOn).toEqual(reminderDto.dueOn);
+        expect(actualReminders[0].model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
+
+        expect(actualReminders[1].model).toBeTruthy();
+        expect(actualReminders[1].model.reminderId).toEqual(reminderDto.reminderId);
+        expect(actualReminders[1].model.dueOn).toEqual(reminderDto.dueOn);
+        expect(actualReminders[1].model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
     }));
 
 });
