@@ -22,6 +22,21 @@ describe('ReminderTransformerService', function () {
         expect(actual.model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
     }));
 
+    it('Should transform a reminder to a reminder DTO and remove everything after @', inject(function (ReminderTransformerService, Reminder) {
+
+        var reminder = Reminder.build({
+            reminderId: "1",
+            text: "ABC @Today",
+            additionalAddresses: ["xx@xx", "yy@yy"]
+        });
+
+        var actualReminderDto = ReminderTransformerService.toReminderDto(reminder);
+        expect(actualReminderDto).toBeTruthy();
+        expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
+        expect(actualReminderDto.text).toEqual("ABC");
+        expect(actualReminderDto.additionalAddresses).toEqual("xx@xx,yy@yy");
+    }));
+
     it('Should transform a reminder to a reminder DTO', inject(function (ReminderTransformerService, Reminder) {
 
         var reminder = Reminder.build({
