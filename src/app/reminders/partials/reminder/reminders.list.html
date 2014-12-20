@@ -8,75 +8,13 @@
 
     <tabset>
         <tab heading="Upcoming reminders">
-
-            <!--Reminder list is empty-->
-            <span ng-if="upcomingReminders.length === 0">You don't have any reminders defined.</span>
-
-            <!--Reminder list-->
-            <div class="reminder" ng-repeat="reminder in upcomingReminders | orderObjectBy : 'dueOn' : true">
-                <div class="reminder__title">
-                    {{reminder.model.text}}
-                </div>
-                <div class="reminder__info">
-                    <div class="reminder__info__item reminder__info__item--date">
-                        <span class="icon-calendar"></span>
-                        {{reminder.model.dueOn | friendlyDate}}
-                    </div>
-                    <div class="reminder__info__item reminder__info__item--recurring">
-                        <span class="icon-recurring"></span>
-                        Every week on Monday
-                    </div>
-                    <div class="reminder__info__item reminder__info__item--time">
-                        <span class="icon-clock"></span>
-                        {{reminder.model.dueOn | friendlyHour}}
-                    </div>
-                </div>
-                <div class="reminder__menu">
-                    <a class="reminder__menu__option" href="#" ng-click="openUpdateReminderModalService(reminder)"><span
-                            class="icon-pencil"></span></a>
-                    <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span
-                            class="icon-checkmark"></span></a>
-                    <a class="reminder__menu__option" href="#" ng-click="openDeleteReminderModalService(reminder)"><span
-                            class="icon-trash"></span></a>
-                </div>
-
-            </div>
+            <div reminder-list reminders="upcomingReminders" on-update="openUpdateReminderModalService(reminder)"
+                 on-delete="openDeleteReminderModalService(reminder)"></div>
         </tab>
 
         <tab heading="Past reminders">
-            <!--Reminder list is empty-->
-            <span ng-if="pastReminders.length === 0">You don't have any reminders defined.</span>
-
-            <!--Reminder list-->
-            <div class="reminder" ng-repeat="reminder in pastReminders | orderObjectBy : 'dueOn' : true">
-
-                <div class="reminder__title">
-                    {{reminder.model.text}}
-                </div>
-                <div class="reminder__info">
-                    <div class="reminder__info__item reminder__info__item--date">
-                        <span class="icon-calendar"></span>
-                        {{reminder.model.dueOn | friendlyDate}}
-                    </div>
-                    <div class="reminder__info__item reminder__info__item--recurring">
-                        <span class="icon-recurring"></span>
-                        Every week on Monday
-                    </div>
-                    <div class="reminder__info__item reminder__info__item--time">
-                        <span class="icon-clock"></span>
-                        {{reminder.model.dueOn | friendlyHour}}
-                    </div>
-                </div>
-                <div class="reminder__menu">
-                    <a class="reminder__menu__option" href="#" ng-click="openUpdateReminderModalService(reminder)"><span
-                            class="icon-pencil"></span></a>
-                    <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span
-                            class="icon-checkmark"></span></a>
-                    <a class="reminder__menu__option" href="#" ng-click="openDeleteReminderModalService(reminder)"><span
-                            class="icon-trash"></span></a>
-                </div>
-
-            </div>
+            <div reminder-list reminders="pastReminders" on-update="openUpdateReminderModalService(reminder)"
+                 on-delete="openDeleteReminderModalService(reminder)"></div>
         </tab>
     </tabset>
 
