@@ -15,7 +15,9 @@ angular
             var reminderDto = {};
 
             TransformerUtils.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
-            reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            if ( reminderDto["dueOn"] ) {
+                reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            }
             reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
 
             return reminderDto;
@@ -41,6 +43,9 @@ angular
             var additionAddresses = reminder.model["additionalAddresses"];
             if ( _.isEmpty(additionAddresses) ) {
                 reminder.model["additionalAddresses"] = [];
+            }
+            else if ( _.isArray(additionAddresses) ) {
+                reminder.model["additionalAddresses"] = additionAddresses;
             }
             else {
                 reminder.model["additionalAddresses"] = _.values(additionAddresses.split(","));
