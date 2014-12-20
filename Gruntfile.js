@@ -43,7 +43,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
                     "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
                     "bower_components/angular-ui-bootstrap/src/popover/popover.js",
-                    "bower_components/angular-ui-bootstrap/src/modal/modal.js"
+                    "bower_components/angular-ui-bootstrap/src/modal/modal.js",
+                    "bower_components/angular-ui-bootstrap/src/tabs/tabs.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
