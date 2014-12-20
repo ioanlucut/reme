@@ -10,6 +10,7 @@ angular
         "ui.bootstrap.tooltip",
         "ui.bootstrap.popover",
         "ui.bootstrap.modal",
+        "ui.bootstrap.tabs",
         "common",
         "feedback"
     ])
