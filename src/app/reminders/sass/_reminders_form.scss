@@ -3,23 +3,29 @@
 
 .reminder-form-container {
 }
+//.reminder-form-container {
+//  //display: table-cell;
+//  //vertical-align: middle;
+//}
+
 
 // Reminder form
 // ---------------
 
-.reminder-form {
+.reminder-modal__form {
 
   // Reminder datetime
   // -------------------
 
-  .date-and-time {
+  &__info {
     margin-top: 30px;
+    @include clearfix();
 
     // Reminder date and time
     // -----------------------
 
-    .date,
-    .time {
+    &--date,
+    &--time {
 
       & > .btn {
         width: 100%;
@@ -28,7 +34,7 @@
       }
 
       .dropdown-menu {
-        background: @datepicker-bg;
+        //background: $gray8;
         padding: 0;
       }
     }
@@ -36,7 +42,7 @@
     // Reminder date
     // ---------------
 
-    .date {
+    &--date {
       float: left;
       position: relative;
       width: 355px;
@@ -54,7 +60,7 @@
     // Reminder time
     // ---------------
 
-    .time {
+    &--time {
       float: left;
       position: relative;
       margin-bottom: 10px;
@@ -69,7 +75,7 @@
   // Reminder addressees
   // --------------------
 
-  .addressees {
+  &__addressees {
     text-align: center;
 
     // Form group
@@ -81,7 +87,7 @@
 
       &.has-error {
         .form-control {
-          border: 1px solid @state-danger-text;
+          border: 1px solid $brand-danger;
         }
       }
     }
@@ -105,7 +111,7 @@
 
     .form-control {
       display: block;
-      background-color: @brand-tertiary;
+      background-color: $text-color-secondary;
       background-position: 15px -288px;
       border: none;
 
@@ -113,17 +119,17 @@
       height: 40px;
       padding: 8px 20px 8px 50px;
 
-      .box-shadow(none);
-      .placeholder(lighten(@gray-light, 10%));
+      //.box-shadow(none);
+      //.placeholder(lighten(@gray-light, 10%));
 
       &:hover,
       &:focus {
-        background-color: darken(@brand-tertiary, 5%);
+        background-color: darken($gray5, 5%);
       }
 
       &:focus {
         border: none;
-        .box-shadow(none);
+        //.box-shadow(none);
       }
     }
 
@@ -161,7 +167,7 @@
 
   text-align: center;
   font-size: 14px;
-  color: @gray-light;
+  color: $gray12;
 
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
@@ -169,56 +175,56 @@
 // RESPONSIVE
 // -------------
 
-@media (max-width: @screen-custom) {
-
-  .reminder-form {
-
-    .btn,
-    .form-control {
-      font-size: 13px;
-    }
-
-    .input-lg {
-      padding-left: 12px;
-      padding-right: 12px;
-    }
-
-    .date-and-time {
-      .date {
-        width: 100%;
-        margin-right: 0;
-
-        & > .btn {
-          background-position: 10px -172px;
-          padding-left: 40px;
-        }
-      }
-
-      .time {
-        width: 100%;
-
-        & > .btn {
-          background-position: 10px -231px;
-          padding-left: 40px;
-        }
-      }
-    }
-
-    .addressees {
-      .form-control {
-        background-position: 10px -288px;
-        padding-left: 40px;
-      }
-
-      .close {
-        position: absolute;
-        top: 8px;
-        right: 2px;
-      }
-    }
-
-    .btn-create {
-      margin-top: 20px;
-    }
-  }
-}
+//@media (max-width: @screen-custom) {
+//
+//  .reminder-form {
+//
+//    .btn,
+//    .form-control {
+//      font-size: 13px;
+//    }
+//
+//    .input-lg {
+//      padding-left: 12px;
+//      padding-right: 12px;
+//    }
+//
+//    .date-and-time {
+//      .date {
+//        width: 100%;
+//        margin-right: 0;
+//
+//        & > .btn {
+//          background-position: 10px -172px;
+//          padding-left: 40px;
+//        }
+//      }
+//
+//      .time {
+//        width: 100%;
+//
+//        & > .btn {
+//          background-position: 10px -231px;
+//          padding-left: 40px;
+//        }
+//      }
+//    }
+//
+//    .addressees {
+//      .form-control {
+//        background-position: 10px -288px;
+//        padding-left: 40px;
+//      }
+//
+//      .close {
+//        position: absolute;
+//        top: 8px;
+//        right: 2px;
+//      }
+//    }
+//
+//    .btn-create {
+//      margin-top: 20px;
+//    }
+//  }
+//}
