@@ -9,19 +9,20 @@
 // Reminder form
 // ---------------
 
-.reminder-form {
+.reminder-modal__form {
 
   // Reminder datetime
   // -------------------
 
-  .date-and-time {
+  &__info {
     margin-top: 30px;
+    @include clearfix();
 
     // Reminder date and time
     // -----------------------
 
-    .date,
-    .time {
+    &--date,
+    &--time {
 
       & > .btn {
         width: 100%;
@@ -38,7 +39,7 @@
     // Reminder date
     // ---------------
 
-    .date {
+    &--date {
       float: left;
       position: relative;
       width: 355px;
@@ -56,7 +57,7 @@
     // Reminder time
     // ---------------
 
-    .time {
+    &--time {
       float: left;
       position: relative;
       margin-bottom: 10px;
@@ -71,7 +72,7 @@
   // Reminder addressees
   // --------------------
 
-  .addressees {
+  &__addressees {
     text-align: center;
 
     // Form group
