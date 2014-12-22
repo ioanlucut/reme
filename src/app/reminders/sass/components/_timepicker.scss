@@ -9,7 +9,7 @@
 
   li {
     &.selected {
-      background: @dropdown-link-hover-bg;
+      background: $dropdown-link-hover-bg;
     }
 
     a {

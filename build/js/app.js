@@ -1240,7 +1240,28 @@ angular
                 notify: true
             });
         }
-    }]);;/* URL To */
+    }]);;/**
+ * Transformer utils service.
+ */
+angular
+    .module("common")
+    .service("TransformerUtils", function () {
+
+        /**
+         * Copies keys from a sourceObject to a targetObject, except given skipKeys.
+         * @param sourceObject
+         * @param targetObject
+         * @param skipKeys
+         */
+        this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
+            _.each(_.keys(sourceObject), function (key) {
+                if ( !(skipKeys && _.contains(skipKeys, key)) ) {
+                    targetObject[key] = sourceObject[key];
+                }
+            });
+        };
+    });
+;/* URL To */
 
 angular
     .module("common")
@@ -1299,36 +1320,91 @@ angular
                         return true;
                     }]
                 }
-
             })
 
-            // Validate password reset token
+            ///////////////////////////////////////////////
+            /*Validate password reset token related views*/
+            ///////////////////////////////////////////////
+
+            // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
                 url: "/account/reset-password/{token}",
+                templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
+                abstract: true
+            })
+            // Validate password reset token - valid
+            .state({
+                name: "account:validatePasswordResetToken.valid",
+                url: "",
                 templateUrl: "app/account/partials/validate_password_reset_token.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
-                    validateTokenResult: ["$stateParams", "$q", "AuthService", function ($stateParams, $q, AuthService) {
+                    validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
                         AuthService.validatePasswordResetToken($stateParams.token)
                             .then(function (response) {
-
-                                // Take the email from
-                                deferred.resolve({successful: true, email: response.email});
-
+                                deferred.resolve({email: response.email});
                                 return response;
                             }).catch(function (response) {
 
-                                deferred.resolve({successful: false, errors: response.data && response.data.errors});
-
+                                $state.go("account:validatePasswordResetToken.invalid");
                                 return response;
                             });
 
                         return deferred.promise;
                     }]
                 }
+            })
+            // Validate password reset token - invalid token
+            .state({
+                name: "account:validatePasswordResetToken.invalid",
+                url: "invalid-token",
+                templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
+                controller: "ValidatePasswordResetTokenInvalidCtrl"
+            })
+
+            /////////////////////////
+            /*Sign up related views*/
+            /////////////////////////
+
+            // Sign up confirm abstract view
+            .state({
+                name: "account:confirmRegistration",
+                url: "/account/confirm-registration/{token}",
+                templateUrl: "app/account/partials/signup_confirm_abstract.html",
+                abstract: true
+            })
+            // Sign up confirm - valid
+            .state({
+                name: "account:confirmRegistration.valid",
+                url: "",
+                templateUrl: "app/account/partials/signup_confirm_valid.html",
+                controller: "SignUpConfirmCtrl",
+                resolve: {
+                    validateRegistration: ["$stateParams", "$q", "AuthService", "$state", "$timeout", function ($stateParams, $q, AuthService, $state, $timeout) {
+                        var deferred = $q.defer();
+                        AuthService.validateRegistrationToken($stateParams.token)
+                            .then(function (response) {
+                                deferred.resolve({successful: response.successful});
+                                return response;
+                            }).catch(function (response) {
+
+                                $state.go("account:confirmRegistration.invalid");
+                                return response;
+                            });
+
+                        return deferred.promise;
+                    }]
+                }
+            })
+            // Sign up confirm - invalid
+            .state({
+                name: "account:confirmRegistration.invalid",
+                url: "registration-failed",
+                templateUrl: "app/account/partials/signup_confirm_invalid.html",
+                controller: "SignUpConfirmInvalidCtrl"
             })
     }])
 
@@ -1361,6 +1437,7 @@ angular
         details: "accounts/details",
         requestPasswordReset: "accounts/request_password_reset_token",
         validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
+        validateRegistrationToken: "accounts/validate_registration_token/:token",
         updatePassword: "accounts/update_password",
         resetPasswordWithToken: "accounts/reset_password_with_token/:token",
         refreshToken: "auth/refresh_token"
@@ -1369,6 +1446,7 @@ angular
         login: "login",
         logout: "logout",
         signUp: "signUp",
+        signUpSuccessfully: "signUpSuccessfully",
         forgotPassword: "forgotPassword",
         forgotPasswordEmailSent: "forgotPasswordEmailSent",
         updateProfile: "updateProfile",
@@ -1559,12 +1637,29 @@ angular
         $scope.getMeBack = function () {
             StatesHandler.goToReminders();
         }
-    }]);;/**
+    }]);;angular
+    .module("account")
+    .controller("SignUpConfirmCtrl", ["$scope", "StatesHandler", "AccountFormToggle", "$timeout", "ACCOUNT_FORM_STATE", "validateRegistration", function ($scope, StatesHandler, AccountFormToggle, $timeout, ACCOUNT_FORM_STATE, validateRegistration) {
+
+        /**
+         * Continues to login page.
+         */
+        $scope.continueToLogin = function () {
+            $timeout(function () {
+                AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
+                StatesHandler.goToLogin();
+            }, 400);
+        }
+    }]);
+;angular
+    .module("account")
+    .controller("SignUpConfirmInvalidCtrl", function () {
+    });;/**
  * Sign up controller responsible for user sign up action.
  */
 angular
     .module("account")
-    .controller("SignUpCtrl", ["$scope", "AuthService", "StatesHandler", "User", "$timeout", "jstz", function ($scope, AuthService, StatesHandler, User, $timeout, jstz) {
+    .controller("SignUpCtrl", ["$scope", "AuthService", "StatesHandler", "User", "$timeout", "jstz", "AccountFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, User, $timeout, jstz, AccountFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Flag which tells if the sign up error occurred.
@@ -1606,12 +1701,11 @@ angular
                     .then(function () {
                         $scope.isSignUpErrorOcurred = false;
 
-                        // Log in the user
-                        AuthService
-                            .login(signUpData.email, signUpData.password)
-                            .then(function () {
-                                StatesHandler.goToReminders();
-                            });
+                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUpSuccessfully);
+                        $timeout(function () {
+                            StatesHandler.goToLogin();
+                        }, 2000)
+
                     })
                     .catch(function (response) {
 
@@ -1687,11 +1781,6 @@ angular
     .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$stateParams", "$timeout", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $stateParams, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
-         * Flag which tells if user is currently authenticated while coming to this page.
-         */
-        $scope.isUserAuthenticated = AuthService.isAuthenticated();
-
-        /**
          * Flag which says if errors have ocured while trying to reset the password.
          * @type {boolean}
          */
@@ -1704,26 +1793,15 @@ angular
         $scope.errorMessages = "";
 
         /**
-         * If validation is successful, then fetch the email, and build form data.
+         * Reset password data (used if
+         * @type {{email: string, password: string, passwordConfirmation: string, token: *}}
          */
-        if ( validateTokenResult.successful ) {
-
-            /**
-             * Reset password data (used if
-             * @type {{email: string, password: string, passwordConfirmation: string, token: *}}
-             */
-            $scope.resetPasswordData = {
-                email: validateTokenResult.email,
-                password: "",
-                passwordConfirmation: "",
-                token: $stateParams.token
-            };
-
-            $scope.isTokenValid = true;
-        }
-        else {
-            $scope.errorMessages = validateTokenResult.errors;
-        }
+        $scope.resetPasswordData = {
+            email: validateTokenResult.email,
+            password: "",
+            passwordConfirmation: "",
+            token: $stateParams.token
+        };
 
         /**
          * Reset password data functionality.
@@ -1763,6 +1841,15 @@ angular
                     });
             }
         };
+    }]);
+;angular
+    .module("account")
+    .controller("ValidatePasswordResetTokenInvalidCtrl", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+
+        /**
+         * Flag which tells if user is currently authenticated while coming to this page.
+         */
+        $scope.isUserAuthenticated = AuthService.isAuthenticated();
 
         /**
          * Continues to reset password page. (try again functionality)
@@ -2011,6 +2098,22 @@ angular
         };
 
         /**
+         * Validate registration email token.
+         *
+         * @param token
+         * @returns {*}
+         */
+        this.validateRegistrationToken = function (token) {
+            return $http
+                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, {":token": token}),
+                {
+                    skipAuthorization: true
+                }).then(function (response) {
+                    return response.data;
+                });
+        };
+
+        /**
          * Update password.
          *
          * @param oldPassword
@@ -2048,12 +2151,12 @@ angular
     .service("AuthFilter", ["AuthService", "StatesHandler", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
-            if ( (toState.url === '/account' || toState.url === "/") && AuthService.isAuthenticated() ) {
+            if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
                 StatesHandler.goToReminders();
-            } else if ( (toState.url === '/profile' || toState.url === '/reminders' || toState.url === '/') && !AuthService.isAuthenticated() ) {
+            } else if ( (toState.url === '/profile' || toState.url === '/reminders') && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
@@ -2061,8 +2164,7 @@ angular
             }
         };
 
-    }]);
-;/**
+    }]);;/**
  * Authentication service interceptor used to listen to server responses.
  */
 angular
@@ -2148,7 +2250,7 @@ angular
                     }, this))
                     .catch(function (response) {
                         deferred.resolve({
-                            isUnique: _.isEmpty(response.data.errors),
+                            isUnique: _.isEmpty(response.data && response.data.errors),
                             email: email
                         });
                     });
@@ -2166,7 +2268,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .factory("User", ["SessionService", "$q", "$http", "AUTH_URLS", function (SessionService, $q, $http, AUTH_URLS) {
+    .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -2190,7 +2292,7 @@ angular
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        this.setSelectiveKey(this.model, SessionService.getData() || {});
+                        TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
 
                         return this;
                     },
@@ -2201,7 +2303,7 @@ angular
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        this.setSelectiveKey(sessionData, this, ["password"]);
+                        TransformerUtils.copyKeysFromTo(this, sessionData, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;
@@ -2213,7 +2315,7 @@ angular
                      */
                     $save: function (fromData) {
                         var toBeSaved = {};
-                        this.setSelectiveKey(toBeSaved, fromData);
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
                         return this.updateAccount(toBeSaved);
                     },
@@ -2225,7 +2327,7 @@ angular
                      */
                     $create: function (fromData) {
                         var toBeCreated = {};
-                        this.setSelectiveKey(toBeCreated, fromData);
+                        TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated);
                     },
@@ -2236,7 +2338,7 @@ angular
                         return this
                             .retrieveDetails()
                             .then(function (response) {
-                                that.setSelectiveKey(that, response.data);
+                                TransformerUtils.copyKeysFromTo(response.data, that);
                                 that.saveToSession();
 
                                 return response;
@@ -2270,20 +2372,6 @@ angular
                      */
                     updateAccount: function (account) {
                         return $http.post(URLTo.api(AUTH_URLS.update), account);
-                    },
-
-                    /**
-                     * Sets selective keys on a target object from a source object.
-                     * @param targetObject
-                     * @param sourceObject
-                     * @param skipKeys
-                     */
-                    setSelectiveKey: function (targetObject, sourceObject, skipKeys) {
-                        _.each(_.keys(this.model), function (key) {
-                            if ( !(skipKeys && _.contains(skipKeys, key)) ) {
-                                targetObject[key] = sourceObject[key];
-                            }
-                        });
                     }
 
                 }
@@ -2296,9 +2384,7 @@ angular
 angular
     .module("site", [
         "ngAnimate",
-        "ui.router",
-        "ui.bootstrap.bindHtml",
-        "account"
+        "ui.router"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -2310,14 +2396,7 @@ angular
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "HomeCtrl",
-                title: "Home",
-                resolve: {
-                    helloMessage: function () {
-                        return {
-                            message: 'I am home!'
-                        };
-                    }
-                }
+                title: "Home - Reme.io"
             })
     }]);
 ;/**
@@ -2325,8 +2404,7 @@ angular
  */
 angular
     .module("site")
-    .controller("HomeCtrl", ["$scope", "helloMessage", function ($scope, helloMessage) {
-        $scope.helloMessage = helloMessage;
+    .controller("HomeCtrl", ["$scope", function ($scope) {
     }]);;/**
  * Main site module declaration including ui templates.
  */
@@ -2339,6 +2417,7 @@ angular
         "ui.bootstrap.tooltip",
         "ui.bootstrap.popover",
         "ui.bootstrap.modal",
+        "ui.bootstrap.tabs",
         "common",
         "feedback"
     ])
@@ -2361,12 +2440,12 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: ["$q", "ReminderService", "ReminderTransformerService", function ($q, ReminderService, ReminderTransformerService) {
+                            reminderList: ["$q", "ReminderService", function ($q, ReminderService) {
                                 var deferred = $q.defer();
                                 ReminderService
                                     .getAllReminders()
                                     .then(function (response) {
-                                        deferred.resolve(ReminderTransformerService.toReminders(response));
+                                        deferred.resolve(response);
                                     }).catch(function () {
                                         deferred.resolve([]);
                                     });
@@ -2467,13 +2546,36 @@ angular
 angular
     .module("reminders")
     .controller("ReminderListCtrl", ["$scope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", "$log", "flash", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
-        $scope.reminderList = reminderList;
 
-        $scope.cancel = function () {
-            ReminderDeleteModalService.modalInstance.dismiss("cancel");
-            ReminderDeleteModalService.modalInstance.dismiss("cancel");
-            $scope.isOpen = false;
-        };
+        /**
+         * Group reminders by upcoming and past reminders.
+         * @returns {*}
+         */
+        function groupRemindersByUpcomingAndPast() {
+            var now = new Date();
+
+            return _.chain(reminderList)
+                .groupBy(function (element, index) {
+                    return element.model.dueOn < now;
+                })
+                .toArray()
+                .value();
+        }
+
+        /**
+         * Reminders grouped by upcoming and past reminders.
+         */
+        var remindersGrouped = groupRemindersByUpcomingAndPast();
+
+        /**
+         * Upcoming reminders
+         */
+        $scope.upcomingReminders = remindersGrouped[0] || [];
+
+        /**
+         * Past reminders
+         */
+        $scope.pastReminders = remindersGrouped[1] || [];
 
         /**
          * Open DELETE modal
@@ -2497,7 +2599,12 @@ angular
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
             flash.success = args.message;
 
-            $scope.reminderList.push(args.reminder);
+            if ( args.reminder.model.dueOn > new Date() ) {
+                $scope.upcomingReminders.push(args.reminder);
+            }
+            else {
+                $scope.pastReminders.push(args.reminder);
+            }
         });
 
         /**
@@ -2513,7 +2620,8 @@ angular
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
             flash.success = args.message;
 
-            removeReminderFrom($scope.reminderList, args.reminder);
+            removeReminderFrom($scope.upcomingReminders, args.reminder);
+            removeReminderFrom($scope.pastReminders, args.reminder);
         });
 
         /**
@@ -2534,7 +2642,7 @@ angular
         }
     }]);;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", "ReminderTransformerService", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS, ReminderTransformerService) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2579,13 +2687,13 @@ angular
                 $scope.isSaving = true;
 
                 $scope.reminder.save()
-                    .then(function (reminderAsResponse) {
+                    .then(function () {
 
                         if ( $scope.isNew ) {
                             $timeout(function () {
                                 ReminderModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
-                                    reminder: reminderAsResponse,
+                                    reminder: $scope.reminder,
                                     message: 'Reminder successfully saved!'
                                 });
                             }, 400);
@@ -2594,7 +2702,7 @@ angular
                             $timeout(function () {
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
-                                    reminder: reminderAsResponse,
+                                    reminder: $scope.reminder,
                                     message: 'Reminder successfully updated!'
                                 });
                             }, 400);
@@ -2625,6 +2733,23 @@ angular
         };
 
     }]);
+;/* Email list */
+
+angular
+    .module("reminders")
+    .directive("reminderList", function () {
+        return {
+            restrict: "A",
+            scope: {
+                reminders: "=",
+                onUpdate: "&",
+                onDelete: "&"
+            },
+            templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
+            link: function (scope, el, attrs) {
+            }
+        }
+    });
 ;/* Feedback modal */
 
 angular
@@ -2689,43 +2814,53 @@ angular
  */
 angular
     .module("reminders")
-    .service("ReminderService", ["$rootScope", "$q", "$http", "$cookies", "SessionService", "AUTH_EVENTS", "REMINDER_URLS", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, REMINDER_URLS) {
+    .service("ReminderService", ["REMINDER_URLS", "$q", "$http", "$injector", "ReminderTransformerService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
 
         /**
          * Update a reminder.
-         * @param reminderToBeCreated
+         * @param reminder
          * @returns {*}
          */
-        this.createReminder = function (reminderToBeCreated) {
+        this.createReminder = function (reminder) {
             return $http
-                .post(URLTo.api(REMINDER_URLS.create), reminderToBeCreated)
+                .post(URLTo.api(REMINDER_URLS.create), ReminderTransformerService.toReminderDto(reminder))
                 .then(function (response) {
-                    return response.data;
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
+                    return response;
                 });
         };
 
         /**
          * Update a reminder.
-         * @param reminderToBeUpdated
+         * @param reminder
          * @returns {*}
          */
-        this.updateReminder = function (reminderToBeUpdated) {
+        this.updateReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
             return $http
-                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderToBeUpdated.reminderId}), reminderToBeUpdated)
+                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderDto.reminderId}), reminderDto)
                 .then(function (response) {
-                    return response.data;
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
+                    return response;
                 });
         };
 
         /**
          * Delete a reminder.
-         * @param reminderToBeDeleted
+         * @param reminder
          * @returns {*}
          */
-        this.deleteReminder = function (reminderToBeDeleted) {
+        this.deleteReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
             return $http
-                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderToBeDeleted.reminderId}), reminderToBeDeleted)
+                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderDto.reminderId}), reminderDto)
                 .then(function (response) {
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
                     return response.data;
                 });
         };
@@ -2738,7 +2873,8 @@ angular
             return $http
                 .get(URLTo.api(REMINDER_URLS.allReminders))
                 .then(function (response) {
-                    return response.data;
+
+                    return ReminderTransformerService.toReminders(response.data)
                 }).catch(function (response) {
                     return $q.reject(response);
                 });
@@ -2747,13 +2883,14 @@ angular
         /**
          * Get details of a reminder.
          * @param reminderId
+         * @param reminder
          * @returns {*}
          */
-        this.getDetails = function (reminderId) {
+        this.getDetails = function (reminderId, reminder) {
             return $http
                 .get(URLTo.api(REMINDER_URLS.details, {":reminderId": reminderId}))
                 .then(function (response) {
-                    return response.data;
+                    return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });
         };
     }]);
@@ -2762,7 +2899,7 @@ angular
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", ["$injector", function ($injector) {
+    .service("ReminderTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.
@@ -2773,9 +2910,12 @@ angular
         this.toReminderDto = function (reminder, skipKeys) {
             var reminderDto = {};
 
-            this.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
-            reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            TransformerUtils.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
+            if ( reminderDto["dueOn"] ) {
+                reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            }
             reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
+            reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
 
             return reminderDto;
         };
@@ -2789,7 +2929,8 @@ angular
          */
         this.toReminder = function (reminderDto, reminder, skipKeys) {
             reminder = reminder || $injector.get('Reminder').build();
-            this.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
+
+            TransformerUtils.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
 
             // handle date conversion
             if ( reminder.model["dueOn"] ) {
@@ -2799,6 +2940,9 @@ angular
             var additionAddresses = reminder.model["additionalAddresses"];
             if ( _.isEmpty(additionAddresses) ) {
                 reminder.model["additionalAddresses"] = [];
+            }
+            else if ( _.isArray(additionAddresses) ) {
+                reminder.model["additionalAddresses"] = additionAddresses;
             }
             else {
                 reminder.model["additionalAddresses"] = _.values(additionAddresses.split(","));
@@ -2820,20 +2964,6 @@ angular
             }, this));
 
             return reminders;
-        };
-
-        /**
-         * Copies keys from a sourceObject to a targetObject, except given skipKeys.
-         * @param sourceObject
-         * @param targetObject
-         * @param skipKeys
-         */
-        this.copyKeysFromTo = function (sourceObject, targetObject, skipKeys) {
-            _.each(_.keys(sourceObject), function (key) {
-                if ( !(skipKeys && _.contains(skipKeys, key)) ) {
-                    targetObject[key] = sourceObject[key];
-                }
-            });
         };
     }]);
 ;/* Feedback modal */
@@ -2900,22 +3030,12 @@ angular
              * @returns {*}
              */
             this.save = function () {
-                var that = this;
-                var reminderDto = ReminderTransformerService.toReminderDto(this);
-
-                var deferred = $q.defer();
-                ReminderService
-                    [this.isNew() ? 'createReminder' : 'updateReminder'](reminderDto)
-                    .then(function (response) {
-                        ReminderTransformerService.toReminder(response, that);
-                        deferred.resolve(that);
-                        return response;
-                    })
-                    .catch(function (response) {
-                        return $q.reject(response);
-                    });
-
-                return deferred.promise;
+                if ( this.isNew() ) {
+                    return ReminderService.createReminder(this);
+                }
+                else {
+                    return ReminderService.updateReminder(this);
+                }
             };
 
             /**
@@ -2924,21 +3044,7 @@ angular
              * @returns {*}
              */
             this.fetch = function (reminderId) {
-                var that = this;
-                var deferred = $q.defer();
-
-                ReminderService
-                    .getDetails(reminderId || that.model.reminderId)
-                    .then(function (response) {
-                        ReminderTransformerService.toReminder(response, that);
-                        deferred.resolve(that);
-                        return response;
-                    })
-                    .catch(function (response) {
-                        return $q.reject(response);
-                    });
-
-                return deferred.promise;
+                return ReminderService.getDetails(reminderId);
             };
 
             /**
@@ -2946,7 +3052,7 @@ angular
              * @returns {*}
              */
             this.destroy = function () {
-                return ReminderService.deleteReminder(this.model);
+                return ReminderService.deleteReminder(this);
             };
 
         }
@@ -3158,12 +3264,33 @@ angular
             $rootScope.currentUser = User.$new();
             $log.log("Logged out.");
         });
+
+        //DEBUG RELATED
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
+        });
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeError - fired when an error occurs during transition.');
+            $log.log(arguments);
+        });
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeSuccess to ' + toState.name + '- fired once the state transition is complete.');
+        });
+        $rootScope.$on('$viewContentLoaded', function (event) {
+            $log.log('$viewContentLoaded - fired after dom rendered', event);
+        });
+        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+            $log.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
+            $log.log(unfoundState, fromState, fromParams);
+        });
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.edit.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/validate_password_reset_token.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
-    "<div header>Welcome!</div>\n" +
+    "<div header></div>\n" +
+    "\n" +
+    "Welcome to the home page!\n" +
     "");
 }]);
 
@@ -3226,23 +3353,40 @@ angular.module("app/reminders/partials/privacy.html", []).run(["$templateCache",
     "");
 }]);
 
-angular.module("app/reminders/partials/reminder/reminder.edit.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminder/reminder.edit.html",
-    "<div class=\"screen\">\n" +
-    "    <div class=\"reminder-saved-container\">\n" +
-    "        <span class=\"text-muted\">Here's your reminder:</span>\n" +
+angular.module("app/reminders/partials/reminder/reminder.list.template.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminder/reminder.list.template.html",
+    "<!--Reminder list is empty-->\n" +
+    "<span ng-if=\"reminders.length === 0\">You don't have any reminders defined.</span>\n" +
     "\n" +
-    "        <div class=\"reminder-summary container container-small box\">\n" +
-    "            <a ui-sref=\"update.form({secureId: reminder.attributes.secure_id})\">Edit</a>\n" +
-    "            <span class=\"bg-sprite icon-saved\"></span>\n" +
-    "            <div class=\"text\">{{reminder.attributes.text}}</div>\n" +
-    "            <div class=\"date\">{{reminder.attributes.due_on.format(\"{Weekday}, {d} {Month} {yyyy} at {hh}:{mm} {tt}\")}}</div>\n" +
-    "            <div class=\"recipient\">{{reminder.attributes.created_by}}</div>\n" +
-    "            <div class=\"recipient\" ng-repeat=\"addressee in reminder.attr('additional_addressees') track by $index\">\n" +
-    "                {{addressee}}\n" +
-    "            </div>\n" +
+    "<!--Reminder list-->\n" +
+    "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true\">\n" +
+    "    <div class=\"reminder__title\">\n" +
+    "        {{reminder.model.text}}\n" +
+    "    </div>\n" +
+    "    <div class=\"reminder__info\">\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--date\">\n" +
+    "            <span class=\"icon-calendar\"></span>\n" +
+    "            {{reminder.model.dueOn | friendlyDate}}\n" +
+    "        </div>\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
+    "            <span class=\"icon-recurring\"></span>\n" +
+    "            Every week on Monday\n" +
+    "        </div>\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
+    "            <span class=\"icon-clock\"></span>\n" +
+    "            {{reminder.model.dueOn | friendlyHour}}\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "\n" +
+    "    <div class=\"reminder__menu\">\n" +
+    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span\n" +
+    "                class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span\n" +
+    "                class=\"icon-checkmark\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onDelete({reminder: reminder})\"><span\n" +
+    "                class=\"icon-trash\"></span></a>\n" +
+    "    </div>\n" +
+    "\n" +
     "</div>");
 }]);
 
@@ -3272,34 +3416,17 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "        <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "    </div>\n" +
     "\n" +
-    "    <!--Reminder list is empty-->\n" +
-    "    <span ng-if=\"reminderList.length === 0\">You don't have any reminders defined.</span>\n" +
+    "    <tabset>\n" +
+    "        <tab heading=\"Upcoming reminders\">\n" +
+    "            <div reminder-list reminders=\"upcomingReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "        </tab>\n" +
     "\n" +
-    "    <!--Reminder list-->\n" +
-    "    <div class=\"reminder\" ng-repeat=\"reminder in reminderList | orderObjectBy : 'dueOn' : true\">\n" +
-    "        <div class=\"reminder__title\">\n" +
-    "            {{reminder.model.text}}\n" +
-    "        </div>\n" +
-    "        <div class=\"reminder__info\">\n" +
-    "            <div class=\"reminder__info__item reminder__info__item--date\">\n" +
-    "                <span class=\"icon-calendar\"></span>\n" +
-    "                {{reminder.model.dueOn | friendlyDate}}\n" +
-    "            </div>\n" +
-    "            <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
-    "                <span class=\"icon-recurring\"></span>\n" +
-    "                Every week on Monday\n" +
-    "            </div>\n" +
-    "            <div class=\"reminder__info__item reminder__info__item--time\">\n" +
-    "                <span class=\"icon-clock\"></span>\n" +
-    "                {{reminder.model.dueOn | friendlyHour}}\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"reminder__menu\">\n" +
-    "            <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder)\"><span class=\"icon-pencil\"></span></a>\n" +
-    "            <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "            <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"openDeleteReminderModalService(reminder)\"><span class=\"icon-trash\"></span></a>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
+    "        <tab heading=\"Past reminders\">\n" +
+    "            <div reminder-list reminders=\"pastReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "        </tab>\n" +
+    "    </tabset>\n" +
     "\n" +
     "</div>");
 }]);
@@ -3324,31 +3451,31 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
 angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
     "<!--Reminder form-->\n" +
-    "<div ng-show=\"! isSaving\" class=\"reminder-form-container\">\n" +
-    "    <form class=\"reminder-form container box\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
+    "<div ng-show=\"! isSaving\" class=\"reminder-modal\">\n" +
+    "    <form class=\"reminder-modal__form container box\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
-    "        <div class=\"form-group text\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
+    "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control input-lg\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus required />\n" +
+    "            <input class=\"form-control\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus required />\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"date-and-time clearfix\">\n" +
+    "        <div class=\"reminder-modal__form__info\">\n" +
     "            <!--Reminder date picker-->\n" +
-    "            <div class=\"date\">\n" +
-    "                <button type=\"button\" class=\"btn btn-default bg-sprite\" datepicker-popup ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\">\n" +
+    "            <div class=\"reminder-modal__form__info--date\">\n" +
+    "                <button type=\"button\" class=\"btn\" datepicker-popup ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\">\n" +
     "                    {{reminder.model.dueOn | friendlyDate}}\n" +
     "                </button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder time picker-->\n" +
-    "            <div class=\"time\" timepicker-popup dropdown ng-model=\"reminder.model.dueOn\" step=\"30\"></div>\n" +
+    "            <div class=\"reminder-modal__form__info--time\" timepicker-popup dropdown ng-model=\"reminder.model.dueOn\" step=\"30\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder addresses-->\n" +
-    "        <div class=\"addressees\">\n" +
+    "        <div class=\"reminder-modal__form__addressees\">\n" +
     "            <div class=\"form-group\">\n" +
-    "                <div class=\"form-control bg-sprite\">{{currentUser.model.email}}</div>\n" +
+    "                <div class=\"form-control\">{{currentUser.model.email}}</div>\n" +
     "            </div>\n" +
     "\n" +
     "            <div email-list ng-model=\"reminder.model.additionalAddresses\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
@@ -3520,6 +3647,21 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "         <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
     "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Sign up email sent section -->\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
+    "\n" +
+    "        <!-- Explain -->\n" +
+    "        <span class=\"account__explain\">\n" +
+    "            We've sent you an email with the instructions on how to confirm your registration.\n" +
+    "        </span>\n" +
+    "\n" +
+    "        <!-- Button container -->\n" +
+    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Recover password section -->\n" +
@@ -3734,6 +3876,46 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "</div>");
 }]);
 
+angular.module("app/account/partials/signup_confirm_abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/signup_confirm_abstract.html",
+    "<!--Validate password reset token section - abstract view-->\n" +
+    "<div class=\"account__sections\">\n" +
+    "\n" +
+    "     <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Registration confirmation</h1>\n" +
+    "\n" +
+    "    <div ui-view></div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/signup_confirm_invalid.html",
+    "<!-- Registration confirmation invalid -->\n" +
+    "<div class=\"account__section\">\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">\n" +
+    "        We couldn't do it.\n" +
+    "    </span>\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/signup_confirm_valid.html",
+    "<!-- Registration confirmation valid -->\n" +
+    "<div class=\"account__section\">\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">\n" +
+    "        We've successfully confirmed your email.\n" +
+    "    </span>\n" +
+    "\n" +
+    "    <!-- Button container -->\n" +
+    "    <a href=\"#\" ng-click=\"continueToLogin()\">Continue</a>\n" +
+    "</div>");
+}]);
+
 angular.module("app/account/partials/validate_password_reset_token.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/validate_password_reset_token.html",
     "<!-- Account sections -->\n" +
@@ -3808,12 +3990,94 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "</div>");
 }]);
 
+angular.module("app/account/partials/validate_password_reset_token_abstract.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/validate_password_reset_token_abstract.html",
+    "<!--Validate password reset token section - abstract view-->\n" +
+    "<div class=\"account__sections\">\n" +
+    "\n" +
+    "    <div ui-view></div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/validate_password_reset_token_invalid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/validate_password_reset_token_invalid.html",
+    "<!-- Invalid token result view -->\n" +
+    "<div class=\"alert alert-danger\">\n" +
+    "    The token is invalid or expired.\n" +
+    "    <br />\n" +
+    "    <br />\n" +
+    "\n" +
+    "    <!-- Button container -->\n" +
+    "    <a href=\"#\" ng-click=\"continueToResetPassword()\">Let me try again.</a>\n" +
+    "    <br />\n" +
+    "    <span ng-if=\"isUserAuthenticated\">\n" +
+    "        You are authenticated. You will be logged off if you want to try again.\n" +
+    "    </span>\n" +
+    "</div>");
+}]);
+
+angular.module("app/account/partials/validate_password_reset_token_valid.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/validate_password_reset_token_valid.html",
+    "<!-- Valid token view -->\n" +
+    "<div class=\"account__section\" ng-hide=\"successfullyReseted\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "     <h1 class=\"account__title\">Reset your password.</h1>\n" +
+    "\n" +
+    "    <!-- Reset password form -->\n" +
+    "    <form name=\"resetPasswordForm\" ng-submit=\"resetPassword(resetPasswordData)\" novalidate>\n" +
+    "\n" +
+    "        <!-- Account controls -->\n" +
+    "        <div class=\"account__controls\">\n" +
+    "\n" +
+    "            <!-- General error -->\n" +
+    "            <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
+    "                 <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Form groups -->\n" +
+    "            <div class=\"account__controls__form-groups--last\">\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
+    "                    <input class=\"form-control\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
+    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
+    "                    <input class=\"form-control\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
+    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"btn account__button\" type=\"submit\">Reset password</button>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!-- Change password section successfully-->\n" +
+    "<div class=\"account__section\" ng-hide=\"!successfullyReseted\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Successfully</h1>\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">\n" +
+    "        We've successfully updated your new password.\n" +
+    "    </span>\n" +
+    "</div>");
+}]);
+
 angular.module("app/common/partials/emailList/emailList.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/emailList/emailList.html",
     "<div ng-repeat=\"email in emails track by $index\">\n" +
     "    <ng-form name=\"emailForm\">\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.submitted}\">\n" +
-    "            <input class=\"form-control bg-sprite\" type=\"email\" placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required />\n" +
+    "            <input class=\"form-control\" type=\"email\" placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required />\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
@@ -3916,6 +4180,30 @@ angular.module("template/popover/popover.html", []).run(["$templateCache", funct
     "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-show=\"title\"></h3>\n" +
     "      <div class=\"popover-content\" ng-bind=\"content\"></div>\n" +
     "  </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tabs/tab.html",
+    "<li ng-class=\"{active: active, disabled: disabled}\">\n" +
+    "    <a href ng-click=\"select()\" tab-heading-transclude>{{heading}}</a>\n" +
+    "</li>\n" +
+    "");
+}]);
+
+angular.module("template/tabs/tabset.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("template/tabs/tabset.html",
+    "<div>\n" +
+    "    <ul class=\"nav nav-{{type || 'tabs'}}\" ng-class=\"{'nav-stacked': vertical, 'nav-justified': justified}\"\n" +
+    "        ng-transclude></ul>\n" +
+    "    <div class=\"tab-content\">\n" +
+    "        <div class=\"tab-pane\"\n" +
+    "             ng-repeat=\"tab in tabs\"\n" +
+    "             ng-class=\"{active: tab.active}\"\n" +
+    "             tab-content-transclude=\"tab\">\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "");
 }]);

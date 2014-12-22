@@ -30,6 +30,7 @@ module.exports = function (grunt) {
                     "bower_components/angular-cookies/angular-cookies.js",
                     "bower_components/angular-messages/angular-messages.js",
                     "bower_components/angular-flash/dist/angular-flash.js",
+                    "bower_components/angular-mocks/angular-mocks.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/jstz-detect/jstz.js",
                     "bower_components/humps/humps.js",
@@ -42,7 +43,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
                     "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
                     "bower_components/angular-ui-bootstrap/src/popover/popover.js",
-                    "bower_components/angular-ui-bootstrap/src/modal/modal.js"
+                    "bower_components/angular-ui-bootstrap/src/modal/modal.js",
+                    "bower_components/angular-ui-bootstrap/src/tabs/tabs.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
@@ -53,9 +55,6 @@ module.exports = function (grunt) {
 
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
-
-                    "src/app/story/story.js",
-                    "src/app/story/**/*.js",
 
                     "src/app/site/site.js",
                     "src/app/site/**/*.js",
@@ -69,9 +68,8 @@ module.exports = function (grunt) {
                     "src/app/app.js",
                     "src/app/app.ctrl.js",
 
-                    "build/partials/partials.js"
-
-
+                    "build/partials/partials.js",
+                    '!**/*_test.js'
                 ],
                 dest: "build/js/app.js"
             }
@@ -93,26 +91,6 @@ module.exports = function (grunt) {
                 files: {
                     "build/js/frameworks.min.js": ["<%= concat.frameworks.dest %>"],
                     "build/js/app.min.js": ["<%= concat.app.dest %>"]
-                }
-            }
-        },
-
-        less: {
-            compile: {
-                options: {
-                    paths: [""]
-                },
-                files: {
-                    "build/css/app2.css": "src/less/bootstrap.less"
-                }
-            },
-            compileAndClean: {
-                options: {
-                    paths: [""],
-                    cleancss: true
-                },
-                files: {
-                    "build/css/app2.min.css": "src/less/bootstrap.less"
                 }
             }
         },
@@ -193,7 +171,6 @@ module.exports = function (grunt) {
                     "src/app/reminders/partials/**/*.html",
                     "src/app/feedback/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
-                    "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
@@ -222,7 +199,6 @@ module.exports = function (grunt) {
                     "src/app/account/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/feedback/partials/**/*.html",
-                    "src/app/story/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 tasks: ["html2js", "concat"]
@@ -230,10 +206,6 @@ module.exports = function (grunt) {
             sass: {
                 files: ["src/**/*.scss"],
                 tasks: ["sass"]
-            },
-            less: {
-                files: ["src/**/*.less"],
-                tasks: ["less"]
             }
         }
     });
@@ -241,7 +213,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-sass");
-    grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -249,7 +220,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-html2js");
 
-    grunt.registerTask("default", ["html2js", "concat", "sass", "less", "copy"]);
+    grunt.registerTask("default", ["html2js", "concat", "sass", "copy"]);
     grunt.registerTask("test", ["jshint"]);
     grunt.registerTask("build", ["html2js", "concat", "ngAnnotate", "uglify", "sass", "cssmin", "copy"]);
 

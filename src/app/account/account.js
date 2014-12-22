@@ -48,36 +48,91 @@ angular
                         return true;
                     }
                 }
-
             })
 
-            // Validate password reset token
+            ///////////////////////////////////////////////
+            /*Validate password reset token related views*/
+            ///////////////////////////////////////////////
+
+            // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
                 url: "/account/reset-password/{token}",
+                templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
+                abstract: true
+            })
+            // Validate password reset token - valid
+            .state({
+                name: "account:validatePasswordResetToken.valid",
+                url: "",
                 templateUrl: "app/account/partials/validate_password_reset_token.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
-                    validateTokenResult: function ($stateParams, $q, AuthService) {
+                    validateTokenResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
                         AuthService.validatePasswordResetToken($stateParams.token)
                             .then(function (response) {
-
-                                // Take the email from
-                                deferred.resolve({successful: true, email: response.email});
-
+                                deferred.resolve({email: response.email});
                                 return response;
                             }).catch(function (response) {
 
-                                deferred.resolve({successful: false, errors: response.data && response.data.errors});
-
+                                $state.go("account:validatePasswordResetToken.invalid");
                                 return response;
                             });
 
                         return deferred.promise;
                     }
                 }
+            })
+            // Validate password reset token - invalid token
+            .state({
+                name: "account:validatePasswordResetToken.invalid",
+                url: "invalid-token",
+                templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
+                controller: "ValidatePasswordResetTokenInvalidCtrl"
+            })
+
+            /////////////////////////
+            /*Sign up related views*/
+            /////////////////////////
+
+            // Sign up confirm abstract view
+            .state({
+                name: "account:confirmRegistration",
+                url: "/account/confirm-registration/{token}",
+                templateUrl: "app/account/partials/signup_confirm_abstract.html",
+                abstract: true
+            })
+            // Sign up confirm - valid
+            .state({
+                name: "account:confirmRegistration.valid",
+                url: "",
+                templateUrl: "app/account/partials/signup_confirm_valid.html",
+                controller: "SignUpConfirmCtrl",
+                resolve: {
+                    validateRegistration: function ($stateParams, $q, AuthService, $state, $timeout) {
+                        var deferred = $q.defer();
+                        AuthService.validateRegistrationToken($stateParams.token)
+                            .then(function (response) {
+                                deferred.resolve({successful: response.successful});
+                                return response;
+                            }).catch(function (response) {
+
+                                $state.go("account:confirmRegistration.invalid");
+                                return response;
+                            });
+
+                        return deferred.promise;
+                    }
+                }
+            })
+            // Sign up confirm - invalid
+            .state({
+                name: "account:confirmRegistration.invalid",
+                url: "registration-failed",
+                templateUrl: "app/account/partials/signup_confirm_invalid.html",
+                controller: "SignUpConfirmInvalidCtrl"
             })
     })
 

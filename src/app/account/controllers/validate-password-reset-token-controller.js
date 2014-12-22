@@ -3,11 +3,6 @@ angular
     .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
-         * Flag which tells if user is currently authenticated while coming to this page.
-         */
-        $scope.isUserAuthenticated = AuthService.isAuthenticated();
-
-        /**
          * Flag which says if errors have ocured while trying to reset the password.
          * @type {boolean}
          */
@@ -20,26 +15,15 @@ angular
         $scope.errorMessages = "";
 
         /**
-         * If validation is successful, then fetch the email, and build form data.
+         * Reset password data (used if
+         * @type {{email: string, password: string, passwordConfirmation: string, token: *}}
          */
-        if ( validateTokenResult.successful ) {
-
-            /**
-             * Reset password data (used if
-             * @type {{email: string, password: string, passwordConfirmation: string, token: *}}
-             */
-            $scope.resetPasswordData = {
-                email: validateTokenResult.email,
-                password: "",
-                passwordConfirmation: "",
-                token: $stateParams.token
-            };
-
-            $scope.isTokenValid = true;
-        }
-        else {
-            $scope.errorMessages = validateTokenResult.errors;
-        }
+        $scope.resetPasswordData = {
+            email: validateTokenResult.email,
+            password: "",
+            passwordConfirmation: "",
+            token: $stateParams.token
+        };
 
         /**
          * Reset password data functionality.
@@ -79,15 +63,4 @@ angular
                     });
             }
         };
-
-        /**
-         * Continues to reset password page. (try again functionality)
-         */
-        $scope.continueToResetPassword = function () {
-            if ( $scope.isUserAuthenticated ) {
-                AuthService.logout();
-            }
-            ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
-            StatesHandler.goToLogin();
-        }
     });

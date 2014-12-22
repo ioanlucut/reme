@@ -3,43 +3,53 @@
  */
 angular
     .module("reminders")
-    .service("ReminderService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, REMINDER_URLS) {
+    .service("ReminderService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
 
         /**
          * Update a reminder.
-         * @param reminderToBeCreated
+         * @param reminder
          * @returns {*}
          */
-        this.createReminder = function (reminderToBeCreated) {
+        this.createReminder = function (reminder) {
             return $http
-                .post(URLTo.api(REMINDER_URLS.create), reminderToBeCreated)
+                .post(URLTo.api(REMINDER_URLS.create), ReminderTransformerService.toReminderDto(reminder))
                 .then(function (response) {
-                    return response.data;
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
+                    return response;
                 });
         };
 
         /**
          * Update a reminder.
-         * @param reminderToBeUpdated
+         * @param reminder
          * @returns {*}
          */
-        this.updateReminder = function (reminderToBeUpdated) {
+        this.updateReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
             return $http
-                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderToBeUpdated.reminderId}), reminderToBeUpdated)
+                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderDto.reminderId}), reminderDto)
                 .then(function (response) {
-                    return response.data;
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
+                    return response;
                 });
         };
 
         /**
          * Delete a reminder.
-         * @param reminderToBeDeleted
+         * @param reminder
          * @returns {*}
          */
-        this.deleteReminder = function (reminderToBeDeleted) {
+        this.deleteReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
             return $http
-                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderToBeDeleted.reminderId}), reminderToBeDeleted)
+                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderDto.reminderId}), reminderDto)
                 .then(function (response) {
+                    ReminderTransformerService.toReminder(response.data, reminder);
+
                     return response.data;
                 });
         };
@@ -52,7 +62,8 @@ angular
             return $http
                 .get(URLTo.api(REMINDER_URLS.allReminders))
                 .then(function (response) {
-                    return response.data;
+
+                    return ReminderTransformerService.toReminders(response.data)
                 }).catch(function (response) {
                     return $q.reject(response);
                 });
@@ -61,13 +72,14 @@ angular
         /**
          * Get details of a reminder.
          * @param reminderId
+         * @param reminder
          * @returns {*}
          */
-        this.getDetails = function (reminderId) {
+        this.getDetails = function (reminderId, reminder) {
             return $http
                 .get(URLTo.api(REMINDER_URLS.details, {":reminderId": reminderId}))
                 .then(function (response) {
-                    return response.data;
+                    return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });
         };
     });
