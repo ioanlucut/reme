@@ -1,11 +1,4 @@
 /* Account */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-button {
-  box-shadow: none;
-  font-size: $font-size-accent;
-}
 
 .account__sections {
   position: relative;
@@ -37,13 +30,29 @@ button {
   padding-top: 40px;
 }
 
+// .form-control--account
+@include input-size('.form-control--account', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
+
+.form-control--account {
+  font-weight: $font-weight-light;
+}
+
 .account__controls__form-groups--last {
   margin-bottom: 20px;
-
 }
 
 .account__button {
-  display: block;
-  margin: 0 auto 15px;
-  width: 100%;
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @extend .btn-block;
+  padding: 10px 16px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
+.link-primary {
+  color: $gray-darker;
+}
+
+.link-secondary {
+  color: $gray9;
 }

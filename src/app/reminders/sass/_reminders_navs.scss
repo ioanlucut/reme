@@ -1,0 +1,66 @@
+// Give the tabs something to sit on
+.nav-tabs--reminders {
+  > li {
+    // Actual tabs (as links)
+    > a {
+      margin-right: 40px;
+      line-height: $line-height-base;
+      border: 0;
+    }
+
+    // Active state, and it's :hover to override normal :hover
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-tabs-active-link-hover-color;
+        background-color: transparent;
+        border: 0;
+        cursor: default;
+      }
+    }
+  }
+}
+
+// Changes - reme
+.nav-tabs--underlined {
+  li {
+    color: $brand-primary;
+    border-radius: 0;
+    min-height: 42px;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    overflow: hidden;
+    -webkit-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+    -moz-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+    -o-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+    transition: .4s color cubic-bezier(.19, 1, .22, 1);
+
+    &.active {
+      &::after {
+        bottom: 0;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 40px;
+      bottom: -4px;
+      height: 4px;
+      background: $brand-primary;
+      -webkit-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+      -moz-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+      -o-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+      transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+    }
+
+    &:hover::after {
+      bottom: 0;
+    }
+
+  }
+}

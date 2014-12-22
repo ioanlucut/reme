@@ -1,3 +1,12 @@
+//$font-weight-extra-light: 200 !default;
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+//$font-weight-semi-bold:   600 !default;
+$font-weight-bold: 700 !default;
+
+$font-size-accent: 20px;
+
+
 //
 // Variables
 // --------------------------------------------------
@@ -161,6 +170,10 @@ $input-color-bg-disabled: $gray5;
 $input-border: 2px;
 $input-border-radius: 3px;
 $input-border-focus: $brand-primary;
+
+$input-height-base: ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
+$input-height-large: (floor($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
+$input-height-small: (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
 
 $input-height-base: 50px;
 
