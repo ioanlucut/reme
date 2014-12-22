@@ -159,25 +159,30 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "</div>\n" +
     "\n" +
     "<!--While saving-->\n" +
-    "<div class=\"reminder-saving\" ng-show=\"isDeleting\">Deleting reminder..</div>");
+    "<div class=\"reminder--saving\" ng-show=\"isDeleting\">Deleting reminder..</div>");
 }]);
 
 angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
     "<!--Reminder form-->\n" +
     "<div ng-show=\"! isSaving\" class=\"reminder-modal\">\n" +
-    "    <form class=\"reminder-modal__form container box\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
+    "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate\n" +
+    "          focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\"\n" +
+    "                   name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\"\n" +
+    "                   separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus required/>\n" +
     "        </div>\n" +
     "\n" +
     "        <div class=\"reminder-modal__form__info\">\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
-    "                <button type=\"button\" class=\"btn\" datepicker-popup ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\">\n" +
+    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup ng-model=\"reminder.model.dueOn\"\n" +
+    "                        show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\"\n" +
+    "                        animate-class=\"animated highlight-button\">\n" +
     "                    {{reminder.model.dueOn | friendlyDate}}\n" +
     "                </button>\n" +
     "            </div>\n" +
@@ -189,20 +194,23 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        <!--Reminder addresses-->\n" +
     "        <div class=\"reminder-modal__form__addressees\">\n" +
     "            <div class=\"form-group\">\n" +
-    "                <div class=\"form-control\">{{currentUser.model.email}}</div>\n" +
+    "                <div class=\"form-control form-control--reminder form-control--user-email\">{{currentUser.model.email}}\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <div email-list ng-model=\"reminder.model.additionalAddresses\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" class=\"btn btn-primary btn-lg btn-create\">{{isNew ? \"Create reminder\" : \"Update reminder\"}}</button>\n" +
+    "        <button type=\"submit\" class=\"btn btn-primary btn-lg btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
+    "            reminder\"}}\n" +
+    "        </button>\n" +
     "\n" +
     "    </form>\n" +
     "</div>\n" +
     "\n" +
     "<!--While saving-->\n" +
-    "<div class=\"reminder-saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>");
+    "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>");
 }]);
 
 angular.module("app/feedback/partials/feedbackModal/feedbackModal.html", []).run(["$templateCache", function($templateCache) {
@@ -270,7 +278,8 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isAuthenticationErrorOcurred || ( loginForm.email.$invalid && loginForm.$submitted )}\">\n" +
-    "                        <input class=\"form-control\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\"\n" +
+    "                               ng-model=\"loginData.email\" required/>\n" +
     "                        <div class=\"help-block\" ng-if=\"loginForm.$submitted\">\n" +
     "                            <div ng-if=\"loginForm.email.$error.required\">Your email address is mandatory.</div>\n" +
     "                        </div>\n" +
@@ -278,7 +287,8 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isAuthenticationErrorOcurred || ( loginForm.password.$invalid && loginForm.$submitted )}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\"\n" +
+    "                               name=\"password\" ng-model=\"loginData.password\" required/>\n" +
     "                        <div class=\"help-block\" ng-if=\"loginForm.$submitted\">\n" +
     "                            <div ng-if=\"loginForm.password.$error.required\">Your password is mandatory.</div>\n" +
     "                        </div>\n" +
@@ -318,13 +328,15 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\"\n" +
+    "                           name=\"firstName\" ng-model=\"signUpData.firstName\" required/>\n" +
     "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control\" type=\"text\" placeholder=\"Last Name\" name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\"\n" +
+    "                           name=\"lastName\" ng-model=\"signUpData.lastName\" required/>\n" +
     "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
     "\n" +
@@ -333,7 +345,9 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <input class=\"form-control\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
+    "                               name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
+    "                               valid-email unique-email/>\n" +
     "                        <div class=\"help-block\" ng-messages=\"signUpForm.email.$error\" ng-if=\"signUpForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
@@ -346,7 +360,9 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required strong-password />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
+    "                               placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required\n" +
+    "                               strong-password/>\n" +
     "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
     "                             <div ng-message=\"required\">Please choose a password.</div>\n" +
     "                             <div ng-message=\"strongPassword\">Your password needs to be at least 7 characters long.</div>\n" +
@@ -406,7 +422,8 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }\">\n" +
-    "                        <input class=\"form-control\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
+    "                               name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email/>\n" +
     "                        <div class=\"help-block\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
@@ -496,19 +513,22 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control-text-center form-control-fixed-width\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\"\n" +
+    "                               name=\"firstName\" ng-model=\"profileData.firstName\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control-text-center form-control-fixed-width\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\"\n" +
+    "                               ng-model=\"profileData.lastName\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.email.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control-text-center form-control-fixed-width\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-model=\"profileData.email\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\"\n" +
+    "                               ng-model=\"profileData.email\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.email.$invalid && profileForm.$submitted\">Please tell us your email.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -546,19 +566,23 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\"\n" +
+    "                               name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
+    "                               name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
+    "                               placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\"\n" +
+    "                               ng-model=\"updatePasswordData.newPasswordConfirmation\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -672,13 +696,16 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
+    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
+    "                               placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
+    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required/>\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -755,13 +782,16 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                    <input class=\"form-control\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
+    "                           name=\"password\" ng-model=\"resetPasswordData.password\" required/>\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                    <input class=\"form-control\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\"\n" +
+    "                           placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
+    "                           ng-model=\"resetPasswordData.passwordConfirmation\" required/>\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -790,8 +820,9 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
   $templateCache.put("app/common/partials/emailList/emailList.html",
     "<div ng-repeat=\"email in emails track by $index\">\n" +
     "    <ng-form name=\"emailForm\">\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.submitted}\">\n" +
-    "            <input class=\"form-control\" type=\"email\" placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required />\n" +
+    "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
+    "            <input class=\"form-control form-control--friend-email\" type=\"email\"\n" +
+    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required/>\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
@@ -810,7 +841,8 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        </div>\n" +
     "\n" +
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
-    "            <a ng-show=\"currentUser.model.email\" class=\"link-dark-bg dropdown-toggle\" dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
+    "            <a ng-show=\"currentUser.model.email\" class=\"link-dark-bg dropdown-toggle header__wrapper__menu__email\"\n" +
+    "               dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
     "              <ul class=\"dropdown-menu\" role=\"menu\">\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"reminders\">My reminders</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a></li>\n" +
@@ -825,7 +857,8 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/timepickerPopup/timepickerPopup.html",
-    "<button type=\"button\" class=\"btn btn-default bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle>\n" +
+    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\"\n" +
+    "        animate-class=\"animated highlight-button\" dropdown-toggle>\n" +
     "        {{date | date:'hh:mm a'}}\n" +
     "</button>\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
@@ -909,7 +942,8 @@ angular.module("template/tabs/tab.html", []).run(["$templateCache", function($te
 angular.module("template/tabs/tabset.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tabs/tabset.html",
     "<div>\n" +
-    "    <ul class=\"nav nav-{{type || 'tabs'}}\" ng-class=\"{'nav-stacked': vertical, 'nav-justified': justified}\"\n" +
+    "    <ul class=\"nav nav-{{type || 'tabs'}} nav-tabs--reminders nav-tabs--underlined\"\n" +
+    "        ng-class=\"{'nav-stacked': vertical, 'nav-justified': justified}\"\n" +
     "        ng-transclude></ul>\n" +
     "    <div class=\"tab-content\">\n" +
     "        <div class=\"tab-pane\"\n" +
