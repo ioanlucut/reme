@@ -97,26 +97,6 @@ module.exports = function (grunt) {
             }
         },
 
-        less: {
-            compile: {
-                options: {
-                    paths: [""]
-                },
-                files: {
-                    "build/css/app2.css": "src/less/bootstrap.less"
-                }
-            },
-            compileAndClean: {
-                options: {
-                    paths: [""],
-                    cleancss: true
-                },
-                files: {
-                    "build/css/app2.min.css": "src/less/bootstrap.less"
-                }
-            }
-        },
-
         sass: {
             dist: {
                 options: {
