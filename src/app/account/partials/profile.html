@@ -28,19 +28,22 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
+                        <input class="form-control form-control--account" type="text" placeholder="Prenume"
+                               name="firstName" ng-model="profileData.firstName" required/>
                         <span class="help-block" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
+                        <input class="form-control form-control--account" type="text" placeholder="Nume" name="lastName"
+                               ng-model="profileData.lastName" required/>
                         <span class="help-block" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': profileForm.email.$invalid && profileForm.$submitted}">
-                        <input class="form-control form-control-text-center form-control-fixed-width" type="text" placeholder="Email" name="email" ng-model="profileData.email" required />
+                        <input class="form-control form-control--account" type="text" placeholder="Email" name="email"
+                               ng-model="profileData.email" required/>
                         <span class="help-block" ng-if="profileForm.email.$invalid && profileForm.$submitted">Please tell us your email.</span>
                     </div>
                 </div>
@@ -78,19 +81,23 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted)}">
-                        <input class="form-control" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" required />
+                        <input class="form-control form-control--account" type="password" placeholder="Old password"
+                               name="oldPassword" ng-model="updatePasswordData.oldPassword" required/>
                         <span class="help-block" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Your old password is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted)}">
-                        <input class="form-control" type="password" placeholder="New password" name="newPassword" ng-model="updatePasswordData.newPassword" required />
+                        <input class="form-control form-control--account" type="password" placeholder="New password"
+                               name="newPassword" ng-model="updatePasswordData.newPassword" required/>
                         <span class="help-block" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted)}">
-                        <input class="form-control" type="password" placeholder="New password confirmation" name="newPasswordConfirmation" ng-model="updatePasswordData.newPasswordConfirmation" required />
+                        <input class="form-control form-control--account" type="password"
+                               placeholder="New password confirmation" name="newPasswordConfirmation"
+                               ng-model="updatePasswordData.newPasswordConfirmation" required/>
                         <span class="help-block" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
                     </div>
                 </div>

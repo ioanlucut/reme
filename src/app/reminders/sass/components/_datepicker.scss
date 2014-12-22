@@ -8,6 +8,7 @@
 
   .btn-default {
     background-color: $datepicker-bg;
+    border-color: transparent;
 
     &:hover {
       background-color: darken($datepicker-bg, 5%);
