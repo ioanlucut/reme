@@ -2,8 +2,6 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
 
 // Core variables and mixins
-@import "variables_reme";
-@import "variables_extra";
 @import "../../bower_components/bootstrap-sass/lib/mixins";
 
 // Reset
@@ -12,15 +10,12 @@
 
 // Core CSS
 @import "../../bower_components/bootstrap-sass/lib/scaffolding";
-@import "scaffolding";
 @import "../../bower_components/bootstrap-sass/lib/type";
 @import "../../bower_components/bootstrap-sass/lib/code";
 @import "../../bower_components/bootstrap-sass/lib/grid";
 @import "../../bower_components/bootstrap-sass/lib/tables";
 @import "../../bower_components/bootstrap-sass/lib/forms";
 @import "../../bower_components/bootstrap-sass/lib/buttons";
-// Reme buttons
-@import "buttons";
 
 // Components
 @import "../../bower_components/bootstrap-sass/lib/component-animations";
@@ -54,7 +49,11 @@
 // Utility classes
 @import "../../bower_components/bootstrap-sass/lib/utilities";
 @import "../../bower_components/bootstrap-sass/lib/responsive-utilities";
-
+// REME specific styles
+@import "variables";
+@import "variables_extra";
+@import "buttons";
+@import "scaffolding";
 @import "../app/account/sass/account";
 @import "../app/common/sass/common";
 @import "../app/reminders/sass/reminders";
