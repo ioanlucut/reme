@@ -20,7 +20,8 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || ( loginForm.email.$invalid && loginForm.$submitted )}">
-                        <input class="form-control" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
+                        <input class="form-control form-control--account" type="email" placeholder="email" name="email"
+                               ng-model="loginData.email" required/>
                         <div class="help-block" ng-if="loginForm.$submitted">
                             <div ng-if="loginForm.email.$error.required">Your email address is mandatory.</div>
                         </div>
@@ -28,7 +29,8 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || ( loginForm.password.$invalid && loginForm.$submitted )}">
-                        <input class="form-control" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
+                        <input class="form-control form-control--account" type="password" placeholder="password"
+                               name="password" ng-model="loginData.password" required/>
                         <div class="help-block" ng-if="loginForm.$submitted">
                             <div ng-if="loginForm.password.$error.required">Your password is mandatory.</div>
                         </div>
@@ -68,13 +70,15 @@
 
                 <!-- Form groups -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
+                    <input class="form-control form-control--account" type="text" placeholder="First Name"
+                           name="firstName" ng-model="signUpData.firstName" required/>
                     <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
+                    <input class="form-control form-control--account" type="text" placeholder="Last Name"
+                           name="lastName" ng-model="signUpData.lastName" required/>
                     <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
@@ -83,7 +87,9 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
-                        <input class="form-control" type="email" placeholder="Your email address" name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address"
+                               name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required
+                               valid-email unique-email/>
                         <div class="help-block" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
@@ -96,7 +102,9 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
-                        <input class="form-control" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
+                        <input class="form-control form-control--account" type="password"
+                               placeholder="Choose a password" name="password" ng-model="signUpData.password" required
+                               strong-password/>
                         <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                              <div ng-message="required">Please choose a password.</div>
                              <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
@@ -156,7 +164,8 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }">
-                        <input class="form-control" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address"
+                               name="email" ng-model="forgotPasswordData.email" required valid-email/>
                         <div class="help-block" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>

@@ -1,0 +1,37 @@
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+$font-weight-bold: 700 !default;
+$font-size-accent: 20px;
+
+// Scaffolding
+// -------------------------
+
+$body-bg: $gray12;
+/*$text-color: $text-color-base;*/
+$global-width: 700px;
+$header-height: 50px;
+
+// Brand colors
+// -------------------------
+
+$text-color-secondary: $gray9;
+$color-light-bg: $gray12;
+
+// Brand colors
+// -------------------------
+
+$text-color-base: #000000 !default;
+
+// Buttons
+// -------------------------
+
+$btn-highlight-bg: lighten($btn-default-color, 10%);
+
+// Datepicker
+// -------------------------
+
+$datepicker-bg: #fff;
+$datepicker-divider: #eee;
+$datepicker-header-bg: $brand-primary;
+$datepicker-header-color: #fff;
+$datepicker-header-divider: darken($brand-primary, 5%);
