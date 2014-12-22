@@ -38,7 +38,7 @@ angular
                     }, this))
                     .catch(function (response) {
                         deferred.resolve({
-                            isUnique: _.isEmpty(response.data.errors),
+                            isUnique: _.isEmpty(response.data && response.data.errors),
                             email: email
                         });
                     });

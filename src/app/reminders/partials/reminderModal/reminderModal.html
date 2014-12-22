@@ -1,29 +1,29 @@
 <!--Reminder form-->
-<div ng-show="! isSaving" class="reminder-form-container">
-    <form class="reminder-form container box" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
+<div ng-show="! isSaving" class="reminder-modal">
+    <form class="reminder-modal__form container box" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
 
         <!--Reminder text-->
-        <div class="form-group text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
+        <div class="form-group" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
             <label>Remind me to:</label>
-            <input class="form-control input-lg" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus required />
+            <input class="form-control" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus required />
         </div>
 
-        <div class="date-and-time clearfix">
+        <div class="reminder-modal__form__info">
             <!--Reminder date picker-->
-            <div class="date">
-                <button type="button" class="btn btn-default bg-sprite" datepicker-popup ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="animated highlight-button">
+            <div class="reminder-modal__form__info--date">
+                <button type="button" class="btn" datepicker-popup ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="animated highlight-button">
                     {{reminder.model.dueOn | friendlyDate}}
                 </button>
             </div>
 
             <!--Reminder time picker-->
-            <div class="time" timepicker-popup dropdown ng-model="reminder.model.dueOn" step="30"></div>
+            <div class="reminder-modal__form__info--time" timepicker-popup dropdown ng-model="reminder.model.dueOn" step="30"></div>
         </div>
 
         <!--Reminder addresses-->
-        <div class="addressees">
+        <div class="reminder-modal__form__addressees">
             <div class="form-group">
-                <div class="form-control bg-sprite">{{currentUser.model.email}}</div>
+                <div class="form-control">{{currentUser.model.email}}</div>
             </div>
 
             <div email-list ng-model="reminder.model.additionalAddresses" max-emails="5" parent-form="reminderForm"></div>

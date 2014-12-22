@@ -4,13 +4,36 @@
 angular
     .module("reminders")
     .controller("ReminderListCtrl", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
-        $scope.reminderList = reminderList;
 
-        $scope.cancel = function () {
-            ReminderDeleteModalService.modalInstance.dismiss("cancel");
-            ReminderDeleteModalService.modalInstance.dismiss("cancel");
-            $scope.isOpen = false;
-        };
+        /**
+         * Group reminders by upcoming and past reminders.
+         * @returns {*}
+         */
+        function groupRemindersByUpcomingAndPast() {
+            var now = new Date();
+
+            return _.chain(reminderList)
+                .groupBy(function (element, index) {
+                    return element.model.dueOn < now;
+                })
+                .toArray()
+                .value();
+        }
+
+        /**
+         * Reminders grouped by upcoming and past reminders.
+         */
+        var remindersGrouped = groupRemindersByUpcomingAndPast();
+
+        /**
+         * Upcoming reminders
+         */
+        $scope.upcomingReminders = remindersGrouped[0] || [];
+
+        /**
+         * Past reminders
+         */
+        $scope.pastReminders = remindersGrouped[1] || [];
 
         /**
          * Open DELETE modal
@@ -34,7 +57,12 @@ angular
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
             flash.success = args.message;
 
-            $scope.reminderList.push(args.reminder);
+            if ( args.reminder.model.dueOn > new Date() ) {
+                $scope.upcomingReminders.push(args.reminder);
+            }
+            else {
+                $scope.pastReminders.push(args.reminder);
+            }
         });
 
         /**
@@ -50,7 +78,8 @@ angular
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
             flash.success = args.message;
 
-            removeReminderFrom($scope.reminderList, args.reminder);
+            removeReminderFrom($scope.upcomingReminders, args.reminder);
+            removeReminderFrom($scope.pastReminders, args.reminder);
         });
 
         /**

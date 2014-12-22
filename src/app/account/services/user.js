@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .factory("User", function (SessionService, $q, $http, AUTH_URLS) {
+    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -24,7 +24,7 @@ angular
                      * @returns {*}
                      */
                     loadFromSession: function () {
-                        this.setSelectiveKey(this.model, SessionService.getData() || {});
+                        TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
 
                         return this;
                     },
@@ -35,7 +35,7 @@ angular
                      */
                     saveToSession: function () {
                         var sessionData = {};
-                        this.setSelectiveKey(sessionData, this, ["password"]);
+                        TransformerUtils.copyKeysFromTo(this, sessionData, ["password"]);
                         SessionService.setData(sessionData);
 
                         return this;
@@ -47,7 +47,7 @@ angular
                      */
                     $save: function (fromData) {
                         var toBeSaved = {};
-                        this.setSelectiveKey(toBeSaved, fromData);
+                        TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
                         return this.updateAccount(toBeSaved);
                     },
@@ -59,7 +59,7 @@ angular
                      */
                     $create: function (fromData) {
                         var toBeCreated = {};
-                        this.setSelectiveKey(toBeCreated, fromData);
+                        TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated);
                     },
@@ -70,7 +70,7 @@ angular
                         return this
                             .retrieveDetails()
                             .then(function (response) {
-                                that.setSelectiveKey(that, response.data);
+                                TransformerUtils.copyKeysFromTo(response.data, that);
                                 that.saveToSession();
 
                                 return response;
@@ -104,20 +104,6 @@ angular
                      */
                     updateAccount: function (account) {
                         return $http.post(URLTo.api(AUTH_URLS.update), account);
-                    },
-
-                    /**
-                     * Sets selective keys on a target object from a source object.
-                     * @param targetObject
-                     * @param sourceObject
-                     * @param skipKeys
-                     */
-                    setSelectiveKey: function (targetObject, sourceObject, skipKeys) {
-                        _.each(_.keys(this.model), function (key) {
-                            if ( !(skipKeys && _.contains(skipKeys, key)) ) {
-                                targetObject[key] = sourceObject[key];
-                            }
-                        });
                     }
 
                 }

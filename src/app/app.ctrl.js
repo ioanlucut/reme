@@ -42,4 +42,23 @@ angular
             $rootScope.currentUser = User.$new();
             $log.log("Logged out.");
         });
+
+        //DEBUG RELATED
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
+        });
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeError - fired when an error occurs during transition.');
+            $log.log(arguments);
+        });
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            $log.log('$stateChangeSuccess to ' + toState.name + '- fired once the state transition is complete.');
+        });
+        $rootScope.$on('$viewContentLoaded', function (event) {
+            $log.log('$viewContentLoaded - fired after dom rendered', event);
+        });
+        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+            $log.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
+            $log.log(unfoundState, fromState, fromParams);
+        });
     });

@@ -14,21 +14,21 @@
 
 @-webkit-keyframes highlight-button {
   0%, 100% {
-    background-color: @btn-default-bg;
+    background-color: $btn-default-bg;
   }
 
   50% {
-    background-color: @btn-highlight-bg;
+    background-color: $btn-highlight-bg;
   }
 }
 
 @keyframes highlight-button {
   0%, 100% {
-    background-color: @btn-default-bg;
+    background-color: $btn-default-bg;
   }
 
   50% {
-    background-color: @btn-highlight-bg;
+    background-color: $btn-highlight-bg;
   }
 }
 
