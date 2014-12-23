@@ -1,0 +1,83 @@
+.home__signup__sections {
+}
+
+.home__signup__sections__section {
+  text-align: center;
+}
+
+.home__signup__sections__section__controls {
+  text-align: center;
+}
+
+.home__signup__sections__section__controls__alert {
+  @extend .alert;
+  @extend .alert-danger;
+  width: 300px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+@include input-size('.home__signup__sections__section__controls__email', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
+
+.home__signup__sections__section__controls__email {
+  width: 300px;
+  height: 50px;
+  padding: 8px 10px;
+  font-weight: $font-weight-light;
+  font-size: 16px;
+  vertical-align: top;
+  display: inline-block;
+
+  &.has-error {
+    border-color: $state-danger-text;
+  }
+}
+
+.home__signup__sections__section__controls__button {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  border-radius: $border-radius-small;
+  font-size: $font-size-large;
+  height: 50px;
+  display: inline-block;
+  width: 300px;
+
+  padding: 0 15px;
+  border: none;
+  vertical-align: top;
+  letter-spacing: 1px;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.home__signup__sections__section__validation-messages {
+  text-align: center;
+  color: $state-danger-text;
+
+  div {
+    padding: 10px;
+  }
+}
+
+.home__signup__sections__section__checking-availability {
+  text-align: center;
+  color: $brand-primary;
+  padding: 10px;
+}
+
+.home__signup__sections__section__submitted-title {
+  margin-bottom: 20px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.home__signup__sections__section__submitted-message {
+  display: block;
+  margin-bottom: 50px;
+  line-height: 20px;
+  font-weight: 300;
+  font-size: 15px;
+  color: #848b91;
+}
