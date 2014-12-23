@@ -3,13 +3,26 @@
   margin: 0;
   height: $footer-home-height;
   line-height: $footer-home-height;
+}
 
-  .footer__wrapper {
-    @include clearfix;
+.footer__navbar {
 
-    width: $container-home-width;
-    margin: 0 auto;
+  ul {
 
+    li {
+      list-style: none;
+      display: inline-block;
+      padding: 5px;
+      margin-right: 10px;
 
+      a {
+        color: darken($brand-primary, 15%);
+
+        &:hover {
+          //color: lighten($brand-primary, 15%);
+          color: darken($brand-primary, 7%);
+        }
+      }
+    }
   }
 }
