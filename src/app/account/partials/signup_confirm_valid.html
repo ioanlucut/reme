@@ -1,11 +1,80 @@
 <!-- Registration confirmation valid -->
-<div class="account__section">
 
-    <!-- Explain -->
-    <span class="account__explain">
-        We've successfully confirmed your email.
-    </span>
+<!-- Account sections -->
+<div class="account__sections" account-form-toggle>
 
-    <!-- Button container -->
-    <a href="#" ng-click="continueToLogin()">Continue</a>
+    <!--Sign up-->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp" ng-controller="SignUpConfirmCtrl">
+
+        <!-- Title -->
+        <h1 class="account__title">Get started with registration confirmation!</h1>
+
+        <!-- Sign-up form -->
+        <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
+
+            <!-- Account controls -->
+            <div class="account__controls">
+
+                <!-- General error -->
+                <div class="alert alert-danger" ng-if="isSignUpErrorOcurred">
+                    <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                </div>
+
+                <!-- Form groups -->
+                <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}">
+                    <input class="form-control form-control--account" type="text" placeholder="First Name"
+                           name="firstName" ng-model="signUpData.firstName" required />
+                    <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
+                </div>
+
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}">
+                    <input class="form-control form-control--account" type="text" placeholder="Last Name"
+                           name="lastName" ng-model="signUpData.lastName" required />
+                    <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
+                </div>
+
+                <!-- Form groups -->
+                <div class="account__controls__form-groups--last">
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
+                        <div class="form-control form-control--account">{{signUpData.email}}</div>
+                    </div>
+
+                    <!-- Form group -->
+                    <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
+                        <input class="form-control form-control--account" type="password"
+                               placeholder="Choose a password" name="password" ng-model="signUpData.password" required
+                               strong-password />
+
+                        <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                            <div ng-message="required">Please choose a password.</div>
+                            <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button container -->
+                <button class="btn account__button" type="submit">Create new account</button>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Sign up email sent section -->
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully">
+
+        <!-- Title -->
+        <h1 class="account__title">Email has been sent!</h1>
+
+        <!-- Explain -->
+        <span class="account__explain">
+            We've sent you an email with the instructions on how to confirm your registration.
+        </span>
+
+        <!-- Button container -->
+        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+    </div>
+
 </div>

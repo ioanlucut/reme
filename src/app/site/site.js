@@ -15,7 +15,7 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "RequestRegistrationCtrl",
+                controller: "RequestSignUpRegistrationCtrl",
                 title: "Home - Reme.io"
             })
     });
