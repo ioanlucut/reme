@@ -161,13 +161,13 @@
 
 // Form control reminder
 // --------------
-@include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
+@include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--reminder {
   font-weight: $font-weight-light;
 }
 
-@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-middle, $line-height-large, $border-radius-base);
+@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
   font-weight: $font-weight-light;
