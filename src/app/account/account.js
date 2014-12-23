@@ -18,6 +18,7 @@ angular
             // Login page
             .state("account", {
                 url: "/account",
+                controller: "LoginCtrl",
                 templateUrl: "app/account/partials/account.html"
             })
 
@@ -26,14 +27,7 @@ angular
                 url: "/profile",
                 templateUrl: "app/account/partials/profile.html",
                 controller: "ProfileCtrl",
-                title: "Profile",
-                resolve: {
-                    helloMessage: function () {
-                        return {
-                            message: 'I am in login page!'
-                        };
-                    }
-                }
+                title: "Profile"
             })
 
             // Logout page
