@@ -1,8 +1,14 @@
 .header-home {
-  background-color: #FFFFFF;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1000;
   margin: 0;
   height: $header-home-height;
   line-height: $header-home-height;
+  background-color: $white;
+  transform: translate3d(0, 0, 0);
 
   .header__wrapper {
     @include clearfix;

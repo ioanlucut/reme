@@ -1,0 +1,42 @@
+.footer-home {
+  background-color: $brand-primary;
+  margin: 0;
+  padding: 0;
+  height: $footer-home-height;
+  line-height: $footer-home-height;
+  vertical-align: top;
+}
+
+.footer__navbar {
+  @include clearfix();
+  color: darken($brand-primary, 15%);
+
+  ul {
+    @include clearfix();
+    float: right;
+
+    li {
+      list-style: none;
+      height: 20px;
+
+      a {
+        color: darken($brand-primary, 15%);
+
+        &:hover {
+          color: darken($brand-primary, 7%);
+        }
+      }
+    }
+  }
+
+  &--copyright {
+    height: $footer-home-height;
+    color: darken($brand-primary, 15%);
+
+    span {
+      color: darken($brand-primary, 20%);
+      margin-top: 5px;
+      display: inline-block;
+    }
+  }
+}

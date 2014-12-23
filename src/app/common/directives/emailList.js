@@ -25,7 +25,7 @@ angular
 
                 scope.addEmail = function (email) {
                     if ( isNaN(attrs.maxEmails) || scope.emails.length < parseInt(attrs.maxEmails) ) {
-                        scope.emails.push(email);
+                        scope.emails.push({ email: email });
                     }
 
                     if ( !isNaN(attrs.maxEmails) && scope.emails.length >= parseInt(attrs.maxEmails) ) {

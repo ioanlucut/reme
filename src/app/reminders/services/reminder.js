@@ -16,7 +16,7 @@ angular
                 text: "",
                 dueOn: "",
                 timezone: "",
-                additionalAddresses: [],
+                recipients: [],
                 createdBy: "",
                 sent: "",
                 createdAt: "",

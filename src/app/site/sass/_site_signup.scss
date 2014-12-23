@@ -20,6 +20,7 @@
 @include input-size('.home__signup__sections__section__controls__email', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
 
 .home__signup__sections__section__controls__email {
+  margin-right: 12px;
   width: 300px;
   font-weight: $font-weight-light;
   display: inline-block;
@@ -33,6 +34,7 @@
   .home__signup__sections__section__controls__email {
     width: 100%;
     margin-bottom: 6px;
+    margin-right: 0;
   }
 }
 
@@ -43,9 +45,6 @@
   display: inline-block;
   height: 50px;
   width: 300px;
-  padding: 0 15px;
-  border: none;
-  letter-spacing: 1px;
 }
 
 @media (max-width: 550px) {

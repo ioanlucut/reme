@@ -83,9 +83,8 @@ angular
          */
         this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
             return $http
-                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, {":token": token}),
+                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ":email": email, ":token": token }),
                 {
-                    email: email,
                     password: password,
                     passwordConfirmation: passwordConfirmation
                 },
@@ -103,9 +102,9 @@ angular
          * @param token
          * @returns {*}
          */
-        this.validatePasswordResetToken = function (token) {
+        this.validatePasswordResetToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, {":token": token}),
+                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
                 }).then(function (response) {
@@ -117,14 +116,16 @@ angular
          * Validate registration email token.
          *
          * @param token
+         * @param email
          * @returns {*}
          */
-        this.validateRegistrationToken = function (token) {
+        this.validateRegistrationToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, {":token": token}),
+                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
-                }).then(function (response) {
+                })
+                .then(function (response) {
                     return response.data;
                 });
         };
