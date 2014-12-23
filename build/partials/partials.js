@@ -9,76 +9,67 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "    <div class=\"home__signup\">\n" +
     "        <div class=\"centered-section-home\">\n" +
     "\n" +
-    "            <h1>Create email reminders in seconds!</h1>\n" +
+    "            <h1 class=\"home__signup__title\">Create email reminders in seconds!</h1>\n" +
     "\n" +
-    "            <h3>O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face\n" +
-    "                Reme va fi aici.</h3>\n" +
+    "            <h3 class=\"home__signup__description\"> O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face Reme va fi aici. </h3>\n" +
     "\n" +
     "            <!-- Register  section -->\n" +
-    "            <div class=\"home__signup__form account__sections account__sections--request-registration\" account-form-toggle>\n" +
+    "            <div class=\"home__signup__sections\" account-form-toggle>\n" +
     "\n" +
     "                <!-- Request registration section -->\n" +
-    "                <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
+    "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
     "                    <!-- Request registration form -->\n" +
-    "                    <form name=\"requestSignUpRegistrationForm\" class=\"form-inline\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData.email)\" novalidate focus-first-error-on-submit>\n" +
+    "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData.email)\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "                        <!-- Account controls -->\n" +
-    "                        <div class=\"account__controls\">\n" +
+    "                        <div class=\"home__signup__sections__section__controls\">\n" +
     "\n" +
     "                            <!-- General error -->\n" +
-    "                            <div class=\"alert alert-info\" ng-if=\"isRequestPasswordErrorOcurred\">\n" +
+    "                            <div class=\"home__signup__sections__section__controls__alert\" ng-if=\"isRequestPasswordErrorOcurred\">\n" +
     "                                Sorry, we encountered a problem.\n" +
     "                            </div>\n" +
     "\n" +
-    "                            <!-- Form group -->\n" +
-    "                            <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                                <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Email address\"\n" +
-    "                                       name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
-    "                                       valid-email unique-email />\n" +
-    "                            </div>\n" +
+    "                            <!-- Email input -->\n" +
+    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button class=\"btn request--registration\" type=\"submit\">Get started now!</button>\n" +
+    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started now!</button>\n" +
     "                        </div>\n" +
     "\n" +
-    "                        <div class=\"help-block help-block--request-registration\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
+    "                        <!-- Error messages -->\n" +
+    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
-    "                        <div class=\"help-block\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
     "                            Checking availability...\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Request registration email sent section -->\n" +
-    "                <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
+    "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
     "                    <!-- Title -->\n" +
-    "                    <h1 class=\"account__title\">Email has been sent!</h1>\n" +
+    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for registration!</h1>\n" +
     "\n" +
     "                    <!-- Explain -->\n" +
-    "                    <span class=\"account__explain\">\n" +
-    "                        We've sent you an email with the instructions on how to reset your password.\n" +
+    "                    <span class=\"home__signup__sections__section__submitted-message\">\n" +
+    "                        We've sent you an email with the instructions on how to further register your account on Reme.\n" +
     "                    </span>\n" +
-    "\n" +
-    "                    <!-- Button container -->\n" +
-    "                    <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
     "                </div>\n" +
     "\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "\n" +
     "    <div class=\"home__testimonials\">\n" +
     "        <div class=\"centered-section-home\">\n" +
     "            TESTIMONIALS\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "\n" +
     "\n" +
     "</div>\n" +
     "\n" +
