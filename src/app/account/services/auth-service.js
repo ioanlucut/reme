@@ -62,6 +62,17 @@ angular
         };
 
         /**
+         * Request registration functionality
+         * @param email
+         * @returns {*}
+         */
+        this.requestRegistration = function (email) {
+            return $http.post(URLTo.api(AUTH_URLS.requestRegistration), {
+                email: email
+            });
+        };
+
+        /**
          * Reset password with token.
          *
          * @param email
