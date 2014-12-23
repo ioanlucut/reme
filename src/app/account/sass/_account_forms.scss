@@ -48,23 +48,9 @@
 .account__button {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
   @extend .btn-block;
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
-
-.request--registration {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 6px;
-  height: 45px;
-}
-
-.help-block--request-registration {
-  &.has-error {
-    color: #b94a48;
-  }
+  border-radius: $border-radius-small;
+  font-size: $font-size-large;
+  height: 50px;
 }
 
 .link-primary {
