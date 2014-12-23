@@ -1,10 +1,16 @@
 <!--Reminder form-->
 <div ng-show="! isDeleting" class="reminder-form-container">
 
-    <div class="reminder-form container box">
-        Are you sure you want to delete reminder with text <strong>{{reminder.model.text}}</strong> and with reminder id <strong>{{reminder.model.reminderId}}</strong>?
+    <div class="reminder-form-container__form">
+        <div class="reminder-form-container__form__question">
+            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on
+            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?
+        </div>
+        <div class="reminder-form-container__form__recommend">
+            Keep calm and don't delete it!
+        </div>
         <br />
-        <a href="#" class="btn-outline reminders__header__btn" ng-click="deleteReminderAndClose(reminder)">Delete reminder</a>
+        <a href="#" class="btn-outline reminder-form-container__form__delete" ng-click="deleteReminderAndClose(reminder)">Don't need it anymore</a>
     </div>
 
 </div>
