@@ -1,0 +1,15 @@
+.footer-home {
+  background-color: $brand-primary;
+  margin: 0;
+  height: $footer-home-height;
+  line-height: $footer-home-height;
+
+  .footer__wrapper {
+    @include clearfix;
+
+    width: $container-home-width;
+    margin: 0 auto;
+
+
+  }
+}
