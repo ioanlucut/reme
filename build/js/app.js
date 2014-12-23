@@ -12,10 +12,10 @@ angular
         "ui.bootstrap.popover",
         "ui.bootstrap.modal"
     ])
-    .config(function ($httpProvider) {
+    .config(["$httpProvider", function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
-    });
+    }]);
 ;/**
  * Common states.
  */
@@ -56,7 +56,7 @@ angular
 
 angular
     .module("common")
-    .directive("autoFocus", function ($timeout) {
+    .directive("autoFocus", ["$timeout", function ($timeout) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -78,7 +78,7 @@ angular
                 }
             }
         }
-    });
+    }]);
 ;angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
 
     .constant('datepickerConfig', {
@@ -95,7 +95,7 @@ angular
         maxDate: null
     })
 
-    .controller('DatepickerController', function ($scope, $attrs, dateFilter, datepickerConfig) {
+    .controller('DatepickerController', ["$scope", "$attrs", "dateFilter", "datepickerConfig", function ($scope, $attrs, dateFilter, datepickerConfig) {
         var format = {
                 day: getValue($attrs.dayFormat, datepickerConfig.dayFormat),
                 month: getValue($attrs.monthFormat, datepickerConfig.monthFormat),
@@ -202,9 +202,9 @@ angular
             var currentMode = this.modes[mode || 0];
             return ((this.minDate && currentMode.compare(date, this.minDate) < 0) || (this.maxDate && currentMode.compare(date, this.maxDate) > 0) || ($scope.dateDisabled && $scope.dateDisabled({date: date, mode: currentMode.name})));
         };
-    })
+    }])
 
-    .directive('datepicker', function (dateFilter, $parse, datepickerConfig, $log) {
+    .directive('datepicker', ["dateFilter", "$parse", "datepickerConfig", "$log", function (dateFilter, $parse, datepickerConfig, $log) {
         return {
             restrict: 'EA',
             replace: true,
@@ -330,7 +330,7 @@ angular
                 }
             }
         };
-    })
+    }])
 
     .constant('datepickerPopupConfig', {
         dateFormat: 'yyyy-MM-dd',
@@ -582,7 +582,7 @@ angular
 
                 scope.addEmail = function (email) {
                     if ( isNaN(attrs.maxEmails) || scope.emails.length < parseInt(attrs.maxEmails) ) {
-                        scope.emails.push(email);
+                        scope.emails.push({ email: email });
                     }
 
                     if ( !isNaN(attrs.maxEmails) && scope.emails.length >= parseInt(attrs.maxEmails) ) {
@@ -619,6 +619,20 @@ angular
  */
 angular
     .module("common")
+    .directive("footerHome", function () {
+        return {
+            restrict: "A",
+            templateUrl: "app/common/partials/footer-home.html",
+            link: function (scope, el) {
+
+            }
+        };
+    });
+;/**
+ * Header directive responsible for header common template.
+ */
+angular
+    .module("common")
     .directive("header", function () {
         return {
             restrict: "A",
@@ -646,7 +660,7 @@ angular
 
 angular
     .module("common")
-    .directive("nlpDate", function ($rootScope, $) {
+    .directive("nlpDate", ["$rootScope", "$", function ($rootScope, $) {
         return {
             require: 'ngModel',
             scope: {
@@ -707,7 +721,7 @@ angular
                 });
             }
         }
-    });
+    }]);
 ;/* Perfect scrollbar */
 
 angular
@@ -741,7 +755,7 @@ angular
 
 angular
     .module("common")
-    .directive("scrollTo", function ($window, $) {
+    .directive("scrollTo", ["$window", "$", function ($window, $) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -753,7 +767,7 @@ angular
                 });
             }
         }
-    });
+    }]);
 ;/* Timepicker popup */
 
 angular.module("common").
@@ -915,7 +929,7 @@ angular
     });
 ;angular
     .module("common")
-    .service("CamelCaseTransform", function (humps) {
+    .service("CamelCaseTransform", ["humps", function (humps) {
 
         /**
          * Transformation type. Can be camelize or decamelize only.
@@ -961,10 +975,10 @@ angular
                 });
             }
         };
-    });
+    }]);
 ;angular
     .module("common")
-    .factory("HumpsInterceptor", function (CamelCaseTransform) {
+    .factory("HumpsInterceptor", ["CamelCaseTransform", function (CamelCaseTransform) {
 
         return {
 
@@ -982,7 +996,7 @@ angular
 
         };
 
-    });
+    }]);
 ;/* Timezone detect */
 
 angular
@@ -1088,7 +1102,7 @@ angular
 
         var config = this;
 
-        this.$get = function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
+        this.$get = ["$q", "$injector", "$rootScope", "SessionService", "JWTTokenRefresher", function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
             return {
                 request: function (request) {
                     if ( request.skipAuthorization ) {
@@ -1119,11 +1133,11 @@ angular
                     });
                 }
             };
-        };
+        }];
     });
 ;angular
     .module("common")
-    .service("JWTTokenRefresher", function ($injector, JWTHelper, SessionService) {
+    .service("JWTTokenRefresher", ["$injector", "JWTHelper", "SessionService", function ($injector, JWTHelper, SessionService) {
 
         this.refreshTokenIfExpired = function () {
             if ( this.isTokenExpired() ) {
@@ -1138,7 +1152,7 @@ angular
         this.refreshToken = function () {
             return $injector.get('AuthService').refreshToken();
         };
-    });
+    }]);
 ;/* Mixpanel */
 
 angular
@@ -1152,7 +1166,7 @@ angular
  */
 angular
     .module("common")
-    .service("SessionService", function ($cookies, CamelCaseTransform) {
+    .service("SessionService", ["$cookies", "CamelCaseTransform", function ($cookies, CamelCaseTransform) {
 
         /**
          * Cookie key for session data.
@@ -1218,10 +1232,10 @@ angular
             delete $cookies[jwtTokenKey];
         };
 
-    });
+    }]);
 ;angular
     .module("common")
-    .service("StatesHandler", function ($state, $stateParams, STATES) {
+    .service("StatesHandler", ["$state", "$stateParams", "STATES", function ($state, $stateParams, STATES) {
 
         this.goHome = function () {
             this.go(STATES.home);
@@ -1254,7 +1268,7 @@ angular
                 notify: true
             });
         }
-    });;/**
+    }]);;/**
  * Transformer utils service.
  */
 angular
@@ -1293,7 +1307,7 @@ angular
         "restmod",
         "common"
     ])
-    .config(function ($stateProvider, $httpProvider) {
+    .config(["$stateProvider", "$httpProvider", function ($stateProvider, $httpProvider) {
 
         // Register AuthInterceptor
         $httpProvider.interceptors.push("AuthInterceptor");
@@ -1322,11 +1336,11 @@ angular
                 controller: "LogoutCtrl",
                 templateUrl: "app/account/partials/logout.html",
                 resolve: {
-                    isSuccessfullyLoggedOut: function ($q, AuthService) {
+                    isSuccessfullyLoggedOut: ["$q", "AuthService", function ($q, AuthService) {
                         AuthService.logout();
 
                         return true;
-                    }
+                    }]
                 }
             })
 
@@ -1337,7 +1351,7 @@ angular
             // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
-                url: "/account/reset-password/{token}",
+                url: "/account/reset-password/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
                 abstract: true
             })
@@ -1348,21 +1362,22 @@ angular
                 templateUrl: "app/account/partials/validate_password_reset_token.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
-                    validateTokenResult: function ($stateParams, $q, AuthService, $state) {
+                    validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
-                        AuthService.validatePasswordResetToken($stateParams.token)
+                        AuthService.validatePasswordResetToken($stateParams.email, $stateParams.token)
                             .then(function (response) {
-                                deferred.resolve({email: response.email});
+                                deferred.resolve({ email: $stateParams.email, token: $stateParams.token });
                                 return response;
-                            }).catch(function (response) {
+                            })
+                            .catch(function (response) {
 
                                 $state.go("account:validatePasswordResetToken.invalid");
                                 return response;
                             });
 
                         return deferred.promise;
-                    }
+                    }]
                 }
             })
             // Validate password reset token - invalid token
@@ -1380,7 +1395,7 @@ angular
             // Sign up confirm abstract view
             .state({
                 name: "account:confirmRegistration",
-                url: "/account/confirm-registration/{token}",
+                url: "/account/confirm-registration/{email}/{token}",
                 templateUrl: "app/account/partials/signup_confirm_abstract.html",
                 abstract: true
             })
@@ -1391,20 +1406,24 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
-                    validateRegistrationResult: function ($stateParams, $q, AuthService, $state, $timeout) {
+                    validateRegistrationResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
-                        AuthService.validateRegistrationToken($stateParams.token)
-                            .then(function (response) {
-                                deferred.resolve({successful: response.successful});
-                                return response;
-                            }).catch(function (response) {
 
+                        AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
+                            .then(function (response) {
+                                deferred.resolve({
+                                    email: $stateParams.email,
+                                    token: $stateParams.token
+                                });
+                                return response;
+                            })
+                            .catch(function (response) {
                                 $state.go("account:confirmRegistration.invalid");
                                 return response;
                             });
 
                         return deferred.promise;
-                    }
+                    }]
                 }
             })
             // Sign up confirm - invalid
@@ -1414,14 +1433,14 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl"
             })
-    })
+    }])
 
-    .run(function ($rootScope, AuthFilter) {
+    .run(["$rootScope", "AuthFilter", function ($rootScope, AuthFilter) {
 
         // Setup route filters
         $rootScope.$on("$stateChangeStart", AuthFilter);
 
-    });;/**
+    }]);;/**
  * Account related constants.
  */
 angular
@@ -1440,15 +1459,15 @@ angular
         logout: "auth/logout",
         currentUser: "auth/user",
         auth: "accounts",
-        create: "accounts/create",
+        create: "accounts/create/:email/:token",
         update: "accounts/update",
         details: "accounts/details",
         requestPasswordReset: "accounts/request_password_reset_token",
-        requestSignUpRegistration: "accounts/request_registration",
-        validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
-        validateRegistrationToken: "accounts/validate_registration_token/:token",
+        requestSignUpRegistration: "accounts/send_email_verification_token",
+        validatePasswordResetToken: "accounts/validate_password_reset_token/:email/:token",
+        validateRegistrationToken: "accounts/validate_email_verification_token/:email/:token",
         updatePassword: "accounts/update_password",
-        resetPasswordWithToken: "accounts/reset_password_with_token/:token",
+        resetPasswordWithToken: "accounts/reset_password_with_token/:email/:token",
         refreshToken: "auth/refresh_token"
     })
     .constant("ACCOUNT_FORM_STATE", {
@@ -1477,7 +1496,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("ForgotPasswordCtrl", ["$state", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Flag which tells if the authentication went well or not.
@@ -1513,13 +1532,13 @@ angular
             }
 
         }
-    });
+    }]);
 ;/**
  * Login controller responsible for user login actions.
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", ["$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
 
         /**
          * Set default state.
@@ -1561,13 +1580,13 @@ angular
                     });
             }
         }
-    });
+    }]);
 ;/**
  * Logout controller responsible for user logout actions.
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", function ($scope, $timeout, AuthService, $cookies, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutCtrl", ["$scope", "$timeout", "AuthService", "$cookies", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, AuthService, $cookies, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 
@@ -1578,13 +1597,13 @@ angular
             StatesHandler.goHome();
         }, 1500);
 
-    });
+    }]);
 ;/**
  * Profile controller responsible for user update profile action.
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Set default state.
@@ -1648,12 +1667,12 @@ angular
         $scope.getMeBack = function () {
             StatesHandler.goToReminders();
         }
-    });;/**
+    }]);;/**
  * Request registration controller responsible for first sign up action on the home page, having only the email.
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", ["$state", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Set default state.
@@ -1690,17 +1709,15 @@ angular
             }
 
         }
-    });
+    }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, StatesHandler, AccountFormToggle, $timeout, ACCOUNT_FORM_STATE, validateRegistrationResult) {
-
-        $scope.validateRegistrationResult = validateRegistrationResult;
+    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "StatesHandler", "User", "AuthService", "validateRegistrationResult", function ($scope, $timeout, StatesHandler, User, AuthService, validateRegistrationResult) {
 
         /**
-         * Set default state.
+         * Validate registration result.
          */
-        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp);
+        $scope.validateRegistrationResult = validateRegistrationResult;
 
         /**
          * Flag which tells if the sign up error occurred.
@@ -1709,10 +1726,10 @@ angular
         $scope.isSignUpErrorOcurred = false;
 
         /**
-         * Error messages.
-         * @type {string}
+         * The given token
+         * @type {.twitter.oauth.token|*|.yahoo.oauth.token|.dropbox.oauth.token|.flickr.oauth.token|token}
          */
-        $scope.errorMessages = "";
+        var token = $scope.validateRegistrationResult.token;
 
         /**
          * Sign up user information.
@@ -1721,12 +1738,12 @@ angular
         $scope.signUpData = {
             firstName: "",
             lastName: "",
-            email: "test",
+            email: $scope.validateRegistrationResult.email,
             password: "",
             timezone: ""
         };
 
-        /**
+        /*
          * Sign up functionality.
          * @param signUpData
          */
@@ -1738,40 +1755,25 @@ angular
 
                 // Create a new user
                 User.$new()
-                    .$create(signUpData)
+                    .$create(signUpData, token)
                     .then(function () {
                         $scope.isSignUpErrorOcurred = false;
 
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUpSuccessfully);
-                        $timeout(function () {
-                            StatesHandler.goToLogin();
-                        }, 2000)
-
+                        // Log in the user
+                        AuthService
+                            .login(signUpData.email, signUpData.password)
+                            .then(function () {
+                                StatesHandler.goToReminders();
+                            });
                     })
-                    .catch(function (response) {
-
-                        $scope.errorMessages = response.data && response.data.errors;
-
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
+                    .catch(function () {
 
                         $scope.isSignUpErrorOcurred = true;
                     });
             }
 
         };
-
-        /**
-         * Continues to login page.
-         */
-        $scope.continueToLogin = function () {
-            $timeout(function () {
-                AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
-                StatesHandler.goToLogin();
-            }, 400);
-        }
-    });
+    }]);
 ;angular
     .module("account")
     .controller("SignUpConfirmInvalidCtrl", function () {
@@ -1780,7 +1782,7 @@ angular
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", function ($scope, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
+    .controller("UpdatePasswordCtrl", ["$scope", "AuthService", "ACCOUNT_FORM_STATE", "ProfileFormToggle", function ($scope, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
 
         /**
          * Flag which tells if the update password action went well or not.
@@ -1829,10 +1831,10 @@ angular
                     });
             }
         }
-    });
+    }]);
 ;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Flag which says if errors have ocured while trying to reset the password.
@@ -1854,7 +1856,7 @@ angular
             email: validateTokenResult.email,
             password: "",
             passwordConfirmation: "",
-            token: $stateParams.token
+            token: validateTokenResult.token
         };
 
         /**
@@ -1895,10 +1897,10 @@ angular
                     });
             }
         };
-    });
+    }]);
 ;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenInvalidCtrl", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ValidatePasswordResetTokenInvalidCtrl", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -1915,13 +1917,13 @@ angular
             ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
             StatesHandler.goToLogin();
         }
-    });
+    }]);
 ;/**
  * Directive responsible for switching account forms between them.
  */
 angular
     .module("account")
-    .directive("accountFormToggle", function (AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .directive("accountFormToggle", ["AccountFormToggle", "ACCOUNT_FORM_STATE", function (AccountFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
             link: function (scope) {
@@ -1929,13 +1931,13 @@ angular
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
             }
         };
-    });
+    }]);
 ;/**
  * Directive responsible for switching update profile forms between them.
  */
 angular
     .module("account")
-    .directive("profileFormToggle", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .directive("profileFormToggle", ["ProfileFormToggle", "ACCOUNT_FORM_STATE", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
             link: function (scope) {
@@ -1943,7 +1945,7 @@ angular
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
             }
         };
-    });
+    }]);
 ;/**
  * Directive responsible for checking of a password is strong enough.
  */
@@ -1972,7 +1974,7 @@ angular
     });
 ;angular
     .module("account")
-    .directive("uniqueEmail", function ($q, $timeout, UserService) {
+    .directive("uniqueEmail", ["$q", "$timeout", "UserService", function ($q, $timeout, UserService) {
         return {
             require: "ngModel",
             scope: {
@@ -2005,7 +2007,7 @@ angular
                 }
             }
         };
-    });
+    }]);
 ;/**
  * Directive responsible for checking of an email is valid.
  */
@@ -2037,13 +2039,13 @@ angular
  */
 angular
     .module("account")
-    .service("AccountFormToggle", function (ACCOUNT_FORM_STATE) {
+    .service("AccountFormToggle", ["ACCOUNT_FORM_STATE", function (ACCOUNT_FORM_STATE) {
         this.state = ACCOUNT_FORM_STATE.login;
 
         this.setState = function (state) {
             this.state = state;
         };
-    });
+    }]);
 
 
 
@@ -2052,7 +2054,7 @@ angular
  */
 angular
     .module("account")
-    .service("AuthService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+    .service("AuthService", ["$rootScope", "$q", "$http", "$cookies", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
          * Is User already authenticated ?
@@ -2132,9 +2134,8 @@ angular
          */
         this.resetPasswordWithToken = function (email, password, passwordConfirmation, token) {
             return $http
-                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, {":token": token}),
+                .post(URLTo.api(AUTH_URLS.resetPasswordWithToken, { ":email": email, ":token": token }),
                 {
-                    email: email,
                     password: password,
                     passwordConfirmation: passwordConfirmation
                 },
@@ -2152,9 +2153,9 @@ angular
          * @param token
          * @returns {*}
          */
-        this.validatePasswordResetToken = function (token) {
+        this.validatePasswordResetToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, {":token": token}),
+                .get(URLTo.api(AUTH_URLS.validatePasswordResetToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
                 }).then(function (response) {
@@ -2166,14 +2167,16 @@ angular
          * Validate registration email token.
          *
          * @param token
+         * @param email
          * @returns {*}
          */
-        this.validateRegistrationToken = function (token) {
+        this.validateRegistrationToken = function (email, token) {
             return $http
-                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, {":token": token}),
+                .get(URLTo.api(AUTH_URLS.validateRegistrationToken, { ":email": email, ":token": token }),
                 {
                     skipAuthorization: true
-                }).then(function (response) {
+                })
+                .then(function (response) {
                     return response.data;
                 });
         };
@@ -2207,13 +2210,13 @@ angular
                 .post(URLTo.api(AUTH_URLS.refreshToken));
 
         };
-    });
+    }]);
 ;/**
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
 angular
     .module("account")
-    .service("AuthFilter", function (AuthService, StatesHandler) {
+    .service("AuthFilter", ["AuthService", "StatesHandler", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
             if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
@@ -2229,12 +2232,12 @@ angular
             }
         };
 
-    });;/**
+    }]);;/**
  * Authentication service interceptor used to listen to server responses.
  */
 angular
     .module("account")
-    .factory("AuthInterceptor", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
+    .factory("AuthInterceptor", ["$rootScope", "$q", "SessionService", "AUTH_EVENTS", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
 
         return {
 
@@ -2259,25 +2262,25 @@ angular
             }
         };
 
-    });
+    }]);
 ;/**
  * Profile form toggle responsible to keep the state of the current displayed update profile form.
  */
 angular
     .module("account")
-    .service("ProfileFormToggle", function (ACCOUNT_FORM_STATE) {
+    .service("ProfileFormToggle", ["ACCOUNT_FORM_STATE", function (ACCOUNT_FORM_STATE) {
         this.state = ACCOUNT_FORM_STATE.updateProfile;
 
         this.setState = function (state) {
             this.state = state;
         };
-    });
+    }]);
 
 
 
 ;angular
     .module("account")
-    .service("UserService", function ($http, $q, USER_URLS) {
+    .service("UserService", ["$http", "$q", "USER_URLS", function ($http, $q, USER_URLS) {
 
         /**
          * The list of already verified email addresses.
@@ -2330,10 +2333,10 @@ angular
         this.resetUniqueEmailCache = function () {
             this.uniqueEmailCache = {};
         };
-    });
+    }]);
 ;angular
     .module("account")
-    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+    .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -2388,13 +2391,14 @@ angular
                     /**
                      * Creates a user account with given fromData.
                      * @param fromData
+                     * @param token
                      * @returns {*}
                      */
-                    $create: function (fromData) {
+                    $create: function (fromData, token) {
                         var toBeCreated = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
-                        return this.createAccount(toBeCreated);
+                        return this.createAccount(toBeCreated, token);
                     },
 
                     $refresh: function () {
@@ -2424,10 +2428,19 @@ angular
                     /**
                      * Creates the account.
                      * @param account
+                     * @param token
                      * @returns {*}
                      */
-                    createAccount: function (account) {
-                        return $http.post(URLTo.api(AUTH_URLS.create), account);
+                    createAccount: function (account, token) {
+                        return $http
+                            .post(URLTo.api(AUTH_URLS.create, {
+                                ":email": account.email,
+                                ":token": token
+                            }), account,
+                            { skipAuthorization: true })
+                            .then(function (response) {
+                                return response.data;
+                            });
                     },
 
                     /**
@@ -2443,7 +2456,7 @@ angular
             }
 
         }
-    });;/**
+    }]);;/**
  * Main site module declaration including ui templates.
  */
 angular
@@ -2451,7 +2464,7 @@ angular
         "ngAnimate",
         "ui.router"
     ])
-    .config(function ($stateProvider) {
+    .config(["$stateProvider", function ($stateProvider) {
 
         // Home
         $stateProvider
@@ -2463,14 +2476,14 @@ angular
                 controller: "RequestSignUpRegistrationCtrl",
                 title: "Home - Reme.io"
             })
-    });
+    }]);
 ;/**
  * Home controller.
  */
 angular
     .module("site")
-    .controller("HomeCtrl", function ($scope) {
-    });;/**
+    .controller("HomeCtrl", ["$scope", function ($scope) {
+    }]);;/**
  * Main site module declaration including ui templates.
  */
 angular
@@ -2505,7 +2518,7 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: function ($q, ReminderService) {
+                            reminderList: ["$q", "ReminderService", function ($q, ReminderService) {
                                 var deferred = $q.defer();
                                 ReminderService
                                     .getAllReminders()
@@ -2516,7 +2529,7 @@ angular
                                     });
 
                                 return deferred.promise;
-                            }
+                            }]
                         }
                     }
                 }
@@ -2542,7 +2555,7 @@ angular
         isUpdated: "reminder-is-updated"
     });;angular
     .module("reminders")
-    .controller("ReminderCtrl", function ($scope, ReminderModalService) {
+    .controller("ReminderCtrl", ["$scope", "ReminderModalService", function ($scope, ReminderModalService) {
 
         $scope.cancel = function () {
             ReminderModalService.modalInstance.dismiss("cancel");
@@ -2552,10 +2565,10 @@ angular
         $scope.openReminderModalService = function () {
             ReminderModalService.open();
         };
-    });
+    }]);
 ;angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2604,13 +2617,13 @@ angular
                     });
             }
         };
-    });
+    }]);
 ;/**
  * Reminders controller.
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", ["$scope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", "$log", "flash", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
 
         /**
          * Group reminders by upcoming and past reminders.
@@ -2705,9 +2718,9 @@ angular
                 return reminderFromArrayId === reminderId;
             });
         }
-    });;angular
+    }]);;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2782,12 +2795,12 @@ angular
             }
         };
 
-    });
+    }]);
 ;/* Saved reminder controller */
 
 angular
     .module("reminders")
-    .controller("ReminderSavedCtrl", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
+    .controller("ReminderSavedCtrl", ["$rootScope", "$scope", "$state", "FeedbackModal", "reminder", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
 
         $rootScope.$state = $state;
         $scope.reminder = reminder;
@@ -2797,7 +2810,7 @@ angular
             FeedbackModal.open();
         };
 
-    });
+    }]);
 ;/* Email list */
 
 angular
@@ -2819,7 +2832,7 @@ angular
 
 angular
     .module("reminders")
-    .service("ReminderDeleteModalService", function ($modal) {
+    .service("ReminderDeleteModalService", ["$modal", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -2840,12 +2853,12 @@ angular
             });
         };
 
-    });
+    }]);
 ;/* Feedback modal */
 
 angular
     .module("reminders")
-    .service("ReminderModalService", function ($modal) {
+    .service("ReminderModalService", ["$modal", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -2859,27 +2872,27 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: function ($window, Reminder, jstz) {
+                    reminder: ["$window", "Reminder", "jstz", function ($window, Reminder, jstz) {
                         var defaultDueOn = Date.create().addHours(1).set({minute: 0, second: 0});
 
                         return Reminder.build({
                             text: "",
                             dueOn: defaultDueOn,
                             timezone: jstz.determine().name(),
-                            additionalAddresses: []
+                            recipients: []
                         });
-                    }
+                    }]
                 }
             });
         };
 
-    });
+    }]);
 ;/**
  * Reminders service which encapsulates the whole logic related to reminders.
  */
 angular
     .module("reminders")
-    .service("ReminderService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
+    .service("ReminderService", ["REMINDER_URLS", "$q", "$http", "$injector", "ReminderTransformerService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
 
         /**
          * Update a reminder.
@@ -2958,13 +2971,13 @@ angular
                     return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });
         };
-    });
+    }]);
 ;/**
  * Reminder transformer service which transforms a reminder DTO model object to a reminder business object.
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", function ($injector, TransformerUtils) {
+    .service("ReminderTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.
@@ -2979,7 +2992,6 @@ angular
             if ( reminderDto["dueOn"] ) {
                 reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             }
-            reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
             reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
 
             return reminderDto;
@@ -3002,15 +3014,12 @@ angular
                 reminder.model["dueOn"] = moment(reminder.model["dueOn"]).toDate();
             }
             //handle addresses conversion
-            var additionAddresses = reminder.model["additionalAddresses"];
-            if ( _.isEmpty(additionAddresses) ) {
-                reminder.model["additionalAddresses"] = [];
+            var recipient = reminder.model["recipients"];
+            if ( _.isEmpty(recipient) ) {
+                reminder.model["recipients"] = [];
             }
-            else if ( _.isArray(additionAddresses) ) {
-                reminder.model["additionalAddresses"] = additionAddresses;
-            }
-            else {
-                reminder.model["additionalAddresses"] = _.values(additionAddresses.split(","));
+            else if ( _.isArray(recipient) ) {
+                reminder.model["recipients"] = recipient;
             }
 
             return reminder;
@@ -3030,12 +3039,12 @@ angular
 
             return reminders;
         };
-    });
+    }]);
 ;/* Feedback modal */
 
 angular
     .module("reminders")
-    .service("ReminderUpdateModalService", function ($modal) {
+    .service("ReminderUpdateModalService", ["$modal", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -3056,10 +3065,10 @@ angular
             });
         };
 
-    });
+    }]);
 ;angular
     .module("reminders")
-    .factory("Reminder", function ($q, $http, ReminderService, ReminderTransformerService) {
+    .factory("Reminder", ["$q", "$http", "ReminderService", "ReminderTransformerService", function ($q, $http, ReminderService, ReminderTransformerService) {
 
         /**
          * Reminder class.
@@ -3075,7 +3084,7 @@ angular
                 text: "",
                 dueOn: "",
                 timezone: "",
-                additionalAddresses: [],
+                recipients: [],
                 createdBy: "",
                 sent: "",
                 createdAt: "",
@@ -3136,13 +3145,13 @@ angular
         };
 
         return Reminder;
-    });;angular
+    }]);;angular
     .module("feedback", [
     ]);;/* Feedback modal controller */
 
 angular
     .module("feedback")
-    .controller("FeedbackModalCtrl", function ($scope, $timeout, FeedbackModal, FeedbackMessage) {
+    .controller("FeedbackModalCtrl", ["$scope", "$timeout", "FeedbackModal", "FeedbackMessage", function ($scope, $timeout, FeedbackModal, FeedbackMessage) {
 
         $scope.isSending = false;
         $scope.isSent = false;
@@ -3185,12 +3194,12 @@ angular
             FeedbackModal.modalInstance.dismiss("cancel");
             $scope.isOpen = false;
         };
-    });
+    }]);
 ;/* Feedback message */
 
 angular
     .module("feedback")
-    .factory("FeedbackMessage", function ($http, $q, URLTo) {
+    .factory("FeedbackMessage", ["$http", "$q", "URLTo", function ($http, $q, URLTo) {
 
         function FeedbackMessage() {
 
@@ -3227,12 +3236,12 @@ angular
 
         return FeedbackMessage;
 
-    });
+    }]);
 ;/* Feedback modal */
 
 angular
     .module("feedback")
-    .service("FeedbackModal", function ($modal) {
+    .service("FeedbackModal", ["$modal", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -3248,7 +3257,7 @@ angular
             });
         };
 
-    });
+    }]);
 ;/**
  * Main app module declaration.
  */
@@ -3267,7 +3276,7 @@ angular
         "reminders",
         "account"
     ])
-    .config(function ($locationProvider, flashProvider) {
+    .config(["$locationProvider", "flashProvider", function ($locationProvider, flashProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({
@@ -3280,7 +3289,7 @@ angular
         flashProvider.errorClassnames.push('alert-reme');
         flashProvider.infoClassnames.push('alert-reme');
         flashProvider.warnClassnames.push('alert-reme');
-    })
+    }])
     .run(function () {
 
         // Set the base API URL
@@ -3290,7 +3299,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
+    .controller("AppCtrl", ["AUTH_EVENTS", "$rootScope", "$scope", "$state", "$log", "AuthService", "User", "StatesHandler", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
 
         /**
          * Save the state on root scope
@@ -3348,8 +3357,8 @@ angular
             $log.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
             $log.log(unfoundState, fromState, fromParams);
         });
-    });
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+    }]);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -3382,7 +3391,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started now!</button>\n" +
@@ -3424,7 +3433,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "</div>\n" +
     "\n" +
-    "<!--<div footer-home></div>-->\n" +
+    "<div footer-home></div>\n" +
     "\n" +
     "");
 }]);
@@ -3619,7 +3628,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
-    "            <div email-list ng-model=\"reminder.model.additionalAddresses\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
+    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
@@ -4027,7 +4036,7 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
     "\n" +
     "    <!-- Explain -->\n" +
     "    <span class=\"account__explain\">\n" +
-    "        We couldn't do it.\n" +
+    "        Sorry, we couldn't validate your email and token. Please give another try.\n" +
     "    </span>\n" +
     "</div>");
 }]);
@@ -4037,10 +4046,10 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "<!-- Registration confirmation valid -->\n" +
     "\n" +
     "<!-- Account sections -->\n" +
-    "<div class=\"account__sections\" account-form-toggle>\n" +
+    "<div class=\"account__sections\">\n" +
     "\n" +
     "    <!--Sign up-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp\" ng-controller=\"SignUpConfirmCtrl\">\n" +
+    "    <div class=\"account__section\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
     "        <h1 class=\"account__title\">Get started with registration confirmation!</h1>\n" +
@@ -4053,7 +4062,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <!-- General error -->\n" +
     "                <div class=\"alert alert-danger\" ng-if=\"isSignUpErrorOcurred\">\n" +
-    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                    Sorry, something went wrong.\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4072,11 +4081,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <div class=\"form-control form-control--account\">{{signUpData.email}}</div>\n" +
-    "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
@@ -4098,21 +4102,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- Sign up email sent section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
-    "\n" +
-    "        <!-- Explain -->\n" +
-    "        <span class=\"account__explain\">\n" +
-    "            We've sent you an email with the instructions on how to confirm your registration.\n" +
-    "        </span>\n" +
-    "\n" +
-    "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
-    "    </div>\n" +
-    "\n" +
     "</div>");
 }]);
 
@@ -4121,26 +4110,11 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\">\n" +
     "\n" +
-    "      <!-- Validated token result -->\n" +
-    "    <div class=\"alert alert-danger\" ng-if=\"errorMessages && !isTokenValid\">\n" +
-    "       <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
-    "\n" +
-    "        <br />\n" +
-    "        <br />\n" +
-    "\n" +
-    "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"continueToResetPassword()\">Let me try again.</a>\n" +
-    "        <br />\n" +
-    "        <span ng-if=\"isUserAuthenticated\">\n" +
-    "            You are authenticated. You will be logged off if you want to try again.\n" +
-    "        </span>\n" +
-    "    </div>\n" +
-    "\n" +
     "    <!-- Validate password reset token section -->\n" +
-    "    <div class=\"account__section\" ng-hide=\"!isTokenValid || successfullyReseted\">\n" +
+    "    <div class=\"account__section\" ng-hide=\"successfullyReseted\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
-    "         <h1 class=\"account__title\">Reset your password.</h1>\n" +
+    "        <h1 class=\"account__title\">Reset your password.</h1>\n" +
     "\n" +
     "        <!-- Reset password form -->\n" +
     "        <form name=\"resetPasswordForm\" ng-submit=\"resetPassword(resetPasswordData)\" novalidate>\n" +
@@ -4150,7 +4124,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "\n" +
     "                <!-- General error -->\n" +
     "                <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
-    "                     <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4159,7 +4133,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required/>\n" +
+    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
@@ -4167,7 +4141,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
     "                               placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
-    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required/>\n" +
+    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -4284,13 +4258,40 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "    <ng-form name=\"emailForm\">\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
     "            <input class=\"form-control form-control--friend-email\" type=\"email\"\n" +
-    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required/>\n" +
+    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index].email\" required/>\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
     "</div>\n" +
     "\n" +
     "<a class=\"btn-add-emails\" href=\"#\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
+}]);
+
+angular.module("app/common/partials/footer-home.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/common/partials/footer-home.html",
+    "<div class=\"footer-home\">\n" +
+    "    <div class=\"centered-section-home\">\n" +
+    "\n" +
+    "        <div class=\"footer__navbar\">\n" +
+    "            <div class=\"pull-left footer__navbar--copyright\">\n" +
+    "                Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "            </div>\n" +
+    "            <ul class=\"pull-right\">\n" +
+    "                <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                <li><a href=\"#\">Contact</a></li>\n" +
+    "            </ul>\n" +
+    "            <ul class=\"pull-right\">\n" +
+    "                <li><a href=\"#\">Pricing</a></li>\n" +
+    "                <li><a href=\"#\">About</a></li>\n" +
+    "                <li><a href=\"#\">Press kit</a></li>\n" +
+    "                <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {
