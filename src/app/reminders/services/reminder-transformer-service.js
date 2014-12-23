@@ -18,7 +18,6 @@ angular
             if ( reminderDto["dueOn"] ) {
                 reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             }
-            reminderDto["additionalAddresses"] = reminderDto["additionalAddresses"].join(",");
             reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
 
             return reminderDto;
@@ -41,15 +40,12 @@ angular
                 reminder.model["dueOn"] = moment(reminder.model["dueOn"]).toDate();
             }
             //handle addresses conversion
-            var additionAddresses = reminder.model["additionalAddresses"];
-            if ( _.isEmpty(additionAddresses) ) {
-                reminder.model["additionalAddresses"] = [];
+            var recipient = reminder.model["recipients"];
+            if ( _.isEmpty(recipient) ) {
+                reminder.model["recipients"] = [];
             }
-            else if ( _.isArray(additionAddresses) ) {
-                reminder.model["additionalAddresses"] = additionAddresses;
-            }
-            else {
-                reminder.model["additionalAddresses"] = _.values(additionAddresses.split(","));
+            else if ( _.isArray(recipient) ) {
+                reminder.model["recipients"] = recipient;
             }
 
             return reminder;
