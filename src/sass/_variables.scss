@@ -67,7 +67,6 @@ $font-family-monospace: Monaco, Menlo, Consolas, "Courier New", monospace !defau
 $font-family-base: $font-family-sans-serif !default;
 
 $font-size-base: 14px !default;
-$font-size-middle: 16px !default;
 $font-size-large: ceil($font-size-base * 1.4285714) !default;
 // ~18px
 $font-size-small: ceil($font-size-base * 0.85) !default;
@@ -115,7 +114,7 @@ $padding-large-horizontal: 16px !default;
 $padding-small-vertical: 5px !default;
 $padding-small-horizontal: 10px !default;
 
-$line-height-large: 1.4 !default;
+$line-height-large: 1.33 !default;
 $line-height-small: 1.5 !default;
 
 $border-radius-base: 4px !default;

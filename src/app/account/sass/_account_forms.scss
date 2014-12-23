@@ -35,7 +35,7 @@
   padding-top: 40px;
 }
 
-@include input-size('.form-control--account', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
+@include input-size('.form-control--account', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--account {
   font-weight: $font-weight-light;
@@ -49,8 +49,9 @@
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
   @extend .btn-block;
   border-radius: $border-radius-small;
-  font-size: $font-size-large;
-  height: 50px;
+  font-size: $font-size-medium;
+  height: $form-height;
+  width: 300px;
 }
 
 .link-primary {
