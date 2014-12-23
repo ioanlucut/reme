@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $stateParams, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Flag which says if errors have ocured while trying to reset the password.
@@ -22,7 +22,7 @@ angular
             email: validateTokenResult.email,
             password: "",
             passwordConfirmation: "",
-            token: $stateParams.token
+            token: validateTokenResult.token
         };
 
         /**

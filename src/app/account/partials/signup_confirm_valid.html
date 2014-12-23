@@ -1,10 +1,10 @@
 <!-- Registration confirmation valid -->
 
 <!-- Account sections -->
-<div class="account__sections" account-form-toggle>
+<div class="account__sections">
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp" ng-controller="SignUpConfirmCtrl">
+    <div class="account__section">
 
         <!-- Title -->
         <h1 class="account__title">Get started with registration confirmation!</h1>
@@ -17,7 +17,7 @@
 
                 <!-- General error -->
                 <div class="alert alert-danger" ng-if="isSignUpErrorOcurred">
-                    <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                    Sorry, something went wrong.
                 </div>
 
                 <!-- Form groups -->
@@ -38,11 +38,6 @@
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
-                        <div class="form-control form-control--account">{{signUpData.email}}</div>
-                    </div>
-
-                    <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
                         <input class="form-control form-control--account" type="password"
                                placeholder="Choose a password" name="password" ng-model="signUpData.password" required
@@ -60,21 +55,6 @@
             </div>
         </form>
 
-    </div>
-
-    <!-- Sign up email sent section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully">
-
-        <!-- Title -->
-        <h1 class="account__title">Email has been sent!</h1>
-
-        <!-- Explain -->
-        <span class="account__explain">
-            We've sent you an email with the instructions on how to confirm your registration.
-        </span>
-
-        <!-- Button container -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
     </div>
 
 </div>

@@ -1,13 +1,11 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, StatesHandler, AccountFormToggle, $timeout, ACCOUNT_FORM_STATE, validateRegistrationResult) {
-
-        $scope.validateRegistrationResult = validateRegistrationResult;
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, StatesHandler, User, AuthService, validateRegistrationResult) {
 
         /**
-         * Set default state.
+         * Validate registration result.
          */
-        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp);
+        $scope.validateRegistrationResult = validateRegistrationResult;
 
         /**
          * Flag which tells if the sign up error occurred.
@@ -16,10 +14,10 @@ angular
         $scope.isSignUpErrorOcurred = false;
 
         /**
-         * Error messages.
-         * @type {string}
+         * The given token
+         * @type {.twitter.oauth.token|*|.yahoo.oauth.token|.dropbox.oauth.token|.flickr.oauth.token|token}
          */
-        $scope.errorMessages = "";
+        var token = $scope.validateRegistrationResult.token;
 
         /**
          * Sign up user information.
@@ -28,12 +26,12 @@ angular
         $scope.signUpData = {
             firstName: "",
             lastName: "",
-            email: "test",
+            email: $scope.validateRegistrationResult.email,
             password: "",
             timezone: ""
         };
 
-        /**
+        /*
          * Sign up functionality.
          * @param signUpData
          */
@@ -45,37 +43,22 @@ angular
 
                 // Create a new user
                 User.$new()
-                    .$create(signUpData)
+                    .$create(signUpData, token)
                     .then(function () {
                         $scope.isSignUpErrorOcurred = false;
 
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUpSuccessfully);
-                        $timeout(function () {
-                            StatesHandler.goToLogin();
-                        }, 2000)
-
+                        // Log in the user
+                        AuthService
+                            .login(signUpData.email, signUpData.password)
+                            .then(function () {
+                                StatesHandler.goToReminders();
+                            });
                     })
-                    .catch(function (response) {
-
-                        $scope.errorMessages = response.data && response.data.errors;
-
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
+                    .catch(function () {
 
                         $scope.isSignUpErrorOcurred = true;
                     });
             }
 
         };
-
-        /**
-         * Continues to login page.
-         */
-        $scope.continueToLogin = function () {
-            $timeout(function () {
-                AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
-                StatesHandler.goToLogin();
-            }, 400);
-        }
     });

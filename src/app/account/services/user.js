@@ -55,13 +55,14 @@ angular
                     /**
                      * Creates a user account with given fromData.
                      * @param fromData
+                     * @param token
                      * @returns {*}
                      */
-                    $create: function (fromData) {
+                    $create: function (fromData, token) {
                         var toBeCreated = {};
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
-                        return this.createAccount(toBeCreated);
+                        return this.createAccount(toBeCreated, token);
                     },
 
                     $refresh: function () {
@@ -91,10 +92,19 @@ angular
                     /**
                      * Creates the account.
                      * @param account
+                     * @param token
                      * @returns {*}
                      */
-                    createAccount: function (account) {
-                        return $http.post(URLTo.api(AUTH_URLS.create), account);
+                    createAccount: function (account, token) {
+                        return $http
+                            .post(URLTo.api(AUTH_URLS.create, {
+                                ":email": account.email,
+                                ":token": token
+                            }), account,
+                            { skipAuthorization: true })
+                            .then(function (response) {
+                                return response.data;
+                            });
                     },
 
                     /**
