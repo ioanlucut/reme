@@ -26,3 +26,11 @@
     background-color: $brand-primary;
   }
 }
+
+// Remove outline from buttons
+// --------------------------------------------------
+.btn {
+  &:focus {
+    outline: none;
+  }
+}

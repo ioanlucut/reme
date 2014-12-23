@@ -21,11 +21,7 @@
 
 .home__signup__sections__section__controls__email {
   width: 300px;
-  height: 50px;
-  padding: 8px 10px;
   font-weight: $font-weight-light;
-  font-size: 16px;
-  vertical-align: top;
   display: inline-block;
 
   &.has-error {
@@ -49,7 +45,6 @@
   width: 300px;
   padding: 0 15px;
   border: none;
-  vertical-align: top;
   letter-spacing: 1px;
 }
 
