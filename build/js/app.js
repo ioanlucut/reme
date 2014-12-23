@@ -628,6 +628,20 @@ angular
             }
         };
     });
+;/**
+ * Header directive responsible for header common template.
+ */
+angular
+    .module("common")
+    .directive("headerHome", function () {
+        return {
+            restrict: "A",
+            templateUrl: "app/common/partials/header-home.html",
+            link: function (scope, el) {
+
+            }
+        };
+    });
 ;/* Natural Language Date Input */
 
 angular
@@ -1290,6 +1304,7 @@ angular
             // Login page
             .state("account", {
                 url: "/account",
+                controller: "LoginCtrl",
                 templateUrl: "app/account/partials/account.html"
             })
 
@@ -1298,14 +1313,7 @@ angular
                 url: "/profile",
                 templateUrl: "app/account/partials/profile.html",
                 controller: "ProfileCtrl",
-                title: "Profile",
-                resolve: {
-                    helloMessage: function () {
-                        return {
-                            message: 'I am in login page!'
-                        };
-                    }
-                }
+                title: "Profile"
             })
 
             // Logout page
@@ -1383,7 +1391,7 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
-                    validateRegistration: ["$stateParams", "$q", "AuthService", "$state", "$timeout", function ($stateParams, $q, AuthService, $state, $timeout) {
+                    validateRegistrationResult: ["$stateParams", "$q", "AuthService", "$state", "$timeout", function ($stateParams, $q, AuthService, $state, $timeout) {
                         var deferred = $q.defer();
                         AuthService.validateRegistrationToken($stateParams.token)
                             .then(function (response) {
@@ -1436,6 +1444,7 @@ angular
         update: "accounts/update",
         details: "accounts/details",
         requestPasswordReset: "accounts/request_password_reset_token",
+        requestSignUpRegistration: "accounts/request_registration",
         validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
         validateRegistrationToken: "accounts/validate_registration_token/:token",
         updatePassword: "accounts/update_password",
@@ -1449,6 +1458,8 @@ angular
         signUpSuccessfully: "signUpSuccessfully",
         forgotPassword: "forgotPassword",
         forgotPasswordEmailSent: "forgotPasswordEmailSent",
+        requestSignUpRegistration: "requestSignUpRegistration",
+        requestSignUpRegistrationEmailSent: "requestSignUpRegistrationEmailSent",
         updateProfile: "updateProfile",
         resetPassword: "resetPassword",
         resetPasswordSuccessfully: "resetPasswordSuccessfully",
@@ -1542,7 +1553,7 @@ angular
                     .then(function () {
 
                         $scope.isAuthenticationErrorOcurred = false;
-                        StatesHandler.goHome();
+                        StatesHandler.goToReminders();
                     })
                     .catch(function () {
 
@@ -1637,29 +1648,59 @@ angular
         $scope.getMeBack = function () {
             StatesHandler.goToReminders();
         }
-    }]);;angular
+    }]);;/**
+ * Request registration controller responsible for first sign up action on the home page, having only the email.
+ */
+angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "StatesHandler", "AccountFormToggle", "$timeout", "ACCOUNT_FORM_STATE", "validateRegistration", function ($scope, StatesHandler, AccountFormToggle, $timeout, ACCOUNT_FORM_STATE, validateRegistration) {
+    .controller("RequestSignUpRegistrationCtrl", ["$state", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
-         * Continues to login page.
+         * Set default state.
          */
-        $scope.continueToLogin = function () {
-            $timeout(function () {
-                AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
-                StatesHandler.goToLogin();
-            }, 400);
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration);
+
+        /**
+         * Flag which tells if the registration controller went well or not.
+         * @type {boolean}
+         */
+        $scope.isRequestSignUpRegistrationErrorOcurred = false;
+
+        /**
+         * Request registration up user information.
+         */
+        $scope.requestSignUpRegistrationData = {
+            email: ""
+        };
+
+        /**
+         * Request registration functionality.
+         */
+        $scope.requestSignUpRegistration = function () {
+            if ( $scope.requestSignUpRegistrationForm.$valid ) {
+                AuthService
+                    .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
+                    .then(function () {
+                        $scope.isRequestSignUpRegistrationErrorOcurred = false;
+                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
+                    })
+                    .catch(function () {
+                        $scope.isRequestSignUpRegistrationErrorOcurred = true;
+                    });
+            }
+
         }
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmInvalidCtrl", function () {
-    });;/**
- * Sign up controller responsible for user sign up action.
- */
-angular
-    .module("account")
-    .controller("SignUpCtrl", ["$scope", "AuthService", "StatesHandler", "User", "$timeout", "jstz", "AccountFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, User, $timeout, jstz, AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("SignUpConfirmCtrl", ["$scope", "StatesHandler", "AccountFormToggle", "$timeout", "ACCOUNT_FORM_STATE", "validateRegistrationResult", function ($scope, StatesHandler, AccountFormToggle, $timeout, ACCOUNT_FORM_STATE, validateRegistrationResult) {
+
+        $scope.validateRegistrationResult = validateRegistrationResult;
+
+        /**
+         * Set default state.
+         */
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp);
 
         /**
          * Flag which tells if the sign up error occurred.
@@ -1680,7 +1721,7 @@ angular
         $scope.signUpData = {
             firstName: "",
             lastName: "",
-            email: "",
+            email: "test",
             password: "",
             timezone: ""
         };
@@ -1719,9 +1760,22 @@ angular
                     });
             }
 
+        };
+
+        /**
+         * Continues to login page.
+         */
+        $scope.continueToLogin = function () {
+            $timeout(function () {
+                AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
+                StatesHandler.goToLogin();
+            }, 400);
         }
     }]);
-;/**
+;angular
+    .module("account")
+    .controller("SignUpConfirmInvalidCtrl", function () {
+    });;/**
  * Update password controller.
  */
 angular
@@ -2057,6 +2111,17 @@ angular
         };
 
         /**
+         * Request registration functionality
+         * @param email
+         * @returns {*}
+         */
+        this.requestSignUpRegistration = function (email) {
+            return $http.post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
+                email: email
+            });
+        };
+
+        /**
          * Reset password with token.
          *
          * @param email
@@ -2177,7 +2242,7 @@ angular
              * Response error interceptor.
              *
              * @param response
-             * @returns {Promise}
+             * @returns {*}
              */
             responseError: function (response) {
                 if ( response.status === 401 ) {
@@ -2395,7 +2460,7 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "HomeCtrl",
+                controller: "RequestSignUpRegistrationCtrl",
                 title: "Home - Reme.io"
             })
     }]);
@@ -3284,13 +3349,92 @@ angular
             $log.log(unfoundState, fromState, fromParams);
         });
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
-    "<div header></div>\n" +
+    "<div header-home></div>\n" +
     "\n" +
-    "Welcome to the home page!\n" +
+    "<div class=\"home\">\n" +
+    "\n" +
+    "    <div class=\"home__signup\">\n" +
+    "        <div class=\"centered-section-home\">\n" +
+    "\n" +
+    "            <h1>Create email reminders in seconds!</h1>\n" +
+    "\n" +
+    "            <h3>O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face\n" +
+    "                Reme va fi aici.</h3>\n" +
+    "\n" +
+    "            <!-- Register  section -->\n" +
+    "            <div class=\"home__signup__form account__sections account__sections--request-registration\" account-form-toggle>\n" +
+    "\n" +
+    "                <!-- Request registration section -->\n" +
+    "                <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
+    "\n" +
+    "                    <!-- Request registration form -->\n" +
+    "                    <form name=\"requestSignUpRegistrationForm\" class=\"form-inline\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData.email)\" novalidate focus-first-error-on-submit>\n" +
+    "\n" +
+    "                        <!-- Account controls -->\n" +
+    "                        <div class=\"account__controls\">\n" +
+    "\n" +
+    "                            <!-- General error -->\n" +
+    "                            <div class=\"alert alert-info\" ng-if=\"isRequestPasswordErrorOcurred\">\n" +
+    "                                Sorry, we encountered a problem.\n" +
+    "                            </div>\n" +
+    "\n" +
+    "                            <!-- Form group -->\n" +
+    "                            <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
+    "                                <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Email address\"\n" +
+    "                                       name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
+    "                                       valid-email unique-email />\n" +
+    "                            </div>\n" +
+    "\n" +
+    "                            <!-- Button container -->\n" +
+    "                            <button class=\"btn request--registration\" type=\"submit\">Get started now!</button>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"help-block help-block--request-registration\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
+    "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
+    "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
+    "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"help-block\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
+    "                            Checking availability...\n" +
+    "                        </div>\n" +
+    "                    </form>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Request registration email sent section -->\n" +
+    "                <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
+    "\n" +
+    "                    <!-- Title -->\n" +
+    "                    <h1 class=\"account__title\">Email has been sent!</h1>\n" +
+    "\n" +
+    "                    <!-- Explain -->\n" +
+    "                    <span class=\"account__explain\">\n" +
+    "                        We've sent you an email with the instructions on how to reset your password.\n" +
+    "                    </span>\n" +
+    "\n" +
+    "                    <!-- Button container -->\n" +
+    "                    <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "    <div class=\"home__testimonials\">\n" +
+    "        <div class=\"centered-section-home\">\n" +
+    "            TESTIMONIALS\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--<div footer-home></div>-->\n" +
+    "\n" +
     "");
 }]);
 
@@ -3408,7 +3552,7 @@ angular.module("app/reminders/partials/reminder/reminders.html", []).run(["$temp
 
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
-    "<div class=\"centered-global-width\">\n" +
+    "<div class=\"centered-section-reminders\">\n" +
     "\n" +
     "    <!-- Subscribe to success flash messages. -->\n" +
     "    <div flash-alert=\"success\" active-class=\"in\" class=\"alert fade\">\n" +
@@ -3480,7 +3624,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        <!--Reminder addresses-->\n" +
     "        <div class=\"reminder-modal__form__addressees\">\n" +
     "            <div class=\"form-group\">\n" +
-    "                <div class=\"form-control form-control--reminder form-control--user-email\">{{currentUser.model.email}}\n" +
+    "                <div class=\"form-control form-control--user-email\">{{currentUser.model.email}}\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -3488,7 +3632,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" class=\"btn btn-primary btn-lg btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
+    "        <button type=\"submit\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
     "            reminder\"}}\n" +
     "        </button>\n" +
     "\n" +
@@ -3544,6 +3688,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
   $templateCache.put("app/account/partials/account.html",
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\" account-form-toggle>\n" +
+    "\n" +
     "    <!--Sign in-->\n" +
     "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state === ACCOUNT_FORM_STATE.login\" ng-controller=\"LoginCtrl\">\n" +
     "\n" +
@@ -3591,68 +3736,44 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp)\">Don't have an account yet? Sign up!</a>\n" +
+    "        <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Sign up-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp\" ng-controller=\"SignUpCtrl\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
     "        <h1 class=\"account__title\">Get started!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
-    "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error-on-submit>\n" +
+    "        <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData)\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "               <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isSignUpErrorOcurred\">\n" +
-    "                     <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form groups -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\"\n" +
-    "                           name=\"firstName\" ng-model=\"signUpData.firstName\" required/>\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\"\n" +
-    "                           name=\"lastName\" ng-model=\"signUpData.lastName\" required/>\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                <div class=\"alert alert-danger\" ng-if=\"isRequestSignUpRegistrationErrorOcurred\">\n" +
+    "                    We encountered a problem.\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}\">\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
-    "                               name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
+    "                               name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
     "                               valid-email unique-email/>\n" +
-    "                        <div class=\"help-block\" ng-messages=\"signUpForm.email.$error\" ng-if=\"signUpForm.$submitted\">\n" +
+    "\n" +
+    "                        <div class=\"help-block\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
-    "                        <div class=\"help-block\" ng-if=\"signUpForm.email.$pending\">\n" +
+    "                        <div class=\"help-block\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
     "                            Checking availability...\n" +
     "                        </div>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
-    "                               placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required\n" +
-    "                               strong-password/>\n" +
-    "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
-    "                             <div ng-message=\"required\">Please choose a password.</div>\n" +
-    "                             <div ng-message=\"strongPassword\">Your password needs to be at least 7 characters long.</div>\n" +
-    "                         </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -3666,7 +3787,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "    </div>\n" +
     "\n" +
     "    <!-- Sign up email sent section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully\">\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
     "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
@@ -3718,7 +3839,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn btn-primary btn-fixed-width btn-rounded account__button\" type=\"submit\">Reset password</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Reset password</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -3740,9 +3861,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
     "    </div>\n" +
     "\n" +
-    "</div>\n" +
-    "\n" +
-    "");
+    "</div>");
 }]);
 
 angular.module("app/account/partials/logout.html", []).run(["$templateCache", function($templateCache) {
@@ -3820,7 +3939,7 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn btn-primary btn-fixed-width btn-rounded account__button\" type=\"submit\">SAVE</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">SAVE</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -3905,9 +4024,6 @@ angular.module("app/account/partials/signup_confirm_abstract.html", []).run(["$t
     "<!--Validate password reset token section - abstract view-->\n" +
     "<div class=\"account__sections\">\n" +
     "\n" +
-    "     <!-- Title -->\n" +
-    "    <h1 class=\"account__title\">Registration confirmation</h1>\n" +
-    "\n" +
     "    <div ui-view></div>\n" +
     "\n" +
     "</div>");
@@ -3928,15 +4044,84 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
 angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_confirm_valid.html",
     "<!-- Registration confirmation valid -->\n" +
-    "<div class=\"account__section\">\n" +
     "\n" +
-    "    <!-- Explain -->\n" +
-    "    <span class=\"account__explain\">\n" +
-    "        We've successfully confirmed your email.\n" +
-    "    </span>\n" +
+    "<!-- Account sections -->\n" +
+    "<div class=\"account__sections\" account-form-toggle>\n" +
     "\n" +
-    "    <!-- Button container -->\n" +
-    "    <a href=\"#\" ng-click=\"continueToLogin()\">Continue</a>\n" +
+    "    <!--Sign up-->\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp\" ng-controller=\"SignUpConfirmCtrl\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Get started with registration confirmation!</h1>\n" +
+    "\n" +
+    "        <!-- Sign-up form -->\n" +
+    "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error-on-submit>\n" +
+    "\n" +
+    "            <!-- Account controls -->\n" +
+    "            <div class=\"account__controls\">\n" +
+    "\n" +
+    "                <!-- General error -->\n" +
+    "                <div class=\"alert alert-danger\" ng-if=\"isSignUpErrorOcurred\">\n" +
+    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form groups -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\"\n" +
+    "                           name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
+    "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\"\n" +
+    "                           name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
+    "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form groups -->\n" +
+    "                <div class=\"account__controls__form-groups--last\">\n" +
+    "\n" +
+    "                    <!-- Form group -->\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}\">\n" +
+    "                        <div class=\"form-control form-control--account\">{{signUpData.email}}</div>\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <!-- Form group -->\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
+    "                               placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required\n" +
+    "                               strong-password />\n" +
+    "\n" +
+    "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
+    "                            <div ng-message=\"required\">Please choose a password.</div>\n" +
+    "                            <div ng-message=\"strongPassword\">Your password needs to be at least 7 characters long.</div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Button container -->\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Create new account</button>\n" +
+    "            </div>\n" +
+    "        </form>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Sign up email sent section -->\n" +
+    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully\">\n" +
+    "\n" +
+    "        <!-- Title -->\n" +
+    "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
+    "\n" +
+    "        <!-- Explain -->\n" +
+    "        <span class=\"account__explain\">\n" +
+    "            We've sent you an email with the instructions on how to confirm your registration.\n" +
+    "        </span>\n" +
+    "\n" +
+    "        <!-- Button container -->\n" +
+    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
+    "    </div>\n" +
+    "\n" +
     "</div>");
 }]);
 
@@ -4115,6 +4300,28 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "</div>\n" +
     "\n" +
     "<a class=\"btn-add-emails\" href=\"#\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
+}]);
+
+angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/common/partials/header-home.html",
+    "<header class=\"header-home\">\n" +
+    "    <div class=\"header__wrapper\">\n" +
+    "\n" +
+    "        <div class=\"header__wrapper__logo\">\n" +
+    "            Reme\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"header__wrapper__menu\">\n" +
+    "            <ul class=\"header__wrapper__menu__navbar\">\n" +
+    "                <li><a href=\"#\">Pricing</a></li>\n" +
+    "                <li><a href=\"#\">About</a></li>\n" +
+    "                <li><a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
+    "\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</header>");
 }]);
 
 angular.module("app/common/partials/header.html", []).run(["$templateCache", function($templateCache) {

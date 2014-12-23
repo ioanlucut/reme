@@ -7671,6 +7671,12 @@ a:active, a:focus {
 }
 
 /* line 11, ../../src/app/account/sass/_account_forms.scss */
+.account__sections--request-registration {
+  max-width: 500px;
+  margin: 10px auto 0;
+}
+
+/* line 16, ../../src/app/account/sass/_account_forms.scss */
 .account__title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -7679,7 +7685,7 @@ a:active, a:focus {
   font-weight: 400;
 }
 
-/* line 19, ../../src/app/account/sass/_account_forms.scss */
+/* line 24, ../../src/app/account/sass/_account_forms.scss */
 .account__explain {
   display: block;
   margin-bottom: 50px;
@@ -7689,7 +7695,7 @@ a:active, a:focus {
   color: #848b91;
 }
 
-/* line 28, ../../src/app/account/sass/_account_forms.scss */
+/* line 33, ../../src/app/account/sass/_account_forms.scss */
 .account__controls {
   position: relative;
   padding-top: 40px;
@@ -7715,17 +7721,17 @@ textarea.form-control--account {
   height: auto;
 }
 
-/* line 36, ../../src/app/account/sass/_account_forms.scss */
+/* line 40, ../../src/app/account/sass/_account_forms.scss */
 .form-control--account {
   font-weight: 300;
 }
 
-/* line 40, ../../src/app/account/sass/_account_forms.scss */
+/* line 44, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form-groups--last {
   margin-bottom: 20px;
 }
 
-/* line 44, ../../src/app/account/sass/_account_forms.scss */
+/* line 48, ../../src/app/account/sass/_account_forms.scss */
 .account__button {
   color: #fff;
   background-color: #8471B1;
@@ -7760,12 +7766,53 @@ textarea.form-control--account {
   border-color: #7661a8;
 }
 
-/* line 52, ../../src/app/account/sass/_account_forms.scss */
+/* line 56, ../../src/app/account/sass/_account_forms.scss */
+.request--registration {
+  color: #fff;
+  background-color: #8471B1;
+  border-color: #7661a8;
+  padding: 10px 16px;
+  line-height: 1.33;
+  border-radius: 6px;
+  height: 45px;
+}
+/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.request--registration:hover, .request--registration:focus, .request--registration:active, .request--registration.active {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .request--registration.dropdown-toggle {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.request--registration:active, .request--registration.active {
+  background-image: none;
+}
+/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .request--registration.dropdown-toggle {
+  background-image: none;
+}
+/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.request--registration.disabled, .request--registration.disabled:hover, .request--registration.disabled:focus, .request--registration.disabled:active, .request--registration.disabled.active, .request--registration[disabled], .request--registration[disabled]:hover, .request--registration[disabled]:focus, .request--registration[disabled]:active, .request--registration[disabled].active, fieldset[disabled] .request--registration, fieldset[disabled] .request--registration:hover, fieldset[disabled] .request--registration:focus, fieldset[disabled] .request--registration:active, fieldset[disabled] .request--registration.active {
+  background-color: #8471B1;
+  border-color: #7661a8;
+}
+
+/* line 65, ../../src/app/account/sass/_account_forms.scss */
+.help-block--request-registration.has-error {
+  color: #b94a48;
+}
+
+/* line 70, ../../src/app/account/sass/_account_forms.scss */
 .link-primary {
   color: #222222;
 }
 
-/* line 56, ../../src/app/account/sass/_account_forms.scss */
+/* line 74, ../../src/app/account/sass/_account_forms.scss */
 .link-secondary {
   color: #bbbfc4;
 }
@@ -7847,9 +7894,57 @@ textarea.form-control--account {
   color: white;
 }
 
+/* line 1, ../../src/app/common/sass/_header_home.scss */
+.header-home {
+  background-color: #FFFFFF;
+  margin: 0;
+  height: 74px;
+  line-height: 74px;
+}
+/* line 7, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper {
+  width: 960px;
+  margin: 0 auto;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.header-home .header__wrapper:before, .header-home .header__wrapper:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.header-home .header__wrapper:after {
+  clear: both;
+}
+/* line 13, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__logo {
+  float: left;
+  color: #8471B1;
+  font-size: 18px;
+}
+/* line 19, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__menu {
+  float: right;
+  position: relative;
+}
+/* line 23, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__menu__navbar {
+  list-style: none;
+}
+/* line 26, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__menu__navbar li {
+  display: inline-block;
+  margin: 0 20px;
+}
+/* line 31, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__menu__navbar .btn--login {
+  width: 90px;
+}
+
 /* Import sub-modules */
 /* line 1, ../../src/app/reminders/sass/_reminders_layout.scss */
-.centered-global-width {
+.centered-section-reminders {
   max-width: 700px;
   width: 96%;
   margin: 0 auto;
@@ -8064,7 +8159,7 @@ textarea.form-control--account {
   line-height: 25px;
   text-align: center;
   position: absolute;
-  top: 11px;
+  top: 4px;
   right: -25px;
 }
 /* line 117, ../../src/app/reminders/sass/_reminders_form.scss */
@@ -8074,17 +8169,46 @@ textarea.form-control--account {
 }
 /* line 126, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--create-reminder {
+  color: #fff;
+  background-color: #8471B1;
+  border-color: #7661a8;
   display: block;
-  width: 200px;
-  position: relative;
   margin: 30px auto 0;
-  font-size: 14px;
+  padding: 10px 16px;
+  line-height: 1.33;
+  border-radius: 6px;
+  width: 200px;
   text-transform: uppercase;
 }
-/* line 136, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.reminder-modal__form .btn--create-reminder:hover, .reminder-modal__form .btn--create-reminder:focus, .reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .reminder-modal__form .btn--create-reminder.dropdown-toggle {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
+  background-image: none;
+}
+/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .reminder-modal__form .btn--create-reminder.dropdown-toggle {
+  background-image: none;
+}
+/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.reminder-modal__form .btn--create-reminder.disabled, .reminder-modal__form .btn--create-reminder.disabled:hover, .reminder-modal__form .btn--create-reminder.disabled:focus, .reminder-modal__form .btn--create-reminder.disabled:active, .reminder-modal__form .btn--create-reminder.disabled.active, .reminder-modal__form .btn--create-reminder[disabled], .reminder-modal__form .btn--create-reminder[disabled]:hover, .reminder-modal__form .btn--create-reminder[disabled]:focus, .reminder-modal__form .btn--create-reminder[disabled]:active, .reminder-modal__form .btn--create-reminder[disabled].active, fieldset[disabled] .reminder-modal__form .btn--create-reminder, fieldset[disabled] .reminder-modal__form .btn--create-reminder:hover, fieldset[disabled] .reminder-modal__form .btn--create-reminder:focus, fieldset[disabled] .reminder-modal__form .btn--create-reminder:active, fieldset[disabled] .reminder-modal__form .btn--create-reminder.active {
+  background-color: #8471B1;
+  border-color: #7661a8;
+}
+/* line 137, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--reminder-popup {
   color: #24282b;
-  background-color: #e6e9eb;
+  background-color: #f5f6f7;
   border-color: transparent;
   padding: 10px 16px;
   line-height: 1.33;
@@ -8093,13 +8217,13 @@ textarea.form-control--account {
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
   color: #24282b;
-  background-color: #cfd5d9;
+  background-color: #dee2e5;
   border-color: transparent;
 }
 /* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .open .reminder-modal__form .btn--reminder-popup.dropdown-toggle {
   color: #24282b;
-  background-color: #cfd5d9;
+  background-color: #dee2e5;
   border-color: transparent;
 }
 /* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -8112,11 +8236,11 @@ textarea.form-control--account {
 }
 /* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup.disabled, .reminder-modal__form .btn--reminder-popup.disabled:hover, .reminder-modal__form .btn--reminder-popup.disabled:focus, .reminder-modal__form .btn--reminder-popup.disabled:active, .reminder-modal__form .btn--reminder-popup.disabled.active, .reminder-modal__form .btn--reminder-popup[disabled], .reminder-modal__form .btn--reminder-popup[disabled]:hover, .reminder-modal__form .btn--reminder-popup[disabled]:focus, .reminder-modal__form .btn--reminder-popup[disabled]:active, .reminder-modal__form .btn--reminder-popup[disabled].active, fieldset[disabled] .reminder-modal__form .btn--reminder-popup, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:hover, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:focus, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:active, fieldset[disabled] .reminder-modal__form .btn--reminder-popup.active {
-  background-color: #e6e9eb;
+  background-color: #f5f6f7;
   border-color: transparent;
 }
 
-/* line 148, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 149, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder--saving {
   width: 150px;
   margin: 20px auto;
@@ -8148,7 +8272,7 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 165, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 166, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
   font-weight: 300;
 }
@@ -8173,14 +8297,20 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 171, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 172, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
 }
 
-/* line 175, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 176, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
-  font-weight: 700;
+  background-color: #f5f6f7;
+  border: 0;
+  height: 40px;
+  padding: 8px 20px 8px 20px;
+  text-align: left;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 /* line 4, ../../src/app/reminders/sass/_reminders_animate.scss */
@@ -8282,13 +8412,17 @@ textarea.form-control--friend-email {
   opacity: 0;
 }
 
-/* line 5, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 2, ../../src/app/reminders/sass/_reminders_navs.scss */
+.nav-tabs--reminders {
+  margin-bottom: 30px;
+}
+/* line 6, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--reminders > li > a {
   margin-right: 40px;
   line-height: 1.42857;
   border: 0;
 }
-/* line 13, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 14, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--reminders > li.active > a, .nav-tabs--reminders > li.active > a:hover, .nav-tabs--reminders > li.active > a:focus {
   color: #555555;
   background-color: transparent;
@@ -8296,7 +8430,7 @@ textarea.form-control--friend-email {
   cursor: default;
 }
 
-/* line 27, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 28, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li {
   color: #8471B1;
   border-radius: 0;
@@ -8311,11 +8445,11 @@ textarea.form-control--friend-email {
   -o-transition: 0.4s color cubic-bezier(0.19, 1, 0.22, 1);
   transition: 0.4s color cubic-bezier(0.19, 1, 0.22, 1);
 }
-/* line 42, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 43, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li.active::after {
   bottom: 0;
 }
-/* line 47, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 48, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li::after {
   position: absolute;
   content: '';
@@ -8329,7 +8463,7 @@ textarea.form-control--friend-email {
   -o-transition: 0.6s bottom cubic-bezier(0.19, 1, 0.22, 1);
   transition: 0.6s bottom cubic-bezier(0.19, 1, 0.22, 1);
 }
-/* line 61, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 62, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li:hover::after {
   bottom: 0;
 }
@@ -8523,6 +8657,40 @@ textarea.form-control--friend-email {
 .ps-container .ps-scrollbar-y-rail:hover .ps-scrollbar-y,
 .ps-container .ps-scrollbar-y-rail.hover .ps-scrollbar-y {
   background-color: #999999;
+}
+
+/* line 1, ../../src/app/site/sass/_site_layout.scss */
+.centered-section-home {
+  max-width: 960px;
+  width: 96%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* line 11, ../../src/app/site/sass/_site_layout.scss */
+.home__signup {
+  height: 600px;
+}
+/* line 15, ../../src/app/site/sass/_site_layout.scss */
+.home__signup h1 {
+  padding: 100px 15px 20px;
+  font-size: 52px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+/* line 24, ../../src/app/site/sass/_site_layout.scss */
+.home__signup h3 {
+  margin: 0;
+  padding: 0 190px 90px;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: center;
+}
+/* line 34, ../../src/app/site/sass/_site_layout.scss */
+.home__testimonials {
+  height: 200px;
+  background-color: #FFFFFF;
 }
 
 @font-face {
