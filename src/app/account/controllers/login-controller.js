@@ -37,7 +37,7 @@ angular
                     .then(function () {
 
                         $scope.isAuthenticationErrorOcurred = false;
-                        StatesHandler.goHome();
+                        StatesHandler.goToReminders();
                     })
                     .catch(function () {
 
