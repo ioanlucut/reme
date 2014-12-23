@@ -3,16 +3,18 @@
 
 .reminder-form-container {
 }
-//.reminder-form-container {
-//  //display: table-cell;
-//  //vertical-align: middle;
-//}
-
 
 // Reminder form
 // ---------------
 
 .reminder-modal__form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 580px;
+  padding: 25px 30px;
+  background-color: #fff;
+
+  @include clearfix();
 
   // Reminder datetime
   // -------------------
@@ -64,7 +66,7 @@
       float: left;
       position: relative;
       margin-bottom: 10px;
-      width: 155px;
+      width: 153px;
 
       & > .btn {
         background-position: 15px -231px;
@@ -86,7 +88,7 @@
       margin-bottom: 6px;
 
       &.has-error {
-        .form-control {
+        .form-control--reminder {
           border: 1px solid $brand-danger;
         }
       }
@@ -102,36 +104,12 @@
       line-height: 25px;
       text-align: center;
       position: absolute;
-      top: 11px;
+      top: 4px;
       right: -25px;
     }
 
     // Form control
     // --------------
-
-    .form-control {
-      display: block;
-      background-color: $text-color-secondary;
-      background-position: 15px -288px;
-      border: none;
-
-      width: 100%;
-      height: 40px;
-      padding: 8px 20px 8px 50px;
-
-      //.box-shadow(none);
-      //.placeholder(lighten(@gray-light, 10%));
-
-      &:hover,
-      &:focus {
-        background-color: darken($gray5, 5%);
-      }
-
-      &:focus {
-        border: none;
-        //.box-shadow(none);
-      }
-    }
 
     // Add emails button
     // ------------------
@@ -142,24 +120,33 @@
     }
   }
 
-  // Create button
+  // Buttons
   //----------------
 
-  .btn-create {
+  .btn--create-reminder {
+    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
     display: block;
-    width: 200px;
-    position: relative;
     margin: 30px auto 0;
-
-    font-size: 14px;
+    padding: 10px 16px;
+    line-height: 1.33;
+    border-radius: 6px;
+    width: 200px;
     text-transform: uppercase;
+  }
+
+  .btn--reminder-popup {
+    @include button-variant($gray3, $gray12, transparent);
+    @extend .btn-block;
+    padding: 10px 16px;
+    line-height: 1.33;
+    border-radius: $border-radius-base;
   }
 }
 
 // Saving state
 // --------------
 
-.reminder-saving {
+.reminder--saving {
   width: 150px;
   margin: 20px auto;
   padding: 100px 0 0 0;
@@ -172,59 +159,25 @@
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
-// RESPONSIVE
-// -------------
+// Form control reminder
+// --------------
+@include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
 
-//@media (max-width: @screen-custom) {
-//
-//  .reminder-form {
-//
-//    .btn,
-//    .form-control {
-//      font-size: 13px;
-//    }
-//
-//    .input-lg {
-//      padding-left: 12px;
-//      padding-right: 12px;
-//    }
-//
-//    .date-and-time {
-//      .date {
-//        width: 100%;
-//        margin-right: 0;
-//
-//        & > .btn {
-//          background-position: 10px -172px;
-//          padding-left: 40px;
-//        }
-//      }
-//
-//      .time {
-//        width: 100%;
-//
-//        & > .btn {
-//          background-position: 10px -231px;
-//          padding-left: 40px;
-//        }
-//      }
-//    }
-//
-//    .addressees {
-//      .form-control {
-//        background-position: 10px -288px;
-//        padding-left: 40px;
-//      }
-//
-//      .close {
-//        position: absolute;
-//        top: 8px;
-//        right: 2px;
-//      }
-//    }
-//
-//    .btn-create {
-//      margin-top: 20px;
-//    }
-//  }
-//}
+.form-control--reminder {
+  font-weight: $font-weight-light;
+}
+
+@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-base, $line-height-large, $border-radius-base);
+
+.form-control--friend-email {
+  font-weight: $font-weight-light;
+}
+
+.form-control--user-email {
+  background-color: $gray12;
+  border: 0;
+  height: 40px;
+  padding: 8px 20px 8px 20px;
+  text-align: left;
+  @include box-shadow(none);
+}
