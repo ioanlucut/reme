@@ -5,14 +5,13 @@
   margin: 0 auto;
 }
 
-
 .home {
 
   &__signup {
     height: 600px;
     //background-color: #EE5757;
 
-    h1 {
+    h1.home__signup__title {
       padding: 100px 15px 20px;
       font-size: 52px;
       font-weight: $font-weight-bold;
@@ -21,7 +20,7 @@
       margin: 0;
     }
 
-    h3 {
+    h3.home__signup__description {
       margin: 0;
       padding: 0 190px 90px;
       font-size: 20px;
