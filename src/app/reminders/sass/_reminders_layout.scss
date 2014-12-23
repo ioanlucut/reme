@@ -1,5 +1,5 @@
-.centered-global-width {
-  max-width: $global-width;
+.centered-section-reminders {
+  max-width: $container-reminders-width;
   width: 96%;
   margin: 0 auto;
 }
@@ -17,7 +17,7 @@
   border: solid 0px $body-bg;
   border-radius: 3px;
   width: 100%;
-  //max-width: $global-width;
+  //max-width: $container-reminders-width;
   height: 90px;
   padding: 10px;
   margin-bottom: 22px;
