@@ -1,3 +1,82 @@
-<div header></div>
+<div header-home></div>
 
-Welcome to the home page!
+<div class="home">
+
+    <div class="home__signup">
+        <div class="centered-section-home">
+
+            <h1>Create email reminders in seconds!</h1>
+
+            <h3>O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face
+                Reme va fi aici.</h3>
+
+            <!-- Register  section -->
+            <div class="home__signup__form account__sections account__sections--request-registration" account-form-toggle>
+
+                <!-- Request registration section -->
+                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
+
+                    <!-- Request registration form -->
+                    <form name="requestSignUpRegistrationForm" class="form-inline" ng-submit="requestSignUpRegistration(requestSignUpRegistrationData.email)" novalidate focus-first-error-on-submit>
+
+                        <!-- Account controls -->
+                        <div class="account__controls">
+
+                            <!-- General error -->
+                            <div class="alert alert-info" ng-if="isRequestPasswordErrorOcurred">
+                                Sorry, we encountered a problem.
+                            </div>
+
+                            <!-- Form group -->
+                            <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
+                                <input class="form-control form-control--account" type="email" placeholder="Email address"
+                                       name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required
+                                       valid-email unique-email />
+                            </div>
+
+                            <!-- Button container -->
+                            <button class="btn request--registration" type="submit">Get started now!</button>
+                        </div>
+
+                        <div class="help-block help-block--request-registration" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
+                            <div ng-message="required">Your email address is mandatory.</div>
+                            <div ng-message="validEmail">This email address is not valid.</div>
+                            <div ng-message="uniqueEmail">This email address is already used.</div>
+                        </div>
+                        <div class="help-block" ng-if="requestSignUpRegistrationForm.email.$pending">
+                            Checking availability...
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Request registration email sent section -->
+                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
+
+                    <!-- Title -->
+                    <h1 class="account__title">Email has been sent!</h1>
+
+                    <!-- Explain -->
+                    <span class="account__explain">
+                        We've sent you an email with the instructions on how to reset your password.
+                    </span>
+
+                    <!-- Button container -->
+                    <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="home__testimonials">
+        <div class="centered-section-home">
+            TESTIMONIALS
+        </div>
+    </div>
+
+
+</div>
+
+<!--<div footer-home></div>-->
+

@@ -11,7 +11,7 @@ angular
              * Response error interceptor.
              *
              * @param response
-             * @returns {Promise}
+             * @returns {*}
              */
             responseError: function (response) {
                 if ( response.status === 401 ) {
