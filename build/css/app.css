@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+/*$line-height-base: 1.428571429 !default;*/
 /*$text-color: $text-color-base;*/
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
 /* line 11, ../../bower_components/bootstrap-sass/lib/_normalize.scss */
@@ -2436,10 +2437,10 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-lg, .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
-  height: 45px;
+  height: 50px;
   padding: 10px 16px;
   font-size: 18px;
-  line-height: 1.33;
+  line-height: 1.6;
   border-radius: 6px;
 }
 
@@ -2447,8 +2448,8 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 select.input-lg, .input-group-lg > select.form-control,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn {
-  height: 45px;
-  line-height: 45px;
+  height: 50px;
+  line-height: 50px;
 }
 
 /* line 858, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -2895,7 +2896,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .btn-lg, .btn-group-lg > .btn {
   padding: 10px 16px;
   font-size: 18px;
-  line-height: 1.33;
+  line-height: 1.6;
   border-radius: 6px;
 }
 
@@ -5673,28 +5674,29 @@ a.thumbnail.active {
 }
 
 /* line 9, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert {
+.alert, .home__signup__sections__section__controls__alert {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
 /* line 16, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert h4 {
+.alert h4, .home__signup__sections__section__controls__alert h4 {
   margin-top: 0;
   color: inherit;
 }
 /* line 22, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert .alert-link {
+.alert .alert-link, .home__signup__sections__section__controls__alert .alert-link {
   font-weight: bold;
 }
 /* line 27, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert > p,
-.alert > ul {
+.alert > p, .home__signup__sections__section__controls__alert > p,
+.alert > ul,
+.home__signup__sections__section__controls__alert > ul {
   margin-bottom: 0;
 }
 /* line 31, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert > p + p {
+.alert > p + p, .home__signup__sections__section__controls__alert > p + p {
   margin-top: 5px;
 }
 
@@ -5756,17 +5758,17 @@ a.thumbnail.active {
 }
 
 /* line 65, ../../bower_components/bootstrap-sass/lib/_alerts.scss */
-.alert-danger {
+.alert-danger, .home__signup__sections__section__controls__alert {
   background-color: #f2dede;
   border-color: #ebccd1;
   color: #b94a48;
 }
 /* line 422, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.alert-danger hr {
+.alert-danger hr, .home__signup__sections__section__controls__alert hr {
   border-top-color: #e4b9c0;
 }
 /* line 425, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.alert-danger .alert-link {
+.alert-danger .alert-link, .home__signup__sections__section__controls__alert .alert-link {
   color: #953b39;
 }
 
@@ -7637,6 +7639,11 @@ td.visible-print {
   background-color: #8471B1;
 }
 
+/* line 33, ../../src/sass/_buttons.scss */
+.btn:focus {
+  outline: none;
+}
+
 /* line 7, ../../src/sass/_scaffolding.scss */
 a {
   color: #bbbfc4;
@@ -7703,17 +7710,17 @@ a:active, a:focus {
 
 /* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .form-control--account {
-  height: 45px;
+  height: 50px;
   padding: 10px 16px;
   font-size: 18px;
-  line-height: 1.33;
+  line-height: 1.6;
   border-radius: 4px;
 }
 
 /* line 853, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 select.form-control--account {
-  height: 45px;
-  line-height: 45px;
+  height: 50px;
+  line-height: 50px;
 }
 
 /* line 858, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -7736,9 +7743,9 @@ textarea.form-control--account {
   color: #fff;
   background-color: #8471B1;
   border-color: #7661a8;
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 6px;
+  border-radius: 3px;
+  font-size: 18px;
+  height: 50px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .account__button:hover, .account__button:focus, .account__button:active, .account__button.active {
@@ -7767,52 +7774,11 @@ textarea.form-control--account {
 }
 
 /* line 56, ../../src/app/account/sass/_account_forms.scss */
-.request--registration {
-  color: #fff;
-  background-color: #8471B1;
-  border-color: #7661a8;
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 6px;
-  height: 45px;
-}
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.request--registration:hover, .request--registration:focus, .request--registration:active, .request--registration.active {
-  color: #fff;
-  background-color: #6e58a1;
-  border-color: #5a4883;
-}
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.open .request--registration.dropdown-toggle {
-  color: #fff;
-  background-color: #6e58a1;
-  border-color: #5a4883;
-}
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.request--registration:active, .request--registration.active {
-  background-image: none;
-}
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.open .request--registration.dropdown-toggle {
-  background-image: none;
-}
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.request--registration.disabled, .request--registration.disabled:hover, .request--registration.disabled:focus, .request--registration.disabled:active, .request--registration.disabled.active, .request--registration[disabled], .request--registration[disabled]:hover, .request--registration[disabled]:focus, .request--registration[disabled]:active, .request--registration[disabled].active, fieldset[disabled] .request--registration, fieldset[disabled] .request--registration:hover, fieldset[disabled] .request--registration:focus, fieldset[disabled] .request--registration:active, fieldset[disabled] .request--registration.active {
-  background-color: #8471B1;
-  border-color: #7661a8;
-}
-
-/* line 65, ../../src/app/account/sass/_account_forms.scss */
-.help-block--request-registration.has-error {
-  color: #b94a48;
-}
-
-/* line 70, ../../src/app/account/sass/_account_forms.scss */
 .link-primary {
   color: #222222;
 }
 
-/* line 74, ../../src/app/account/sass/_account_forms.scss */
+/* line 60, ../../src/app/account/sass/_account_forms.scss */
 .link-secondary {
   color: #bbbfc4;
 }
@@ -8254,17 +8220,17 @@ textarea.form-control--account {
 
 /* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .form-control--reminder {
-  height: 45px;
+  height: 50px;
   padding: 10px 16px;
   font-size: 18px;
-  line-height: 1.33;
+  line-height: 1.6;
   border-radius: 4px;
 }
 
 /* line 853, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 select.form-control--reminder {
-  height: 45px;
-  line-height: 45px;
+  height: 50px;
+  line-height: 50px;
 }
 
 /* line 858, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -8282,7 +8248,7 @@ textarea.form-control--reminder {
   height: 34px;
   padding: 10px 16px;
   font-size: 14px;
-  line-height: 1.33;
+  line-height: 1.6;
   border-radius: 4px;
 }
 
@@ -8667,30 +8633,167 @@ textarea.form-control--friend-email {
   margin: 0 auto;
 }
 
-/* line 11, ../../src/app/site/sass/_site_layout.scss */
+/* line 10, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
   height: 600px;
 }
-/* line 15, ../../src/app/site/sass/_site_layout.scss */
-.home__signup h1 {
+/* line 14, ../../src/app/site/sass/_site_layout.scss */
+.home__signup h1.home__signup__title {
   padding: 100px 15px 20px;
   font-size: 52px;
   font-weight: 700;
   text-align: center;
   margin: 0;
 }
-/* line 24, ../../src/app/site/sass/_site_layout.scss */
-.home__signup h3 {
+/* line 23, ../../src/app/site/sass/_site_layout.scss */
+.home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
   font-size: 20px;
   font-weight: 300;
   text-align: center;
 }
-/* line 34, ../../src/app/site/sass/_site_layout.scss */
+/* line 33, ../../src/app/site/sass/_site_layout.scss */
 .home__testimonials {
   height: 200px;
   background-color: #FFFFFF;
+}
+
+/* line 4, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section {
+  text-align: center;
+}
+
+/* line 8, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls {
+  text-align: center;
+}
+
+/* line 12, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls__alert {
+  width: 300px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+/* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.home__signup__sections__section__controls__email {
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.6;
+  border-radius: 4px;
+}
+
+/* line 853, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+select.home__signup__sections__section__controls__email {
+  height: 50px;
+  line-height: 50px;
+}
+
+/* line 858, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+textarea.home__signup__sections__section__controls__email {
+  height: auto;
+}
+
+/* line 22, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls__email {
+  width: 300px;
+  font-weight: 300;
+  display: inline-block;
+}
+/* line 27, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls__email.has-error {
+  border-color: #b94a48;
+}
+
+@media (max-width: 550px) {
+  /* line 33, ../../src/app/site/sass/_site_signup.scss */
+  .home__signup__sections__section__controls__email {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+}
+/* line 39, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls__button {
+  color: #fff;
+  background-color: #8471B1;
+  border-color: #7661a8;
+  border-radius: 3px;
+  font-size: 18px;
+  display: inline-block;
+  height: 50px;
+  width: 300px;
+  padding: 0 15px;
+  border: none;
+  letter-spacing: 1px;
+}
+/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.home__signup__sections__section__controls__button:hover, .home__signup__sections__section__controls__button:focus, .home__signup__sections__section__controls__button:active, .home__signup__sections__section__controls__button.active {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .home__signup__sections__section__controls__button.dropdown-toggle {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #5a4883;
+}
+/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.home__signup__sections__section__controls__button:active, .home__signup__sections__section__controls__button.active {
+  background-image: none;
+}
+/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.open .home__signup__sections__section__controls__button.dropdown-toggle {
+  background-image: none;
+}
+/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.home__signup__sections__section__controls__button.disabled, .home__signup__sections__section__controls__button.disabled:hover, .home__signup__sections__section__controls__button.disabled:focus, .home__signup__sections__section__controls__button.disabled:active, .home__signup__sections__section__controls__button.disabled.active, .home__signup__sections__section__controls__button[disabled], .home__signup__sections__section__controls__button[disabled]:hover, .home__signup__sections__section__controls__button[disabled]:focus, .home__signup__sections__section__controls__button[disabled]:active, .home__signup__sections__section__controls__button[disabled].active, fieldset[disabled] .home__signup__sections__section__controls__button, fieldset[disabled] .home__signup__sections__section__controls__button:hover, fieldset[disabled] .home__signup__sections__section__controls__button:focus, fieldset[disabled] .home__signup__sections__section__controls__button:active, fieldset[disabled] .home__signup__sections__section__controls__button.active {
+  background-color: #8471B1;
+  border-color: #7661a8;
+}
+
+@media (max-width: 550px) {
+  /* line 52, ../../src/app/site/sass/_site_signup.scss */
+  .home__signup__sections__section__controls__button {
+    width: 100%;
+  }
+}
+/* line 57, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__validation-messages {
+  text-align: center;
+  color: #b94a48;
+}
+/* line 61, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__validation-messages div {
+  padding: 10px;
+}
+
+/* line 66, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__checking-availability {
+  text-align: center;
+  color: #8471B1;
+  padding: 10px;
+}
+
+/* line 72, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__submitted-title {
+  margin-bottom: 20px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+/* line 80, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__submitted-message {
+  display: block;
+  margin-bottom: 50px;
+  line-height: 20px;
+  font-weight: 300;
+  font-size: 15px;
+  color: #848b91;
 }
 
 @font-face {
