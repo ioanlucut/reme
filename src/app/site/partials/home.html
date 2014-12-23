@@ -29,13 +29,13 @@
 
                             <!-- Form group -->
                             <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
-                                <input class="form-control form-control--account" type="email" placeholder="Your email address"
+                                <input class="form-control form-control--account" type="email" placeholder="Email address"
                                        name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required
                                        valid-email unique-email />
                             </div>
 
                             <!-- Button container -->
-                            <button class="btn request--registration" type="submit">Request registration</button>
+                            <button class="btn request--registration" type="submit">Get started now!</button>
                         </div>
 
                         <div class="help-block help-block--request-registration" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
