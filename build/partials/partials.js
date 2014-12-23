@@ -1,4 +1,4 @@
-angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -31,7 +31,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"signUpData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started now!</button>\n" +
@@ -73,7 +73,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "</div>\n" +
     "\n" +
-    "<!--<div footer-home></div>-->\n" +
+    "<div footer-home></div>\n" +
     "\n" +
     "");
 }]);
@@ -268,7 +268,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
-    "            <div email-list ng-model=\"reminder.model.additionalAddresses\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
+    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
@@ -676,7 +676,7 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
     "\n" +
     "    <!-- Explain -->\n" +
     "    <span class=\"account__explain\">\n" +
-    "        We couldn't do it.\n" +
+    "        Sorry, we couldn't validate your email and token. Please give another try.\n" +
     "    </span>\n" +
     "</div>");
 }]);
@@ -686,10 +686,10 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "<!-- Registration confirmation valid -->\n" +
     "\n" +
     "<!-- Account sections -->\n" +
-    "<div class=\"account__sections\" account-form-toggle>\n" +
+    "<div class=\"account__sections\">\n" +
     "\n" +
     "    <!--Sign up-->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp\" ng-controller=\"SignUpConfirmCtrl\">\n" +
+    "    <div class=\"account__section\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
     "        <h1 class=\"account__title\">Get started with registration confirmation!</h1>\n" +
@@ -702,7 +702,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <!-- General error -->\n" +
     "                <div class=\"alert alert-danger\" ng-if=\"isSignUpErrorOcurred\">\n" +
-    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                    Sorry, something went wrong.\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -721,11 +721,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <div class=\"form-control form-control--account\">{{signUpData.email}}</div>\n" +
-    "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
@@ -747,21 +742,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "    </div>\n" +
     "\n" +
-    "    <!-- Sign up email sent section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
-    "\n" +
-    "        <!-- Explain -->\n" +
-    "        <span class=\"account__explain\">\n" +
-    "            We've sent you an email with the instructions on how to confirm your registration.\n" +
-    "        </span>\n" +
-    "\n" +
-    "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
-    "    </div>\n" +
-    "\n" +
     "</div>");
 }]);
 
@@ -770,26 +750,11 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\">\n" +
     "\n" +
-    "      <!-- Validated token result -->\n" +
-    "    <div class=\"alert alert-danger\" ng-if=\"errorMessages && !isTokenValid\">\n" +
-    "       <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
-    "\n" +
-    "        <br />\n" +
-    "        <br />\n" +
-    "\n" +
-    "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"continueToResetPassword()\">Let me try again.</a>\n" +
-    "        <br />\n" +
-    "        <span ng-if=\"isUserAuthenticated\">\n" +
-    "            You are authenticated. You will be logged off if you want to try again.\n" +
-    "        </span>\n" +
-    "    </div>\n" +
-    "\n" +
     "    <!-- Validate password reset token section -->\n" +
-    "    <div class=\"account__section\" ng-hide=\"!isTokenValid || successfullyReseted\">\n" +
+    "    <div class=\"account__section\" ng-hide=\"successfullyReseted\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
-    "         <h1 class=\"account__title\">Reset your password.</h1>\n" +
+    "        <h1 class=\"account__title\">Reset your password.</h1>\n" +
     "\n" +
     "        <!-- Reset password form -->\n" +
     "        <form name=\"resetPasswordForm\" ng-submit=\"resetPassword(resetPasswordData)\" novalidate>\n" +
@@ -799,7 +764,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "\n" +
     "                <!-- General error -->\n" +
     "                <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
-    "                     <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -808,7 +773,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required/>\n" +
+    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
@@ -816,7 +781,7 @@ angular.module("app/account/partials/validate_password_reset_token.html", []).ru
     "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
     "                               placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
-    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required/>\n" +
+    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -933,13 +898,40 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "    <ng-form name=\"emailForm\">\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
     "            <input class=\"form-control form-control--friend-email\" type=\"email\"\n" +
-    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index]\" required/>\n" +
+    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index].email\" required/>\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
     "</div>\n" +
     "\n" +
     "<a class=\"btn-add-emails\" href=\"#\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
+}]);
+
+angular.module("app/common/partials/footer-home.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/common/partials/footer-home.html",
+    "<div class=\"footer-home\">\n" +
+    "    <div class=\"centered-section-home\">\n" +
+    "\n" +
+    "        <div class=\"footer__navbar\">\n" +
+    "            <div class=\"pull-left footer__navbar--copyright\">\n" +
+    "                Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "            </div>\n" +
+    "            <ul class=\"pull-right\">\n" +
+    "                <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                <li><a href=\"#\">Contact</a></li>\n" +
+    "            </ul>\n" +
+    "            <ul class=\"pull-right\">\n" +
+    "                <li><a href=\"#\">Pricing</a></li>\n" +
+    "                <li><a href=\"#\">About</a></li>\n" +
+    "                <li><a href=\"#\">Press kit</a></li>\n" +
+    "                <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "            </ul>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {

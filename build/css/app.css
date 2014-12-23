@@ -2439,8 +2439,8 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-lg > .input-group-btn > .btn {
   height: 50px;
   padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.4;
   border-radius: 6px;
 }
 
@@ -2895,8 +2895,8 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 /* line 122, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-lg, .btn-group-lg > .btn {
   padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.4;
   border-radius: 6px;
 }
 
@@ -4463,7 +4463,7 @@ input[type="button"].account__button,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon.btn {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 6px;
 }
 /* line 83, ../../bower_components/bootstrap-sass/lib/_input-groups.scss */
@@ -4908,7 +4908,7 @@ input[type="button"].account__button,
 .navbar-brand {
   float: left;
   padding: 15px 15px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
 }
 /* line 158, ../../bower_components/bootstrap-sass/lib/_navbar.scss */
@@ -5393,7 +5393,7 @@ input[type="button"].account__button,
 .pagination-lg > li > a,
 .pagination-lg > li > span {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
 }
 /* line 520, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .pagination-lg > li:first-child > a,
@@ -7712,8 +7712,8 @@ a:active, a:focus {
 .form-control--account {
   height: 50px;
   padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.4;
   border-radius: 4px;
 }
 
@@ -7744,7 +7744,7 @@ textarea.form-control--account {
   background-color: #8471B1;
   border-color: #7661a8;
   border-radius: 3px;
-  font-size: 18px;
+  font-size: 20px;
   height: 50px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -7862,12 +7862,18 @@ textarea.form-control--account {
 
 /* line 1, ../../src/app/common/sass/_header_home.scss */
 .header-home {
-  background-color: #FFFFFF;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1000;
   margin: 0;
   height: 74px;
   line-height: 74px;
+  background-color: #fff;
+  transform: translate3d(0, 0, 0);
 }
-/* line 7, ../../src/app/common/sass/_header_home.scss */
+/* line 13, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper {
   width: 960px;
   margin: 0 auto;
@@ -7883,29 +7889,94 @@ textarea.form-control--account {
 .header-home .header__wrapper:after {
   clear: both;
 }
-/* line 13, ../../src/app/common/sass/_header_home.scss */
+/* line 19, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__logo {
   float: left;
   color: #8471B1;
-  font-size: 18px;
+  font-size: 20px;
 }
-/* line 19, ../../src/app/common/sass/_header_home.scss */
+/* line 25, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu {
   float: right;
   position: relative;
 }
-/* line 23, ../../src/app/common/sass/_header_home.scss */
+/* line 29, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar {
   list-style: none;
 }
-/* line 26, ../../src/app/common/sass/_header_home.scss */
+/* line 32, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar li {
   display: inline-block;
   margin: 0 20px;
 }
-/* line 31, ../../src/app/common/sass/_header_home.scss */
+/* line 37, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar .btn--login {
   width: 90px;
+}
+
+/* line 1, ../../src/app/common/sass/_footer_home.scss */
+.footer-home {
+  background-color: #8471B1;
+  margin: 0;
+  padding: 0;
+  height: 180px;
+  line-height: 180px;
+  vertical-align: top;
+}
+
+/* line 10, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar {
+  color: #5e4c8a;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.footer__navbar:before, .footer__navbar:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.footer__navbar:after {
+  clear: both;
+}
+/* line 14, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar ul {
+  float: right;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.footer__navbar ul:before, .footer__navbar ul:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.footer__navbar ul:after {
+  clear: both;
+}
+/* line 18, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar ul li {
+  list-style: none;
+  height: 20px;
+}
+/* line 22, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar ul li a {
+  color: #5e4c8a;
+}
+/* line 25, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar ul li a:hover {
+  color: #705aa4;
+}
+/* line 32, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar--copyright {
+  height: 180px;
+  color: #5e4c8a;
+}
+/* line 36, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar--copyright span {
+  color: #534379;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 /* Import sub-modules */
@@ -7941,7 +8012,7 @@ textarea.form-control--account {
 }
 /* line 28, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -8140,11 +8211,11 @@ textarea.form-control--account {
   border-color: #7661a8;
   display: block;
   margin: 30px auto 0;
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 6px;
   width: 200px;
+  line-height: 1.4;
+  border-radius: 3px;
   text-transform: uppercase;
+  height: 50px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .reminder-modal__form .btn--create-reminder:hover, .reminder-modal__form .btn--create-reminder:focus, .reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
@@ -8176,9 +8247,9 @@ textarea.form-control--account {
   color: #24282b;
   background-color: #f5f6f7;
   border-color: transparent;
-  padding: 10px 16px;
-  line-height: 1.33;
-  border-radius: 4px;
+  height: 40px;
+  line-height: 1.4;
+  border-radius: 3px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
@@ -8222,8 +8293,8 @@ textarea.form-control--account {
 .form-control--reminder {
   height: 50px;
   padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.4;
   border-radius: 4px;
 }
 
@@ -8247,8 +8318,8 @@ textarea.form-control--reminder {
 .form-control--friend-email {
   height: 34px;
   padding: 10px 16px;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.4;
   border-radius: 4px;
 }
 
@@ -8266,9 +8337,10 @@ textarea.form-control--friend-email {
 /* line 172, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
+  height: 40px;
 }
 
-/* line 176, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 177, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
   background-color: #f5f6f7;
   border: 0;
@@ -8637,7 +8709,7 @@ textarea.form-control--friend-email {
 .home__signup {
   height: 600px;
 }
-/* line 14, ../../src/app/site/sass/_site_layout.scss */
+/* line 13, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 100px 15px 20px;
   font-size: 52px;
@@ -8645,7 +8717,7 @@ textarea.form-control--friend-email {
   text-align: center;
   margin: 0;
 }
-/* line 23, ../../src/app/site/sass/_site_layout.scss */
+/* line 21, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
@@ -8653,7 +8725,7 @@ textarea.form-control--friend-email {
   font-weight: 300;
   text-align: center;
 }
-/* line 33, ../../src/app/site/sass/_site_layout.scss */
+/* line 30, ../../src/app/site/sass/_site_layout.scss */
 .home__testimonials {
   height: 200px;
   background-color: #FFFFFF;
@@ -8680,8 +8752,8 @@ textarea.form-control--friend-email {
 .home__signup__sections__section__controls__email {
   height: 50px;
   padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 20px;
+  line-height: 1.4;
   border-radius: 4px;
 }
 
@@ -8698,35 +8770,34 @@ textarea.home__signup__sections__section__controls__email {
 
 /* line 22, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email {
+  margin-right: 12px;
   width: 300px;
   font-weight: 300;
   display: inline-block;
 }
-/* line 27, ../../src/app/site/sass/_site_signup.scss */
+/* line 28, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email.has-error {
   border-color: #b94a48;
 }
 
 @media (max-width: 550px) {
-  /* line 33, ../../src/app/site/sass/_site_signup.scss */
+  /* line 34, ../../src/app/site/sass/_site_signup.scss */
   .home__signup__sections__section__controls__email {
     width: 100%;
     margin-bottom: 6px;
+    margin-right: 0;
   }
 }
-/* line 39, ../../src/app/site/sass/_site_signup.scss */
+/* line 41, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
   border-color: #7661a8;
   border-radius: 3px;
-  font-size: 18px;
+  font-size: 20px;
   display: inline-block;
   height: 50px;
   width: 300px;
-  padding: 0 15px;
-  border: none;
-  letter-spacing: 1px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .home__signup__sections__section__controls__button:hover, .home__signup__sections__section__controls__button:focus, .home__signup__sections__section__controls__button:active, .home__signup__sections__section__controls__button.active {
@@ -8755,29 +8826,29 @@ textarea.home__signup__sections__section__controls__email {
 }
 
 @media (max-width: 550px) {
-  /* line 52, ../../src/app/site/sass/_site_signup.scss */
+  /* line 51, ../../src/app/site/sass/_site_signup.scss */
   .home__signup__sections__section__controls__button {
     width: 100%;
   }
 }
-/* line 57, ../../src/app/site/sass/_site_signup.scss */
+/* line 56, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: #b94a48;
 }
-/* line 61, ../../src/app/site/sass/_site_signup.scss */
+/* line 60, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages div {
   padding: 10px;
 }
 
-/* line 66, ../../src/app/site/sass/_site_signup.scss */
+/* line 65, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 72, ../../src/app/site/sass/_site_signup.scss */
+/* line 71, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -8786,7 +8857,7 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 80, ../../src/app/site/sass/_site_signup.scss */
+/* line 79, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 50px;
@@ -8803,7 +8874,7 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: normal;
   font-style: normal;
 }
-/* line 14, ../../src/sass/fonts/_app-icons.scss */
+/* line 15, ../../src/sass/fonts/_app-icons.scss */
 [data-icon]:before {
   font-family: "reme-icons" !important;
   content: attr(data-icon);
@@ -8817,7 +8888,7 @@ textarea.home__signup__sections__section__controls__email {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 27, ../../src/sass/fonts/_app-icons.scss */
+/* line 28, ../../src/sass/fonts/_app-icons.scss */
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: "reme-icons" !important;
@@ -8831,34 +8902,54 @@ textarea.home__signup__sections__section__controls__email {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 40, ../../src/sass/fonts/_app-icons.scss */
+/* line 41, ../../src/sass/fonts/_app-icons.scss */
 .icon-recurring:before {
   content: "a";
 }
 
-/* line 43, ../../src/sass/fonts/_app-icons.scss */
+/* line 44, ../../src/sass/fonts/_app-icons.scss */
 .icon-calendar:before {
   content: "b";
 }
 
-/* line 46, ../../src/sass/fonts/_app-icons.scss */
+/* line 47, ../../src/sass/fonts/_app-icons.scss */
 .icon-checkmark:before {
   content: "c";
 }
 
-/* line 49, ../../src/sass/fonts/_app-icons.scss */
+/* line 50, ../../src/sass/fonts/_app-icons.scss */
 .icon-pencil:before {
   content: "d";
 }
 
-/* line 52, ../../src/sass/fonts/_app-icons.scss */
+/* line 53, ../../src/sass/fonts/_app-icons.scss */
 .icon-clock:before {
   content: "e";
 }
 
-/* line 55, ../../src/sass/fonts/_app-icons.scss */
+/* line 56, ../../src/sass/fonts/_app-icons.scss */
 .icon-trash:before {
   content: "f";
+}
+
+/* line 59, ../../src/sass/fonts/_app-icons.scss */
+.icon-email:before {
+  content: "g";
+}
+
+/* line 62, ../../src/sass/fonts/_app-icons.scss */
+.icon-smile:before {
+  content: "h";
+}
+
+/* line 65, ../../src/sass/fonts/_app-icons.scss */
+.icon-user:before {
+  content: "i";
+}
+
+/* line 68, ../../src/sass/fonts/_app-icons.scss */
+.icon-coffee:before {
+  content: "j";
 }
 
 /*# sourceMappingURL=app.css.map */
