@@ -111,7 +111,7 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
-                    validateRegistration: function ($stateParams, $q, AuthService, $state, $timeout) {
+                    validateRegistrationResult: function ($stateParams, $q, AuthService, $state, $timeout) {
                         var deferred = $q.defer();
                         AuthService.validateRegistrationToken($stateParams.token)
                             .then(function (response) {

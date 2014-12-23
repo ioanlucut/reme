@@ -1,5 +1,6 @@
 <!-- Account sections -->
 <div class="account__sections" account-form-toggle>
+
     <!--Sign in-->
     <div class="account__section" ng-if="AccountFormToggle.state === ACCOUNT_FORM_STATE.login" ng-controller="LoginCtrl">
 
@@ -47,68 +48,44 @@
             </div>
         </form>
 
-        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.signUp)">Don't have an account yet? Sign up!</a>
+        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
 
     </div>
 
     <!--Sign up-->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUp" ng-controller="SignUpCtrl">
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
         <!-- Title -->
         <h1 class="account__title">Get started!</h1>
 
         <!-- Sign-up form -->
-        <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
+        <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration(requestSignUpRegistrationData)" novalidate focus-first-error-on-submit>
 
             <!-- Account controls -->
             <div class="account__controls">
 
                <!-- General error -->
-                <div class="alert alert-danger" ng-if="isSignUpErrorOcurred">
-                     <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
-                </div>
-
-                <!-- Form groups -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="First Name"
-                           name="firstName" ng-model="signUpData.firstName" required/>
-                    <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
-                </div>
-
-                <!-- Form group -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="Last Name"
-                           name="lastName" ng-model="signUpData.lastName" required/>
-                    <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
+                <div class="alert alert-danger" ng-if="isRequestSignUpRegistrationErrorOcurred">
+                    We encountered a problem.
                 </div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.email.$invalid && signUpForm.$submitted}">
+                    <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
                         <input class="form-control form-control--account" type="email" placeholder="Your email address"
-                               name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required
+                               name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required
                                valid-email unique-email/>
-                        <div class="help-block" ng-messages="signUpForm.email.$error" ng-if="signUpForm.$submitted">
+
+                        <div class="help-block" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
                             <div ng-message="uniqueEmail">This email address is already used.</div>
                         </div>
-                        <div class="help-block" ng-if="signUpForm.email.$pending">
+                        <div class="help-block" ng-if="requestSignUpRegistrationForm.email.$pending">
                             Checking availability...
                         </div>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
-                        <input class="form-control form-control--account" type="password"
-                               placeholder="Choose a password" name="password" ng-model="signUpData.password" required
-                               strong-password/>
-                        <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
-                             <div ng-message="required">Please choose a password.</div>
-                             <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
-                         </div>
                     </div>
                 </div>
 
@@ -122,7 +99,7 @@
     </div>
 
     <!-- Sign up email sent section -->
-    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.signUpSuccessfully">
+    <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
         <!-- Title -->
         <h1 class="account__title">Email has been sent!</h1>
@@ -197,4 +174,3 @@
     </div>
 
 </div>
-

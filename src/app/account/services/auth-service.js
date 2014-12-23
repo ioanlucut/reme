@@ -66,8 +66,8 @@ angular
          * @param email
          * @returns {*}
          */
-        this.requestRegistration = function (email) {
-            return $http.post(URLTo.api(AUTH_URLS.requestRegistration), {
+        this.requestSignUpRegistration = function (email) {
+            return $http.post(URLTo.api(AUTH_URLS.requestSignUpRegistration), {
                 email: email
             });
         };

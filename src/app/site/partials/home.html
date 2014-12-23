@@ -14,10 +14,10 @@
             <div class="home__signup__form account__sections account__sections--request-registration" account-form-toggle>
 
                 <!-- Request registration section -->
-                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestRegistration" ng-controller="RequestRegistrationCtrl">
+                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
                     <!-- Request registration form -->
-                    <form name="requestRegistrationForm" class="form-inline" ng-submit="requestRegistration(requestRegistrationData.email)" novalidate focus-first-error-on-submit>
+                    <form name="requestSignUpRegistrationForm" class="form-inline" ng-submit="requestSignUpRegistration(requestSignUpRegistrationData.email)" novalidate focus-first-error-on-submit>
 
                         <!-- Account controls -->
                         <div class="account__controls">
@@ -28,7 +28,7 @@
                             </div>
 
                             <!-- Form group -->
-                            <div class="form-group" ng-class="{'has-error': requestRegistrationForm.email.$invalid && requestRegistrationForm.$submitted}">
+                            <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
                                 <input class="form-control form-control--account" type="email" placeholder="Your email address"
                                        name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required
                                        valid-email unique-email />
@@ -38,19 +38,19 @@
                             <button class="btn request--registration" type="submit">Request registration</button>
                         </div>
 
-                        <div class="help-block help-block--request-registration" ng-class="{'has-error': requestRegistrationForm.email.$invalid && requestRegistrationForm.$submitted}" ng-messages="requestRegistrationForm.email.$error" ng-if="requestRegistrationForm.$submitted">
+                        <div class="help-block help-block--request-registration" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
                             <div ng-message="uniqueEmail">This email address is already used.</div>
                         </div>
-                        <div class="help-block" ng-if="requestRegistrationForm.email.$pending">
+                        <div class="help-block" ng-if="requestSignUpRegistrationForm.email.$pending">
                             Checking availability...
                         </div>
                     </form>
                 </div>
 
                 <!-- Request registration email sent section -->
-                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestRegistrationEmailSent">
+                <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
                     <!-- Title -->
                     <h1 class="account__title">Email has been sent!</h1>
