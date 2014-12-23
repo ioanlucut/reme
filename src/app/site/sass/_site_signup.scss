@@ -33,21 +33,30 @@
   }
 }
 
+@media (max-width: 550px) {
+  .home__signup__sections__section__controls__email {
+    width: 100%;
+    margin-bottom: 6px;
+  }
+}
+
 .home__signup__sections__section__controls__button {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
   border-radius: $border-radius-small;
   font-size: $font-size-large;
-  height: 50px;
   display: inline-block;
+  height: 50px;
   width: 300px;
-
   padding: 0 15px;
   border: none;
   vertical-align: top;
   letter-spacing: 1px;
-  -webkit-transition: background-color 0.2s;
-  -moz-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+}
+
+@media (max-width: 550px) {
+  .home__signup__sections__section__controls__button {
+    width: 100%;
+  }
 }
 
 .home__signup__sections__section__validation-messages {
