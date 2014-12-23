@@ -1,0 +1,39 @@
+.centered-section-home {
+  max-width: $container-home-width;
+  width: 96%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+
+.home {
+
+  &__signup {
+    height: 600px;
+    //background-color: #EE5757;
+
+    h1 {
+      padding: 100px 15px 20px;
+      font-size: 52px;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      //border: solid 1px #EE5757;
+      margin: 0;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 0 190px 90px;
+      font-size: 20px;
+      font-weight: $font-weight-light;
+      text-align: center;
+      //border: solid 1px #EE5757;
+    }
+  }
+
+  &__testimonials {
+    height: 200px;
+    background-color: #FFFFFF;
+  }
+
+}
