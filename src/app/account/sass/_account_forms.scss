@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.account__sections--request-registration {
+  max-width: 500px;
+}
+
 .account__title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -30,7 +34,6 @@
   padding-top: 40px;
 }
 
-// .form-control--account
 @include input-size('.form-control--account', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
 
 .form-control--account {
@@ -47,6 +50,20 @@
   padding: 10px 16px;
   line-height: 1.33;
   border-radius: 6px;
+}
+
+.request--registration {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  padding: 10px 16px;
+  line-height: 1.33;
+  border-radius: 6px;
+  height: 45px;
+}
+
+.help-block--request-registration {
+  &.has-error {
+    color: #b94a48;
+  }
 }
 
 .link-primary {
