@@ -51,7 +51,7 @@ angular
             // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
-                url: "/account/reset-password/{token}",
+                url: "/account/reset-password/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
                 abstract: true
             })
@@ -65,11 +65,12 @@ angular
                     validateTokenResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
-                        AuthService.validatePasswordResetToken($stateParams.token)
+                        AuthService.validatePasswordResetToken($stateParams.email, $stateParams.token)
                             .then(function (response) {
-                                deferred.resolve({email: response.email});
+                                deferred.resolve({ email: $stateParams.email, token: $stateParams.token });
                                 return response;
-                            }).catch(function (response) {
+                            })
+                            .catch(function (response) {
 
                                 $state.go("account:validatePasswordResetToken.invalid");
                                 return response;
@@ -94,7 +95,7 @@ angular
             // Sign up confirm abstract view
             .state({
                 name: "account:confirmRegistration",
-                url: "/account/confirm-registration/{token}",
+                url: "/account/confirm-registration/{email}/{token}",
                 templateUrl: "app/account/partials/signup_confirm_abstract.html",
                 abstract: true
             })
@@ -105,14 +106,18 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
-                    validateRegistrationResult: function ($stateParams, $q, AuthService, $state, $timeout) {
+                    validateRegistrationResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
-                        AuthService.validateRegistrationToken($stateParams.token)
-                            .then(function (response) {
-                                deferred.resolve({successful: response.successful});
-                                return response;
-                            }).catch(function (response) {
 
+                        AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
+                            .then(function (response) {
+                                deferred.resolve({
+                                    email: $stateParams.email,
+                                    token: $stateParams.token
+                                });
+                                return response;
+                            })
+                            .catch(function (response) {
                                 $state.go("account:confirmRegistration.invalid");
                                 return response;
                             });

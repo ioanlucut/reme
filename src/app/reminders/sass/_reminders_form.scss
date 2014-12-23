@@ -127,19 +127,19 @@
     @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
     display: block;
     margin: 30px auto 0;
-    padding: 10px 16px;
-    line-height: 1.33;
-    border-radius: 6px;
     width: 200px;
+    line-height: $line-height-large;
+    border-radius: $border-radius-small;
     text-transform: uppercase;
+    height: 50px;
   }
 
   .btn--reminder-popup {
     @include button-variant($gray3, $gray12, transparent);
     @extend .btn-block;
-    padding: 10px 16px;
-    line-height: 1.33;
-    border-radius: $border-radius-base;
+    height: 40px;
+    line-height: $line-height-large;
+    border-radius: $border-radius-small;
   }
 }
 
@@ -167,10 +167,11 @@
   font-weight: $font-weight-light;
 }
 
-@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-base, $line-height-large, $border-radius-base);
+@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-middle, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
   font-weight: $font-weight-light;
+  height: 40px;
 }
 
 .form-control--user-email {

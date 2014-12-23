@@ -17,15 +17,15 @@ angular
         logout: "auth/logout",
         currentUser: "auth/user",
         auth: "accounts",
-        create: "accounts/create",
+        create: "accounts/create/:email/:token",
         update: "accounts/update",
         details: "accounts/details",
         requestPasswordReset: "accounts/request_password_reset_token",
-        requestSignUpRegistration: "accounts/request_registration",
-        validatePasswordResetToken: "accounts/validate_password_reset_token/:token",
-        validateRegistrationToken: "accounts/validate_registration_token/:token",
+        requestSignUpRegistration: "accounts/send_email_verification_token",
+        validatePasswordResetToken: "accounts/validate_password_reset_token/:email/:token",
+        validateRegistrationToken: "accounts/validate_email_verification_token/:email/:token",
         updatePassword: "accounts/update_password",
-        resetPasswordWithToken: "accounts/reset_password_with_token/:token",
+        resetPasswordWithToken: "accounts/reset_password_with_token/:email/:token",
         refreshToken: "auth/refresh_token"
     })
     .constant("ACCOUNT_FORM_STATE", {

@@ -12,14 +12,14 @@ describe('ReminderTransformerService', function () {
             reminderId: "1",
             text: "ABC",
             dueOn: new Date(),
-            additionalAddresses: "xx@xx,yy@yy"
+            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
         };
 
         var actual = ReminderTransformerService.toReminder(reminderDto);
         expect(actual.model).toBeTruthy();
         expect(actual.model.reminderId).toEqual(reminderDto.reminderId);
         expect(actual.model.dueOn).toEqual(reminderDto.dueOn);
-        expect(actual.model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
+        expect(actual.model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
     it('Should transform a reminder to a reminder DTO and remove everything after @', inject(function (ReminderTransformerService, Reminder) {
@@ -27,14 +27,14 @@ describe('ReminderTransformerService', function () {
         var reminder = Reminder.build({
             reminderId: "1",
             text: "ABC @Today",
-            additionalAddresses: ["xx@xx", "yy@yy"]
+            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
         });
 
         var actualReminderDto = ReminderTransformerService.toReminderDto(reminder);
         expect(actualReminderDto).toBeTruthy();
         expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
         expect(actualReminderDto.text).toEqual("ABC");
-        expect(actualReminderDto.additionalAddresses).toEqual("xx@xx,yy@yy");
+        expect(actualReminderDto.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
     it('Should transform a reminder to a reminder DTO', inject(function (ReminderTransformerService, Reminder) {
@@ -42,13 +42,13 @@ describe('ReminderTransformerService', function () {
         var reminder = Reminder.build({
             reminderId: "1",
             text: "ABC",
-            additionalAddresses: ["xx@xx", "yy@yy"]
+            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
         });
 
         var actualReminderDto = ReminderTransformerService.toReminderDto(reminder);
         expect(actualReminderDto).toBeTruthy();
         expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
-        expect(actualReminderDto.additionalAddresses).toEqual("xx@xx,yy@yy");
+        expect(actualReminderDto.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
     it('Should be truthy even toReminders is called with empty params', inject(function (ReminderTransformerService) {
@@ -69,7 +69,7 @@ describe('ReminderTransformerService', function () {
             reminderId: "1",
             text: "ABC",
             dueOn: new Date(),
-            additionalAddresses: "xx@xx,yy@yy"
+            recipients: [{ email: "xx@xx" }, { email: "yy@yy" }]
         };
 
         var actualReminders = ReminderTransformerService.toReminders([reminderDto, reminderDto]);
@@ -81,12 +81,12 @@ describe('ReminderTransformerService', function () {
         expect(actualReminders[0].model).toBeTruthy();
         expect(actualReminders[0].model.reminderId).toEqual(reminderDto.reminderId);
         expect(actualReminders[0].model.dueOn).toEqual(reminderDto.dueOn);
-        expect(actualReminders[0].model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
+        expect(actualReminders[0].model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
 
         expect(actualReminders[1].model).toBeTruthy();
         expect(actualReminders[1].model.reminderId).toEqual(reminderDto.reminderId);
         expect(actualReminders[1].model.dueOn).toEqual(reminderDto.dueOn);
-        expect(actualReminders[1].model.additionalAddresses).toEqual(["xx@xx", "yy@yy"]);
+        expect(actualReminders[1].model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
 });

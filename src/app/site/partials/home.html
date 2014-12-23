@@ -27,7 +27,7 @@
                             </div>
 
                             <!-- Email input -->
-                            <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="signUpData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
+                            <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
 
                             <!-- Button container -->
                             <button class="btn home__signup__sections__section__controls__button" type="submit">Get started now!</button>
@@ -69,5 +69,5 @@
 
 </div>
 
-<!--<div footer-home></div>-->
+<div footer-home></div>
 
