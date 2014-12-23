@@ -4,6 +4,33 @@
 .reminder-form-container {
 }
 
+.reminder-form-container__form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 580px;
+  padding: 25px 30px;
+  background-color: #fff;
+  position: relative;
+
+  @include clearfix();
+}
+
+.reminder-form-container__form__question {
+  font-size: $font-size-large;
+  font-weight: $font-weight-light;
+}
+
+.reminder-form-container__form__recommend {
+  position: absolute;
+  bottom: 20px;
+  color: $gray9;
+}
+
+.reminder-form-container__form__delete {
+  float: right;
+  margin-top: 50px;
+}
+
 // Reminder form
 // ---------------
 
