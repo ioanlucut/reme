@@ -37,6 +37,30 @@ angular
          */
         $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
 
+        /**
+         * If create reminder modal is opened
+         */
+        if ( ReminderModalService.modalInstance ) {
+            ReminderModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
+        /**
+         * If update reminder modal is opened
+         */
+        if ( ReminderUpdateModalService.modalInstance ) {
+            ReminderUpdateModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
         // Save the reminder
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
@@ -71,6 +95,10 @@ angular
                         // Error
                         $scope.isSaving = false;
                         alert("Something went wrong. Please try again.");
+                    })
+                    .finally(function () {
+
+                        $scope.isOpen = false;
                     });
             }
         };
