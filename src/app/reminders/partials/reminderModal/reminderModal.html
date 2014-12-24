@@ -27,12 +27,8 @@
 
         <!--Reminder addresses-->
         <div class="reminder-modal__form__addressees">
-            <div class="form-group">
-                <div class="form-control form-control--user-email">{{currentUser.model.email}}
-                </div>
-            </div>
 
-            <div email-list ng-model="reminder.model.recipients" max-emails="5" parent-form="reminderForm"></div>
+            <div email-list ng-model="reminder.model.recipients" max-emails="6" parent-form="reminderForm"></div>
         </div>
 
         <!--Submit form button-->
