@@ -1,8 +1,11 @@
 <div ng-repeat="email in emails track by $index">
     <ng-form name="emailForm">
         <div class="form-group" ng-class="{'has-error': emailForm.email.$invalid && parentForm.$submitted}">
-            <input class="form-control form-control--friend-email" type="email"
-                   placeholder="Your friend's email address" name="email" ng-model="emails[$index].email" required/>
+
+            <!--Inputs : first is your email-->
+            <input class="form-control form-control--friend-email" type="email" placeholder="{{$index === 0 ? 'Your email' : 'Your friend\'s email address'}}" name="email" ng-model="emails[$index].email" required />
+
+            <!--Remove emails buttons-->
             <a href="#" class="close" tabindex="-1" ng-click="removeEmail($index)">×</a>
         </div>
     </ng-form>
