@@ -180,7 +180,7 @@
   vertical-align: middle;
 
   text-align: center;
-  font-size: 14px;
+  font-size: $font-size-base;
   color: $gray12;
 
   background: url("../assets/img/loading.gif") no-repeat center center;
@@ -194,13 +194,6 @@
   font-weight: $font-weight-light;
 }
 
-@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
-
-.form-control--friend-email {
-  font-weight: $font-weight-light;
-  height: 40px;
-}
-
 .form-control--user-email {
   background-color: $gray12;
   border: 0;
@@ -208,4 +201,34 @@
   padding: 8px 20px 8px 20px;
   text-align: left;
   @include box-shadow(none);
+}
+
+.reminder-modal__form__info--date {
+  &:before {
+    @include icon-font-base(40px);
+    @extend .icon-calendar;
+  }
+}
+
+.reminder-modal__form__info--time {
+  &:before {
+    @include icon-font-base(40px);
+    @extend .icon-clock;
+  }
+}
+
+.form-group--email-icon {
+  &:before {
+    @include icon-font-base(40px);
+    @extend .icon-email;
+  }
+}
+
+@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
+
+.form-control--friend-email {
+  font-weight: $font-weight-light;
+  background-color: $gray12;
+  height: 40px;
+  padding-left: 50px;
 }

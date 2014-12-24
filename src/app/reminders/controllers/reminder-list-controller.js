@@ -3,7 +3,13 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+
+        /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
 
         /**
          * Group reminders by upcoming and past reminders.
@@ -44,6 +50,14 @@ angular
         };
 
         /**
+         * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
+         * @param reminder
+         */
+        $scope.openUnSubscribeReminderModalService = function (reminder) {
+            ReminderDeleteModalService.open(reminder);
+        };
+
+        /**
          * Open UPDATE modal
          * @param reminder
          */
@@ -76,6 +90,16 @@ angular
          * On reminder deleted, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
+            flash.success = args.message;
+
+            removeReminderFrom($scope.upcomingReminders, args.reminder);
+            removeReminderFrom($scope.pastReminders, args.reminder);
+        });
+
+        /**
+         * On reminder un subscribed, display a success message, and remove the reminder from the list.
+         */
+        $scope.$on(REMINDER_EVENTS.isUnSubscribed, function (event, args) {
             flash.success = args.message;
 
             removeReminderFrom($scope.upcomingReminders, args.reminder);

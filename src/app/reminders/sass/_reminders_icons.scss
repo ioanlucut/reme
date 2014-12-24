@@ -1,0 +1,50 @@
+.reminder__info__item__icon {
+  position: absolute;
+  margin-left: 10px;
+}
+
+.reminder__info__item__icon--recurring {
+  right: 90px;
+}
+
+.reminder__info__item__icon--user {
+  right: 50px;
+}
+
+.reminder__info__item__icon--email {
+  right: 10px;
+}
+
+.reminder__info {
+  position: absolute;
+  bottom: 10px;
+  color: $gray;
+  font-weight: $font-weight-light;
+  width: 100%;
+  margin-left: -10px;
+  margin-right: -10px;
+  @include clearfix();
+}
+
+.reminder__info__item {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-height: 1px;
+  padding: 0 5px;
+
+  span {
+    vertical-align: middle;
+  }
+
+  &--date {
+  }
+
+  &--time {
+    text-align: center;
+  }
+
+  &--additional {
+    position: relative;
+  }
+}

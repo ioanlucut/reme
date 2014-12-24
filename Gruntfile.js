@@ -41,8 +41,6 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/transition/transition.js",
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
-                    "bower_components/angular-ui-bootstrap/src/tooltip/tooltip.js",
-                    "bower_components/angular-ui-bootstrap/src/popover/popover.js",
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
                     "bower_components/angular-ui-bootstrap/src/tabs/tabs.js"
                 ],
@@ -179,7 +177,7 @@ module.exports = function (grunt) {
 
         watch: {
             options: {
-                livereload: true
+                livereload: false
             },
             images: {
                 files: ["src/assets/img/**/*"],

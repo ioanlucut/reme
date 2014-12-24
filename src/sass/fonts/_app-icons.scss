@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: "reme-icons";
-  src:url("../assets/fonts/app-icons/reme-icons.eot");
-  src:url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"),
+  src: url("../assets/fonts/app-icons/reme-icons.eot");
+  src: url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"),
   url("../assets/fonts/app-icons/reme-icons.woff") format("woff"),
   url("../assets/fonts/app-icons/reme-icons.ttf") format("truetype"),
   url("../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
@@ -15,6 +15,20 @@
 [data-icon]:before {
   font-family: "reme-icons" !important;
   content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+.icons-font {
+  font-family: "reme-icons" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -38,33 +52,64 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@mixin icon-fonts($line-height) {
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: $line-height;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin icon-font-base($line-height) {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: $line-height;
+  @include icon-fonts($line-height);
+}
+
 .icon-recurring:before {
   content: "a";
 }
+
 .icon-calendar:before {
   content: "b";
 }
+
 .icon-checkmark:before {
   content: "c";
 }
+
 .icon-pencil:before {
   content: "d";
 }
+
 .icon-clock:before {
   content: "e";
 }
+
 .icon-trash:before {
   content: "f";
 }
+
 .icon-email:before {
   content: "g";
 }
+
 .icon-smile:before {
   content: "h";
 }
+
 .icon-user:before {
   content: "i";
 }
+
 .icon-coffee:before {
   content: "j";
 }
