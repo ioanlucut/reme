@@ -8,12 +8,14 @@
         <div class="header__wrapper__menu dropdown" dropdown>
             <a ng-show="currentUser.model.email" class="link-dark-bg dropdown-toggle header__wrapper__menu__email"
                dropdown-toggle href="javascript:void(0)">{{currentUser.model.email}}<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu" role="menu">
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="reminders">My reminders</a></li>
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Settings</a></li>
-                <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Help</a></li>
+                <li>
+                    <a id="feedback-trigger" class="nav-link" href="javascript:void(0)">Help</a>
+                </li>
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
-              </ul>
+            </ul>
         </div>
 
     </div>
