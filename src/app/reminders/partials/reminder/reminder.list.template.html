@@ -3,30 +3,52 @@
 
 <!--Reminder list-->
 <div class="reminder" ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true">
+
+    <!--Reminder title-->
     <div class="reminder__title">
         {{reminder.model.text}}
     </div>
+
+    <!--Reminder edit/delete-->
+    <div class="reminder__menu">
+        <a class="reminder__menu__option" ng-if="reminder.isCreatedBy(currentUserEmail)" href="#" ng-click="onUpdate({reminder: reminder})"><span class="icon-pencil"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
+        <a class="reminder__menu__option" ng-if="reminder.isCreatedBy(currentUserEmail)" href="#" ng-click="reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})"><span class="icon-trash"></span></a>
+    </div>
+
+    <!--Reminder info-->
     <div class="reminder__info">
+
+        <!--Reminder date-->
         <div class="reminder__info__item reminder__info__item--date">
             <span class="icon-calendar"></span>
             {{reminder.model.dueOn | friendlyDate}}
         </div>
-        <div class="reminder__info__item reminder__info__item--additional">
-            <span class="icon-recurring"></span>
-            <span class="icon-user"></span>
-            <span class="icon-email"></span>
-        </div>
 
+        <!--Reminder hour-->
         <div class="reminder__info__item reminder__info__item--time">
             <span class="icon-clock"></span>
             {{reminder.model.dueOn | friendlyHour}}
         </div>
-    </div>
 
-    <div class="reminder__menu">
-        <a class="reminder__menu__option" href="#" ng-click="onUpdate({reminder: reminder})"><span class="icon-pencil"></span></a>
-        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
-        <a class="reminder__menu__option" href="#" ng-click="onDelete({reminder: reminder})"><span class="icon-trash"></span></a>
+        <!--Reminder icons-->
+        <div class="reminder__info__item reminder__info__item--additional">
+            <div class="reminder__info__item__icon reminder__info__item__icon--recurring">
+                <span class="simptip-position-bottom simptip-fade" data-tooltip="Recurring">
+                    <span class="icon-recurring"></span>
+                </span>
+            </div>
+            <div class="reminder__info__item__icon reminder__info__item__icon--user">
+                <span ng-if="! reminder.isCreatedBy(currentUserEmail)" class="simptip-position-top simptip-fade" data-tooltip="Reminder created by {{reminder.model.createdByUser.email}}">
+                    <span class="icon-user"></span>
+                </span>
+            </div>
+            <div class="reminder__info__item__icon reminder__info__item__icon--email">
+                <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade" data-tooltip="Addressed {{reminder.model.recipients | friendlyRecipients}}">
+                    <span class="icon-email"></span>
+                </span>
+            </div>
+        </div>
     </div>
 
 </div>

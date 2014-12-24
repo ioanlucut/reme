@@ -17,7 +17,6 @@
   border: solid 0px $body-bg;
   border-radius: 3px;
   width: 100%;
-  //max-width: $container-reminders-width;
   height: 90px;
   padding: 10px;
   margin-bottom: 22px;
@@ -29,46 +28,6 @@
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
     @include transition(all 0.5s);
-  }
-
-  &__info {
-    position: absolute;
-    bottom: 10px;
-    width: 97%;
-    color: $gray;
-    font-weight: $font-weight-light;
-    @include clearfix();
-
-    &__item {
-      //color: $text-color-secondary;
-      padding: 0 5px;
-
-      span {
-        display: inline;
-        margin-top: 10px;
-        //font-size: 10px;
-        vertical-align: middle;
-      }
-
-      &--date {
-        float: left;
-      }
-
-      &--additional {
-        //visibility: hidden;
-        float: right;
-
-        span {
-          //display: inline-block;
-          margin-left: 10px;
-        }
-      }
-
-      &--time {
-        margin: 0 auto;
-        text-align: center;
-      }
-    }
   }
 
   &__menu {

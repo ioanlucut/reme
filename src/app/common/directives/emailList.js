@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("emailList", [function () {
+    .directive("emailList", function () {
         return {
             restrict: "A",
             require: "ngModel",
@@ -39,4 +39,4 @@ angular
                 };
             }
         }
-    }]);
+    });

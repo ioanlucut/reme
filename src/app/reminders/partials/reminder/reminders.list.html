@@ -8,13 +8,21 @@
 
     <tabset>
         <tab heading="Upcoming reminders">
-            <div reminder-list reminders="upcomingReminders" on-update="openUpdateReminderModalService(reminder)"
-                 on-delete="openDeleteReminderModalService(reminder)"></div>
+            <div reminder-list
+                 reminders="upcomingReminders"
+                 on-update="openUpdateReminderModalService(reminder)"
+                 on-delete="openDeleteReminderModalService(reminder)"
+                 on-unsubscribe="openUnSubscribeReminderModalService(reminder)">
+            </div>
         </tab>
 
         <tab heading="Past reminders">
-            <div reminder-list reminders="pastReminders" on-update="openUpdateReminderModalService(reminder)"
-                 on-delete="openDeleteReminderModalService(reminder)"></div>
+            <div reminder-list
+                 reminders="pastReminders"
+                 on-update="openUpdateReminderModalService(reminder)"
+                 on-delete="openDeleteReminderModalService(reminder)"
+                 on-unsubscribe="openUnSubscribeReminderModalService(reminder)">
+            </div>
         </tab>
     </tabset>
 
