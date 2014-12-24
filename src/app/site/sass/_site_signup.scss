@@ -17,11 +17,12 @@
   margin: 10px auto;
 }
 
-@include input-size('.home__signup__sections__section__controls__email', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-base);
+@include input-size('.home__signup__sections__section__controls__email', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .home__signup__sections__section__controls__email {
-  margin-right: 12px;
+  height: $form-height;
   width: 300px;
+  margin-right: 12px;
   font-weight: $font-weight-light;
   display: inline-block;
 
@@ -41,9 +42,8 @@
 .home__signup__sections__section__controls__button {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
   border-radius: $border-radius-small;
-  font-size: $font-size-large;
-  display: inline-block;
-  height: 50px;
+  font-size: $font-size-medium;
+  height: $form-height;
   width: 300px;
 }
 
@@ -81,6 +81,6 @@
   margin-bottom: 50px;
   line-height: 20px;
   font-weight: 300;
-  font-size: 15px;
+  font-size: $font-size-base;
   color: #848b91;
 }

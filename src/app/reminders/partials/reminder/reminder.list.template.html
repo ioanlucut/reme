@@ -11,10 +11,12 @@
             <span class="icon-calendar"></span>
             {{reminder.model.dueOn | friendlyDate}}
         </div>
-        <div class="reminder__info__item reminder__info__item--recurring">
+        <div class="reminder__info__item reminder__info__item--additional">
             <span class="icon-recurring"></span>
-            Every week on Monday
+            <span class="icon-user"></span>
+            <span class="icon-email"></span>
         </div>
+
         <div class="reminder__info__item reminder__info__item--time">
             <span class="icon-clock"></span>
             {{reminder.model.dueOn | friendlyHour}}
@@ -22,12 +24,9 @@
     </div>
 
     <div class="reminder__menu">
-        <a class="reminder__menu__option" href="#" ng-click="onUpdate({reminder: reminder})"><span
-                class="icon-pencil"></span></a>
-        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span
-                class="icon-checkmark"></span></a>
-        <a class="reminder__menu__option" href="#" ng-click="onDelete({reminder: reminder})"><span
-                class="icon-trash"></span></a>
+        <a class="reminder__menu__option" href="#" ng-click="onUpdate({reminder: reminder})"><span class="icon-pencil"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
+        <a class="reminder__menu__option" href="#" ng-click="onDelete({reminder: reminder})"><span class="icon-trash"></span></a>
     </div>
 
 </div>
