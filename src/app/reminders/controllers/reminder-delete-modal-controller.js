@@ -8,6 +8,12 @@ angular
         $scope.reminder = reminder;
 
         /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
+
+        /**
          * Flag which represents whether
          * @type {boolean}
          */
@@ -38,6 +44,33 @@ angular
                             $rootScope.$broadcast(REMINDER_EVENTS.isDeleted, {
                                 reminder: $scope.reminder,
                                 message: 'Reminder successfully deleted!'
+                            });
+                        }, 400);
+                    })
+                    .catch(function () {
+
+                        // Error
+                        $scope.isDeleting = false;
+                        alert("Something went wrong. Please try again.");
+                    });
+            }
+        };
+
+        // UnSubscribe from the reminder
+        $scope.unSubscribeFromReminderAndClose = function () {
+            if ( !$scope.isDeleting ) {
+
+                // Is deleting reminder
+                $scope.isDeleting = true;
+
+                $scope.reminder.unSubscribe($scope.user.model.email)
+                    .then(function () {
+
+                        $timeout(function () {
+                            ReminderDeleteModalService.modalInstance.close();
+                            $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
+                                reminder: $scope.reminder,
+                                message: 'Reminder successfully removed!'
                             });
                         }, 400);
                     })

@@ -46,13 +46,15 @@
 
 // Components w/ JavaScript
 @import "../../bower_components/bootstrap-sass/lib/modals";
-@import "../../bower_components/bootstrap-sass/lib/tooltip";
-@import "../../bower_components/bootstrap-sass/lib/popovers";
+//@import "../../bower_components/bootstrap-sass/lib/tooltip";
+//@import "../../bower_components/bootstrap-sass/lib/popovers";
 @import "../../bower_components/bootstrap-sass/lib/carousel";
 
 // Utility classes
 @import "../../bower_components/bootstrap-sass/lib/utilities";
 @import "../../bower_components/bootstrap-sass/lib/responsive-utilities";
+// Fonts
+@import "fonts/app-icons";
 
 // REME specific styles
 @import "buttons";
@@ -61,6 +63,5 @@
 @import "../app/common/sass/common";
 @import "../app/reminders/sass/reminders";
 @import "../app/site/sass/site";
-
-// Fonts
-@import "fonts/app-icons";
+// VENDOR specific styles
+@import "../../bower_components/simptip/simptip";

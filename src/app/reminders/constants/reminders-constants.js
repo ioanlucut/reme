@@ -14,6 +14,7 @@ angular
     })
     .constant("REMINDER_EVENTS", {
         isCreated: "reminder-is-created",
+        isUnSubscribed: "reminder-is-unsubscribed",
         isDeleted: "reminder-is-deleted",
         isUpdated: "reminder-is-updated"
     });
