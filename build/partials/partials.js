@@ -152,10 +152,12 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "            <span class=\"icon-calendar\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyDate}}\n" +
     "        </div>\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--recurring\">\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
     "            <span class=\"icon-recurring\"></span>\n" +
-    "            Every week on Monday\n" +
+    "            <span class=\"icon-user\"></span>\n" +
+    "            <span class=\"icon-email\"></span>\n" +
     "        </div>\n" +
+    "\n" +
     "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
     "            <span class=\"icon-clock\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyHour}}\n" +
@@ -163,12 +165,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "    </div>\n" +
     "\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span\n" +
-    "                class=\"icon-pencil\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span\n" +
-    "                class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onDelete({reminder: reminder})\"><span\n" +
-    "                class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onDelete({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -220,10 +219,16 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "<!--Reminder form-->\n" +
     "<div ng-show=\"! isDeleting\" class=\"reminder-form-container\">\n" +
     "\n" +
-    "    <div class=\"reminder-form container box\">\n" +
-    "        Are you sure you want to delete reminder with text <strong>{{reminder.model.text}}</strong> and with reminder id <strong>{{reminder.model.reminderId}}</strong>?\n" +
+    "    <div class=\"reminder-form-container__form\">\n" +
+    "        <div class=\"reminder-form-container__form__question\">\n" +
+    "            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on\n" +
+    "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
+    "        </div>\n" +
+    "        <div class=\"reminder-form-container__form__recommend\">\n" +
+    "            Keep calm and don't delete it!\n" +
+    "        </div>\n" +
     "        <br />\n" +
-    "        <a href=\"#\" class=\"btn-outline reminders__header__btn\" ng-click=\"deleteReminderAndClose(reminder)\">Delete reminder</a>\n" +
+    "        <a href=\"#\" class=\"btn-outline reminder-form-container__form__delete\" ng-click=\"deleteReminderAndClose(reminder)\">Don't need it anymore</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -968,12 +973,14 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
     "            <a ng-show=\"currentUser.model.email\" class=\"link-dark-bg dropdown-toggle header__wrapper__menu__email\"\n" +
     "               dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
-    "              <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "            <ul class=\"dropdown-menu\" role=\"menu\">\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"reminders\">My reminders</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a></li>\n" +
-    "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Help</a></li>\n" +
+    "                <li>\n" +
+    "                    <a id=\"feedback-trigger\" class=\"nav-link\" href=\"javascript:void(0)\">Help</a>\n" +
+    "                </li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
-    "              </ul>\n" +
+    "            </ul>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
