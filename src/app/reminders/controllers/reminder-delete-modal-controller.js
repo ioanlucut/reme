@@ -19,15 +19,9 @@ angular
          */
         $scope.isDeleting = false;
 
-        // Focus the first input when modal is opened
-        ReminderDeleteModalService.modalInstance
-            .opened
-            .then(function () {
-                $scope.isOpen = true;
-            }
-        );
-
-        // Remove the reminder
+        /**
+         * Remove reminder - owner action;
+         */
         $scope.deleteReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
 
@@ -56,7 +50,9 @@ angular
             }
         };
 
-        // UnSubscribe from the reminder
+        /**
+         * Unsubscribe from reminder - recipient action.
+         */
         $scope.unSubscribeFromReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
 

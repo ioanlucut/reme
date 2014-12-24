@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log, flash) {
 
         /**
          * The current user
@@ -12,57 +12,20 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Used to check the past/upcoming reminders.
-         * @type {Date}
+         * Past and upcoming reminders.
+         * @type {{}}
          */
-        var now = new Date();
-
-        /**
-         * Group reminders by upcoming and past reminders.
-         * @returns {*}
-         */
-        function groupRemindersByUpcomingAndPast() {
-
-            return _.chain(reminderList)
-                .groupBy(function (element, index) {
-                    return element.model.dueOn < now;
-                })
-                .toArray()
-                .value();
-        }
-
-        /**
-         * Reminders grouped by upcoming and past reminders.
-         */
-        var remindersGrouped = groupRemindersByUpcomingAndPast();
-
-        var upcomingReminders = [];
-        var pastReminders = [];
-        if ( remindersGrouped.length === 2 ) {
-            upcomingReminders = remindersGrouped[0];
-            pastReminders = remindersGrouped[1];
-        }
-        else if ( remindersGrouped.length === 1 ) {
-            var firstGroupedRemindersResult = remindersGrouped[0];
-
-            var groupedRemindersAreInPast = firstGroupedRemindersResult[0].model.dueOn < now;
-            if ( groupedRemindersAreInPast ) {
-                pastReminders = firstGroupedRemindersResult;
-            }
-            else {
-                upcomingReminders = firstGroupedRemindersResult;
-            }
-        }
+        var pastAndUpcomingReminders = ReminderGroupService.getPastAndUpcomingReminders(reminderList);
 
         /**
          * Upcoming reminders
          */
-        $scope.upcomingReminders = upcomingReminders;
+        $scope.upcomingReminders = pastAndUpcomingReminders.upcomingReminders;
 
         /**
          * Past reminders
          */
-        $scope.pastReminders = pastReminders;
+        $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
          * Open DELETE modal

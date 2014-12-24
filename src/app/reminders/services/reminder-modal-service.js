@@ -4,10 +4,15 @@ angular
     .module("reminders")
     .service("ReminderModalService", function ($modal) {
 
-        // Init modal instance
+        /**
+         * Reminder modal instance.
+         * @type {null}
+         */
         this.modalInstance = null;
 
-        // Init the feedback modal window
+        /**
+         * Define reminder modal object.
+         */
         this.open = function () {
 
             // Create modal instance

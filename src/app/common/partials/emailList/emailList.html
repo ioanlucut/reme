@@ -3,10 +3,10 @@
         <div class="form-group form-group--email-icon" ng-class="{'has-error': emailForm.email.$invalid && parentForm.$submitted}">
 
             <!--Inputs : first is your email-->
-            <input class="form-control form-control--friend-email" type="email" placeholder="{{$index === 0 ? 'Your email' : 'Your friend\'s email address'}}" name="email" ng-model="emails[$index].email" required />
+            <input class="form-control form-control--friend-email" type="email" placeholder="{{$index === 0 ? 'Your email' : 'Your friend\'s email address'}}" name="email" ng-model="emails[$index].email" required ng-disabled="$index === 0" />
 
             <!--Remove emails buttons-->
-            <a href="#" class="close" tabindex="-1" ng-click="removeEmail($index)">×</a>
+            <a href="#" ng-if="$index > 0" class="close" tabindex="-1" ng-click="removeEmail($index)">×</a>
         </div>
     </ng-form>
 </div>
