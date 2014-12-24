@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log, flash) {
 
         /**
          * The current user
@@ -12,34 +12,20 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Group reminders by upcoming and past reminders.
-         * @returns {*}
+         * Past and upcoming reminders.
+         * @type {{}}
          */
-        function groupRemindersByUpcomingAndPast() {
-            var now = new Date();
-
-            return _.chain(reminderList)
-                .groupBy(function (element, index) {
-                    return element.model.dueOn < now;
-                })
-                .toArray()
-                .value();
-        }
-
-        /**
-         * Reminders grouped by upcoming and past reminders.
-         */
-        var remindersGrouped = groupRemindersByUpcomingAndPast();
+        var pastAndUpcomingReminders = ReminderGroupService.getPastAndUpcomingReminders(reminderList);
 
         /**
          * Upcoming reminders
          */
-        $scope.upcomingReminders = remindersGrouped[0] || [];
+        $scope.upcomingReminders = pastAndUpcomingReminders.upcomingReminders;
 
         /**
          * Past reminders
          */
-        $scope.pastReminders = remindersGrouped[1] || [];
+        $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
          * Open DELETE modal

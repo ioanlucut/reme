@@ -8,7 +8,7 @@
             <label>Remind me to:</label>
             <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}"
                    name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn"
-                   separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus required/>
+                   separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus="isOpen" required />
         </div>
 
         <div class="reminder-modal__form__info">
