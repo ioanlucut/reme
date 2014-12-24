@@ -3,7 +3,7 @@
  */
 angular
     .module("app")
-    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
+    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User) {
 
         /**
          * Save the state on root scope
