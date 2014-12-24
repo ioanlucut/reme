@@ -35,10 +35,12 @@
     position: absolute;
     bottom: 10px;
     width: 97%;
+    color: $gray;
+    font-weight: $font-weight-light;
     @include clearfix();
 
     &__item {
-      color: $text-color-secondary;
+      //color: $text-color-secondary;
       padding: 0 5px;
 
       span {
