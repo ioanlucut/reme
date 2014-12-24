@@ -12,15 +12,20 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
+         * Used to check the past/upcoming reminders.
+         * @type {Date}
+         */
+        var now = new Date();
+
+        /**
          * Group reminders by upcoming and past reminders.
          * @returns {*}
          */
         function groupRemindersByUpcomingAndPast() {
-            var now = new Date();
 
             return _.chain(reminderList)
                 .groupBy(function (element, index) {
-                    return element.model.dueOn > now;
+                    return element.model.dueOn < now;
                 })
                 .toArray()
                 .value();
@@ -31,15 +36,33 @@ angular
          */
         var remindersGrouped = groupRemindersByUpcomingAndPast();
 
+        var upcomingReminders = [];
+        var pastReminders = [];
+        if ( remindersGrouped.length === 2 ) {
+            upcomingReminders = remindersGrouped[0];
+            pastReminders = remindersGrouped[1];
+        }
+        else if ( remindersGrouped.length === 1 ) {
+            var firstGroupedRemindersResult = remindersGrouped[0];
+
+            var groupedRemindersAreInPast = firstGroupedRemindersResult[0].model.dueOn < now;
+            if ( groupedRemindersAreInPast ) {
+                pastReminders = firstGroupedRemindersResult;
+            }
+            else {
+                upcomingReminders = firstGroupedRemindersResult;
+            }
+        }
+
         /**
          * Upcoming reminders
          */
-        $scope.upcomingReminders = remindersGrouped[0] || [];
+        $scope.upcomingReminders = upcomingReminders;
 
         /**
          * Past reminders
          */
-        $scope.pastReminders = remindersGrouped[1] || [];
+        $scope.pastReminders = pastReminders;
 
         /**
          * Open DELETE modal
