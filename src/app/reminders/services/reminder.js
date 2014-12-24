@@ -12,14 +12,55 @@ angular
              * Represents the DTO model of the reminder.
              */
             this.model = {
+
+                /**
+                 * The reminder id.
+                 */
                 reminderId: "",
+
+                /**
+                 * The reminder text.
+                 */
                 text: "",
+
+                /**
+                 * The reminder due date
+                 */
                 dueOn: "",
+
+                /**
+                 * The timezone
+                 */
                 timezone: "",
+
+                /**
+                 * The recipients (array of object, with email as key)
+                 */
                 recipients: [],
+
+                /**
+                 * The user which is the owner of this reminder
+                 */
+                createdByUser: {},
+
+                /**
+                 * Reminder id of the user which created this reminder.
+                 */
                 createdBy: "",
+
+                /**
+                 * If reminder is already sent.
+                 */
                 sent: "",
+
+                /**
+                 * Create date of the reminder.
+                 */
                 createdAt: "",
+
+                /**
+                 * Update date of the reminder.
+                 */
                 updatedAt: ""
             };
 
@@ -29,6 +70,30 @@ angular
              */
             this.isNew = function () {
                 return this.model.reminderId === "" || _.isUndefined(this.model.reminderId);
+            };
+
+            /**
+             * The given email is the user of this reminder.
+             * @returns {boolean}
+             */
+            this.isCreatedBy = function (email) {
+                if ( _.isUndefined(email) ) {
+                    return false;
+                }
+
+                return this.model.createdByUser.email === email;
+            };
+
+            /**
+             * The recipients are more then one.
+             * @returns {boolean}
+             */
+            this.isManyRecipients = function () {
+                if ( _.isUndefined(this.model.recipients) ) {
+                    return false;
+                }
+
+                return this.model.recipients.length > 1;
             };
 
             /**
@@ -42,6 +107,18 @@ angular
                 else {
                     return ReminderService.updateReminder(this);
                 }
+            };
+
+            /**
+             * UnSubscribe a recipient from this reminder and update model with response.
+             * @returns {*}
+             */
+            this.unSubscribe = function (recipientEmail) {
+                _.remove(this.model.recipients, function (existingRecipient) {
+                    return existingRecipient.email === recipientEmail;
+                });
+
+                return ReminderService.updateReminder(this);
             };
 
             /**

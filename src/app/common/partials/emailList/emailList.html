@@ -1,6 +1,6 @@
 <div ng-repeat="email in emails track by $index">
     <ng-form name="emailForm">
-        <div class="form-group" ng-class="{'has-error': emailForm.email.$invalid && parentForm.$submitted}">
+        <div class="form-group form-group--email-icon" ng-class="{'has-error': emailForm.email.$invalid && parentForm.$submitted}">
 
             <!--Inputs : first is your email-->
             <input class="form-control form-control--friend-email" type="email" placeholder="{{$index === 0 ? 'Your email' : 'Your friend\'s email address'}}" name="email" ng-model="emails[$index].email" required />
