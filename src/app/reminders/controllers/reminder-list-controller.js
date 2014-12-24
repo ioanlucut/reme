@@ -20,7 +20,7 @@ angular
 
             return _.chain(reminderList)
                 .groupBy(function (element, index) {
-                    return element.model.dueOn < now;
+                    return element.model.dueOn > now;
                 })
                 .toArray()
                 .value();
