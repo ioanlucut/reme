@@ -8,8 +8,6 @@ angular
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.tooltip",
-        "ui.bootstrap.popover",
         "ui.bootstrap.modal"
     ])
     .config(["$httpProvider", function ($httpProvider) {
@@ -559,7 +557,7 @@ angular
 
 angular
     .module("common")
-    .directive("emailList", [function () {
+    .directive("emailList", function () {
         return {
             restrict: "A",
             require: "ngModel",
@@ -596,7 +594,7 @@ angular
                 };
             }
         }
-    }]);
+    });
 ;/* Focus the first erroneous input on form submit */
 
 angular
@@ -895,6 +893,26 @@ angular
         return function (date) {
 
             return moment(date).format("h:mm");
+        };
+    });
+;angular
+    .module("common")
+    .filter('friendlyRecipients', function () {
+        return function (recipients) {
+
+            if ( _.isUndefined(recipients) || !_.isArray(recipients) ) {
+                return "to you";
+            }
+
+            var recipientsFormatted = "";
+            _.each(recipients, function (recipient) {
+                if ( recipientsFormatted.length > 0 ) {
+                    recipientsFormatted = recipientsFormatted + ", "
+                }
+                recipientsFormatted = recipientsFormatted + recipient.email;
+            });
+
+            return "to " + recipientsFormatted;
         };
     });
 ;// See https://github.com/fmquaglia/ngOrderObjectB
@@ -2492,8 +2510,6 @@ angular
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.tooltip",
-        "ui.bootstrap.popover",
         "ui.bootstrap.modal",
         "ui.bootstrap.tabs",
         "common",
@@ -2551,6 +2567,7 @@ angular
     })
     .constant("REMINDER_EVENTS", {
         isCreated: "reminder-is-created",
+        isUnSubscribed: "reminder-is-unsubscribed",
         isDeleted: "reminder-is-deleted",
         isUpdated: "reminder-is-updated"
     });;angular
@@ -2574,6 +2591,12 @@ angular
          * Reminder to be created (injected with few default values)
          */
         $scope.reminder = reminder;
+
+        /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
 
         /**
          * Flag which represents whether
@@ -2617,13 +2640,46 @@ angular
                     });
             }
         };
+
+        // UnSubscribe from the reminder
+        $scope.unSubscribeFromReminderAndClose = function () {
+            if ( !$scope.isDeleting ) {
+
+                // Is deleting reminder
+                $scope.isDeleting = true;
+
+                $scope.reminder.unSubscribe($scope.user.model.email)
+                    .then(function () {
+
+                        $timeout(function () {
+                            ReminderDeleteModalService.modalInstance.close();
+                            $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
+                                reminder: $scope.reminder,
+                                message: 'Reminder successfully removed!'
+                            });
+                        }, 400);
+                    })
+                    .catch(function () {
+
+                        // Error
+                        $scope.isDeleting = false;
+                        alert("Something went wrong. Please try again.");
+                    });
+            }
+        };
     }]);
 ;/**
  * Reminders controller.
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", "$log", "flash", function ($scope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", "$log", "flash", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+
+        /**
+         * The current user
+         * @type {$rootScope.currentUser|*}
+         */
+        $scope.user = $rootScope.currentUser;
 
         /**
          * Group reminders by upcoming and past reminders.
@@ -2664,6 +2720,14 @@ angular
         };
 
         /**
+         * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
+         * @param reminder
+         */
+        $scope.openUnSubscribeReminderModalService = function (reminder) {
+            ReminderDeleteModalService.open(reminder);
+        };
+
+        /**
          * Open UPDATE modal
          * @param reminder
          */
@@ -2696,6 +2760,16 @@ angular
          * On reminder deleted, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
+            flash.success = args.message;
+
+            removeReminderFrom($scope.upcomingReminders, args.reminder);
+            removeReminderFrom($scope.pastReminders, args.reminder);
+        });
+
+        /**
+         * On reminder un subscribed, display a success message, and remove the reminder from the list.
+         */
+        $scope.$on(REMINDER_EVENTS.isUnSubscribed, function (event, args) {
             flash.success = args.message;
 
             removeReminderFrom($scope.upcomingReminders, args.reminder);
@@ -2815,19 +2889,21 @@ angular
 
 angular
     .module("reminders")
-    .directive("reminderList", function () {
+    .directive("reminderList", ["$rootScope", function ($rootScope) {
         return {
             restrict: "A",
             scope: {
                 reminders: "=",
                 onUpdate: "&",
-                onDelete: "&"
+                onDelete: "&",
+                onUnsubscribe: "&"
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
+                scope.currentUserEmail = $rootScope.currentUser.model.email;
             }
         }
-    });
+    }]);
 ;/* Feedback modal */
 
 angular
@@ -2872,14 +2948,14 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["$window", "Reminder", "jstz", function ($window, Reminder, jstz) {
-                        var defaultDueOn = Date.create().addHours(1).set({minute: 0, second: 0});
+                    reminder: ["$window", "$rootScope", "Reminder", "jstz", function ($window, $rootScope, Reminder, jstz) {
+                        var defaultDueOn = Date.create().addHours(1).set({ minute: 0, second: 0 });
 
                         return Reminder.build({
                             text: "",
                             dueOn: defaultDueOn,
                             timezone: jstz.determine().name(),
-                            recipients: []
+                            recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
                     }]
                 }
@@ -3080,14 +3156,55 @@ angular
              * Represents the DTO model of the reminder.
              */
             this.model = {
+
+                /**
+                 * The reminder id.
+                 */
                 reminderId: "",
+
+                /**
+                 * The reminder text.
+                 */
                 text: "",
+
+                /**
+                 * The reminder due date
+                 */
                 dueOn: "",
+
+                /**
+                 * The timezone
+                 */
                 timezone: "",
+
+                /**
+                 * The recipients (array of object, with email as key)
+                 */
                 recipients: [],
+
+                /**
+                 * The user which is the owner of this reminder
+                 */
+                createdByUser: {},
+
+                /**
+                 * Reminder id of the user which created this reminder.
+                 */
                 createdBy: "",
+
+                /**
+                 * If reminder is already sent.
+                 */
                 sent: "",
+
+                /**
+                 * Create date of the reminder.
+                 */
                 createdAt: "",
+
+                /**
+                 * Update date of the reminder.
+                 */
                 updatedAt: ""
             };
 
@@ -3097,6 +3214,30 @@ angular
              */
             this.isNew = function () {
                 return this.model.reminderId === "" || _.isUndefined(this.model.reminderId);
+            };
+
+            /**
+             * The given email is the user of this reminder.
+             * @returns {boolean}
+             */
+            this.isCreatedBy = function (email) {
+                if ( _.isUndefined(email) ) {
+                    return false;
+                }
+
+                return this.model.createdByUser.email === email;
+            };
+
+            /**
+             * The recipients are more then one.
+             * @returns {boolean}
+             */
+            this.isManyRecipients = function () {
+                if ( _.isUndefined(this.model.recipients) ) {
+                    return false;
+                }
+
+                return this.model.recipients.length > 1;
             };
 
             /**
@@ -3110,6 +3251,18 @@ angular
                 else {
                     return ReminderService.updateReminder(this);
                 }
+            };
+
+            /**
+             * UnSubscribe a recipient from this reminder and update model with response.
+             * @returns {*}
+             */
+            this.unSubscribe = function (recipientEmail) {
+                _.remove(this.model.recipients, function (existingRecipient) {
+                    return existingRecipient.email === recipientEmail;
+                });
+
+                return ReminderService.updateReminder(this);
             };
 
             /**
@@ -3504,30 +3657,52 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "<!--Reminder list-->\n" +
     "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true\">\n" +
+    "\n" +
+    "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
     "        {{reminder.model.text}}\n" +
     "    </div>\n" +
+    "\n" +
+    "    <!--Reminder edit/delete-->\n" +
+    "    <div class=\"reminder__menu\">\n" +
+    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!--Reminder info-->\n" +
     "    <div class=\"reminder__info\">\n" +
+    "\n" +
+    "        <!--Reminder date-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--date\">\n" +
     "            <span class=\"icon-calendar\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyDate}}\n" +
     "        </div>\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
-    "            <span class=\"icon-recurring\"></span>\n" +
-    "            <span class=\"icon-user\"></span>\n" +
-    "            <span class=\"icon-email\"></span>\n" +
-    "        </div>\n" +
     "\n" +
+    "        <!--Reminder hour-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
     "            <span class=\"icon-clock\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyHour}}\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onDelete({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <!--Reminder icons-->\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--recurring\">\n" +
+    "                <span class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Recurring\">\n" +
+    "                    <span class=\"icon-recurring\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
+    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-top simptip-fade\" data-tooltip=\"Reminder created by {{reminder.model.createdByUser.email}}\">\n" +
+    "                    <span class=\"icon-user\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
+    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
+    "                    <span class=\"icon-email\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -3561,13 +3736,21 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "\n" +
     "    <tabset>\n" +
     "        <tab heading=\"Upcoming reminders\">\n" +
-    "            <div reminder-list reminders=\"upcomingReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
-    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "            <div reminder-list\n" +
+    "                 reminders=\"upcomingReminders\"\n" +
+    "                 on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"\n" +
+    "                 on-unsubscribe=\"openUnSubscribeReminderModalService(reminder)\">\n" +
+    "            </div>\n" +
     "        </tab>\n" +
     "\n" +
     "        <tab heading=\"Past reminders\">\n" +
-    "            <div reminder-list reminders=\"pastReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
-    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "            <div reminder-list\n" +
+    "                 reminders=\"pastReminders\"\n" +
+    "                 on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"\n" +
+    "                 on-unsubscribe=\"openUnSubscribeReminderModalService(reminder)\">\n" +
+    "            </div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
     "\n" +
@@ -3628,12 +3811,8 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "        <!--Reminder addresses-->\n" +
     "        <div class=\"reminder-modal__form__addressees\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"form-control form-control--user-email\">{{currentUser.model.email}}\n" +
-    "                </div>\n" +
-    "            </div>\n" +
     "\n" +
-    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
+    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"6\" parent-form=\"reminderForm\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
@@ -4261,9 +4440,12 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
   $templateCache.put("app/common/partials/emailList/emailList.html",
     "<div ng-repeat=\"email in emails track by $index\">\n" +
     "    <ng-form name=\"emailForm\">\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
-    "            <input class=\"form-control form-control--friend-email\" type=\"email\"\n" +
-    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index].email\" required/>\n" +
+    "        <div class=\"form-group form-group--email-icon\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
+    "\n" +
+    "            <!--Inputs : first is your email-->\n" +
+    "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required />\n" +
+    "\n" +
+    "            <!--Remove emails buttons-->\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +

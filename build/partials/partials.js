@@ -144,30 +144,52 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "<!--Reminder list-->\n" +
     "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true\">\n" +
+    "\n" +
+    "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
     "        {{reminder.model.text}}\n" +
     "    </div>\n" +
+    "\n" +
+    "    <!--Reminder edit/delete-->\n" +
+    "    <div class=\"reminder__menu\">\n" +
+    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!--Reminder info-->\n" +
     "    <div class=\"reminder__info\">\n" +
+    "\n" +
+    "        <!--Reminder date-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--date\">\n" +
     "            <span class=\"icon-calendar\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyDate}}\n" +
     "        </div>\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
-    "            <span class=\"icon-recurring\"></span>\n" +
-    "            <span class=\"icon-user\"></span>\n" +
-    "            <span class=\"icon-email\"></span>\n" +
-    "        </div>\n" +
     "\n" +
+    "        <!--Reminder hour-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
     "            <span class=\"icon-clock\"></span>\n" +
     "            {{reminder.model.dueOn | friendlyHour}}\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
-    "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option\" href=\"#\" ng-click=\"onDelete({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <!--Reminder icons-->\n" +
+    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--recurring\">\n" +
+    "                <span class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Recurring\">\n" +
+    "                    <span class=\"icon-recurring\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
+    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-top simptip-fade\" data-tooltip=\"Reminder created by {{reminder.model.createdByUser.email}}\">\n" +
+    "                    <span class=\"icon-user\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
+    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
+    "                    <span class=\"icon-email\"></span>\n" +
+    "                </span>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -201,13 +223,21 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "\n" +
     "    <tabset>\n" +
     "        <tab heading=\"Upcoming reminders\">\n" +
-    "            <div reminder-list reminders=\"upcomingReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
-    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "            <div reminder-list\n" +
+    "                 reminders=\"upcomingReminders\"\n" +
+    "                 on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"\n" +
+    "                 on-unsubscribe=\"openUnSubscribeReminderModalService(reminder)\">\n" +
+    "            </div>\n" +
     "        </tab>\n" +
     "\n" +
     "        <tab heading=\"Past reminders\">\n" +
-    "            <div reminder-list reminders=\"pastReminders\" on-update=\"openUpdateReminderModalService(reminder)\"\n" +
-    "                 on-delete=\"openDeleteReminderModalService(reminder)\"></div>\n" +
+    "            <div reminder-list\n" +
+    "                 reminders=\"pastReminders\"\n" +
+    "                 on-update=\"openUpdateReminderModalService(reminder)\"\n" +
+    "                 on-delete=\"openDeleteReminderModalService(reminder)\"\n" +
+    "                 on-unsubscribe=\"openUnSubscribeReminderModalService(reminder)\">\n" +
+    "            </div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
     "\n" +
@@ -268,12 +298,8 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "        <!--Reminder addresses-->\n" +
     "        <div class=\"reminder-modal__form__addressees\">\n" +
-    "            <div class=\"form-group\">\n" +
-    "                <div class=\"form-control form-control--user-email\">{{currentUser.model.email}}\n" +
-    "                </div>\n" +
-    "            </div>\n" +
     "\n" +
-    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"5\" parent-form=\"reminderForm\"></div>\n" +
+    "            <div email-list ng-model=\"reminder.model.recipients\" max-emails=\"6\" parent-form=\"reminderForm\"></div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
@@ -901,9 +927,12 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
   $templateCache.put("app/common/partials/emailList/emailList.html",
     "<div ng-repeat=\"email in emails track by $index\">\n" +
     "    <ng-form name=\"emailForm\">\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
-    "            <input class=\"form-control form-control--friend-email\" type=\"email\"\n" +
-    "                   placeholder=\"Your friend's email address\" name=\"email\" ng-model=\"emails[$index].email\" required/>\n" +
+    "        <div class=\"form-group form-group--email-icon\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
+    "\n" +
+    "            <!--Inputs : first is your email-->\n" +
+    "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required />\n" +
+    "\n" +
+    "            <!--Remove emails buttons-->\n" +
     "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +

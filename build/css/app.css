@@ -6525,267 +6525,6 @@ button.close {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
 }
-/* line 7, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip {
-  position: absolute;
-  z-index: 1030;
-  display: block;
-  visibility: visible;
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-/* line 16, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.in {
-  opacity: 0.9;
-  filter: alpha(opacity=90);
-}
-/* line 17, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.top {
-  margin-top: -3px;
-  padding: 5px 0;
-}
-/* line 18, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.right {
-  margin-left: 3px;
-  padding: 0 5px;
-}
-/* line 19, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.bottom {
-  margin-top: 3px;
-  padding: 5px 0;
-}
-/* line 20, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.left {
-  margin-left: -3px;
-  padding: 0 5px;
-}
-
-/* line 24, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip-inner {
-  max-width: 200px;
-  padding: 3px 8px;
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  background-color: #000;
-  border-radius: 4px;
-}
-
-/* line 35, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip-arrow {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-}
-
-/* line 43, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.top .tooltip-arrow {
-  bottom: 0;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px 5px 0;
-  border-top-color: #000;
-}
-/* line 50, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.top-left .tooltip-arrow {
-  bottom: 0;
-  left: 5px;
-  border-width: 5px 5px 0;
-  border-top-color: #000;
-}
-/* line 56, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.top-right .tooltip-arrow {
-  bottom: 0;
-  right: 5px;
-  border-width: 5px 5px 0;
-  border-top-color: #000;
-}
-/* line 62, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.right .tooltip-arrow {
-  top: 50%;
-  left: 0;
-  margin-top: -5px;
-  border-width: 5px 5px 5px 0;
-  border-right-color: #000;
-}
-/* line 69, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.left .tooltip-arrow {
-  top: 50%;
-  right: 0;
-  margin-top: -5px;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #000;
-}
-/* line 76, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.bottom .tooltip-arrow {
-  top: 0;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 0 5px 5px;
-  border-bottom-color: #000;
-}
-/* line 83, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.bottom-left .tooltip-arrow {
-  top: 0;
-  left: 5px;
-  border-width: 0 5px 5px;
-  border-bottom-color: #000;
-}
-/* line 89, ../../bower_components/bootstrap-sass/lib/_tooltip.scss */
-.tooltip.bottom-right .tooltip-arrow {
-  top: 0;
-  right: 5px;
-  border-width: 0 5px 5px;
-  border-bottom-color: #000;
-}
-
-/* line 6, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1010;
-  display: none;
-  max-width: 276px;
-  padding: 1px;
-  text-align: left;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  white-space: normal;
-}
-/* line 26, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.top {
-  margin-top: -10px;
-}
-/* line 27, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.right {
-  margin-left: 10px;
-}
-/* line 28, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.bottom {
-  margin-top: 10px;
-}
-/* line 29, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.left {
-  margin-left: -10px;
-}
-
-/* line 32, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover-title {
-  margin: 0;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 18px;
-  background-color: #f7f7f7;
-  border-bottom: 1px solid #ebebeb;
-  border-radius: 5px 5px 0 0;
-}
-
-/* line 43, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover-content {
-  padding: 9px 14px;
-}
-
-/* line 52, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover .arrow, .popover .arrow:after {
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-}
-
-/* line 62, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover .arrow {
-  border-width: 11px;
-}
-
-/* line 65, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover .arrow:after {
-  border-width: 10px;
-  content: "";
-}
-
-/* line 71, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.top .arrow {
-  left: 50%;
-  margin-left: -11px;
-  border-bottom-width: 0;
-  border-top-color: #999;
-  border-top-color: rgba(0, 0, 0, 0.25);
-  bottom: -11px;
-}
-/* line 78, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.top .arrow:after {
-  content: " ";
-  bottom: 1px;
-  margin-left: -10px;
-  border-bottom-width: 0;
-  border-top-color: #fff;
-}
-/* line 86, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.right .arrow {
-  top: 50%;
-  left: -11px;
-  margin-top: -11px;
-  border-left-width: 0;
-  border-right-color: #999;
-  border-right-color: rgba(0, 0, 0, 0.25);
-}
-/* line 93, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.right .arrow:after {
-  content: " ";
-  left: 1px;
-  bottom: -10px;
-  border-left-width: 0;
-  border-right-color: #fff;
-}
-/* line 101, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.bottom .arrow {
-  left: 50%;
-  margin-left: -11px;
-  border-top-width: 0;
-  border-bottom-color: #999;
-  border-bottom-color: rgba(0, 0, 0, 0.25);
-  top: -11px;
-}
-/* line 108, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.bottom .arrow:after {
-  content: " ";
-  top: 1px;
-  margin-left: -10px;
-  border-top-width: 0;
-  border-bottom-color: #fff;
-}
-/* line 117, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.left .arrow {
-  top: 50%;
-  right: -11px;
-  margin-top: -11px;
-  border-right-width: 0;
-  border-left-color: #999;
-  border-left-color: rgba(0, 0, 0, 0.25);
-}
-/* line 124, ../../bower_components/bootstrap-sass/lib/_popovers.scss */
-.popover.left .arrow:after {
-  content: " ";
-  right: 1px;
-  border-right-width: 0;
-  border-left-color: #fff;
-  bottom: -10px;
-}
-
 /* line 7, ../../bower_components/bootstrap-sass/lib/_carousel.scss */
 .carousel {
   position: relative;
@@ -7618,6 +7357,106 @@ td.visible-print {
     display: none !important;
   }
 }
+@font-face {
+  font-family: "reme-icons";
+  src: url("../assets/fonts/app-icons/reme-icons.eot");
+  src: url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/app-icons/reme-icons.woff") format("woff"), url("../assets/fonts/app-icons/reme-icons.ttf") format("truetype"), url("../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 15, ../../src/sass/fonts/_app-icons.scss */
+[data-icon]:before {
+  font-family: "reme-icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 28, ../../src/sass/fonts/_app-icons.scss */
+[class^="icon-"]:before,
+[class*=" icon-"]:before,
+.icons-font {
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 42, ../../src/sass/fonts/_app-icons.scss */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 77, ../../src/sass/fonts/_app-icons.scss */
+.icon-recurring:before {
+  content: "a";
+}
+
+/* line 81, ../../src/sass/fonts/_app-icons.scss */
+.icon-calendar:before, .reminder-modal__form__info--date:before {
+  content: "b";
+}
+
+/* line 85, ../../src/sass/fonts/_app-icons.scss */
+.icon-checkmark:before {
+  content: "c";
+}
+
+/* line 89, ../../src/sass/fonts/_app-icons.scss */
+.icon-pencil:before {
+  content: "d";
+}
+
+/* line 93, ../../src/sass/fonts/_app-icons.scss */
+.icon-clock:before, .reminder-modal__form__info--time:before {
+  content: "e";
+}
+
+/* line 97, ../../src/sass/fonts/_app-icons.scss */
+.icon-trash:before {
+  content: "f";
+}
+
+/* line 101, ../../src/sass/fonts/_app-icons.scss */
+.icon-email:before, .form-group--email-icon:before {
+  content: "g";
+}
+
+/* line 105, ../../src/sass/fonts/_app-icons.scss */
+.icon-smile:before {
+  content: "h";
+}
+
+/* line 109, ../../src/sass/fonts/_app-icons.scss */
+.icon-user:before {
+  content: "i";
+}
+
+/* line 113, ../../src/sass/fonts/_app-icons.scss */
+.icon-coffee:before {
+  content: "j";
+}
+
 /* line 10, ../../src/sass/_buttons.scss */
 .btn-outline {
   text-align: center;
@@ -8011,60 +7850,14 @@ textarea.form-control--account {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-/* line 28, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 27, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title {
   font-size: 20px;
   font-weight: 700;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-/* line 34, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info {
-  position: absolute;
-  bottom: 10px;
-  width: 97%;
-  color: #555555;
-  font-weight: 300;
-}
-/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.reminder__info:before, .reminder__info:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.reminder__info:after {
-  clear: both;
-}
-/* line 42, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item {
-  padding: 0 5px;
-}
-/* line 46, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item span {
-  display: inline;
-  margin-top: 10px;
-  vertical-align: middle;
-}
-/* line 53, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item--date {
-  float: left;
-}
-/* line 57, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item--additional {
-  float: right;
-}
-/* line 61, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item--additional span {
-  margin-left: 10px;
-}
-/* line 67, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__info__item--time {
-  margin: 0 auto;
-  text-align: center;
-}
-/* line 74, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 33, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu {
   position: absolute;
   top: 0;
@@ -8074,7 +7867,7 @@ textarea.form-control--account {
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
-/* line 82, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 41, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option {
   display: inline-block;
   width: 30px;
@@ -8082,30 +7875,30 @@ textarea.form-control--account {
   margin: 3px 5px;
   border-radius: 3px;
 }
-/* line 89, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 48, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option:hover {
   color: #000000;
 }
-/* line 93, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 52, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option span {
   display: block;
   margin: 0;
   font-size: 30px;
   text-align: center;
 }
-/* line 101, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 60, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option--complete {
   display: none;
 }
-/* line 107, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 66, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover {
   border-left: solid 15px #8471B1;
 }
-/* line 110, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 69, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover .reminder__title {
   padding-left: 20px;
 }
-/* line 114, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 73, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover .reminder__menu {
   opacity: 1;
 }
@@ -8359,6 +8152,74 @@ textarea.form-control--reminder {
   font-weight: 300;
 }
 
+/* line 197, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-control--user-email {
+  background-color: #f5f6f7;
+  border: 0;
+  height: 40px;
+  padding: 8px 20px 8px 20px;
+  text-align: left;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 207, ../../src/app/reminders/sass/_reminders_form.scss */
+.reminder-modal__form__info--date:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 214, ../../src/app/reminders/sass/_reminders_form.scss */
+.reminder-modal__form__info--time:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 221, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-group--email-icon:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .form-control--friend-email {
   height: 34px;
@@ -8379,21 +8240,12 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 199, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 229, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
-  height: 40px;
-}
-
-/* line 204, ../../src/app/reminders/sass/_reminders_form.scss */
-.form-control--user-email {
   background-color: #f5f6f7;
-  border: 0;
   height: 40px;
-  padding: 8px 20px 8px 20px;
-  text-align: left;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  padding-left: 50px;
 }
 
 /* line 4, ../../src/app/reminders/sass/_reminders_animate.scss */
@@ -8493,6 +8345,70 @@ textarea.form-control--friend-email {
 /* line 34, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-leave-active {
   opacity: 0;
+}
+
+/* line 1, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item__icon {
+  position: absolute;
+  margin-left: 10px;
+}
+
+/* line 6, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item__icon--recurring {
+  right: 90px;
+}
+
+/* line 10, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item__icon--user {
+  right: 50px;
+}
+
+/* line 14, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item__icon--email {
+  right: 10px;
+}
+
+/* line 18, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info {
+  position: absolute;
+  bottom: 10px;
+  color: #555555;
+  font-weight: 300;
+  width: 100%;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.reminder__info:before, .reminder__info:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.reminder__info:after {
+  clear: both;
+}
+
+/* line 29, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item {
+  position: relative;
+  float: left;
+  width: 33.33333%;
+  min-height: 1px;
+  padding: 0 5px;
+}
+/* line 36, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item span {
+  vertical-align: middle;
+}
+/* line 43, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item--time {
+  text-align: center;
+}
+/* line 47, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__info__item--additional {
+  position: relative;
 }
 
 /* line 2, ../../src/app/reminders/sass/_reminders_navs.scss */
@@ -8912,89 +8828,552 @@ textarea.home__signup__sections__section__controls__email {
   color: #848b91;
 }
 
-@font-face {
-  font-family: "reme-icons";
-  src: url("../assets/fonts/app-icons/reme-icons.eot");
-  src: url("../assets/fonts/app-icons/reme-icons.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/app-icons/reme-icons.woff") format("woff"), url("../assets/fonts/app-icons/reme-icons.ttf") format("truetype"), url("../assets/fonts/app-icons/reme-icons.svg#reme-icons") format("svg");
-  font-weight: normal;
-  font-style: normal;
+/********************************* Core ******************************/
+/* line 116, ../../bower_components/simptip/simptip.scss */
+[data-tooltip] {
+  position: relative;
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
 }
-/* line 15, ../../src/sass/fonts/_app-icons.scss */
-[data-icon]:before {
-  font-family: "reme-icons" !important;
-  content: attr(data-icon);
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* line 120, ../../bower_components/simptip/simptip.scss */
+[data-tooltip]:before, [data-tooltip]:after {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 999999;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 132, ../../bower_components/simptip/simptip.scss */
+[data-tooltip]:before {
+  content: '';
+  border: 6px solid transparent;
+}
+/* line 137, ../../bower_components/simptip/simptip.scss */
+[data-tooltip]:after {
+  height: 22px;
+  padding: 11px 11px 0 11px;
+  font-size: 13px;
+  line-height: 11px;
+  content: attr(data-tooltip);
+  white-space: nowrap;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-top:before {
+  border-top-color: #323232;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-top:after {
+  background-color: #323232;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-bottom:before {
+  border-bottom-color: #323232;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-bottom:after {
+  background-color: #323232;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-left:before {
+  border-left-color: #323232;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-left:after {
+  background-color: #323232;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-right:before {
+  border-right-color: #323232;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-right:after {
+  background-color: #323232;
+  color: #ecf0f1;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-top.half-arrow:before {
+  border-right: 7px solid #323232;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+[data-tooltip].simptip-position-bottom.half-arrow:before {
+  border-right: 7px solid #323232;
+}
+/* line 146, ../../bower_components/simptip/simptip.scss */
+[data-tooltip]:hover, [data-tooltip]:focus {
+  background-color: transparent;
+}
+/* line 148, ../../bower_components/simptip/simptip.scss */
+[data-tooltip]:hover:before, [data-tooltip]:hover:after, [data-tooltip]:focus:before, [data-tooltip]:focus:after {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* line 28, ../../src/sass/fonts/_app-icons.scss */
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  font-family: "reme-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/******************************* Position ****************************/
+/* line 160, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:before, .simptip-position-left:before, .simptip-position-right:after, .simptip-position-left:after {
+  bottom: 50%;
+}
+/* line 161, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:before, .simptip-position-left:before {
+  margin-bottom: -5px;
+}
+/* line 162, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:after, .simptip-position-left:after {
+  margin-bottom: -14.66667px;
+}
+/* line 166, ../../bower_components/simptip/simptip.scss */
+.half-arrow.simptip-position-right:before, .half-arrow.simptip-position-left:before {
+  bottom: 16px;
+  border-style: none;
+  border-top: 7px solid transparent;
+}
+/* line 176, ../../bower_components/simptip/simptip.scss */
+.simptip-multiline.simptip-position-right:before, .simptip-multiline.simptip-position-left:before, .simptip-multiline.simptip-position-right:after, .simptip-multiline.simptip-position-left:after {
+  -webkit-transform: translateY(50%);
+  -moz-transform: translateY(50%);
+  -ms-transform: translateY(50%);
+  -o-transform: translateY(50%);
+  transform: translateY(50%);
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+  margin-bottom: 0;
+}
+/* line 183, ../../bower_components/simptip/simptip.scss */
+.simptip-multiline.simptip-position-right:before, .simptip-multiline.simptip-position-left:before {
+  margin-bottom: 0;
+}
+/* line 186, ../../bower_components/simptip/simptip.scss */
+.simptip-multiline.half-arrow.simptip-position-right:before, .simptip-multiline.half-arrow.simptip-position-left:before {
+  margin-bottom: -2px;
 }
 
-/* line 41, ../../src/sass/fonts/_app-icons.scss */
-.icon-recurring:before {
-  content: "a";
+/* line 198, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:before, .simptip-position-right:after {
+  left: 100%;
+}
+/* line 199, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:before {
+  margin-left: -2px;
+}
+/* line 200, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right:after {
+  margin-left: 10px;
+}
+/* line 204, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.simptip-movable:before {
+  margin-left: -10px;
+}
+/* line 205, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.simptip-movable:after {
+  margin-left: 2px;
+}
+/* line 207, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.simptip-movable:hover:before, .simptip-position-right.simptip-movable:hover:after {
+  -webkit-transform: translateX(10px);
+  -moz-transform: translateX(10px);
+  -ms-transform: translateX(10px);
+  -o-transform: translateX(10px);
+  transform: translateX(10px);
+}
+/* line 210, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.simptip-movable.half-arrow:before {
+  margin-left: -5px;
+}
+/* line 215, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.simptip-movable.simptip-multiline:hover:before, .simptip-position-right.simptip-movable.simptip-multiline:hover:after {
+  -webkit-transform: translate(10px, 50%);
+  -moz-transform: translate(10px, 50%);
+  -ms-transform: translate(10px, 50%);
+  -o-transform: translate(10px, 50%);
+  transform: translate(10px, 50%);
+}
+/* line 225, ../../bower_components/simptip/simptip.scss */
+.simptip-position-right.half-arrow:before {
+  margin-left: 3px;
+  border-right: 7px solid #323232;
 }
 
-/* line 44, ../../src/sass/fonts/_app-icons.scss */
-.icon-calendar:before {
-  content: "b";
+/* line 238, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left:before, .simptip-position-left:after {
+  right: 100%;
+}
+/* line 239, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left:before {
+  margin-right: -2px;
+}
+/* line 240, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left:after {
+  margin-right: 10px;
+}
+/* line 244, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.simptip-movable:before {
+  margin-right: -10px;
+}
+/* line 245, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.simptip-movable:after {
+  margin-right: 2px;
+}
+/* line 247, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.simptip-movable:hover:before, .simptip-position-left.simptip-movable:hover:after {
+  -webkit-transform: translateX(-10px);
+  -moz-transform: translateX(-10px);
+  -ms-transform: translateX(-10px);
+  -o-transform: translateX(-10px);
+  transform: translateX(-10px);
+}
+/* line 250, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.simptip-movable.half-arrow:before {
+  margin-right: -5px;
+}
+/* line 255, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.simptip-movable.simptip-multiline:hover:before, .simptip-position-left.simptip-movable.simptip-multiline:hover:after {
+  -webkit-transform: translate(-10px, 50%);
+  -moz-transform: translate(-10px, 50%);
+  -ms-transform: translate(-10px, 50%);
+  -o-transform: translate(-10px, 50%);
+  transform: translate(-10px, 50%);
+}
+/* line 265, ../../bower_components/simptip/simptip.scss */
+.simptip-position-left.half-arrow:before {
+  margin-right: 3px;
+  border-left: 7px solid #323232;
 }
 
-/* line 47, ../../src/sass/fonts/_app-icons.scss */
-.icon-checkmark:before {
-  content: "c";
+/* line 276, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:before, .simptip-position-top:before, .simptip-position-bottom:after, .simptip-position-top:after {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+/* line 281, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:after, .simptip-position-top:after {
+  width: auto;
+}
+/* line 285, ../../bower_components/simptip/simptip.scss */
+.half-arrow.simptip-position-bottom:before, .half-arrow.simptip-position-top:before {
+  border-style: none;
+  border-right: 7px solid #323232;
 }
 
-/* line 50, ../../src/sass/fonts/_app-icons.scss */
-.icon-pencil:before {
-  content: "d";
+/* line 298, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:before, .simptip-position-bottom:after {
+  top: 100%;
+}
+/* line 299, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:before {
+  margin-top: -5px;
+}
+/* line 300, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:after {
+  margin-top: 7px;
+}
+/* line 302, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom:hover:before, .simptip-position-bottom:hover:after {
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+/* line 307, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom.simptip-movable:before {
+  margin-top: -15px;
+}
+/* line 308, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom.simptip-movable:after {
+  margin-top: -3px;
+}
+/* line 310, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom.simptip-movable:hover:before, .simptip-position-bottom.simptip-movable:hover:after {
+  -webkit-transform: translate(-50%, 10px);
+  -moz-transform: translate(-50%, 10px);
+  -ms-transform: translate(-50%, 10px);
+  -o-transform: translate(-50%, 10px);
+  transform: translate(-50%, 10px);
+}
+/* line 315, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom.simptip-movable.half-arrow:before {
+  margin-top: -10px;
+}
+/* line 323, ../../bower_components/simptip/simptip.scss */
+.simptip-position-bottom.half-arrow:before {
+  margin-top: 0;
+  border-top: 7px solid transparent;
 }
 
-/* line 53, ../../src/sass/fonts/_app-icons.scss */
-.icon-clock:before {
-  content: "e";
+/* line 336, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top:before, .simptip-position-top:after {
+  bottom: 100%;
+}
+/* line 337, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top:before {
+  margin-bottom: -5px;
+}
+/* line 338, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top:after {
+  margin-bottom: 7px;
+}
+/* line 340, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top:hover:before, .simptip-position-top:hover:after {
+  -webkit-transform: translate(-50%, 0px);
+  -moz-transform: translate(-50%, 0px);
+  -ms-transform: translate(-50%, 0px);
+  -o-transform: translate(-50%, 0px);
+  transform: translate(-50%, 0px);
+}
+/* line 345, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top.simptip-movable:before {
+  margin-bottom: -15px;
+}
+/* line 346, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top.simptip-movable:after {
+  margin-bottom: -3px;
+}
+/* line 348, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top.simptip-movable:hover:before, .simptip-position-top.simptip-movable:hover:after {
+  -webkit-transform: translate(-50%, -10px);
+  -moz-transform: translate(-50%, -10px);
+  -ms-transform: translate(-50%, -10px);
+  -o-transform: translate(-50%, -10px);
+  transform: translate(-50%, -10px);
+}
+/* line 353, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top.simptip-movable.half-arrow:before {
+  margin-bottom: -10px;
+}
+/* line 361, ../../bower_components/simptip/simptip.scss */
+.simptip-position-top.half-arrow:before {
+  margin-bottom: 0;
+  border-bottom: 7px solid transparent;
 }
 
-/* line 56, ../../src/sass/fonts/_app-icons.scss */
-.icon-trash:before {
-  content: "f";
+/******************************* Features ****************************/
+/* line 375, ../../bower_components/simptip/simptip.scss */
+.simptip-movable:before, .simptip-movable:after {
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  -ms-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 
-/* line 59, ../../src/sass/fonts/_app-icons.scss */
-.icon-email:before {
-  content: "g";
+/* line 384, ../../bower_components/simptip/simptip.scss */
+.simptip-smooth:after {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
 
-/* line 62, ../../src/sass/fonts/_app-icons.scss */
-.icon-smile:before {
-  content: "h";
+/* line 391, ../../bower_components/simptip/simptip.scss */
+.simptip-fade:before, .simptip-fade:after {
+  -webkit-transition: opacity 0.2s linear, visibility 0.2s linear;
+  -moz-transition: opacity 0.2s linear, visibility 0.2s linear;
+  -o-transition: opacity 0.2s linear, visibility 0.2s linear;
+  -ms-transition: opacity 0.2s linear, visibility 0.2s linear;
+  transition: opacity 0.2s linear, visibility 0.2s linear;
 }
 
-/* line 65, ../../src/sass/fonts/_app-icons.scss */
-.icon-user:before {
-  content: "i";
+/* line 400, ../../bower_components/simptip/simptip.scss */
+.simptip-multiline:after {
+  height: auto;
+  width: 150px;
+  padding: 11px;
+  line-height: 19px;
+  white-space: normal;
+  text-align: left;
 }
 
-/* line 68, ../../src/sass/fonts/_app-icons.scss */
-.icon-coffee:before {
-  content: "j";
+/**************************** Diverse Colors *************************/
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-top:before {
+  border-top-color: #62c462;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-top:after {
+  background-color: #62c462;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-bottom:before {
+  border-bottom-color: #62c462;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-bottom:after {
+  background-color: #62c462;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-left:before {
+  border-left-color: #62c462;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-left:after {
+  background-color: #62c462;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-right:before {
+  border-right-color: #62c462;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-right:after {
+  background-color: #62c462;
+  color: #ecf0f1;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-top.half-arrow:before {
+  border-right: 7px solid #62c462;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-success.simptip-position-bottom.half-arrow:before {
+  border-right: 7px solid #62c462;
+}
+
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-top:before {
+  border-top-color: #5bc0de;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-top:after {
+  background-color: #5bc0de;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-bottom:before {
+  border-bottom-color: #5bc0de;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-bottom:after {
+  background-color: #5bc0de;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-left:before {
+  border-left-color: #5bc0de;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-left:after {
+  background-color: #5bc0de;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-right:before {
+  border-right-color: #5bc0de;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-right:after {
+  background-color: #5bc0de;
+  color: #ecf0f1;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-top.half-arrow:before {
+  border-right: 7px solid #5bc0de;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-info.simptip-position-bottom.half-arrow:before {
+  border-right: 7px solid #5bc0de;
+}
+
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-top:before {
+  border-top-color: #e74c3c;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-top:after {
+  background-color: #e74c3c;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-bottom:before {
+  border-bottom-color: #e74c3c;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-bottom:after {
+  background-color: #e74c3c;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-left:before {
+  border-left-color: #e74c3c;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-left:after {
+  background-color: #e74c3c;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-right:before {
+  border-right-color: #e74c3c;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-right:after {
+  background-color: #e74c3c;
+  color: #ecf0f1;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-top.half-arrow:before {
+  border-right: 7px solid #e74c3c;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-danger.simptip-position-bottom.half-arrow:before {
+  border-right: 7px solid #e74c3c;
+}
+
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-top:before {
+  border-top-color: #e67e22;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-top:after {
+  background-color: #e67e22;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-bottom:before {
+  border-bottom-color: #e67e22;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-bottom:after {
+  background-color: #e67e22;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-left:before {
+  border-left-color: #e67e22;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-left:after {
+  background-color: #e67e22;
+  color: #ecf0f1;
+}
+/* line 35, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-right:before {
+  border-right-color: #e67e22;
+}
+/* line 36, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-right:after {
+  background-color: #e67e22;
+  color: #ecf0f1;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-top.half-arrow:before {
+  border-right: 7px solid #e67e22;
+}
+/* line 42, ../../bower_components/simptip/simptip.scss */
+.simptip-warning.simptip-position-bottom.half-arrow:before {
+  border-right: 7px solid #e67e22;
 }
 
 /*# sourceMappingURL=app.css.map */
