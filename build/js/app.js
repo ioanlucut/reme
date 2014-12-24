@@ -2604,15 +2604,9 @@ angular
          */
         $scope.isDeleting = false;
 
-        // Focus the first input when modal is opened
-        ReminderDeleteModalService.modalInstance
-            .opened
-            .then(function () {
-                $scope.isOpen = true;
-            }
-        );
-
-        // Remove the reminder
+        /**
+         * Remove reminder - owner action;
+         */
         $scope.deleteReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
 
@@ -2641,7 +2635,9 @@ angular
             }
         };
 
-        // UnSubscribe from the reminder
+        /**
+         * Unsubscribe from reminder - recipient action.
+         */
         $scope.unSubscribeFromReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
 
@@ -2673,7 +2669,7 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", "$log", "flash", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$log", "flash", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log, flash) {
 
         /**
          * The current user
@@ -2682,34 +2678,20 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
-         * Group reminders by upcoming and past reminders.
-         * @returns {*}
+         * Past and upcoming reminders.
+         * @type {{}}
          */
-        function groupRemindersByUpcomingAndPast() {
-            var now = new Date();
-
-            return _.chain(reminderList)
-                .groupBy(function (element, index) {
-                    return element.model.dueOn < now;
-                })
-                .toArray()
-                .value();
-        }
-
-        /**
-         * Reminders grouped by upcoming and past reminders.
-         */
-        var remindersGrouped = groupRemindersByUpcomingAndPast();
+        var pastAndUpcomingReminders = ReminderGroupService.getPastAndUpcomingReminders(reminderList);
 
         /**
          * Upcoming reminders
          */
-        $scope.upcomingReminders = remindersGrouped[0] || [];
+        $scope.upcomingReminders = pastAndUpcomingReminders.upcomingReminders;
 
         /**
          * Past reminders
          */
-        $scope.pastReminders = remindersGrouped[1] || [];
+        $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
          * Open DELETE modal
@@ -2831,6 +2813,30 @@ angular
          */
         $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
 
+        /**
+         * If create reminder modal is opened
+         */
+        if ( ReminderModalService.modalInstance ) {
+            ReminderModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
+        /**
+         * If update reminder modal is opened
+         */
+        if ( ReminderUpdateModalService.modalInstance ) {
+            ReminderUpdateModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
         // Save the reminder
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
@@ -2865,6 +2871,10 @@ angular
                         // Error
                         $scope.isSaving = false;
                         alert("Something went wrong. Please try again.");
+                    })
+                    .finally(function () {
+
+                        $scope.isOpen = false;
                     });
             }
         };
@@ -2930,16 +2940,84 @@ angular
         };
 
     }]);
+;/**
+ * Reminder group service which computes the upcoming and past reminders from a list.
+ */
+angular
+    .module("reminders")
+    .service("ReminderGroupService", function () {
+
+        /**
+         * Returns an object with past and upcoming reminders.
+         * @param reminders
+         * @returns {{}}
+         */
+        this.getPastAndUpcomingReminders = function (reminders) {
+
+            /**
+             * Used to check the past/upcoming reminders.
+             * @type {Date}
+             */
+            var now = new Date();
+
+            /**
+             * Reminders grouped by upcoming and past reminders.
+             */
+            var remindersGrouped = _.chain(reminders)
+                .groupBy(function (element) {
+                    return element.model.dueOn < now;
+                })
+                .toArray()
+                .value();
+
+            /**
+             * To be computed
+             * @type {Array}
+             */
+            var upcomingReminders = [];
+            var pastReminders = [];
+
+            /**
+             * We group reminders by date, but if they are all in the same category, they will always be on the first category
+             */
+            if ( remindersGrouped.length === 2 ) {
+                upcomingReminders = remindersGrouped[0];
+                pastReminders = remindersGrouped[1];
+            }
+            else if ( remindersGrouped.length === 1 ) {
+                var firstGroupedRemindersResult = remindersGrouped[0];
+                var groupedRemindersAreInPast = firstGroupedRemindersResult[0].model.dueOn < now;
+
+                if ( groupedRemindersAreInPast ) {
+                    pastReminders = firstGroupedRemindersResult;
+                }
+                else {
+                    upcomingReminders = firstGroupedRemindersResult;
+                }
+            }
+
+            return {
+                pastReminders: pastReminders,
+                upcomingReminders: upcomingReminders
+            }
+
+        };
+    });
 ;/* Feedback modal */
 
 angular
     .module("reminders")
     .service("ReminderModalService", ["$modal", function ($modal) {
 
-        // Init modal instance
+        /**
+         * Reminder modal instance.
+         * @type {null}
+         */
         this.modalInstance = null;
 
-        // Init the feedback modal window
+        /**
+         * Define reminder modal object.
+         */
         this.open = function () {
 
             // Create modal instance
@@ -3792,7 +3870,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "            <label>Remind me to:</label>\n" +
     "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\"\n" +
     "                   name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\"\n" +
-    "                   separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus required/>\n" +
+    "                   separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <div class=\"reminder-modal__form__info\">\n" +
@@ -4443,10 +4521,10 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "        <div class=\"form-group form-group--email-icon\" ng-class=\"{'has-error': emailForm.email.$invalid && parentForm.$submitted}\">\n" +
     "\n" +
     "            <!--Inputs : first is your email-->\n" +
-    "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required />\n" +
+    "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required ng-disabled=\"$index === 0\" />\n" +
     "\n" +
     "            <!--Remove emails buttons-->\n" +
-    "            <a href=\"#\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
+    "            <a href=\"#\" ng-if=\"$index > 0\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
     "</div>\n" +
