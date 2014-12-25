@@ -29,6 +29,12 @@
 .reminder-form-container__form__delete {
   float: right;
   margin-top: 50px;
+  color: $brand-danger;
+  border-color: $brand-danger;
+
+  &:hover {
+    background-color: $brand-danger;
+  }
 }
 
 // Reminder form

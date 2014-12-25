@@ -8,7 +8,7 @@ angular
         "ui.router",
         "angular-flash.service",
         "angular-flash.flash-alert-directive",
-        "ngCookies",
+        "ngStorage",
         "partials",
         "site",
         "common",

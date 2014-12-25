@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .service("AuthService", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+    .service("AuthService", function ($rootScope, $q, $http, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
          * Is User already authenticated ?

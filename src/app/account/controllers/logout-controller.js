@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", function ($scope, $timeout, AuthService, $cookies, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutCtrl", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 

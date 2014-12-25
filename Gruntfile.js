@@ -12,7 +12,6 @@ module.exports = function (grunt) {
                     "bower_components/jquery/dist/jquery.js",
                     "bower_components/lodash/dist/lodash.js",
                     "bower_components/underscore.string/dist/underscore.string.min.js",
-                    "bower_components/cookies-js/src/cookies.js",
                     "bower_components/mousetrap/mousetrap.js",
                     "bower_components/uploader/uploader.js",
                     "bower_components/moment/moment.js",
@@ -27,7 +26,6 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-router/release/angular-ui-router.js",
                     "bower_components/angular-inflector/dist/angular-inflector.js",
                     "bower_components/angular-restmod/dist/angular-restmod-bundle.js",
-                    "bower_components/angular-cookies/angular-cookies.js",
                     "bower_components/angular-messages/angular-messages.js",
                     "bower_components/angular-flash/dist/angular-flash.js",
                     "bower_components/angular-mocks/angular-mocks.js",
@@ -42,7 +40,8 @@ module.exports = function (grunt) {
                     "bower_components/angular-ui-bootstrap/src/bindHtml/bindHtml.js",
                     "bower_components/angular-ui-bootstrap/src/dropdown/dropdown.js",
                     "bower_components/angular-ui-bootstrap/src/modal/modal.js",
-                    "bower_components/angular-ui-bootstrap/src/tabs/tabs.js"
+                    "bower_components/angular-ui-bootstrap/src/tabs/tabs.js",
+                    "bower_components/ngstorage/ngStorage.js"
                 ],
                 dest: "build/js/frameworks.js"
             },

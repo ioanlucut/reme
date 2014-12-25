@@ -37,6 +37,17 @@
         .btn--login {
           width: 90px;
         }
+
+        .btn--to-reminders {
+          @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+          border-radius: $border-radius-small;
+          font-size: $font-size-medium;
+          width: 180px;
+        }
+
+        .btn--logout {
+          width: 120px;
+        }
       }
     }
   }
