@@ -1,6 +1,5 @@
 .header {
   background-color: $brand-primary;
-  //padding: 10px 0;
   margin: 0;
   height: $header-height;
   line-height: $header-height;
@@ -24,42 +23,18 @@
       }
 
       .header__wrapper__menu__dropdown {
-        position: absolute;
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-        width: 150px;
-        border: solid 2px $brand-primary;
-        border-radius: 3px;
-        padding: 5px;
-        top: -20px;
-        background-color: #ffffff;
-
-        .nav-link {
-          color: $link-color;
-          display: block;
-          padding: 5px;
-          line-height: 14px;
-          margin: 2px 0;
-
-          &:hover {
-            background-color: $color-light-bg;
-            color: $text-color-base;
-          }
-        }
-      }
-
-      &:hover .header__wrapper__menu__dropdown {
-        list-style: none;
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        position: relative;
+        right: 10px;
+        top: 36px;
+        left: inherit;
       }
     }
 
     .header__wrapper__menu__email {
       color: white;
+
+      .caret {
+        border-top: 4px solid darken($brand-primary, 20%);
+      }
     }
 
   }

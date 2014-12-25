@@ -1,16 +1,16 @@
 /**
- * Session service which encapsulates the whole logic account related to the cookie which contains currently logged in user.
+ * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
  */
 angular
     .module("common")
-    .service("SessionService", function ($cookies, CamelCaseTransform) {
+    .service("SessionService", function ($localStorage, CamelCaseTransform) {
 
         /**
-         * Cookie key for session data.
+         * Local storage key for session data.
          *
          * @type {string}
          */
-        var cookieDataKey = "auth_session_data";
+        var sessionDataKey = "auth_session_data";
         var jwtTokenKey = "auth_jwt_token";
 
         /**
@@ -31,14 +31,14 @@ angular
         this.setData = function (data) {
             CamelCaseTransform.transform(data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
 
-            $cookies[cookieDataKey] = angular.toJson(data);
+            $localStorage[sessionDataKey] = angular.toJson(data);
         };
 
         /**
          * Return the session data.
          */
         this.getData = function () {
-            return angular.fromJson($cookies[cookieDataKey]);
+            return angular.fromJson($localStorage[sessionDataKey]);
         };
 
         /**
@@ -47,26 +47,26 @@ angular
          * @param data
          */
         this.setJwtToken = function (data) {
-            $cookies[jwtTokenKey] = angular.toJson(data);
+            $localStorage[jwtTokenKey] = angular.toJson(data);
         };
 
         /**
          * Return the session data.
          */
         this.getJwtToken = function () {
-            return angular.fromJson($cookies[jwtTokenKey]);
+            return angular.fromJson($localStorage[jwtTokenKey]);
         };
 
         this.sessionExists = function () {
-            return $cookies[cookieDataKey] && $cookies[jwtTokenKey];
+            return $localStorage[sessionDataKey] && $localStorage[jwtTokenKey];
         };
 
         /**
          * Destroy session.
          */
         this.destroy = function () {
-            delete $cookies[cookieDataKey];
-            delete $cookies[jwtTokenKey];
+            delete $localStorage[sessionDataKey];
+            delete $localStorage[jwtTokenKey];
         };
 
     });
