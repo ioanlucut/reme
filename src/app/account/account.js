@@ -59,7 +59,7 @@ angular
             .state({
                 name: "account:validatePasswordResetToken.valid",
                 url: "",
-                templateUrl: "app/account/partials/validate_password_reset_token.html",
+                templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
                     validateTokenResult: function ($stateParams, $q, AuthService, $state) {
