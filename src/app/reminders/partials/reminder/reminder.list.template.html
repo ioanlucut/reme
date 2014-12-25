@@ -33,11 +33,6 @@
 
         <!--Reminder icons-->
         <div class="reminder__info__item reminder__info__item--additional">
-            <div class="reminder__info__item__icon reminder__info__item__icon--recurring">
-                <span class="simptip-position-bottom simptip-fade" data-tooltip="Recurring">
-                    <span class="icon-recurring"></span>
-                </span>
-            </div>
             <div class="reminder__info__item__icon reminder__info__item__icon--user">
                 <span ng-if="! reminder.isCreatedBy(currentUserEmail)" class="simptip-position-top simptip-fade" data-tooltip="Reminder created by {{reminder.model.createdByUser.email}}">
                     <span class="icon-user"></span>
