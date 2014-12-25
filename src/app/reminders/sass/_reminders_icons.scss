@@ -48,3 +48,19 @@
     position: relative;
   }
 }
+
+.reminder__menu__option--delete {
+  color: $brand-danger;
+
+  &:hover {
+    color: lighten($brand-danger, 10%)
+  }
+}
+
+.reminder__menu__option--update {
+  color: $brand-info;
+
+  &:hover {
+    color: lighten($brand-info, 10%)
+  }
+}
