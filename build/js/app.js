@@ -1180,18 +1180,18 @@ angular
         return window.mixpanel;
     }]);
 ;/**
- * Session service which encapsulates the whole logic account related to the cookie which contains currently logged in user.
+ * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
  */
 angular
     .module("common")
-    .service("SessionService", ["$cookies", "CamelCaseTransform", function ($cookies, CamelCaseTransform) {
+    .service("SessionService", ["$localStorage", "CamelCaseTransform", function ($localStorage, CamelCaseTransform) {
 
         /**
-         * Cookie key for session data.
+         * Local storage key for session data.
          *
          * @type {string}
          */
-        var cookieDataKey = "auth_session_data";
+        var sessionDataKey = "auth_session_data";
         var jwtTokenKey = "auth_jwt_token";
 
         /**
@@ -1212,14 +1212,14 @@ angular
         this.setData = function (data) {
             CamelCaseTransform.transform(data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
 
-            $cookies[cookieDataKey] = angular.toJson(data);
+            $localStorage[sessionDataKey] = angular.toJson(data);
         };
 
         /**
          * Return the session data.
          */
         this.getData = function () {
-            return angular.fromJson($cookies[cookieDataKey]);
+            return angular.fromJson($localStorage[sessionDataKey]);
         };
 
         /**
@@ -1228,26 +1228,26 @@ angular
          * @param data
          */
         this.setJwtToken = function (data) {
-            $cookies[jwtTokenKey] = angular.toJson(data);
+            $localStorage[jwtTokenKey] = angular.toJson(data);
         };
 
         /**
          * Return the session data.
          */
         this.getJwtToken = function () {
-            return angular.fromJson($cookies[jwtTokenKey]);
+            return angular.fromJson($localStorage[jwtTokenKey]);
         };
 
         this.sessionExists = function () {
-            return $cookies[cookieDataKey] && $cookies[jwtTokenKey];
+            return $localStorage[sessionDataKey] && $localStorage[jwtTokenKey];
         };
 
         /**
          * Destroy session.
          */
         this.destroy = function () {
-            delete $cookies[cookieDataKey];
-            delete $cookies[jwtTokenKey];
+            delete $localStorage[sessionDataKey];
+            delete $localStorage[jwtTokenKey];
         };
 
     }]);
@@ -1377,7 +1377,7 @@ angular
             .state({
                 name: "account:validatePasswordResetToken.valid",
                 url: "",
-                templateUrl: "app/account/partials/validate_password_reset_token.html",
+                templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
                     validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
@@ -1604,7 +1604,7 @@ angular
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", ["$scope", "$timeout", "AuthService", "$cookies", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, AuthService, $cookies, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutCtrl", ["$scope", "$timeout", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 
@@ -2072,7 +2072,7 @@ angular
  */
 angular
     .module("account")
-    .service("AuthService", ["$rootScope", "$q", "$http", "$cookies", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, $cookies, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+    .service("AuthService", ["$rootScope", "$q", "$http", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
          * Is User already authenticated ?
@@ -2374,6 +2374,14 @@ angular
                     },
 
                     /**
+                     * Is user already authenticated
+                     * @returns {*}
+                     */
+                    isAuthenticated: function () {
+                        return SessionService.sessionExists();
+                    },
+
+                    /**
                      * Loads a user from cookies.
                      * @returns {*}
                      */
@@ -2381,7 +2389,8 @@ angular
                         TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
 
                         return this;
-                    },
+                    }
+                    ,
 
                     /**
                      * Saves a user to cookies.
@@ -2393,7 +2402,8 @@ angular
                         SessionService.setData(sessionData);
 
                         return this;
-                    },
+                    }
+                    ,
 
                     /**
                      * Updates a user account.
@@ -2404,7 +2414,8 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
                         return this.updateAccount(toBeSaved);
-                    },
+                    }
+                    ,
 
                     /**
                      * Creates a user account with given fromData.
@@ -2417,7 +2428,8 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated, token);
-                    },
+                    }
+                    ,
 
                     $refresh: function () {
                         var that = this;
@@ -2433,7 +2445,8 @@ angular
                             .catch(function (response) {
                                 return $q.reject(response);
                             });
-                    },
+                    }
+                    ,
 
                     /**
                      * Retrieves details about the current account.
@@ -2441,7 +2454,8 @@ angular
                      */
                     retrieveDetails: function () {
                         return $http.get(URLTo.api(AUTH_URLS.details));
-                    },
+                    }
+                    ,
 
                     /**
                      * Creates the account.
@@ -2459,7 +2473,8 @@ angular
                             .then(function (response) {
                                 return response.data;
                             });
-                    },
+                    }
+                    ,
 
                     /**
                      * Updates given account.
@@ -2474,7 +2489,8 @@ angular
             }
 
         }
-    }]);;/**
+    }])
+;;/**
  * Main site module declaration including ui templates.
  */
 angular
@@ -3499,7 +3515,7 @@ angular
         "ui.router",
         "angular-flash.service",
         "angular-flash.flash-alert-directive",
-        "ngCookies",
+        "ngStorage",
         "partials",
         "site",
         "common",
@@ -3589,7 +3605,7 @@ angular
             $log.log(unfoundState, fromState, fromParams);
         });
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -3743,9 +3759,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--update\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -3765,11 +3781,6 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "        <!--Reminder icons-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
-    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--recurring\">\n" +
-    "                <span class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Recurring\">\n" +
-    "                    <span class=\"icon-recurring\"></span>\n" +
-    "                </span>\n" +
-    "            </div>\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
     "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-top simptip-fade\" data-tooltip=\"Reminder created by {{reminder.model.createdByUser.email}}\">\n" +
     "                    <span class=\"icon-user\"></span>\n" +
@@ -4367,68 +4378,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "</div>");
 }]);
 
-angular.module("app/account/partials/validate_password_reset_token.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/validate_password_reset_token.html",
-    "<!-- Account sections -->\n" +
-    "<div class=\"account__sections\">\n" +
-    "\n" +
-    "    <!-- Validate password reset token section -->\n" +
-    "    <div class=\"account__section\" ng-hide=\"successfullyReseted\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Reset your password.</h1>\n" +
-    "\n" +
-    "        <!-- Reset password form -->\n" +
-    "        <form name=\"resetPasswordForm\" ng-submit=\"resetPassword(resetPasswordData)\" novalidate>\n" +
-    "\n" +
-    "            <!-- Account controls -->\n" +
-    "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
-    "                    <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Form groups -->\n" +
-    "                <div class=\"account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                               name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
-    "                               placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
-    "                               ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Reset password</button>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
-    "\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Change password section successfully-->\n" +
-    "    <div class=\"account__section\" ng-hide=\"!successfullyReseted\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Successfully</h1>\n" +
-    "\n" +
-    "        <!-- Explain -->\n" +
-    "        <span class=\"account__explain\">\n" +
-    "            We've successfully updated your new password.\n" +
-    "        </span>\n" +
-    "    </div>\n" +
-    "</div>");
-}]);
-
 angular.module("app/account/partials/validate_password_reset_token_abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/validate_password_reset_token_abstract.html",
     "<!--Validate password reset token section - abstract view-->\n" +
@@ -4458,11 +4407,11 @@ angular.module("app/account/partials/validate_password_reset_token_invalid.html"
 
 angular.module("app/account/partials/validate_password_reset_token_valid.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/validate_password_reset_token_valid.html",
-    "<!-- Valid token view -->\n" +
+    "<!-- Validate password reset token section -->\n" +
     "<div class=\"account__section\" ng-hide=\"successfullyReseted\">\n" +
     "\n" +
     "    <!-- Title -->\n" +
-    "     <h1 class=\"account__title\">Reset your password.</h1>\n" +
+    "    <h1 class=\"account__title\">Reset your password.</h1>\n" +
     "\n" +
     "    <!-- Reset password form -->\n" +
     "    <form name=\"resetPasswordForm\" ng-submit=\"resetPassword(resetPasswordData)\" novalidate>\n" +
@@ -4472,7 +4421,7 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "\n" +
     "            <!-- General error -->\n" +
     "            <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
-    "                 <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form groups -->\n" +
@@ -4481,7 +4430,7 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                           name=\"password\" ng-model=\"resetPasswordData.password\" required/>\n" +
+    "                           name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
@@ -4489,7 +4438,7 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\"\n" +
     "                           placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
-    "                           ng-model=\"resetPasswordData.passwordConfirmation\" required/>\n" +
+    "                           ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -4538,21 +4487,29 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "    <div class=\"centered-section-home\">\n" +
     "\n" +
     "        <div class=\"footer__navbar\">\n" +
-    "            <div class=\"pull-left footer__navbar--copyright\">\n" +
-    "                Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "            <div class=\"footer__navbar__section-left\">\n" +
+    "                <div class=\"footer__navbar__section-left__copyright\">\n" +
+    "                    Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "                </div>\n" +
     "            </div>\n" +
-    "            <ul class=\"pull-right\">\n" +
-    "                <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
-    "                <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
-    "                <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
-    "                <li><a href=\"#\">Contact</a></li>\n" +
-    "            </ul>\n" +
-    "            <ul class=\"pull-right\">\n" +
-    "                <li><a href=\"#\">Pricing</a></li>\n" +
-    "                <li><a href=\"#\">About</a></li>\n" +
-    "                <li><a href=\"#\">Press kit</a></li>\n" +
-    "                <li><a href=\"#\">Privacy policy</a></li>\n" +
-    "            </ul>\n" +
+    "            <div class=\"footer__navbar__section-right\">\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                        <li><a href=\"#\">Contact</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"#\">Pricing</a></li>\n" +
+    "                        <li><a href=\"#\">About</a></li>\n" +
+    "                        <li><a href=\"#\">Press kit</a></li>\n" +
+    "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
@@ -4572,8 +4529,14 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
     "                <li><a href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
-    "                <li><a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
-    "\n" +
+    "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
+    "                    <a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
+    "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
+    "                    <a class=\"btn-outline btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
+    "                </li>\n" +
+    "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
+    "                    <a class=\"btn-outline btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
+    "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "\n" +
@@ -4593,12 +4556,10 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
     "            <a ng-show=\"currentUser.model.email\" class=\"link-dark-bg dropdown-toggle header__wrapper__menu__email\"\n" +
     "               dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
-    "            <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "            <ul class=\"dropdown-menu header__wrapper__menu__dropdown\" role=\"menu\">\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"reminders\">My reminders</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a></li>\n" +
-    "                <li>\n" +
-    "                    <a id=\"feedback-trigger\" class=\"nav-link\" href=\"javascript:void(0)\">Help</a>\n" +
-    "                </li>\n" +
+    "                <li><a id=\"feedback-trigger\" class=\"nav-link\" href=\"javascript:void(0)\">Help</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
