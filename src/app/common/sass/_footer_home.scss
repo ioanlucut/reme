@@ -52,4 +52,9 @@
   color: darken($brand-primary, 15%);
   display: table-cell;
   vertical-align: middle;
+  width: 180px;
+
+  ul li {
+    height: 26px;
+  }
 }
