@@ -49,18 +49,20 @@
   }
 }
 
-.reminder__menu__option--delete {
-  color: $brand-danger;
+
+.reminder__menu__option--update {
+  color: $gray-light;
 
   &:hover {
-    color: lighten($brand-danger, 10%)
+    color: $gray;
   }
 }
 
-.reminder__menu__option--update {
-  color: $brand-info;
+
+.reminder__menu__option--delete {
+  color: lighten($brand-danger, 15%);
 
   &:hover {
-    color: lighten($brand-info, 10%)
+    color: $brand-danger;
   }
 }
