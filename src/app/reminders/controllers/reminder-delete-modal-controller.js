@@ -51,7 +51,7 @@ angular
         };
 
         /**
-         * Unsubscribe from reminder - recipient action.
+         * Un subscribe from reminder - recipient action.
          */
         $scope.unSubscribeFromReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
@@ -59,14 +59,14 @@ angular
                 // Is deleting reminder
                 $scope.isDeleting = true;
 
-                $scope.reminder.unSubscribe($scope.user.model.email)
+                $scope.reminder.unSubscribe()
                     .then(function () {
 
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
                                 reminder: $scope.reminder,
-                                message: 'Reminder successfully removed!'
+                                message: 'Successfully un-subscribed from this reminder!'
                             });
                         }, 400);
                     })
