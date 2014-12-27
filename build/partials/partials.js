@@ -20,7 +20,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
     "                    <!-- Request registration form -->\n" +
-    "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData.email)\" novalidate focus-first-error-on-submit>\n" +
+    "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "                        <!-- Account controls -->\n" +
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
@@ -31,20 +31,23 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
-    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
+    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
     "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
     "                            Checking availability...\n" +
+    "                        </div>\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\">\n" +
+    "                            Yay! Email is available.\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "                </div>\n" +
@@ -67,13 +70,15 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "    <div class=\"home__testimonials\">\n" +
     "        <div class=\"centered-section-home\">\n" +
-    "            <div class=\"press_logo lifehacker\">Lifehacker</div>\n" +
-    "            <div class=\"press_logo producthunt\">ProductHunt</div>\n" +
-    "            <div class=\"press_logo makeuseof\">MakeUseOf</div>\n" +
-    "            <div class=\"press_logo feedmyapp\">FeedMyApp</div>\n" +
-    "            <div class=\"press_logo newstartups\">NewStartups</div>\n" +
-    "            <div class=\"press_logo addictivetips\">AddictiveTips</div>\n" +
-    "            <div class=\"press_logo chromewebstore\"><span class=\"\">Reme</span> is available on <br> Chrome Web Store</div>\n" +
+    "            <div class=\"img_sprite press_logo lifehacker\">Lifehacker</div>\n" +
+    "            <div class=\"img_sprite press_logo producthunt\">ProductHunt</div>\n" +
+    "            <div class=\"img_sprite press_logo makeuseof\">MakeUseOf</div>\n" +
+    "            <div class=\"img_sprite press_logo feedmyapp\">FeedMyApp</div>\n" +
+    "            <div class=\"img_sprite press_logo newstartups\">NewStartups</div>\n" +
+    "            <div class=\"img_sprite press_logo addictivetips\">AddictiveTips</div>\n" +
+    "            <a class=\"img_sprite chromewebstore\" target=\"_blank\" href=\"https://chrome.google.com/webstore/detail/remeio/jagdnkmjmgengjocecgcilbpgffmlmep\">\n" +
+    "                <span class=\"\">Reme</span> is available on <br> Chrome Web Store\n" +
+    "            </a>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -271,7 +276,7 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
 angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
     "<!--Reminder form-->\n" +
-    "<div ng-show=\"! isSaving\" class=\"reminder-modal\">\n" +
+    "<div class=\"reminder-modal\">\n" +
     "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate\n" +
     "          focus-first-error>\n" +
     "\n" +
@@ -304,15 +309,17 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
+    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
     "            reminder\"}}\n" +
     "        </button>\n" +
     "\n" +
     "    </form>\n" +
     "</div>\n" +
+    "<!--\n" +
     "\n" +
-    "<!--While saving-->\n" +
-    "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>");
+    "&lt;!&ndash;While saving&ndash;&gt;\n" +
+    "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>-->\n" +
+    "");
 }]);
 
 angular.module("app/feedback/partials/feedbackModal/feedbackModal.html", []).run(["$templateCache", function($templateCache) {
@@ -419,7 +426,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Get started!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
-    "        <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration(requestSignUpRegistrationData)\" novalidate focus-first-error-on-submit>\n" +
+    "        <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
@@ -433,18 +440,22 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
     "                               name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
     "                               valid-email unique-email/>\n" +
     "\n" +
-    "                        <div class=\"help-block\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
+    "                        <!-- Error messages -->\n" +
+    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
-    "                        <div class=\"help-block\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
     "                            Checking availability...\n" +
+    "                        </div>\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\">\n" +
+    "                            Yay! Email is available.\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -920,9 +931,10 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "<header class=\"header-home\">\n" +
     "    <div class=\"header__wrapper\">\n" +
     "\n" +
-    "        <div class=\"header__wrapper__logo\">\n" +
-    "            Reme\n" +
-    "        </div>\n" +
+    "        <a class=\"header__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"home\">\n" +
+    "            <span class=\"header__wrapper__brand__logo\">logo</span>\n" +
+    "            <span class=\"header__wrapper__brand__text\">Reme</span>\n" +
+    "        </a>\n" +
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
@@ -948,20 +960,24 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "<header class=\"header\">\n" +
     "    <div class=\"header__wrapper\">\n" +
     "\n" +
-    "        <div class=\"header__wrapper__logo\">\n" +
+    "        <a class=\"header__wrapper__logo\" href=\"javascript:void(0)\" ui-sref=\"home\">\n" +
     "            Reme\n" +
-    "        </div>\n" +
+    "        </a>\n" +
     "\n" +
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
-    "            <a ng-show=\"currentUser.model.email\" class=\"link-dark-bg dropdown-toggle header__wrapper__menu__email\"\n" +
+    "            <a ng-show=\"currentUser.model.email\" class=\"link--brand-bg dropdown-toggle header__wrapper__menu__email\"\n" +
     "               dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
     "            <ul class=\"dropdown-menu header__wrapper__menu__dropdown\" role=\"menu\">\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"reminders\">My reminders</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a></li>\n" +
-    "                <li><a id=\"feedback-trigger\" class=\"nav-link\" href=\"javascript:void(0)\">Help</a></li>\n" +
     "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
+    "\n" +
+    "        <a id=\"feedback-trigger\" class=\"header__wrapper__feedback link--brand-bg\" href=\"#\">\n" +
+    "            <span class=\"icon-comment\"></span>\n" +
+    "            Send feedback\n" +
+    "        </a>\n" +
     "\n" +
     "    </div>\n" +
     "</header>");
