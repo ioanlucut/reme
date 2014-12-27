@@ -4,17 +4,17 @@ angular
         return function (recipients) {
 
             if ( _.isUndefined(recipients) || !_.isArray(recipients) ) {
-                return "to you";
+                return;
             }
 
-            var recipientsFormatted = "";
+            var friendlyRecipients = "";
             _.each(recipients, function (recipient) {
-                if ( recipientsFormatted.length > 0 ) {
-                    recipientsFormatted = recipientsFormatted + ", "
+                if ( friendlyRecipients.length > 0 ) {
+                    friendlyRecipients = friendlyRecipients + ", "
                 }
-                recipientsFormatted = recipientsFormatted + recipient.email;
+                friendlyRecipients = friendlyRecipients + recipient.email;
             });
 
-            return "to " + recipientsFormatted;
+            return friendlyRecipients;
         };
     });

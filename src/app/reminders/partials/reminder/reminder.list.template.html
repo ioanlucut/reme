@@ -39,7 +39,7 @@
                 </span>
             </div>
             <div class="reminder__info__item__icon reminder__info__item__icon--email">
-                <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Addressed {{reminder.model.recipients | friendlyRecipients}}">
+                <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Recipients: {{reminder.model.recipients | friendlyRecipients}}">
                     <span class="icon-email"></span>
                 </span>
             </div>
