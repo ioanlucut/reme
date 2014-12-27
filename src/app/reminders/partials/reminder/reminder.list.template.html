@@ -34,12 +34,12 @@
         <!--Reminder icons-->
         <div class="reminder__info__item reminder__info__item--additional">
             <div class="reminder__info__item__icon reminder__info__item__icon--user">
-                <span ng-if="! reminder.isCreatedBy(currentUserEmail)" class="simptip-position-top simptip-fade" data-tooltip="Reminder created by {{reminder.model.createdByUser.email}}">
+                <span ng-if="! reminder.isCreatedBy(currentUserEmail)" class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}">
                     <span class="icon-user"></span>
                 </span>
             </div>
             <div class="reminder__info__item__icon reminder__info__item__icon--email">
-                <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade" data-tooltip="Addressed {{reminder.model.recipients | friendlyRecipients}}">
+                <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade simptip-multiline" data-tooltip="Addressed {{reminder.model.recipients | friendlyRecipients}}">
                     <span class="icon-email"></span>
                 </span>
             </div>

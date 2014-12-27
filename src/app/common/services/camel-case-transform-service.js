@@ -38,6 +38,11 @@ angular
                 _.each(objectToTransform, function (value, key) {
                     if ( objectToTransform.hasOwnProperty(key) ) {
                         var newKey = transformationType === thisService.TRANSFORMATION_TYPE.CAMELIZE ? humps.camelize(key) : humps.decamelize(key);
+
+                        // Do it recursively
+                        if ( _.isObject(objectToTransform[key]) && !_.isArray(objectToTransform[key]) ) {
+                            thisService.transformObject(objectToTransform[key], transformationType);
+                        }
                         if ( key !== newKey ) {
                             objectToTransform[newKey] = objectToTransform[key];
                             delete objectToTransform[key];
