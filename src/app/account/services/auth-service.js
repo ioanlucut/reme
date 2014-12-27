@@ -149,14 +149,4 @@ angular
                     return response.data;
                 });
         };
-
-        /**
-         * Refreshes current token.
-         * @returns {*}
-         */
-        this.refreshToken = function () {
-            return $http
-                .post(URLTo.api(AUTH_URLS.refreshToken));
-
-        };
     });

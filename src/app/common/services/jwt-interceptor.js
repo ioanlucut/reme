@@ -20,10 +20,6 @@ angular
                         return request;
                     }
 
-                    if ( SessionService.sessionExists() ) {
-                        JWTTokenRefresher.refreshTokenIfExpired();
-                    }
-
                     var tokenPromise = $q.when($injector.invoke(function () {
                         return SessionService.getJwtToken();
                     }, this, {
