@@ -20,6 +20,15 @@ angular
         $scope.isDeleting = false;
 
         /**
+         * Dismiss the modal.
+         */
+        $scope.dismiss = function () {
+            ReminderDeleteModalService.modalInstance.dismiss("cancel");
+
+            $scope.isOpen = false;
+        };
+
+        /**
          * Remove reminder - owner action;
          */
         $scope.deleteReminderAndClose = function () {
