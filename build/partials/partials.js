@@ -11,7 +11,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "            <h1 class=\"home__signup__title\">Create email reminders in seconds!</h1>\n" +
     "\n" +
-    "            <h3 class=\"home__signup__description\"> O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face Reme va fi aici. </h3>\n" +
+    "            <h3 class=\"home__signup__description\">Those reminders that you don't want to see in your calendar... Give them to Reme and please do forget about them! Reme will not.</h3>\n" +
     "\n" +
     "            <!-- Register  section -->\n" +
     "            <div class=\"home__signup__sections\" account-form-toggle>\n" +
@@ -34,7 +34,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started now!</button>\n" +
+    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
@@ -67,7 +67,13 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "    <div class=\"home__testimonials\">\n" +
     "        <div class=\"centered-section-home\">\n" +
-    "            TESTIMONIALS\n" +
+    "            <div class=\"press_logo lifehacker\">Lifehacker</div>\n" +
+    "            <div class=\"press_logo producthunt\">ProductHunt</div>\n" +
+    "            <div class=\"press_logo makeuseof\">MakeUseOf</div>\n" +
+    "            <div class=\"press_logo feedmyapp\">FeedMyApp</div>\n" +
+    "            <div class=\"press_logo newstartups\">NewStartups</div>\n" +
+    "            <div class=\"press_logo addictivetips\">AddictiveTips</div>\n" +
+    "            <div class=\"press_logo chromewebstore\"><span class=\"\">Reme</span> is available on <br> Chrome Web Store</div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -175,12 +181,12 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "        <!--Reminder icons-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
-    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-top simptip-fade\" data-tooltip=\"Reminder created by {{reminder.model.createdByUser.email}}\">\n" +
+    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}\">\n" +
     "                    <span class=\"icon-user\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
-    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
+    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
     "                    <span class=\"icon-email\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
@@ -888,18 +894,18 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
-    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
-    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
-    "                        <li><a href=\"#\">Contact</a></li>\n" +
-    "                    </ul>\n" +
-    "                </div>\n" +
-    "                <div class=\"footer__navbar__section-right__list\">\n" +
-    "                    <ul>\n" +
     "                        <li><a href=\"#\">Pricing</a></li>\n" +
     "                        <li><a href=\"#\">About</a></li>\n" +
     "                        <li><a href=\"#\">Press kit</a></li>\n" +
     "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                        <li><a href=\"mailto:hello@reme.io\">Email</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -924,11 +930,11 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
-    "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
+    "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
+    "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
     "                </li>\n" +
     "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
+    "                    <a class=\"btn btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
