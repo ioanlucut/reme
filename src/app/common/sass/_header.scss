@@ -1,3 +1,13 @@
+.link--brand-bg {
+  color: lighten($brand-primary, 20%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 40%)
+  }
+}
+
 .header {
   background-color: $brand-primary;
   margin: 0;
@@ -13,6 +23,11 @@
       float: left;
       color: #ffffff;
       display: block;
+    }
+
+    .header__wrapper__feedback {
+      float: right;
+      margin-right: 30px;
     }
 
     .header__wrapper__menu {
@@ -31,10 +46,9 @@
     }
 
     .header__wrapper__menu__email {
-      color: white;
 
       .caret {
-        border-top: 4px solid darken($brand-primary, 20%);
+        border-top: 4px solid lighten($brand-primary, 20%);
       }
     }
 
