@@ -7723,49 +7723,70 @@ textarea.form-control--account {
 /* line 32, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar li {
   display: inline-block;
-  margin: 0 20px;
+  margin-right: 20px;
 }
-/* line 37, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--login {
+/* line 36, ../../src/app/common/sass/_header_home.scss */
+.header-home .header__wrapper .header__wrapper__menu__navbar li.narrow {
+  margin-right: 10px;
+}
+
+/* line 45, ../../src/app/common/sass/_header_home.scss */
+.btn--login {
   width: 90px;
 }
-/* line 41, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders {
+
+/* line 49, ../../src/app/common/sass/_header_home.scss */
+.btn--logout {
+  color: #8471B1;
+  background-color: transparent;
+  border: solid 2px #7661a8;
+  border-radius: 3px;
+  height: 34px;
+  width: 90px;
+}
+/* line 44, ../../src/sass/_buttons.scss */
+.btn--logout:hover, .btn--logout:focus, .btn--logout:active, .btn--logout.active {
+  color: white;
+  background-color: #8471B1;
+}
+/* line 51, ../../src/sass/_buttons.scss */
+.btn--logout:active, .btn--logout.active {
+  background-image: none;
+}
+
+/* line 55, ../../src/app/common/sass/_header_home.scss */
+.btn--to-reminders {
   color: #fff;
   background-color: #8471B1;
   border-color: #7661a8;
   border-radius: 3px;
-  font-size: 16px;
-  width: 180px;
+  height: 34px;
+  width: 156px;
 }
 /* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:hover, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:focus, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:active, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.active {
+.btn--to-reminders:hover, .btn--to-reminders:focus, .btn--to-reminders:active, .btn--to-reminders.active {
   color: #fff;
   background-color: #6e58a1;
   border-color: #5a4883;
 }
 /* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.open .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.dropdown-toggle {
+.open .btn--to-reminders.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
   border-color: #5a4883;
 }
 /* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:active, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.active {
+.btn--to-reminders:active, .btn--to-reminders.active {
   background-image: none;
 }
 /* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.open .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.dropdown-toggle {
+.open .btn--to-reminders.dropdown-toggle {
   background-image: none;
 }
 /* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.disabled, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.disabled:hover, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.disabled:focus, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.disabled:active, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.disabled.active, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders[disabled], .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders[disabled]:hover, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders[disabled]:focus, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders[disabled]:active, .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders[disabled].active, fieldset[disabled] .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders, fieldset[disabled] .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:hover, fieldset[disabled] .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:focus, fieldset[disabled] .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders:active, fieldset[disabled] .header-home .header__wrapper .header__wrapper__menu__navbar .btn--to-reminders.active {
+.btn--to-reminders.disabled, .btn--to-reminders.disabled:hover, .btn--to-reminders.disabled:focus, .btn--to-reminders.disabled:active, .btn--to-reminders.disabled.active, .btn--to-reminders[disabled], .btn--to-reminders[disabled]:hover, .btn--to-reminders[disabled]:focus, .btn--to-reminders[disabled]:active, .btn--to-reminders[disabled].active, fieldset[disabled] .btn--to-reminders, fieldset[disabled] .btn--to-reminders:hover, fieldset[disabled] .btn--to-reminders:focus, fieldset[disabled] .btn--to-reminders:active, fieldset[disabled] .btn--to-reminders.active {
   background-color: #8471B1;
   border-color: #7661a8;
-}
-/* line 48, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar .btn--logout {
-  width: 120px;
 }
 
 /* line 1, ../../src/app/common/sass/_footer_home.scss */
@@ -7836,6 +7857,11 @@ textarea.form-control--account {
   color: #5e4c8a;
   display: table-cell;
   vertical-align: middle;
+  width: 180px;
+}
+/* line 57, ../../src/app/common/sass/_footer_home.scss */
+.footer__navbar__section-right__list ul li {
+  height: 26px;
 }
 
 /* Import sub-modules */
@@ -8436,22 +8462,22 @@ textarea.form-control--friend-email {
   position: relative;
 }
 
-/* line 52, ../../src/app/reminders/sass/_reminders_icons.scss */
-.reminder__menu__option--delete {
-  color: #d9534f;
+/* line 53, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__menu__option--update {
+  color: #999999;
 }
-/* line 55, ../../src/app/reminders/sass/_reminders_icons.scss */
-.reminder__menu__option--delete:hover {
-  color: #e27c79;
+/* line 56, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__menu__option--update:hover {
+  color: #555555;
 }
 
-/* line 60, ../../src/app/reminders/sass/_reminders_icons.scss */
-.reminder__menu__option--update {
-  color: #5bc0de;
+/* line 62, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__menu__option--delete {
+  color: #e7908e;
 }
-/* line 63, ../../src/app/reminders/sass/_reminders_icons.scss */
-.reminder__menu__option--update:hover {
-  color: #85d0e7;
+/* line 65, ../../src/app/reminders/sass/_reminders_icons.scss */
+.reminder__menu__option--delete:hover {
+  color: #d9534f;
 }
 
 /* line 2, ../../src/app/reminders/sass/_reminders_navs.scss */
@@ -8705,15 +8731,14 @@ textarea.form-control--friend-email {
 .centered-section-home {
   max-width: 960px;
   width: 96%;
-  height: 100%;
   margin: 0 auto;
 }
 
-/* line 10, ../../src/app/site/sass/_site_layout.scss */
+/* line 9, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
   height: 600px;
 }
-/* line 13, ../../src/app/site/sass/_site_layout.scss */
+/* line 12, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 200px 15px 20px;
   font-size: 52px;
@@ -8721,18 +8746,13 @@ textarea.form-control--friend-email {
   text-align: center;
   margin: 0;
 }
-/* line 21, ../../src/app/site/sass/_site_layout.scss */
+/* line 20, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
   font-size: 20px;
   font-weight: 300;
   text-align: center;
-}
-/* line 30, ../../src/app/site/sass/_site_layout.scss */
-.home__testimonials {
-  height: 200px;
-  background-color: #FFFFFF;
 }
 
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
@@ -8777,29 +8797,30 @@ textarea.home__signup__sections__section__controls__email {
   height: 50px;
   width: 300px;
   margin-right: 12px;
+  font-size: 20px;
   font-weight: 300;
   display: inline-block;
 }
-/* line 29, ../../src/app/site/sass/_site_signup.scss */
+/* line 30, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email.has-error {
   border-color: #b94a48;
 }
 
 @media (max-width: 550px) {
-  /* line 35, ../../src/app/site/sass/_site_signup.scss */
+  /* line 36, ../../src/app/site/sass/_site_signup.scss */
   .home__signup__sections__section__controls__email {
     width: 100%;
     margin-bottom: 6px;
     margin-right: 0;
   }
 }
-/* line 42, ../../src/app/site/sass/_site_signup.scss */
+/* line 43, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
   border-color: #7661a8;
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 20px;
   height: 50px;
   width: 300px;
 }
@@ -8830,29 +8851,29 @@ textarea.home__signup__sections__section__controls__email {
 }
 
 @media (max-width: 550px) {
-  /* line 51, ../../src/app/site/sass/_site_signup.scss */
+  /* line 52, ../../src/app/site/sass/_site_signup.scss */
   .home__signup__sections__section__controls__button {
     width: 100%;
   }
 }
-/* line 56, ../../src/app/site/sass/_site_signup.scss */
+/* line 57, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: #b94a48;
 }
-/* line 60, ../../src/app/site/sass/_site_signup.scss */
+/* line 61, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages div {
   padding: 10px;
 }
 
-/* line 65, ../../src/app/site/sass/_site_signup.scss */
+/* line 66, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 71, ../../src/app/site/sass/_site_signup.scss */
+/* line 72, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -8861,7 +8882,7 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 79, ../../src/app/site/sass/_site_signup.scss */
+/* line 80, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 50px;
@@ -8869,6 +8890,69 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 300;
   font-size: 14px;
   color: #848b91;
+}
+
+/* line 1, ../../src/app/site/sass/_site_testimonials.scss */
+.home__testimonials {
+  background-color: #FFFFFF;
+  text-align: center;
+  padding: 80px 0;
+}
+
+/* line 7, ../../src/app/site/sass/_site_testimonials.scss */
+.press_logo {
+  background-image: url("../assets/img/sprites.png");
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 300px;
+  display: inline-block;
+  margin: 10px 7px;
+  text-indent: -9999px;
+}
+
+/* line 19, ../../src/app/site/sass/_site_testimonials.scss */
+.lifehacker {
+  background-position: 0 5px;
+}
+
+/* line 23, ../../src/app/site/sass/_site_testimonials.scss */
+.producthunt {
+  background-position: 0 -80px;
+}
+
+/* line 27, ../../src/app/site/sass/_site_testimonials.scss */
+.makeuseof {
+  background-position: 0 -157px;
+}
+
+/* line 31, ../../src/app/site/sass/_site_testimonials.scss */
+.feedmyapp {
+  background-position: 0 -230px;
+}
+
+/* line 35, ../../src/app/site/sass/_site_testimonials.scss */
+.newstartups {
+  background-position: 0 -310px;
+}
+
+/* line 39, ../../src/app/site/sass/_site_testimonials.scss */
+.addictivetips {
+  background-position: 0 -390px;
+}
+
+/* line 43, ../../src/app/site/sass/_site_testimonials.scss */
+.chromewebstore {
+  background-position: 0 -470px;
+  vertical-align: bottom;
+  height: 100px;
+  margin-top: 40px;
+  text-indent: 0;
+  font-size: 20px;
+  font-weight: 300;
+}
+/* line 53, ../../src/app/site/sass/_site_testimonials.scss */
+.chromewebstore span {
+  font-weight: 700;
 }
 
 /********************************* Core ******************************/

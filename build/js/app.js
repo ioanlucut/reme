@@ -985,6 +985,11 @@ angular
                 _.each(objectToTransform, function (value, key) {
                     if ( objectToTransform.hasOwnProperty(key) ) {
                         var newKey = transformationType === thisService.TRANSFORMATION_TYPE.CAMELIZE ? humps.camelize(key) : humps.decamelize(key);
+
+                        // Do it recursively
+                        if ( _.isObject(objectToTransform[key]) && !_.isArray(objectToTransform[key]) ) {
+                            thisService.transformObject(objectToTransform[key], transformationType);
+                        }
                         if ( key !== newKey ) {
                             objectToTransform[newKey] = objectToTransform[key];
                             delete objectToTransform[key];
@@ -1131,10 +1136,6 @@ angular
                     // Already has an Authorization header
                     if ( request.headers[config.authHeader] ) {
                         return request;
-                    }
-
-                    if ( SessionService.sessionExists() ) {
-                        JWTTokenRefresher.refreshTokenIfExpired();
                     }
 
                     var tokenPromise = $q.when($injector.invoke(function () {
@@ -2217,16 +2218,6 @@ angular
                 }).then(function (response) {
                     return response.data;
                 });
-        };
-
-        /**
-         * Refreshes current token.
-         * @returns {*}
-         */
-        this.refreshToken = function () {
-            return $http
-                .post(URLTo.api(AUTH_URLS.refreshToken));
-
         };
     }]);
 ;/**
@@ -3586,24 +3577,26 @@ angular
             $log.log("Logged out.");
         });
 
-        //DEBUG RELATED
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
-        });
-        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
-            $log.log('$stateChangeError - fired when an error occurs during transition.');
-            $log.log(arguments);
-        });
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $log.log('$stateChangeSuccess to ' + toState.name + '- fired once the state transition is complete.');
-        });
-        $rootScope.$on('$viewContentLoaded', function (event) {
-            $log.log('$viewContentLoaded - fired after dom rendered', event);
-        });
-        $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
-            $log.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
-            $log.log(unfoundState, fromState, fromParams);
-        });
+        // DEVELOPMENT DEBUG
+        if ( URLTo.apiBase() !== "http://reme-api.reme.io" ) {
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
+            });
+            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
+                $log.log('$stateChangeError - fired when an error occurs during transition.');
+                $log.log(arguments);
+            });
+            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                $log.log('$stateChangeSuccess to ' + toState.name + '- fired once the state transition is complete.');
+            });
+            $rootScope.$on('$viewContentLoaded', function (event) {
+                $log.log('$viewContentLoaded - fired after dom rendered', event);
+            });
+            $rootScope.$on('$stateNotFound', function (event, unfoundState, fromState, fromParams) {
+                $log.log('$stateNotFound ' + unfoundState.to + '  - fired when a state cannot be found by its name.');
+                $log.log(unfoundState, fromState, fromParams);
+            });
+        }
     }]);
 ;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
@@ -3618,7 +3611,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "            <h1 class=\"home__signup__title\">Create email reminders in seconds!</h1>\n" +
     "\n" +
-    "            <h3 class=\"home__signup__description\"> O fraza de doua propozitii despre ce face Reme va fi aici. O fraza de doua propozitii despre ce face Reme va fi aici. </h3>\n" +
+    "            <h3 class=\"home__signup__description\">Those reminders that you don't want to see in your calendar... Give them to Reme and please do forget about them! Reme will not.</h3>\n" +
     "\n" +
     "            <!-- Register  section -->\n" +
     "            <div class=\"home__signup__sections\" account-form-toggle>\n" +
@@ -3641,7 +3634,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started now!</button>\n" +
+    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
@@ -3674,7 +3667,13 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "    <div class=\"home__testimonials\">\n" +
     "        <div class=\"centered-section-home\">\n" +
-    "            TESTIMONIALS\n" +
+    "            <div class=\"press_logo lifehacker\">Lifehacker</div>\n" +
+    "            <div class=\"press_logo producthunt\">ProductHunt</div>\n" +
+    "            <div class=\"press_logo makeuseof\">MakeUseOf</div>\n" +
+    "            <div class=\"press_logo feedmyapp\">FeedMyApp</div>\n" +
+    "            <div class=\"press_logo newstartups\">NewStartups</div>\n" +
+    "            <div class=\"press_logo addictivetips\">AddictiveTips</div>\n" +
+    "            <div class=\"press_logo chromewebstore\"><span class=\"\">Reme</span> is available on <br> Chrome Web Store</div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -3782,12 +3781,12 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "        <!--Reminder icons-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
-    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-top simptip-fade\" data-tooltip=\"Reminder created by {{reminder.model.createdByUser.email}}\">\n" +
+    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}\">\n" +
     "                    <span class=\"icon-user\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
-    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
+    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
     "                    <span class=\"icon-email\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
@@ -4495,18 +4494,18 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
-    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
-    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
-    "                        <li><a href=\"#\">Contact</a></li>\n" +
-    "                    </ul>\n" +
-    "                </div>\n" +
-    "                <div class=\"footer__navbar__section-right__list\">\n" +
-    "                    <ul>\n" +
     "                        <li><a href=\"#\">Pricing</a></li>\n" +
     "                        <li><a href=\"#\">About</a></li>\n" +
     "                        <li><a href=\"#\">Press kit</a></li>\n" +
     "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                        <li><a href=\"mailto:hello@reme.io\">Email</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -4531,11 +4530,11 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
-    "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
+    "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
+    "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
     "                </li>\n" +
     "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
+    "                    <a class=\"btn btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
