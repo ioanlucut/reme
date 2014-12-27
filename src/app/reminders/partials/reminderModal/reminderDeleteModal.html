@@ -7,9 +7,8 @@
             <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?
         </div>
         <div class="reminder-form-container__form__recommend">
-            Keep calm and don't delete it!
+            <a href="#" ng-click="dismiss()">Keep calm and don't delete it!</a>
         </div>
-        <br />
         <a href="#" class="btn-outline reminder-form-container__form__delete" ng-click="reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)">Don't need it anymore</a>
     </div>
 
