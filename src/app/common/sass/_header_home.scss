@@ -31,24 +31,30 @@
 
         li {
           display: inline-block;
-          margin: 0 20px;
-        }
+          margin-right: 20px;
 
-        .btn--login {
-          width: 90px;
-        }
-
-        .btn--to-reminders {
-          @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-          border-radius: $border-radius-small;
-          font-size: $font-size-medium;
-          width: 180px;
-        }
-
-        .btn--logout {
-          width: 120px;
+          &.narrow {
+            margin-right: 10px;
+          }
         }
       }
     }
   }
+}
+
+.btn--login {
+  width: 90px;
+}
+
+.btn--logout {
+  @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+  height: $form-height-xs;
+  width: 90px;
+}
+
+.btn--to-reminders {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  border-radius: $border-radius-small;
+  height: $form-height-xs;
+  width: 156px;
 }
