@@ -1,5 +1,5 @@
 <!--Reminder form-->
-<div ng-show="! isSaving" class="reminder-modal">
+<div class="reminder-modal">
     <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate
           focus-first-error>
 
@@ -32,12 +32,13 @@
         </div>
 
         <!--Submit form button-->
-        <button type="submit" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update
+        <button type="submit" ladda="isSaving" data-style="expand-left" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update
             reminder"}}
         </button>
 
     </form>
 </div>
+<!--
 
-<!--While saving-->
-<div class="reminder--saving" ng-show="isSaving">{{isNew ? "Saving reminder" : "Updating reminder"}}</div>
+&lt;!&ndash;While saving&ndash;&gt;
+<div class="reminder--saving" ng-show="isSaving">{{isNew ? "Saving reminder" : "Updating reminder"}}</div>-->

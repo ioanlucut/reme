@@ -1,3 +1,13 @@
+.link--brand-bg {
+  color: lighten($brand-primary, 20%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 40%)
+  }
+}
+
 .header {
   background-color: $brand-primary;
   margin: 0;
@@ -12,6 +22,27 @@
     .header__wrapper__logo {
       float: left;
       color: #ffffff;
+      display: block;
+    }
+
+    .header__wrapper__feedback {
+      display: block;
+      float: right;
+      margin-right: 30px;
+      padding-left: 20px;
+      position: relative;
+
+      span {
+        vertical-align: middle;
+      }
+
+      .icon-comment {
+        //font-size: 20px;
+        //position: absolute;
+        //display: inline-block;
+        //top: 2px;
+        //padding-top: 5px;
+      }
     }
 
     .header__wrapper__menu {
@@ -30,10 +61,9 @@
     }
 
     .header__wrapper__menu__email {
-      color: white;
 
       .caret {
-        border-top: 4px solid darken($brand-primary, 20%);
+        border-top: 4px solid lighten($brand-primary, 20%);
       }
     }
 
