@@ -24,8 +24,6 @@ angular
             } else {
                 this.transformObject(objectToTransform, transformationType);
             }
-
-            console.log(objectToTransform)
         };
 
         /**
