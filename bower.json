@@ -28,6 +28,7 @@
     "moment": "~2.8.4",
     "angular-flash": "~0.1.14",
     "simptip": "1.0.4",
-    "ngstorage": "~0.3.0"
+    "ngstorage": "~0.3.0",
+    "angular-ladda": "~0.1.9"
   }
 }

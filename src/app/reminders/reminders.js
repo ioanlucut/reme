@@ -9,6 +9,7 @@ angular
         "ui.bootstrap.dropdown",
         "ui.bootstrap.modal",
         "ui.bootstrap.tabs",
+        "angular-ladda",
         "common",
         "feedback"
     ])

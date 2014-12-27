@@ -16,7 +16,7 @@
                 <div class="home__signup__sections__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
                     <!-- Request registration form -->
-                    <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration(requestSignUpRegistrationData.email)" novalidate focus-first-error-on-submit>
+                    <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error-on-submit>
 
                         <!-- Account controls -->
                         <div class="home__signup__sections__section__controls">
@@ -27,20 +27,23 @@
                             </div>
 
                             <!-- Email input -->
-                            <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
+                            <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
 
                             <!-- Button container -->
                             <button class="btn home__signup__sections__section__controls__button" type="submit">Get started for FREE!</button>
                         </div>
 
                         <!-- Error messages -->
-                        <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
+                        <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
                             <div ng-message="uniqueEmail">This email address is already used.</div>
                         </div>
                         <div class="home__signup__sections__section__checking-availability" ng-if="requestSignUpRegistrationForm.email.$pending">
                             Checking availability...
+                        </div>
+                        <div class="home__signup__sections__section__checking-availability" ng-if="! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid">
+                            Yay! Email is available.
                         </div>
                     </form>
                 </div>
@@ -63,13 +66,15 @@
 
     <div class="home__testimonials">
         <div class="centered-section-home">
-            <div class="press_logo lifehacker">Lifehacker</div>
-            <div class="press_logo producthunt">ProductHunt</div>
-            <div class="press_logo makeuseof">MakeUseOf</div>
-            <div class="press_logo feedmyapp">FeedMyApp</div>
-            <div class="press_logo newstartups">NewStartups</div>
-            <div class="press_logo addictivetips">AddictiveTips</div>
-            <div class="press_logo chromewebstore"><span class="">Reme</span> is available on <br> Chrome Web Store</div>
+            <div class="img_sprite press_logo lifehacker">Lifehacker</div>
+            <div class="img_sprite press_logo producthunt">ProductHunt</div>
+            <div class="img_sprite press_logo makeuseof">MakeUseOf</div>
+            <div class="img_sprite press_logo feedmyapp">FeedMyApp</div>
+            <div class="img_sprite press_logo newstartups">NewStartups</div>
+            <div class="img_sprite press_logo addictivetips">AddictiveTips</div>
+            <a class="img_sprite chromewebstore" target="_blank" href="https://chrome.google.com/webstore/detail/remeio/jagdnkmjmgengjocecgcilbpgffmlmep">
+                <span class="">Reme</span> is available on <br> Chrome Web Store
+            </a>
         </div>
     </div>
 

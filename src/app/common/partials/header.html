@@ -1,20 +1,24 @@
 <header class="header">
     <div class="header__wrapper">
 
-        <div class="header__wrapper__logo">
+        <a class="header__wrapper__logo" href="javascript:void(0)" ui-sref="home">
             Reme
-        </div>
+        </a>
 
         <div class="header__wrapper__menu dropdown" dropdown>
-            <a ng-show="currentUser.model.email" class="link-dark-bg dropdown-toggle header__wrapper__menu__email"
+            <a ng-show="currentUser.model.email" class="link--brand-bg dropdown-toggle header__wrapper__menu__email"
                dropdown-toggle href="javascript:void(0)">{{currentUser.model.email}}<span class="caret"></span></a>
             <ul class="dropdown-menu header__wrapper__menu__dropdown" role="menu">
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="reminders">My reminders</a></li>
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="profile">Settings</a></li>
-                <li><a id="feedback-trigger" class="nav-link" href="javascript:void(0)">Help</a></li>
                 <li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
             </ul>
         </div>
+
+        <a id="feedback-trigger" class="header__wrapper__feedback link--brand-bg" href="#">
+            <span class="icon-comment"></span>
+            Send feedback
+        </a>
 
     </div>
 </header>
