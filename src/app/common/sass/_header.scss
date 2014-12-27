@@ -26,8 +26,23 @@
     }
 
     .header__wrapper__feedback {
+      display: block;
       float: right;
       margin-right: 30px;
+      padding-left: 20px;
+      position: relative;
+
+      span {
+        vertical-align: middle;
+      }
+
+      .icon-comment {
+        //font-size: 20px;
+        //position: absolute;
+        //display: inline-block;
+        //top: 2px;
+        //padding-top: 5px;
+      }
     }
 
     .header__wrapper__menu {
