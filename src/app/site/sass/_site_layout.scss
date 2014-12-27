@@ -1,7 +1,6 @@
 .centered-section-home {
   max-width: $container-home-width;
   width: 96%;
-  height: 100%;
   margin: 0 auto;
 }
 
@@ -26,10 +25,4 @@
       text-align: center;
     }
   }
-
-  &__testimonials {
-    height: 200px;
-    background-color: #FFFFFF;
-  }
-
 }
