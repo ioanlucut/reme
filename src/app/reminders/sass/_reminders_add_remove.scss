@@ -3,27 +3,21 @@
 }
 
 .reminder.ng-enter {
-  -webkit-transition: 2s;
-  transition: 2s;
-  opacity: 0;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #468847;
+  opacity: 1;
+  background-color: #faffbd;
 }
 
 .reminder.ng-enter-active {
+  -webkit-transition: 5s;
+  transition: 5s;
   opacity: 1;
+  background-color: #FFFFFF;
 }
 
 .reminder.ng-leave {
-  -webkit-transition: 2s;
-  transition: 2s;
-  opacity: 1;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: red;
+  background-color: lighten($brand-danger, 30%);
 }
 
 .reminder.ng-leave-active {
-  opacity: 0;
+  @include bounceOutRight();
 }
