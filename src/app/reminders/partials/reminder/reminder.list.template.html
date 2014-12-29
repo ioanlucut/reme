@@ -5,7 +5,7 @@
 </div>
 
 <!--Reminder list-->
-<div class="reminder" ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true">
+<div class="reminder" ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit">
 
     <!--Reminder title-->
     <div class="reminder__title">
