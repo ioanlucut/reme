@@ -58,6 +58,10 @@
         right: 10px;
         top: 36px;
         left: inherit;
+
+        .header__version {
+          color: $gray9;
+        }
       }
     }
 
