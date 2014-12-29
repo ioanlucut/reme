@@ -13,6 +13,10 @@
   margin: 10px auto 0;
 }
 
+.account__sections--settings {
+  min-height: $container-reminders-height;
+}
+
 .account__title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -60,4 +64,11 @@
 
 .link-secondary {
   color: $gray9;
+}
+
+.centered-section-account {
+  max-width: $container-reminders-width;
+  width: 100%;
+  margin: 0 auto;
+  min-height: $container-reminders-height;
 }

@@ -24,20 +24,18 @@
 .reminder-form-container__form__recommend {
   float: left;
   color: $gray9;
-  height: $form-height-small;
-  line-height: $form-height-small;
+  height: $form-height-xs;
+  line-height: $form-height-xs;
   margin-top: 50px;
 }
 
-.reminder-form-container__form__delete {
+.btn--delete-reminder {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
   float: right;
   margin-top: 50px;
-  color: $brand-danger;
-  border-color: $brand-danger;
-
-  &:hover {
-    background-color: $brand-danger;
-  }
+  border-radius: $border-radius-small;
+  height: $form-height-xs;
+  width: 200px;
 }
 
 // Reminder form
