@@ -13,6 +13,10 @@
   margin: 10px auto 0;
 }
 
+.account__sections--profile {
+  min-height: $container-reminders-height;
+}
+
 .account__title {
   margin-bottom: 20px;
   line-height: 25px;
