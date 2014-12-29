@@ -13,7 +13,7 @@
   margin: 10px auto 0;
 }
 
-.account__sections--profile {
+.account__sections--settings {
   min-height: $container-reminders-height;
 }
 
@@ -64,4 +64,11 @@
 
 .link-secondary {
   color: $gray9;
+}
+
+.centered-section-account {
+  max-width: $container-reminders-width;
+  width: 100%;
+  margin: 0 auto;
+  min-height: $container-reminders-height;
 }
