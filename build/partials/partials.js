@@ -31,23 +31,17 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
-    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted\">\n" +
+    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
-    "                            Checking availability...\n" +
-    "                        </div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\">\n" +
-    "                            Yay! Email is available.\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "                </div>\n" +
@@ -151,7 +145,10 @@ angular.module("app/reminders/partials/privacy.html", []).run(["$templateCache",
 angular.module("app/reminders/partials/reminder/reminder.list.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminder.list.template.html",
     "<!--Reminder list is empty-->\n" +
-    "<span ng-if=\"reminders.length === 0\">You don't have any reminders defined.</span>\n" +
+    "<div class=\"reminder__empty empty-state--text\" ng-if=\"reminders.length === 0\">\n" +
+    "    You have no reminders. Don't be shy, create one.\n" +
+    "    <span class=\"reminder__empty__arrow\">Arrow</span>\n" +
+    "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
     "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true\">\n" +
@@ -224,10 +221,10 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "<div class=\"centered-section-reminders\">\n" +
     "\n" +
     "    <!-- Subscribe to success flash messages. -->\n" +
-    "    <div flash-alert=\"success\" active-class=\"in\" class=\"alert fade\">\n" +
-    "        <strong class=\"alert-heading\">Congrats!</strong>\n" +
-    "        <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "    </div>\n" +
+    "    <!--<div flash-alert=\"success\" active-class=\"in\" class=\"alert fade\">-->\n" +
+    "        <!--<strong class=\"alert-heading\">Congrats!</strong>-->\n" +
+    "        <!--<span class=\"alert-message\">{{flash.message}}</span>-->\n" +
+    "    <!--</div>-->\n" +
     "\n" +
     "    <tabset>\n" +
     "        <tab heading=\"Upcoming reminders\">\n" +
@@ -265,7 +262,7 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
     "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
-    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -307,7 +304,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
+    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
     "            reminder\"}}\n" +
     "        </button>\n" +
     "\n" +
@@ -434,17 +431,15 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\">\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
-    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted\">\n" +
+    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\"> Checking availability...</div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\"> Yay! Email is available.</div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
