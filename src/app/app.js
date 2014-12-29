@@ -16,7 +16,7 @@ angular
         "reminders",
         "account"
     ])
-    .config(function ($locationProvider, flashProvider) {
+    .config(function ($locationProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({

@@ -4,3 +4,11 @@
   margin: 10px auto 20px;
   text-align: center;
 }
+
+.alert-success {
+  @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+}
+
+.alert-error {
+  @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+}
