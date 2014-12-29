@@ -14,9 +14,9 @@
 
     <!--Reminder edit/delete-->
     <div class="reminder__menu">
-        <a class="reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth" data-tooltip="Edit reminder" ng-if="reminder.isCreatedBy(currentUserEmail)" href="#" ng-click="onUpdate({reminder: reminder})"><span class="icon-pencil"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth" data-tooltip="Edit reminder" ng-if="reminder.isCreatedBy(currentUserEmail)" href="#" ng-click="openUpdateReminderModalService(reminder)"><span class="icon-pencil"></span></a>
         <a class="reminder__menu__option reminder__menu__option--complete" href="#"><span class="icon-checkmark"></span></a>
-        <a class="reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="#" ng-click="reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})"><span class="icon-trash"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="#" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder) : openUnSubscribeReminderModalService(reminder)"><span class="icon-trash"></span></a>
     </div>
 
     <!--Reminder info-->
@@ -49,4 +49,8 @@
         </div>
     </div>
 
+</div>
+
+<div ng-if="isStillRemindersToBeLoaded()" class="load-more-reminders">
+    <button type="submit" ladda="isLoadingMore" data-style="expand-left" data-spinner-size="20" class="btn btn--load-more" ng-click="loadMoreReminders()">LOAD MORE</button>
 </div>
