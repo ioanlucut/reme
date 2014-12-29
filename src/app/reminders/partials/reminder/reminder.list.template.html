@@ -1,5 +1,8 @@
 <!--Reminder list is empty-->
-<span ng-if="reminders.length === 0">You don't have any reminders defined.</span>
+<div class="reminder__empty empty-state--text" ng-if="reminders.length === 0">
+    You have no reminders. Don't be shy, create one.
+    <span class="reminder__empty__arrow">Arrow</span>
+</div>
 
 <!--Reminder list-->
 <div class="reminder" ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true">
