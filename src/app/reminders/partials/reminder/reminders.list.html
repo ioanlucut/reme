@@ -1,28 +1,12 @@
 <div class="centered-section-reminders">
 
-    <!-- Subscribe to success flash messages. -->
-    <!--<div flash-alert="success" active-class="in" class="alert fade">-->
-        <!--<strong class="alert-heading">Congrats!</strong>-->
-        <!--<span class="alert-message">{{flash.message}}</span>-->
-    <!--</div>-->
-
     <tabset>
         <tab heading="Upcoming reminders">
-            <div reminder-list
-                 reminders="upcomingReminders"
-                 on-update="openUpdateReminderModalService(reminder)"
-                 on-delete="openDeleteReminderModalService(reminder)"
-                 on-unsubscribe="openUnSubscribeReminderModalService(reminder)">
-            </div>
+            <div reminder-list reminders="upcomingReminders"></div>
         </tab>
 
         <tab heading="Past reminders">
-            <div reminder-list
-                 reminders="pastReminders"
-                 on-update="openUpdateReminderModalService(reminder)"
-                 on-delete="openDeleteReminderModalService(reminder)"
-                 on-unsubscribe="openUnSubscribeReminderModalService(reminder)">
-            </div>
+            <div reminder-list reminders="pastReminders"></div>
         </tab>
     </tabset>
 

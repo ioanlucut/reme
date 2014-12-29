@@ -28,30 +28,6 @@ angular
         $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
-         * Open DELETE modal
-         * @param reminder
-         */
-        $scope.openDeleteReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder);
-        };
-
-        /**
-         * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
-         * @param reminder
-         */
-        $scope.openUnSubscribeReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder);
-        };
-
-        /**
-         * Open UPDATE modal
-         * @param reminder
-         */
-        $scope.openUpdateReminderModalService = function (reminder) {
-            ReminderUpdateModalService.open(reminder);
-        };
-
-        /**
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
