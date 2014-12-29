@@ -54,7 +54,7 @@
       }
 
       .header__wrapper__menu__dropdown {
-        @include fadeInDown();
+        @include fadeInDown($duration: 0.2s);
         right: 10px;
         top: 36px;
         left: inherit;
