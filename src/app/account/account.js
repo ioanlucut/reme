@@ -22,12 +22,25 @@ angular
                 templateUrl: "app/account/partials/account.html"
             })
 
-            // Profile page
-            .state("profile", {
-                url: "/profile",
-                templateUrl: "app/account/partials/profile.html",
-                controller: "ProfileCtrl",
-                title: "Profile"
+            // Settings page
+            .state("settings", {
+                url: "/account/settings",
+                views: {
+
+                    '': { templateUrl: "app/account/partials/settings/settings.html" },
+
+                    'profile@settings': {
+                        templateUrl: "app/account/partials/settings/settings.profile.html"
+                    },
+
+                    'preferences@settings': {
+                        templateUrl: "app/account/partials/settings/settings.preferences.html"
+                    },
+
+                    'billing@settings': {
+                        templateUrl: "app/account/partials/settings/settings.billing.html"
+                    }
+                }
             })
 
             // Logout page
