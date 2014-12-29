@@ -892,7 +892,7 @@ angular
     .filter('friendlyHour', function () {
         return function (date) {
 
-            return moment(date).format("h:mm");
+            return moment(date).format("h:mm A");
         };
     });
 ;angular
@@ -901,18 +901,18 @@ angular
         return function (recipients) {
 
             if ( _.isUndefined(recipients) || !_.isArray(recipients) ) {
-                return "to you";
+                return;
             }
 
-            var recipientsFormatted = "";
+            var friendlyRecipients = "";
             _.each(recipients, function (recipient) {
-                if ( recipientsFormatted.length > 0 ) {
-                    recipientsFormatted = recipientsFormatted + ", "
+                if ( friendlyRecipients.length > 0 ) {
+                    friendlyRecipients = friendlyRecipients + ", "
                 }
-                recipientsFormatted = recipientsFormatted + recipient.email;
+                friendlyRecipients = friendlyRecipients + recipient.email;
             });
 
-            return "to " + recipientsFormatted;
+            return friendlyRecipients;
         };
     });
 ;// See https://github.com/fmquaglia/ngOrderObjectB
@@ -1370,14 +1370,14 @@ angular
             // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
-                url: "/account/reset-password/{email}/{token}",
+                url: "/account/reset-password",
                 templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
                 abstract: true
             })
             // Validate password reset token - valid
             .state({
                 name: "account:validatePasswordResetToken.valid",
-                url: "",
+                url: "/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
@@ -1402,7 +1402,7 @@ angular
             // Validate password reset token - invalid token
             .state({
                 name: "account:validatePasswordResetToken.invalid",
-                url: "invalid-token",
+                url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidCtrl"
             })
@@ -1414,14 +1414,14 @@ angular
             // Sign up confirm abstract view
             .state({
                 name: "account:confirmRegistration",
-                url: "/account/confirm-registration/{email}/{token}",
+                url: "/account/confirm-registration",
                 templateUrl: "app/account/partials/signup_confirm_abstract.html",
                 abstract: true
             })
             // Sign up confirm - valid
             .state({
                 name: "account:confirmRegistration.valid",
-                url: "",
+                url: "/{email}/{token}",
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
@@ -1448,7 +1448,7 @@ angular
             // Sign up confirm - invalid
             .state({
                 name: "account:confirmRegistration.invalid",
-                url: "registration-failed",
+                url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl"
             })
@@ -1515,15 +1515,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", ["$state", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
-
-        /**
-         * Flag which tells if the authentication went well or not.
-         * @type {boolean}
-         */
-        $scope.isRequestPasswordErrorOcurred = false;
-
-        $scope.errorMessages = "";
+    .controller("ForgotPasswordCtrl", ["$state", "$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Request password reset up user information.
@@ -1540,13 +1532,10 @@ angular
                 AuthService
                     .requestPasswordReset($scope.forgotPasswordData.email)
                     .then(function () {
-                        $scope.isRequestPasswordErrorOcurred = false;
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
                     })
                     .catch(function (response) {
-                        $scope.isRequestPasswordErrorOcurred = true;
-
-                        $scope.errorMessages = response.data && response.data.errors;
+                        flash.error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
 
@@ -1557,18 +1546,12 @@ angular
  */
 angular
     .module("account")
-    .controller("LoginCtrl", ["$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", ["$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
 
         /**
          * Set default state.
          */
         AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
-
-        /**
-         * Flag which tells if the authentication went well or not.
-         * @type {boolean}
-         */
-        $scope.isAuthenticationErrorOcurred = false;
 
         /**
          * Login user information.
@@ -1590,12 +1573,12 @@ angular
                     .login(loginData.email, loginData.password)
                     .then(function () {
 
-                        $scope.isAuthenticationErrorOcurred = false;
                         StatesHandler.goToReminders();
                     })
                     .catch(function () {
+                        $scope.loginForm.$invalid = true;
 
-                        $scope.isAuthenticationErrorOcurred = true;
+                        flash.error = "Your email or password are wrong. Please try again.";
                     });
             }
         }
@@ -1622,7 +1605,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
 
         /**
          * Set default state.
@@ -1634,12 +1617,6 @@ angular
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
-
-        /**
-         * Error messages.
-         * @type {string}
-         */
-        $scope.errorMessages = "";
 
         /**
          * Profile user information
@@ -1663,22 +1640,14 @@ angular
                     .$save(profileData)
                     .then(function () {
                         $scope.user.$refresh().then(function () {
-                            // Set form to pristine
                             $scope.profileForm.$setPristine();
-                            $scope.errorMessages = "";
 
-                            // Set for updated to true
-                            $scope.isProfileUpdated = true;
+                            flash.success = 'We\'ve successfully updated your account!';
                         });
                     })
-                    .catch(function (response) {
-                        $scope.errorMessages = response.data && response.data.errors && response.data.errors.email;
+                    .catch(function () {
 
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
-
-                        $scope.isProfileUpdated = false;
+                        flash.error = 'We\'ve encountered an error while trying to update your account.';
                     });
             }
         };
@@ -1691,18 +1660,12 @@ angular
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", ["$state", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Set default state.
          */
         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration);
-
-        /**
-         * Flag which tells if the registration controller went well or not.
-         * @type {boolean}
-         */
-        $scope.isRequestSignUpRegistrationErrorOcurred = false;
 
         /**
          * Request registration up user information.
@@ -1719,30 +1682,24 @@ angular
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
-                        $scope.isRequestSignUpRegistrationErrorOcurred = false;
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
                     })
                     .catch(function () {
-                        $scope.isRequestSignUpRegistrationErrorOcurred = true;
+                        $scope.requestSignUpRegistrationForm.email.$invalid = true;
+
+                        flash.error = "We encountered a problem.";
                     });
             }
-
         }
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "StatesHandler", "User", "AuthService", "validateRegistrationResult", function ($scope, $timeout, StatesHandler, User, AuthService, validateRegistrationResult) {
+    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "StatesHandler", "User", "AuthService", "validateRegistrationResult", function ($scope, $timeout, flash, StatesHandler, User, AuthService, validateRegistrationResult) {
 
         /**
          * Validate registration result.
          */
         $scope.validateRegistrationResult = validateRegistrationResult;
-
-        /**
-         * Flag which tells if the sign up error occurred.
-         * @type {boolean}
-         */
-        $scope.isSignUpErrorOcurred = false;
 
         /**
          * The given token
@@ -1776,8 +1733,6 @@ angular
                 User.$new()
                     .$create(signUpData, token)
                     .then(function () {
-                        $scope.isSignUpErrorOcurred = false;
-
                         // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
@@ -1786,8 +1741,9 @@ angular
                             });
                     })
                     .catch(function () {
+                        $scope.signUpForm.$invalid = true;
 
-                        $scope.isSignUpErrorOcurred = true;
+                        flash.error = "Sorry, something went wrong.";
                     });
             }
 
@@ -1801,15 +1757,7 @@ angular
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", ["$scope", "AuthService", "ACCOUNT_FORM_STATE", "ProfileFormToggle", function ($scope, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
-
-        /**
-         * Flag which tells if the update password action went well or not.
-         * @type {boolean}
-         */
-        $scope.isUpdatePasswordErrorOcurred = false;
-
-        $scope.errorMessages = "";
+    .controller("UpdatePasswordCtrl", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
 
         /**
          * Update password user information.
@@ -1831,41 +1779,18 @@ angular
                 AuthService
                     .updatePassword(updatePasswordData.oldPassword, updatePasswordData.newPassword, updatePasswordData.newPasswordConfirmation)
                     .then(function () {
-                        $scope.isUpdatePasswordErrorOcurred = false;
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
                     })
                     .catch(function (response) {
-                        $scope.isUpdatePasswordErrorOcurred = true;
+                        $scope.updatePasswordForm.$invalid = true;
 
-                        $scope.errorMessages = response.data && response.data.errors;
-
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
-
-                        // remove data from inputs
-                        $scope.updatePasswordData.oldPassword = "";
-                        $scope.updatePasswordData.newPassword = "";
-                        $scope.updatePasswordData.newPasswordConfirmation = "";
+                        flash.error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
         }
-    }]);
-;angular
+    }]);;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $timeout, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
-
-        /**
-         * Flag which says if errors have ocured while trying to reset the password.
-         * @type {boolean}
-         */
-        $scope.isResetPasswordErrorOcurred = false;
-
-        /**
-         * Error messages
-         * @type {string}
-         */
-        $scope.errorMessages = "";
+    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Reset password data (used if
@@ -1888,7 +1813,6 @@ angular
                 AuthService
                     .resetPasswordWithToken(resetPasswordData.email, resetPasswordData.password, resetPasswordData.passwordConfirmation, resetPasswordData.token)
                     .then(function () {
-                        $scope.isResetPasswordErrorOcurred = false;
                         $scope.successfullyReseted = true;
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.resetPasswordSuccessfully);
 
@@ -1901,18 +1825,10 @@ angular
                                 }, 1500);
                             });
                     })
-                    .catch(function (response) {
-                        $scope.isResetPasswordErrorOcurred = true;
+                    .catch(function () {
+                        $scope.resetPasswordForm.$invalid = true;
 
-                        $scope.errorMessages = response.data && response.data.errors;
-
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
-
-                        // remove data from inputs
-                        $scope.resetPasswordData.newPassword = "";
-                        $scope.resetPasswordData.newPasswordConfirmation = "";
+                        flash.error = "Sorry, something went wrong.";
                     });
             }
         };
@@ -2571,7 +2487,8 @@ angular
         delete: "reminders/:reminderId",
         allReminders: "reminders",
         pastReminders: "reminders/past?:local_time&:local_time_zone",
-        upcomingReminders: "reminders/upcoming?:local_time&:local_time_zone"
+        upcomingReminders: "reminders/upcoming?:local_time&:local_time_zone",
+        unSubscribeReminder: "reminders/:reminderId/unsubscribe"
     })
     .constant("REMINDER_EVENTS", {
         isCreated: "reminder-is-created",
@@ -2581,11 +2498,6 @@ angular
     });;angular
     .module("reminders")
     .controller("ReminderCtrl", ["$scope", "ReminderModalService", function ($scope, ReminderModalService) {
-
-        $scope.cancel = function () {
-            ReminderModalService.modalInstance.dismiss("cancel");
-            $scope.isOpen = false;
-        };
 
         $scope.openReminderModalService = function () {
             ReminderModalService.open();
@@ -2611,6 +2523,15 @@ angular
          * @type {boolean}
          */
         $scope.isDeleting = false;
+
+        /**
+         * Dismiss the modal.
+         */
+        $scope.dismiss = function () {
+            ReminderDeleteModalService.modalInstance.dismiss("cancel");
+
+            $scope.isOpen = false;
+        };
 
         /**
          * Remove reminder - owner action;
@@ -2644,7 +2565,7 @@ angular
         };
 
         /**
-         * Unsubscribe from reminder - recipient action.
+         * Un subscribe from reminder - recipient action.
          */
         $scope.unSubscribeFromReminderAndClose = function () {
             if ( !$scope.isDeleting ) {
@@ -2652,14 +2573,14 @@ angular
                 // Is deleting reminder
                 $scope.isDeleting = true;
 
-                $scope.reminder.unSubscribe($scope.user.model.email)
+                $scope.reminder.unSubscribe()
                     .then(function () {
 
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
                                 reminder: $scope.reminder,
-                                message: 'Reminder successfully removed!'
+                                message: 'Successfully un-subscribed from this reminder!'
                             });
                         }, 400);
                     })
@@ -3084,12 +3005,24 @@ angular
             var reminderDto = ReminderTransformerService.toReminderDto(reminder);
 
             return $http
-                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderDto.reminderId}), reminderDto)
+                .put(URLTo.api(REMINDER_URLS.update, { ":reminderId": reminderDto.reminderId }), reminderDto)
                 .then(function (response) {
                     ReminderTransformerService.toReminder(response.data, reminder);
 
                     return response;
                 });
+        };
+
+        /**
+         * UnSubscribe from a reminder.
+         * @param reminder
+         * @returns {*}
+         */
+        this.unSubscribeFromReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
+            return $http
+                .post(URLTo.api(REMINDER_URLS.unSubscribeReminder, { ":reminderId": reminderDto.reminderId }), reminderDto);
         };
 
         /**
@@ -3101,7 +3034,7 @@ angular
             var reminderDto = ReminderTransformerService.toReminderDto(reminder);
 
             return $http
-                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderDto.reminderId}), reminderDto)
+                .delete(URLTo.api(REMINDER_URLS.delete, { ":reminderId": reminderDto.reminderId }), reminderDto)
                 .then(function (response) {
                     ReminderTransformerService.toReminder(response.data, reminder);
 
@@ -3132,7 +3065,7 @@ angular
          */
         this.getDetails = function (reminderId, reminder) {
             return $http
-                .get(URLTo.api(REMINDER_URLS.details, {":reminderId": reminderId}))
+                .get(URLTo.api(REMINDER_URLS.details, { ":reminderId": reminderId }))
                 .then(function (response) {
                     return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });
@@ -3347,12 +3280,8 @@ angular
              * UnSubscribe a recipient from this reminder and update model with response.
              * @returns {*}
              */
-            this.unSubscribe = function (recipientEmail) {
-                _.remove(this.model.recipients, function (existingRecipient) {
-                    return existingRecipient.email === recipientEmail;
-                });
-
-                return ReminderService.updateReminder(this);
+            this.unSubscribe = function () {
+                return ReminderService.unSubscribeFromReminder(this);
             };
 
             /**
@@ -3519,19 +3448,13 @@ angular
         "reminders",
         "account"
     ])
-    .config(["$locationProvider", "flashProvider", function ($locationProvider, flashProvider) {
+    .config(["$locationProvider", function ($locationProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
-
-        // Support bootstrap 3.0 "alert-danger" class with error flash types
-        flashProvider.successClassnames.push('alert-reme');
-        flashProvider.errorClassnames.push('alert-reme');
-        flashProvider.infoClassnames.push('alert-reme');
-        flashProvider.warnClassnames.push('alert-reme');
     }])
     .run(function () {
 
@@ -3542,7 +3465,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppCtrl", ["AUTH_EVENTS", "$rootScope", "$scope", "$state", "$log", "AuthService", "User", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User) {
+    .controller("AppCtrl", ["AUTH_EVENTS", "$rootScope", "$scope", "$state", "$log", "AuthService", "User", "StatesHandler", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
 
         /**
          * Save the state on root scope
@@ -3574,6 +3497,7 @@ angular
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $log.log("Not authenticated.");
             AuthService.logout();
+            StatesHandler.goToLogin();
         });
 
         // Listen to the logout event
@@ -3630,9 +3554,9 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                        <!-- Account controls -->\n" +
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
     "\n" +
-    "                            <!-- General error -->\n" +
-    "                            <div class=\"home__signup__sections__section__controls__alert\" ng-if=\"isRequestPasswordErrorOcurred\">\n" +
-    "                                Sorry, we encountered a problem.\n" +
+    "                            <!-- Flash messages. -->\n" +
+    "                            <div flash-alert active-class=\"in alert home__signup__sections__section__controls__alert\" class=\"fade\">\n" +
+    "                                <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
@@ -3768,9 +3692,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--update\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"onUpdate({reminder: reminder})\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? onDelete({reminder: reminder}) : onUnsubscribe({reminder: reminder})\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -3791,12 +3715,12 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "        <!--Reminder icons-->\n" +
     "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
-    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}\">\n" +
+    "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}\">\n" +
     "                    <span class=\"icon-user\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
     "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
-    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade simptip-multiline\" data-tooltip=\"Addressed {{reminder.model.recipients | friendlyRecipients}}\">\n" +
+    "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Recipients: {{reminder.model.recipients | friendlyRecipients}}\">\n" +
     "                    <span class=\"icon-email\"></span>\n" +
     "                </span>\n" +
     "            </div>\n" +
@@ -3866,10 +3790,9 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
     "        </div>\n" +
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
-    "            Keep calm and don't delete it!\n" +
+    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
-    "        <br />\n" +
-    "        <a href=\"#\" class=\"btn-outline reminder-form-container__form__delete\" ng-click=\"deleteReminderAndClose(reminder)\">Don't need it anymore</a>\n" +
+    "        <a href=\"#\" class=\"btn-outline reminder-form-container__form__delete\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -3985,28 +3908,24 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isAuthenticationErrorOcurred\">Your email or password are wrong. Please try again.</div>\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
+    "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isAuthenticationErrorOcurred || ( loginForm.email.$invalid && loginForm.$submitted )}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\"\n" +
-    "                               ng-model=\"loginData.email\" required/>\n" +
-    "                        <div class=\"help-block\" ng-if=\"loginForm.$submitted\">\n" +
-    "                            <div ng-if=\"loginForm.email.$error.required\">Your email address is mandatory.</div>\n" +
-    "                        </div>\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" required />\n" +
+    "                        <span class=\"help-block\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isAuthenticationErrorOcurred || ( loginForm.password.$invalid && loginForm.$submitted )}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\"\n" +
-    "                               name=\"password\" ng-model=\"loginData.password\" required/>\n" +
-    "                        <div class=\"help-block\" ng-if=\"loginForm.$submitted\">\n" +
-    "                            <div ng-if=\"loginForm.password.$error.required\">Your password is mandatory.</div>\n" +
-    "                        </div>\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
+    "                        <span class=\"help-block\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4036,9 +3955,9 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "               <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isRequestSignUpRegistrationErrorOcurred\">\n" +
-    "                    We encountered a problem.\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4046,9 +3965,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
-    "                               name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required\n" +
-    "                               valid-email unique-email/>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted\">\n" +
@@ -4056,12 +3973,8 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
     "                        </div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\">\n" +
-    "                            Checking availability...\n" +
-    "                        </div>\n" +
-    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\">\n" +
-    "                            Yay! Email is available.\n" +
-    "                        </div>\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"requestSignUpRegistrationForm.email.$pending\"> Checking availability...</div>\n" +
+    "                        <div class=\"home__signup__sections__section__checking-availability\" ng-if=\"! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid\"> Yay! Email is available.</div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4070,7 +3983,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "         <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
+    "        <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -4081,9 +3994,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
     "\n" +
     "        <!-- Explain -->\n" +
-    "        <span class=\"account__explain\">\n" +
-    "            We've sent you an email with the instructions on how to confirm your registration.\n" +
-    "        </span>\n" +
+    "        <span class=\"account__explain\">We've sent you an email with the instructions on how to confirm your registration.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
     "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
@@ -4107,9 +4018,9 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                  <!-- General error -->\n" +
-    "                <div class=\"alert alert-info\" ng-if=\"isRequestPasswordErrorOcurred\">\n" +
-    "                     <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4117,8 +4028,8 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\"\n" +
-    "                               name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email/>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email />\n" +
+    "\n" +
     "                        <div class=\"help-block\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
@@ -4141,9 +4052,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Email has been sent!</h1>\n" +
     "\n" +
     "        <!-- Explain -->\n" +
-    "            <span class=\"account__explain\">\n" +
-    "                We've sent you an email with the instructions on how to reset your password.\n" +
-    "            </span>\n" +
+    "        <span class=\"account__explain\">We've sent you an email with the instructions on how to reset your password.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
     "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
@@ -4176,6 +4085,8 @@ angular.module("app/account/partials/logout.html", []).run(["$templateCache", fu
 
 angular.module("app/account/partials/profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/profile.html",
+    "<div header></div>\n" +
+    "\n" +
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\" profile-form-toggle>\n" +
     "\n" +
@@ -4191,14 +4102,9 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                 <!--Successfully message-->\n" +
-    "                <div class=\"alert alert-success\" ng-if=\"isProfileUpdated\">\n" +
-    "                   We've successfully updated your account.\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"errorMessages && !isProfileUpdated\">\n" +
-    "                   <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4206,22 +4112,19 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\"\n" +
-    "                               name=\"firstName\" ng-model=\"profileData.firstName\" required/>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\"\n" +
-    "                               ng-model=\"profileData.lastName\" required/>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.email.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\"\n" +
-    "                               ng-model=\"profileData.email\" required/>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-model=\"profileData.email\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"profileForm.email.$invalid && profileForm.$submitted\">Please tell us your email.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -4249,33 +4152,29 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isUpdatePasswordErrorOcurred\">\n" +
-    "                     <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\"\n" +
-    "                               name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required/>\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                               name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required/>\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': isUpdatePasswordErrorOcurred || (updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
-    "                               placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\"\n" +
-    "                               ng-model=\"updatePasswordData.newPasswordConfirmation\" required/>\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
     "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -4296,9 +4195,7 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Successfully</h1>\n" +
     "\n" +
     "        <!-- Explain -->\n" +
-    "            <span class=\"account__explain\">\n" +
-    "                We've successfully updated your new password.\n" +
-    "            </span>\n" +
+    "        <span class=\"account__explain\">We've successfully updated your new password.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
     "        <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
@@ -4309,24 +4206,24 @@ angular.module("app/account/partials/profile.html", []).run(["$templateCache", f
 
 angular.module("app/account/partials/signup_confirm_abstract.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_confirm_abstract.html",
-    "<!--Validate password reset token section - abstract view-->\n" +
-    "<div class=\"account__sections\">\n" +
-    "\n" +
-    "    <div ui-view></div>\n" +
-    "\n" +
-    "</div>");
+    "<div ui-view></div>");
 }]);
 
 angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/signup_confirm_invalid.html",
     "<!-- Registration confirmation invalid -->\n" +
-    "<div class=\"account__section\">\n" +
+    "<div class=\"account__sections\">\n" +
     "\n" +
-    "    <!-- Explain -->\n" +
-    "    <span class=\"account__explain\">\n" +
-    "        Sorry, we couldn't validate your email and token. Please give another try.\n" +
-    "    </span>\n" +
-    "</div>");
+    "    <div class=\"account__section\">\n" +
+    "\n" +
+    "        <!-- Explain -->\n" +
+    "        <span class=\"account__explain\">\n" +
+    "            Sorry, we couldn't validate your email and token. Please give another try.\n" +
+    "        </span>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$templateCache", function($templateCache) {
@@ -4348,22 +4245,20 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- General error -->\n" +
-    "                <div class=\"alert alert-danger\" ng-if=\"isSignUpErrorOcurred\">\n" +
-    "                    Sorry, something went wrong.\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\"\n" +
-    "                           name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\"\n" +
-    "                           name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\" name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
     "\n" +
@@ -4371,10 +4266,8 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\"\n" +
-    "                               placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required\n" +
-    "                               strong-password />\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required strong-password />\n" +
     "\n" +
     "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Please choose a password.</div>\n" +
@@ -4434,26 +4327,23 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "        <!-- Account controls -->\n" +
     "        <div class=\"account__controls\">\n" +
     "\n" +
-    "            <!-- General error -->\n" +
-    "            <div class=\"alert alert-danger\" ng-if=\"isResetPasswordErrorOcurred\">\n" +
-    "                <span ng-repeat=\"errorMessage in errorMessages\">{{errorMessage}}</span>\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
+    "                <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "            </div>\n" +
     "\n" +
     "            <!-- Form groups -->\n" +
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.password.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\"\n" +
-    "                           name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.password.$invalid || resetPasswordForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': isResetPasswordErrorOcurred || (resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"password\"\n" +
-    "                           placeholder=\"New password confirmation\" name=\"passwordConfirmation\"\n" +
-    "                           ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.passwordConfirmation.$invalid || resetPasswordForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
     "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -4565,23 +4455,26 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "<header class=\"header\">\n" +
     "    <div class=\"header__wrapper\">\n" +
     "\n" +
-    "        <a class=\"header__wrapper__logo\" href=\"javascript:void(0)\" ui-sref=\"home\">\n" +
-    "            Reme\n" +
-    "        </a>\n" +
+    "        <a class=\"header__wrapper__logo\" href=\"javascript:void(0)\" ui-sref=\"reminders\"> Reme </a>\n" +
     "\n" +
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
-    "            <a ng-show=\"currentUser.model.email\" class=\"link--brand-bg dropdown-toggle header__wrapper__menu__email\"\n" +
-    "               dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
+    "            <a ng-show=\"currentUser.model.email\" class=\"link--brand-bg dropdown-toggle header__wrapper__menu__email\" dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
     "            <ul class=\"dropdown-menu header__wrapper__menu__dropdown\" role=\"menu\">\n" +
-    "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"reminders\">My reminders</a></li>\n" +
-    "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a></li>\n" +
-    "                <li><a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a></li>\n" +
+    "                <li>\n" +
+    "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a>\n" +
+    "                </li>\n" +
+    "                <li>\n" +
+    "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
+    "                </li>\n" +
+    "                <li class=\"divider\"></li>\n" +
+    "                <li class=\"disabled\">\n" +
+    "                    <a class=\"nav-link header__version\" href=\"#\">Version 1.9.4</a>\n" +
+    "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "\n" +
     "        <a id=\"feedback-trigger\" class=\"header__wrapper__feedback link--brand-bg\" href=\"#\">\n" +
-    "            <span class=\"icon-comment\"></span>\n" +
-    "            Send feedback\n" +
+    "            <span class=\"icon-comment\"></span> Send feedback\n" +
     "        </a>\n" +
     "\n" +
     "    </div>\n" +
