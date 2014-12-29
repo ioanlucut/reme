@@ -3,18 +3,12 @@
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($state, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Set default state.
          */
         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration);
-
-        /**
-         * Flag which tells if the registration controller went well or not.
-         * @type {boolean}
-         */
-        $scope.isRequestSignUpRegistrationErrorOcurred = false;
 
         /**
          * Request registration up user information.
@@ -31,13 +25,13 @@ angular
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
-                        $scope.isRequestSignUpRegistrationErrorOcurred = false;
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
                     })
                     .catch(function () {
-                        $scope.isRequestSignUpRegistrationErrorOcurred = true;
+                        $scope.requestSignUpRegistrationForm.email.$invalid = true;
+
+                        flash.error = "We encountered a problem.";
                     });
             }
-
         }
     });

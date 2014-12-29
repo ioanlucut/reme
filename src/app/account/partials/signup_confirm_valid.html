@@ -15,22 +15,20 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-                <!-- General error -->
-                <div class="alert alert-danger" ng-if="isSignUpErrorOcurred">
-                    Sorry, something went wrong.
+                <!-- Flash messages. -->
+                <div flash-alert active-class="in alert" class="fade">
+                    <span class="alert-message">{{flash.message}}</span>
                 </div>
 
                 <!-- Form groups -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.firstName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="First Name"
-                           name="firstName" ng-model="signUpData.firstName" required />
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
+                    <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
                     <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.lastName.$invalid && signUpForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="Last Name"
-                           name="lastName" ng-model="signUpData.lastName" required />
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}">
+                    <input class="form-control form-control--account" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
                     <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
@@ -38,10 +36,8 @@
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.password.$invalid && signUpForm.$submitted}">
-                        <input class="form-control form-control--account" type="password"
-                               placeholder="Choose a password" name="password" ng-model="signUpData.password" required
-                               strong-password />
+                    <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
+                        <input class="form-control form-control--account" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
 
                         <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Please choose a password.</div>

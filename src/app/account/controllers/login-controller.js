@@ -3,18 +3,12 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
 
         /**
          * Set default state.
          */
         AccountFormToggle.setState(ACCOUNT_FORM_STATE.login);
-
-        /**
-         * Flag which tells if the authentication went well or not.
-         * @type {boolean}
-         */
-        $scope.isAuthenticationErrorOcurred = false;
 
         /**
          * Login user information.
@@ -36,12 +30,12 @@ angular
                     .login(loginData.email, loginData.password)
                     .then(function () {
 
-                        $scope.isAuthenticationErrorOcurred = false;
                         StatesHandler.goToReminders();
                     })
                     .catch(function () {
+                        $scope.loginForm.$invalid = true;
 
-                        $scope.isAuthenticationErrorOcurred = true;
+                        flash.error = "Your email or password are wrong. Please try again.";
                     });
             }
         }

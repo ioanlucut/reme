@@ -3,7 +3,7 @@
  */
 angular
     .module("app")
-    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User) {
+    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
 
         /**
          * Save the state on root scope
@@ -35,6 +35,7 @@ angular
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $log.log("Not authenticated.");
             AuthService.logout();
+            StatesHandler.goToLogin();
         });
 
         // Listen to the logout event
