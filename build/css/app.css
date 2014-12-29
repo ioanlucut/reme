@@ -6833,12 +6833,12 @@ output {
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-/* line 833, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 63, ../../src/sass/_mixins.scss */
 .form-control:focus {
   border-color: #8471B1;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(132, 113, 177, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(132, 113, 177, 0.6);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 /* line 57, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .form-control:-moz-placeholder {
@@ -7154,6 +7154,12 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
   }
 }
 
+/* line 23, ../../src/sass/_forms.scss */
+.form-control {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 /* line 10, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn {
   display: inline-block;
@@ -7207,192 +7213,192 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 .btn-default {
   color: #333;
   background-color: #fff;
-  border-color: #ccc;
+  border-color: #fff;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
   color: #333;
   background-color: #ebebeb;
-  border-color: #adadad;
+  border-color: #ebebeb;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-default.dropdown-toggle {
   color: #333;
   background-color: #ebebeb;
-  border-color: #adadad;
+  border-color: #ebebeb;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-default:active, .btn-default.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-default.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-default.disabled, .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled:active, .btn-default.disabled.active, .btn-default[disabled], .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled]:active, .btn-default[disabled].active, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default.active {
   background-color: #fff;
-  border-color: #ccc;
+  border-color: #fff;
 }
 
 /* line 58, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-primary {
   color: #fff;
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-primary.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-primary:active, .btn-primary.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-primary.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
 
 /* line 62, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-warning {
   color: #fff;
   background-color: #f0ad4e;
-  border-color: #eea236;
+  border-color: #f0ad4e;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active {
   color: #fff;
   background-color: #ed9c28;
-  border-color: #d58512;
+  border-color: #ed9c28;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-warning.dropdown-toggle {
   color: #fff;
   background-color: #ed9c28;
-  border-color: #d58512;
+  border-color: #ed9c28;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-warning:active, .btn-warning.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-warning.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-warning.disabled, .btn-warning.disabled:hover, .btn-warning.disabled:focus, .btn-warning.disabled:active, .btn-warning.disabled.active, .btn-warning[disabled], .btn-warning[disabled]:hover, .btn-warning[disabled]:focus, .btn-warning[disabled]:active, .btn-warning[disabled].active, fieldset[disabled] .btn-warning, fieldset[disabled] .btn-warning:hover, fieldset[disabled] .btn-warning:focus, fieldset[disabled] .btn-warning:active, fieldset[disabled] .btn-warning.active {
   background-color: #f0ad4e;
-  border-color: #eea236;
+  border-color: #f0ad4e;
 }
 
 /* line 66, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-danger {
   color: #fff;
   background-color: #d9534f;
-  border-color: #d43f3a;
+  border-color: #d9534f;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active {
   color: #fff;
   background-color: #d2322d;
-  border-color: #ac2925;
+  border-color: #d2322d;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-danger.dropdown-toggle {
   color: #fff;
   background-color: #d2322d;
-  border-color: #ac2925;
+  border-color: #d2322d;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-danger:active, .btn-danger.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-danger.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-danger.disabled, .btn-danger.disabled:hover, .btn-danger.disabled:focus, .btn-danger.disabled:active, .btn-danger.disabled.active, .btn-danger[disabled], .btn-danger[disabled]:hover, .btn-danger[disabled]:focus, .btn-danger[disabled]:active, .btn-danger[disabled].active, fieldset[disabled] .btn-danger, fieldset[disabled] .btn-danger:hover, fieldset[disabled] .btn-danger:focus, fieldset[disabled] .btn-danger:active, fieldset[disabled] .btn-danger.active {
   background-color: #d9534f;
-  border-color: #d43f3a;
+  border-color: #d9534f;
 }
 
 /* line 70, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-success {
   color: #fff;
   background-color: #5cb85c;
-  border-color: #4cae4c;
+  border-color: #5cb85c;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active {
   color: #fff;
   background-color: #47a447;
-  border-color: #398439;
+  border-color: #47a447;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-success.dropdown-toggle {
   color: #fff;
   background-color: #47a447;
-  border-color: #398439;
+  border-color: #47a447;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-success:active, .btn-success.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-success.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-success.disabled, .btn-success.disabled:hover, .btn-success.disabled:focus, .btn-success.disabled:active, .btn-success.disabled.active, .btn-success[disabled], .btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success[disabled]:active, .btn-success[disabled].active, fieldset[disabled] .btn-success, fieldset[disabled] .btn-success:hover, fieldset[disabled] .btn-success:focus, fieldset[disabled] .btn-success:active, fieldset[disabled] .btn-success.active {
   background-color: #5cb85c;
-  border-color: #4cae4c;
+  border-color: #5cb85c;
 }
 
 /* line 74, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
 .btn-info {
   color: #fff;
   background-color: #5bc0de;
-  border-color: #46b8da;
+  border-color: #5bc0de;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active {
   color: #fff;
   background-color: #39b3d7;
-  border-color: #269abc;
+  border-color: #39b3d7;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn-info.dropdown-toggle {
   color: #fff;
   background-color: #39b3d7;
-  border-color: #269abc;
+  border-color: #39b3d7;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn-info:active, .btn-info.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn-info.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn-info.disabled, .btn-info.disabled:hover, .btn-info.disabled:focus, .btn-info.disabled:active, .btn-info.disabled.active, .btn-info[disabled], .btn-info[disabled]:hover, .btn-info[disabled]:focus, .btn-info[disabled]:active, .btn-info[disabled].active, fieldset[disabled] .btn-info, fieldset[disabled] .btn-info:hover, fieldset[disabled] .btn-info:focus, fieldset[disabled] .btn-info:active, fieldset[disabled] .btn-info.active {
   background-color: #5bc0de;
-  border-color: #46b8da;
+  border-color: #5bc0de;
 }
 
 /* line 83, ../../bower_components/bootstrap-sass/lib/_buttons.scss */
@@ -12160,36 +12166,36 @@ textarea.form-control--account {
 .account__button {
   color: #fff;
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
   border-radius: 3px;
   font-size: 16px;
   height: 50px;
   width: 300px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .account__button:hover, .account__button:focus, .account__button:active, .account__button.active {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .account__button.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .account__button:active, .account__button.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .account__button.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .account__button.disabled, .account__button.disabled:hover, .account__button.disabled:focus, .account__button.disabled:active, .account__button.disabled.active, .account__button[disabled], .account__button[disabled]:hover, .account__button[disabled]:focus, .account__button[disabled]:active, .account__button[disabled].active, fieldset[disabled] .account__button, fieldset[disabled] .account__button:hover, fieldset[disabled] .account__button:focus, fieldset[disabled] .account__button:active, fieldset[disabled] .account__button.active {
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
 
 /* line 61, ../../src/app/account/sass/_account_forms.scss */
@@ -12401,7 +12407,7 @@ textarea.form-control--account {
 .btn--logout {
   color: #8471B1;
   background-color: transparent;
-  border: solid 2px #7661a8;
+  border: solid 2px #8471B1;
   border-radius: 3px;
   height: 34px;
   width: 90px;
@@ -12420,35 +12426,35 @@ textarea.form-control--account {
 .btn--to-reminders {
   color: #fff;
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
   border-radius: 3px;
   height: 34px;
   width: 156px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn--to-reminders:hover, .btn--to-reminders:focus, .btn--to-reminders:active, .btn--to-reminders.active {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn--to-reminders.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn--to-reminders:active, .btn--to-reminders.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn--to-reminders.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn--to-reminders.disabled, .btn--to-reminders.disabled:hover, .btn--to-reminders.disabled:focus, .btn--to-reminders.disabled:active, .btn--to-reminders.disabled.active, .btn--to-reminders[disabled], .btn--to-reminders[disabled]:hover, .btn--to-reminders[disabled]:focus, .btn--to-reminders[disabled]:active, .btn--to-reminders[disabled].active, fieldset[disabled] .btn--to-reminders, fieldset[disabled] .btn--to-reminders:hover, fieldset[disabled] .btn--to-reminders:focus, fieldset[disabled] .btn--to-reminders:active, fieldset[disabled] .btn--to-reminders.active {
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
 
 /* line 1, ../../src/app/common/sass/_footer_home.scss */
@@ -12652,37 +12658,37 @@ textarea.form-control--account {
 .btn--delete-reminder {
   color: #fff;
   background-color: #d9534f;
-  border-color: #d43f3a;
+  border-color: #d9534f;
   float: right;
   margin-top: 50px;
   border-radius: 3px;
   height: 34px;
   width: 200px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .btn--delete-reminder:hover, .btn--delete-reminder:focus, .btn--delete-reminder:active, .btn--delete-reminder.active {
   color: #fff;
   background-color: #d2322d;
-  border-color: #ac2925;
+  border-color: #d2322d;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .btn--delete-reminder.dropdown-toggle {
   color: #fff;
   background-color: #d2322d;
-  border-color: #ac2925;
+  border-color: #d2322d;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .btn--delete-reminder:active, .btn--delete-reminder.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .btn--delete-reminder.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .btn--delete-reminder.disabled, .btn--delete-reminder.disabled:hover, .btn--delete-reminder.disabled:focus, .btn--delete-reminder.disabled:active, .btn--delete-reminder.disabled.active, .btn--delete-reminder[disabled], .btn--delete-reminder[disabled]:hover, .btn--delete-reminder[disabled]:focus, .btn--delete-reminder[disabled]:active, .btn--delete-reminder[disabled].active, fieldset[disabled] .btn--delete-reminder, fieldset[disabled] .btn--delete-reminder:hover, fieldset[disabled] .btn--delete-reminder:focus, fieldset[disabled] .btn--delete-reminder:active, fieldset[disabled] .btn--delete-reminder.active {
   background-color: #d9534f;
-  border-color: #d43f3a;
+  border-color: #d9534f;
 }
 
 /* line 44, ../../src/app/reminders/sass/_reminders_form.scss */
@@ -12788,7 +12794,7 @@ textarea.form-control--account {
 .reminder-modal__form .btn--create-reminder {
   color: #fff;
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
   display: block;
   margin: 30px auto 0;
   width: 200px;
@@ -12798,30 +12804,30 @@ textarea.form-control--account {
   height: 50px;
   font-size: 14px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--create-reminder:hover, .reminder-modal__form .btn--create-reminder:focus, .reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .reminder-modal__form .btn--create-reminder.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .reminder-modal__form .btn--create-reminder.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--create-reminder.disabled, .reminder-modal__form .btn--create-reminder.disabled:hover, .reminder-modal__form .btn--create-reminder.disabled:focus, .reminder-modal__form .btn--create-reminder.disabled:active, .reminder-modal__form .btn--create-reminder.disabled.active, .reminder-modal__form .btn--create-reminder[disabled], .reminder-modal__form .btn--create-reminder[disabled]:hover, .reminder-modal__form .btn--create-reminder[disabled]:focus, .reminder-modal__form .btn--create-reminder[disabled]:active, .reminder-modal__form .btn--create-reminder[disabled].active, fieldset[disabled] .reminder-modal__form .btn--create-reminder, fieldset[disabled] .reminder-modal__form .btn--create-reminder:hover, fieldset[disabled] .reminder-modal__form .btn--create-reminder:focus, fieldset[disabled] .reminder-modal__form .btn--create-reminder:active, fieldset[disabled] .reminder-modal__form .btn--create-reminder.active {
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
 /* line 172, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--reminder-popup {
@@ -12832,27 +12838,27 @@ textarea.form-control--account {
   line-height: 1.33;
   border-radius: 3px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
   color: #24282b;
   background-color: #dee2e5;
   border-color: transparent;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .reminder-modal__form .btn--reminder-popup.dropdown-toggle {
   color: #24282b;
   background-color: #dee2e5;
   border-color: transparent;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .reminder-modal__form .btn--reminder-popup.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup.disabled, .reminder-modal__form .btn--reminder-popup.disabled:hover, .reminder-modal__form .btn--reminder-popup.disabled:focus, .reminder-modal__form .btn--reminder-popup.disabled:active, .reminder-modal__form .btn--reminder-popup.disabled.active, .reminder-modal__form .btn--reminder-popup[disabled], .reminder-modal__form .btn--reminder-popup[disabled]:hover, .reminder-modal__form .btn--reminder-popup[disabled]:focus, .reminder-modal__form .btn--reminder-popup[disabled]:active, .reminder-modal__form .btn--reminder-popup[disabled].active, fieldset[disabled] .reminder-modal__form .btn--reminder-popup, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:hover, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:focus, fieldset[disabled] .reminder-modal__form .btn--reminder-popup:active, fieldset[disabled] .reminder-modal__form .btn--reminder-popup.active {
   background-color: #f5f6f7;
   border-color: transparent;
@@ -13046,32 +13052,55 @@ textarea.form-control--friend-email {
 
 /* line 5, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-enter {
-  -webkit-transition: 2s;
-  transition: 2s;
-  opacity: 0;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #468847;
+  opacity: 1;
+  background-color: #faffbd;
 }
 
-/* line 14, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+/* line 10, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-enter-active {
+  -webkit-transition: 5s;
+  transition: 5s;
   opacity: 1;
+  background-color: #FFFFFF;
 }
 
-/* line 18, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+/* line 17, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-leave {
-  -webkit-transition: 2s;
-  transition: 2s;
-  opacity: 1;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: red;
+  background-color: #f4cecd;
 }
 
-/* line 27, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+/* line 21, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-leave-active {
-  opacity: 0;
+  -webkit-animation-name: bounceOutRight;
+  -moz-animation-name: bounceOutRight;
+  -ms-animation-name: bounceOutRight;
+  -o-animation-name: bounceOutRight;
+  animation-name: bounceOutRight;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* line 1, ../../src/app/reminders/sass/_reminders_icons.scss */
@@ -13211,6 +13240,34 @@ textarea.form-control--friend-email {
   -moz-transition: 0.6s bottom cubic-bezier(0.19, 1, 0.22, 1);
   -o-transition: 0.6s bottom cubic-bezier(0.19, 1, 0.22, 1);
   transition: 0.6s bottom cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* line 1, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+.empty-state--text {
+  font-weight: 300;
+  font-size: 20px;
+  color: #999999;
+}
+
+/* line 7, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+.reminder__empty {
+  position: relative;
+  padding: 30px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* line 13, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+.reminder__empty .reminder__empty__arrow {
+  background-image: url("../assets/img/handmade_arrow.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 71px;
+  height: 240px;
+  position: absolute;
+  top: -210px;
+  right: 180px;
+  opacity: 0.4;
+  text-indent: -9999px;
 }
 
 /* line 1, ../../src/app/reminders/sass/components/_datepicker.scss */
@@ -13497,36 +13554,36 @@ textarea.home__signup__sections__section__controls__email {
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
   border-radius: 3px;
   font-size: 20px;
   height: 50px;
   width: 300px;
 }
-/* line 467, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 10, ../../src/sass/_mixins.scss */
 .home__signup__sections__section__controls__button:hover, .home__signup__sections__section__controls__button:focus, .home__signup__sections__section__controls__button:active, .home__signup__sections__section__controls__button.active {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 475, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 19, ../../src/sass/_mixins.scss */
 .open .home__signup__sections__section__controls__button.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
-  border-color: #5a4883;
+  border-color: #6e58a1;
 }
-/* line 480, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 25, ../../src/sass/_mixins.scss */
 .home__signup__sections__section__controls__button:active, .home__signup__sections__section__controls__button.active {
   background-image: none;
 }
-/* line 484, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 30, ../../src/sass/_mixins.scss */
 .open .home__signup__sections__section__controls__button.dropdown-toggle {
   background-image: none;
 }
-/* line 490, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+/* line 37, ../../src/sass/_mixins.scss */
 .home__signup__sections__section__controls__button.disabled, .home__signup__sections__section__controls__button.disabled:hover, .home__signup__sections__section__controls__button.disabled:focus, .home__signup__sections__section__controls__button.disabled:active, .home__signup__sections__section__controls__button.disabled.active, .home__signup__sections__section__controls__button[disabled], .home__signup__sections__section__controls__button[disabled]:hover, .home__signup__sections__section__controls__button[disabled]:focus, .home__signup__sections__section__controls__button[disabled]:active, .home__signup__sections__section__controls__button[disabled].active, fieldset[disabled] .home__signup__sections__section__controls__button, fieldset[disabled] .home__signup__sections__section__controls__button:hover, fieldset[disabled] .home__signup__sections__section__controls__button:focus, fieldset[disabled] .home__signup__sections__section__controls__button:active, fieldset[disabled] .home__signup__sections__section__controls__button.active {
   background-color: #8471B1;
-  border-color: #7661a8;
+  border-color: #8471B1;
 }
 
 @media (max-width: 550px) {
