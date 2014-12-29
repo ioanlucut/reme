@@ -7,6 +7,12 @@
       margin-right: 40px;
       line-height: $line-height-base;
       border: 0;
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        color: $black;
+      }
     }
 
     // Active state, and it's :hover to override normal :hover
@@ -57,10 +63,6 @@
       -moz-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
       -o-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
       transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
-    }
-
-    &:hover::after {
-      bottom: 0;
     }
 
   }
