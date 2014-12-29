@@ -51,14 +51,14 @@ angular
             // Validate password reset token abstract view
             .state({
                 name: "account:validatePasswordResetToken",
-                url: "/account/reset-password/{email}/{token}",
+                url: "/account/reset-password",
                 templateUrl: "app/account/partials/validate_password_reset_token_abstract.html",
                 abstract: true
             })
             // Validate password reset token - valid
             .state({
                 name: "account:validatePasswordResetToken.valid",
-                url: "",
+                url: "/{email}/{token}",
                 templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
@@ -83,7 +83,7 @@ angular
             // Validate password reset token - invalid token
             .state({
                 name: "account:validatePasswordResetToken.invalid",
-                url: "invalid-token",
+                url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
                 controller: "ValidatePasswordResetTokenInvalidCtrl"
             })
@@ -95,14 +95,14 @@ angular
             // Sign up confirm abstract view
             .state({
                 name: "account:confirmRegistration",
-                url: "/account/confirm-registration/{email}/{token}",
+                url: "/account/confirm-registration",
                 templateUrl: "app/account/partials/signup_confirm_abstract.html",
                 abstract: true
             })
             // Sign up confirm - valid
             .state({
                 name: "account:confirmRegistration.valid",
-                url: "",
+                url: "/{email}/{token}",
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
@@ -129,7 +129,7 @@ angular
             // Sign up confirm - invalid
             .state({
                 name: "account:confirmRegistration.invalid",
-                url: "registration-failed",
+                url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl"
             })

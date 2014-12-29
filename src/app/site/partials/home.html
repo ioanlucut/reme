@@ -21,9 +21,9 @@
                         <!-- Account controls -->
                         <div class="home__signup__sections__section__controls">
 
-                            <!-- General error -->
-                            <div class="home__signup__sections__section__controls__alert" ng-if="isRequestPasswordErrorOcurred">
-                                Sorry, we encountered a problem.
+                            <!-- Flash messages. -->
+                            <div flash-alert active-class="in alert home__signup__sections__section__controls__alert" class="fade">
+                                <span class="alert-message">{{flash.message}}</span>
                             </div>
 
                             <!-- Email input -->
