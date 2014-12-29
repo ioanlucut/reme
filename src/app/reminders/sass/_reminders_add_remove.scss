@@ -15,13 +15,9 @@
 }
 
 .reminder.ng-leave {
-  opacity: 1;
   background-color: lighten($brand-danger, 30%);
 }
 
 .reminder.ng-leave-active {
-  -webkit-transition: 3s;
-  transition: 3s;
-  opacity: 1;
-  background-color: #FFFFFF;
+  @include bounceOutRight();
 }
