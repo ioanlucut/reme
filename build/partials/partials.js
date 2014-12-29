@@ -1,4 +1,4 @@
-angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -214,7 +214,9 @@ angular.module("app/reminders/partials/reminder/reminders.html", []).run(["$temp
     "\n" +
     "<div ui-view=\"create\"></div>\n" +
     "\n" +
-    "<div ui-view=\"list\"></div>");
+    "<div ui-view=\"list\"></div>\n" +
+    "\n" +
+    "<div footer></div>");
 }]);
 
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
@@ -252,8 +254,8 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
 
 angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminderModal/reminderDeleteModal.html",
-    "<!--Reminder form-->\n" +
-    "<div ng-show=\"! isDeleting\" class=\"reminder-form-container\">\n" +
+    "<!--Delete reminder form-->\n" +
+    "<div class=\"reminder-form-container\">\n" +
     "\n" +
     "    <div class=\"reminder-form-container__form\">\n" +
     "        <div class=\"reminder-form-container__form__question\">\n" +
@@ -263,13 +265,10 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
     "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
-    "        <a href=\"#\" class=\"btn-outline reminder-form-container__form__delete\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</a>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
     "    </div>\n" +
     "\n" +
-    "</div>\n" +
-    "\n" +
-    "<!--While saving-->\n" +
-    "<div class=\"reminder--saving\" ng-show=\"isDeleting\">Deleting reminder..</div>");
+    "</div>");
 }]);
 
 angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
@@ -554,10 +553,39 @@ angular.module("app/account/partials/logout.html", []).run(["$templateCache", fu
     "");
 }]);
 
-angular.module("app/account/partials/profile.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/profile.html",
+angular.module("app/account/partials/settings/settings.billing.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/settings/settings.billing.html",
+    "BILLING");
+}]);
+
+angular.module("app/account/partials/settings/settings.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/settings/settings.html",
     "<div header></div>\n" +
     "\n" +
+    "<div class=\"centered-section-account\">\n" +
+    "    <tabset>\n" +
+    "        <tab heading=\"Profile\">\n" +
+    "            <div class=\"account__sections account__sections--settings\" ui-view=\"profile\"></div>\n" +
+    "        </tab>\n" +
+    "        <tab heading=\"Preferences\">\n" +
+    "            <div class=\"account__sections account__sections--settings\" ui-view=\"preferences\"></div>\n" +
+    "        </tab>\n" +
+    "        <tab heading=\"Billing\">\n" +
+    "            <div class=\"account__sections account__sections--settings\" ui-view=\"billing\"></div>\n" +
+    "        </tab>\n" +
+    "    </tabset>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer></div>");
+}]);
+
+angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/settings/settings.preferences.html",
+    "PREFERENCES");
+}]);
+
+angular.module("app/account/partials/settings/settings.profile.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/account/partials/settings/settings.profile.html",
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\" profile-form-toggle>\n" +
     "\n" +
@@ -892,6 +920,41 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "</div>");
 }]);
 
+angular.module("app/common/partials/footer.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/common/partials/footer.html",
+    "<div class=\"footer-home\">\n" +
+    "    <div class=\"centered-section-home\">\n" +
+    "\n" +
+    "        <div class=\"footer__navbar\">\n" +
+    "            <div class=\"footer__navbar__section-left\">\n" +
+    "                <div class=\"footer__navbar__section-left__copyright\">\n" +
+    "                    Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"footer__navbar__section-right\">\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"#\">Pricing</a></li>\n" +
+    "                        <li><a href=\"#\">About</a></li>\n" +
+    "                        <li><a href=\"#\">Press kit</a></li>\n" +
+    "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                    <ul>\n" +
+    "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
+    "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
+    "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
+    "                        <li><a href=\"mailto:hello@reme.io\">Email</a></li>\n" +
+    "                    </ul>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("app/common/partials/header-home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/header-home.html",
     "<header class=\"header-home\">\n" +
@@ -932,7 +995,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "            <a ng-show=\"currentUser.model.email\" class=\"link--brand-bg dropdown-toggle header__wrapper__menu__email\" dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
     "            <ul class=\"dropdown-menu header__wrapper__menu__dropdown\" role=\"menu\">\n" +
     "                <li>\n" +
-    "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"profile\">Settings</a>\n" +
+    "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"settings\">Settings</a>\n" +
     "                </li>\n" +
     "                <li>\n" +
     "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
