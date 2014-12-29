@@ -54,9 +54,15 @@
       }
 
       .header__wrapper__menu__dropdown {
+        @include fadeInDown($duration: 0.2s);
         right: 10px;
         top: 36px;
         left: inherit;
+
+        .header__version {
+          color: $gray11;
+          cursor: default;
+        }
       }
     }
 

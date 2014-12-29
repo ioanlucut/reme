@@ -16,19 +16,13 @@ angular
         "reminders",
         "account"
     ])
-    .config(function ($locationProvider, flashProvider) {
+    .config(function ($locationProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
-
-        // Support bootstrap 3.0 "alert-danger" class with error flash types
-        flashProvider.successClassnames.push('alert-reme');
-        flashProvider.errorClassnames.push('alert-reme');
-        flashProvider.infoClassnames.push('alert-reme');
-        flashProvider.warnClassnames.push('alert-reme');
     })
     .run(function () {
 

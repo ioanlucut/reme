@@ -29,12 +29,24 @@ angular
             var reminderDto = ReminderTransformerService.toReminderDto(reminder);
 
             return $http
-                .put(URLTo.api(REMINDER_URLS.update, {":reminderId": reminderDto.reminderId}), reminderDto)
+                .put(URLTo.api(REMINDER_URLS.update, { ":reminderId": reminderDto.reminderId }), reminderDto)
                 .then(function (response) {
                     ReminderTransformerService.toReminder(response.data, reminder);
 
                     return response;
                 });
+        };
+
+        /**
+         * UnSubscribe from a reminder.
+         * @param reminder
+         * @returns {*}
+         */
+        this.unSubscribeFromReminder = function (reminder) {
+            var reminderDto = ReminderTransformerService.toReminderDto(reminder);
+
+            return $http
+                .post(URLTo.api(REMINDER_URLS.unSubscribeReminder, { ":reminderId": reminderDto.reminderId }), reminderDto);
         };
 
         /**
@@ -46,7 +58,7 @@ angular
             var reminderDto = ReminderTransformerService.toReminderDto(reminder);
 
             return $http
-                .delete(URLTo.api(REMINDER_URLS.delete, {":reminderId": reminderDto.reminderId}), reminderDto)
+                .delete(URLTo.api(REMINDER_URLS.delete, { ":reminderId": reminderDto.reminderId }), reminderDto)
                 .then(function (response) {
                     ReminderTransformerService.toReminder(response.data, reminder);
 
@@ -77,7 +89,7 @@ angular
          */
         this.getDetails = function (reminderId, reminder) {
             return $http
-                .get(URLTo.api(REMINDER_URLS.details, {":reminderId": reminderId}))
+                .get(URLTo.api(REMINDER_URLS.details, { ":reminderId": reminderId }))
                 .then(function (response) {
                     return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });

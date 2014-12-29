@@ -113,12 +113,8 @@ angular
              * UnSubscribe a recipient from this reminder and update model with response.
              * @returns {*}
              */
-            this.unSubscribe = function (recipientEmail) {
-                _.remove(this.model.recipients, function (existingRecipient) {
-                    return existingRecipient.email === recipientEmail;
-                });
-
-                return ReminderService.updateReminder(this);
+            this.unSubscribe = function () {
+                return ReminderService.unSubscribeFromReminder(this);
             };
 
             /**

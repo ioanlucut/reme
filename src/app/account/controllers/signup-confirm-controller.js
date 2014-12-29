@@ -1,17 +1,11 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, $timeout, StatesHandler, User, AuthService, validateRegistrationResult) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, StatesHandler, User, AuthService, validateRegistrationResult) {
 
         /**
          * Validate registration result.
          */
         $scope.validateRegistrationResult = validateRegistrationResult;
-
-        /**
-         * Flag which tells if the sign up error occurred.
-         * @type {boolean}
-         */
-        $scope.isSignUpErrorOcurred = false;
 
         /**
          * The given token
@@ -45,8 +39,6 @@ angular
                 User.$new()
                     .$create(signUpData, token)
                     .then(function () {
-                        $scope.isSignUpErrorOcurred = false;
-
                         // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
@@ -55,8 +47,9 @@ angular
                             });
                     })
                     .catch(function () {
+                        $scope.signUpForm.$invalid = true;
 
-                        $scope.isSignUpErrorOcurred = true;
+                        flash.error = "Sorry, something went wrong.";
                     });
             }
 

@@ -13,28 +13,24 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-                <!-- General error -->
-                <div class="alert alert-danger" ng-if="isAuthenticationErrorOcurred">Your email or password are wrong. Please try again.</div>
+                <!-- Flash messages. -->
+                <div flash-alert active-class="in alert" class="fade">
+                    <span class="alert-message">{{flash.message}}</span>
+                </div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || ( loginForm.email.$invalid && loginForm.$submitted )}">
-                        <input class="form-control form-control--account" type="email" placeholder="email" name="email"
-                               ng-model="loginData.email" required/>
-                        <div class="help-block" ng-if="loginForm.$submitted">
-                            <div ng-if="loginForm.email.$error.required">Your email address is mandatory.</div>
-                        </div>
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}">
+                        <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
+                        <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': isAuthenticationErrorOcurred || ( loginForm.password.$invalid && loginForm.$submitted )}">
-                        <input class="form-control form-control--account" type="password" placeholder="password"
-                               name="password" ng-model="loginData.password" required/>
-                        <div class="help-block" ng-if="loginForm.$submitted">
-                            <div ng-if="loginForm.password.$error.required">Your password is mandatory.</div>
-                        </div>
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}">
+                        <input class="form-control form-control--account" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
+                        <span class="help-block" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
                 </div>
 
@@ -64,9 +60,9 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-               <!-- General error -->
-                <div class="alert alert-danger" ng-if="isRequestSignUpRegistrationErrorOcurred">
-                    We encountered a problem.
+                <!-- Flash messages. -->
+                <div flash-alert active-class="in alert" class="fade">
+                    <span class="alert-message">{{flash.message}}</span>
                 </div>
 
                 <!-- Form groups -->
@@ -74,9 +70,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address"
-                               name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required
-                               valid-email unique-email/>
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
 
                         <!-- Error messages -->
                         <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && ( requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted )}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.email.$touched || requestSignUpRegistrationForm.$submitted">
@@ -84,12 +78,8 @@
                             <div ng-message="validEmail">This email address is not valid.</div>
                             <div ng-message="uniqueEmail">This email address is already used.</div>
                         </div>
-                        <div class="home__signup__sections__section__checking-availability" ng-if="requestSignUpRegistrationForm.email.$pending">
-                            Checking availability...
-                        </div>
-                        <div class="home__signup__sections__section__checking-availability" ng-if="! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid">
-                            Yay! Email is available.
-                        </div>
+                        <div class="home__signup__sections__section__checking-availability" ng-if="requestSignUpRegistrationForm.email.$pending"> Checking availability...</div>
+                        <div class="home__signup__sections__section__checking-availability" ng-if="! requestSignUpRegistrationForm.email.$pending && requestSignUpRegistrationForm.email.$touched && requestSignUpRegistrationForm.email.$valid"> Yay! Email is available.</div>
                     </div>
                 </div>
 
@@ -98,7 +88,7 @@
             </div>
         </form>
 
-         <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
+        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
 
     </div>
 
@@ -109,9 +99,7 @@
         <h1 class="account__title">Email has been sent!</h1>
 
         <!-- Explain -->
-        <span class="account__explain">
-            We've sent you an email with the instructions on how to confirm your registration.
-        </span>
+        <span class="account__explain">We've sent you an email with the instructions on how to confirm your registration.</span>
 
         <!-- Button container -->
         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
@@ -135,9 +123,9 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-                  <!-- General error -->
-                <div class="alert alert-info" ng-if="isRequestPasswordErrorOcurred">
-                     <span ng-repeat="errorMessage in errorMessages">{{errorMessage}}</span>
+                <!-- Flash messages. -->
+                <div flash-alert active-class="in alert" class="fade">
+                    <span class="alert-message">{{flash.message}}</span>
                 </div>
 
                 <!-- Form groups -->
@@ -145,8 +133,8 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address"
-                               name="email" ng-model="forgotPasswordData.email" required valid-email/>
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
+
                         <div class="help-block" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
@@ -169,9 +157,7 @@
         <h1 class="account__title">Email has been sent!</h1>
 
         <!-- Explain -->
-            <span class="account__explain">
-                We've sent you an email with the instructions on how to reset your password.
-            </span>
+        <span class="account__explain">We've sent you an email with the instructions on how to reset your password.</span>
 
         <!-- Button container -->
         <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>

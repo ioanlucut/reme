@@ -10,7 +10,8 @@ angular
         delete: "reminders/:reminderId",
         allReminders: "reminders",
         pastReminders: "reminders/past?:local_time&:local_time_zone",
-        upcomingReminders: "reminders/upcoming?:local_time&:local_time_zone"
+        upcomingReminders: "reminders/upcoming?:local_time&:local_time_zone",
+        unSubscribeReminder: "reminders/:reminderId/unsubscribe"
     })
     .constant("REMINDER_EVENTS", {
         isCreated: "reminder-is-created",

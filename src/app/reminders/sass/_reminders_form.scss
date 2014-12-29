@@ -18,12 +18,15 @@
 .reminder-form-container__form__question {
   font-size: $font-size-large;
   font-weight: $font-weight-light;
+  text-align: center;
 }
 
 .reminder-form-container__form__recommend {
-  position: absolute;
-  bottom: 20px;
+  float: left;
   color: $gray9;
+  height: $form-height-small;
+  line-height: $form-height-small;
+  margin-top: 50px;
 }
 
 .reminder-form-container__form__delete {

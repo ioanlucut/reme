@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
 
         /**
          * Set default state.
@@ -15,12 +15,6 @@ angular
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
-
-        /**
-         * Error messages.
-         * @type {string}
-         */
-        $scope.errorMessages = "";
 
         /**
          * Profile user information
@@ -44,22 +38,14 @@ angular
                     .$save(profileData)
                     .then(function () {
                         $scope.user.$refresh().then(function () {
-                            // Set form to pristine
                             $scope.profileForm.$setPristine();
-                            $scope.errorMessages = "";
 
-                            // Set for updated to true
-                            $scope.isProfileUpdated = true;
+                            flash.success = 'We\'ve successfully updated your account!';
                         });
                     })
-                    .catch(function (response) {
-                        $scope.errorMessages = response.data && response.data.errors && response.data.errors.email;
+                    .catch(function () {
 
-                        if ( _.isEmpty($scope.errorMessages) ) {
-                            $scope.errorMessages = ["We encountered a small problem. Please be patient, we come back to you."]
-                        }
-
-                        $scope.isProfileUpdated = false;
+                        flash.error = 'We\'ve encountered an error while trying to update your account.';
                     });
             }
         };
