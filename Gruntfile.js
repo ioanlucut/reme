@@ -179,7 +179,7 @@ module.exports = function (grunt) {
 
         watch: {
             options: {
-                livereload: false
+                livereload: true
             },
             images: {
                 files: ["src/assets/img/**/*"],
@@ -220,8 +220,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-html2js");
 
-    grunt.registerTask("default", ["html2js", "concat", "sass", "copy"]);
+    grunt.registerTask("default", ["html2js", "sass", "concat", "copy"]);
     grunt.registerTask("test", ["jshint"]);
-    grunt.registerTask("build", ["html2js", "concat", "ngAnnotate", "uglify", "sass", "cssmin", "copy"]);
-
+    grunt.registerTask("build", ["html2js", "sass", "concat", "ngAnnotate", "uglify", "cssmin", "copy"]);
 };
