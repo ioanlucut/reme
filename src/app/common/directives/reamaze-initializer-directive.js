@@ -24,7 +24,7 @@ angular
 
                 // Authenticate User on Reamaze
                 _support['id'] = scope.currentUser.model.userId;
-                _support['authkey'] = scope.currentUser.authKeyReamaze || '5b0e26989c5660ef4b5b9af89effd8f8394b0ee0e04a578d446740a86239e3d0';
+                _support['authkey'] = scope.currentUser.model.helpdeskAuthToken;
                 _support['name'] = scope.currentUser.model.firstName + ' ' + scope.currentUser.model.lastName;
                 _support['email'] = scope.currentUser.model.email;
 

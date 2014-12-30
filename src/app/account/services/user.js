@@ -17,7 +17,7 @@ angular
                         email: "",
                         password: "",
                         timezone: "",
-                        authKeyReamaze: ""
+                        helpdeskAuthToken: ""
                     },
 
                     /**
