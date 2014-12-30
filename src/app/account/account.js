@@ -122,18 +122,20 @@ angular
                     validateRegistrationResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
-                        AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
-                            .then(function (response) {
                                 deferred.resolve({
                                     email: $stateParams.email,
                                     token: $stateParams.token
                                 });
+                        /*
+                         AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
+                         .then(function (response) {
                                 return response;
                             })
                             .catch(function (response) {
                                 $state.go("account:confirmRegistration.invalid");
                                 return response;
                             });
+                         */
 
                         return deferred.promise;
                     }

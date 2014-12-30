@@ -8,7 +8,8 @@ angular
         "ui.bootstrap.transition",
         "ui.bootstrap.datepicker",
         "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal"
+        "ui.bootstrap.modal",
+        "localytics.directives"
     ])
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
