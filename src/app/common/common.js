@@ -15,19 +15,25 @@ angular
         $httpProvider.interceptors.push("JWTInterceptor");
     }).run(function (moment) {
 
+        /**
+         * Callback function to check if the date should include year too.
+         * @returns {string}
+         */
+        function callbackCalendarFormatter() {
+            var isSameYear = moment(moment().year()).isSame(this.years());
+
+            return isSameYear ? 'dddd, D MMMM' : 'dddd, D MMMM YYYY';
+        }
+
         // Initialize moment configuration
         moment.locale('en', {
             calendar: {
                 lastDay: '[Yesterday]',
                 sameDay: '[Today]',
                 nextDay: '[Tomorrow]',
-                lastWeek: 'dddd, D MMMM',
-                nextWeek: 'dddd, D MMMM',
-                sameElse: function () {
-                    var isSameYear = moment(moment().year()).isSame(this.years());
-
-                    return isSameYear ? 'dddd, D MMMM' : 'dddd, D MMMM YYYY';
-                }
+                lastWeek: callbackCalendarFormatter,
+                nextWeek: callbackCalendarFormatter,
+                sameElse: callbackCalendarFormatter
             }
         });
     });
