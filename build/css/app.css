@@ -12163,6 +12163,16 @@ textarea.form-control--account {
 }
 
 /* line 52, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form-groups--small-offset {
+  margin-bottom: 5px;
+}
+
+/* line 56, ../../src/app/account/sass/_account_forms.scss */
+.form-group--small-offset {
+  margin-bottom: 5px;
+}
+
+/* line 60, ../../src/app/account/sass/_account_forms.scss */
 .account__button {
   color: #fff;
   background-color: #8471B1;
@@ -12198,22 +12208,53 @@ textarea.form-control--account {
   border-color: #8471B1;
 }
 
-/* line 61, ../../src/app/account/sass/_account_forms.scss */
+/* line 69, ../../src/app/account/sass/_account_forms.scss */
 .link-primary {
   color: #222222;
 }
 
-/* line 65, ../../src/app/account/sass/_account_forms.scss */
+/* line 73, ../../src/app/account/sass/_account_forms.scss */
 .link-secondary {
   color: #bbbfc4;
 }
 
-/* line 69, ../../src/app/account/sass/_account_forms.scss */
+/* line 77, ../../src/app/account/sass/_account_forms.scss */
 .centered-section-account {
   max-width: 700px;
   width: 100%;
   margin: 0 auto;
   min-height: 600px;
+}
+
+/* line 84, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form__info {
+  margin-bottom: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+/* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.account__controls__form__info:before, .account__controls__form__info:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+/* line 25, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.account__controls__form__info:after {
+  clear: both;
+}
+
+/* line 91, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form__info__left {
+  float: left;
+  color: #848b91;
+}
+
+/* line 96, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form__info__right {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 /* Import sub-modules */
@@ -12532,6 +12573,35 @@ textarea.form-control--account {
   height: 26px;
 }
 
+/* Additional styles to display a spinner image while options are loading */
+/* line 2, ../../src/app/common/sass/_chosen_spinner.scss */
+.localytics-chosen.loading + .chosen-container-multi .chosen-choices {
+  background-image: url("spinner.gif");
+  background-repeat: no-repeat;
+  background-position: 95%;
+}
+
+/* line 8, ../../src/app/common/sass/_chosen_spinner.scss */
+.localytics-chosen.loading + .chosen-container-single .chosen-single span {
+  background: url("spinner.gif") no-repeat right;
+}
+
+/* line 12, ../../src/app/common/sass/_chosen_spinner.scss */
+.localytics-chosen.loading + .chosen-container-single .chosen-single .search-choice-close {
+  display: none;
+}
+
+/* line 16, ../../src/app/common/sass/_chosen_spinner.scss */
+.chosen-container {
+  width: 100% !important;
+  font-weight: 300;
+  background-color: #f5f6f7;
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.33;
+  border-radius: 4px;
+}
+
 /* Import sub-modules */
 /* line 1, ../../src/app/reminders/sass/_reminders_layout.scss */
 .centered-section-reminders {
@@ -12548,7 +12618,7 @@ textarea.form-control--account {
 }
 /* line 12, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn {
-  margin: 50px auto;
+  margin: 20px auto;
 }
 
 /* line 17, ../../src/app/reminders/sass/_reminders_layout.scss */
@@ -12691,7 +12761,53 @@ textarea.form-control--account {
   border-color: #d9534f;
 }
 
-/* line 44, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 41, ../../src/app/reminders/sass/_reminders_form.scss */
+.load-more-reminders {
+  display: block;
+  margin: 50px auto;
+}
+
+/* line 46, ../../src/app/reminders/sass/_reminders_form.scss */
+.btn--load-more {
+  color: #fff;
+  background-color: #8471B1;
+  border-color: #8471B1;
+  display: block;
+  margin: 30px auto 0;
+  width: 200px;
+  line-height: 1.33;
+  border-radius: 3px;
+  text-transform: uppercase;
+  height: 50px;
+  font-size: 14px;
+}
+/* line 10, ../../src/sass/_mixins.scss */
+.btn--load-more:hover, .btn--load-more:focus, .btn--load-more:active, .btn--load-more.active {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #6e58a1;
+}
+/* line 19, ../../src/sass/_mixins.scss */
+.open .btn--load-more.dropdown-toggle {
+  color: #fff;
+  background-color: #6e58a1;
+  border-color: #6e58a1;
+}
+/* line 25, ../../src/sass/_mixins.scss */
+.btn--load-more:active, .btn--load-more.active {
+  background-image: none;
+}
+/* line 30, ../../src/sass/_mixins.scss */
+.open .btn--load-more.dropdown-toggle {
+  background-image: none;
+}
+/* line 37, ../../src/sass/_mixins.scss */
+.btn--load-more.disabled, .btn--load-more.disabled:hover, .btn--load-more.disabled:focus, .btn--load-more.disabled:active, .btn--load-more.disabled.active, .btn--load-more[disabled], .btn--load-more[disabled]:hover, .btn--load-more[disabled]:focus, .btn--load-more[disabled]:active, .btn--load-more[disabled].active, fieldset[disabled] .btn--load-more, fieldset[disabled] .btn--load-more:hover, fieldset[disabled] .btn--load-more:focus, fieldset[disabled] .btn--load-more:active, fieldset[disabled] .btn--load-more.active {
+  background-color: #8471B1;
+  border-color: #8471B1;
+}
+
+/* line 61, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form {
   margin: 0 auto;
   width: 100%;
@@ -12710,7 +12826,7 @@ textarea.form-control--account {
 .reminder-modal__form:after {
   clear: both;
 }
-/* line 56, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 73, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info {
   margin-top: 30px;
 }
@@ -12725,56 +12841,56 @@ textarea.form-control--account {
 .reminder-modal__form__info:after {
   clear: both;
 }
-/* line 66, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 83, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date > .btn, .reminder-modal__form__info--time > .btn {
   width: 100%;
   padding-left: 50px;
   text-align: left;
 }
-/* line 72, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 89, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date .dropdown-menu, .reminder-modal__form__info--time .dropdown-menu {
   padding: 0;
 }
-/* line 81, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 98, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date {
   float: left;
   position: relative;
   width: 355px;
   margin: 0 10px 10px 0;
 }
-/* line 87, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 104, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date .dropdown-menu {
   min-width: 100%;
 }
-/* line 91, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 108, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date > .btn {
   background-position: 15px -172px;
 }
-/* line 99, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 116, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time {
   float: left;
   position: relative;
   margin-bottom: 10px;
   width: 153px;
 }
-/* line 105, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 122, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time > .btn {
   background-position: 15px -231px;
 }
-/* line 114, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 131, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees {
   text-align: center;
 }
-/* line 120, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 137, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .form-group {
   position: relative;
   margin-bottom: 6px;
 }
-/* line 125, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 142, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .form-group.has-error .form-control--reminder {
   border: 1px solid #d9534f;
 }
-/* line 134, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 151, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .close {
   display: block;
   width: 25px;
@@ -12785,12 +12901,12 @@ textarea.form-control--account {
   top: 4px;
   right: -25px;
 }
-/* line 151, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 168, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .btn-add-emails {
   display: inline-block;
   font-size: 13px;
 }
-/* line 160, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 177, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--create-reminder {
   color: #fff;
   background-color: #8471B1;
@@ -12829,7 +12945,7 @@ textarea.form-control--account {
   background-color: #8471B1;
   border-color: #8471B1;
 }
-/* line 172, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 189, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--reminder-popup {
   color: #24282b;
   background-color: #f5f6f7;
@@ -12864,7 +12980,7 @@ textarea.form-control--account {
   border-color: transparent;
 }
 
-/* line 184, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 201, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder--saving {
   width: 150px;
   margin: 20px auto;
@@ -12896,12 +13012,12 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 201, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 218, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
   font-weight: 300;
 }
 
-/* line 205, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 222, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
   background-color: #f5f6f7;
   border: 0;
@@ -12912,7 +13028,7 @@ textarea.form-control--reminder {
   box-shadow: none;
 }
 
-/* line 215, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 232, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date:before {
   position: absolute;
   left: 15px;
@@ -12931,7 +13047,7 @@ textarea.form-control--reminder {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 222, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 239, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time:before {
   position: absolute;
   left: 15px;
@@ -12950,7 +13066,7 @@ textarea.form-control--reminder {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 229, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 246, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-group--email-icon:before {
   position: absolute;
   left: 15px;
@@ -12989,7 +13105,7 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 237, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 254, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
   background-color: #f5f6f7;
@@ -13058,10 +13174,40 @@ textarea.form-control--friend-email {
 
 /* line 10, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-enter-active {
-  -webkit-transition: 5s;
-  transition: 5s;
-  opacity: 1;
   background-color: #FFFFFF;
+  opacity: 1;
+  -webkit-transition: all 1s 1s ease-in;
+  transition: all 1s 1s ease-in;
+  -webkit-animation-name: bounceIn;
+  -moz-animation-name: bounceIn;
+  -ms-animation-name: bounceIn;
+  -o-animation-name: bounceIn;
+  animation-name: bounceIn;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* line 17, ../../src/app/reminders/sass/_reminders_add_remove.scss */
@@ -13215,7 +13361,6 @@ textarea.form-control--friend-email {
   min-height: 42px;
   position: relative;
   display: inline-block;
-  letter-spacing: 0.04em;
   text-decoration: none;
   overflow: hidden;
   -webkit-transition: 0.4s color cubic-bezier(0.19, 1, 0.22, 1);
@@ -13223,11 +13368,11 @@ textarea.form-control--friend-email {
   -o-transition: 0.4s color cubic-bezier(0.19, 1, 0.22, 1);
   transition: 0.4s color cubic-bezier(0.19, 1, 0.22, 1);
 }
-/* line 49, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 48, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li.active::after {
   bottom: 0;
 }
-/* line 54, ../../src/app/reminders/sass/_reminders_navs.scss */
+/* line 53, ../../src/app/reminders/sass/_reminders_navs.scss */
 .nav-tabs--underlined li::after {
   position: absolute;
   content: '';
@@ -13252,11 +13397,41 @@ textarea.form-control--friend-email {
 /* line 7, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty {
   position: relative;
-  padding: 30px;
+  padding: 100px 30px;
   margin: 0 auto;
   text-align: center;
+  -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+  -ms-animation-name: fadeIn;
+  -o-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-/* line 13, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+/* line 14, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty .reminder__empty__arrow {
   background-image: url("../assets/img/handmade_arrow.png");
   background-repeat: no-repeat;
@@ -13264,7 +13439,7 @@ textarea.form-control--friend-email {
   width: 71px;
   height: 240px;
   position: absolute;
-  top: -210px;
+  top: -140px;
   right: 180px;
   opacity: 0.4;
   text-indent: -9999px;
@@ -13697,6 +13872,486 @@ textarea.home__signup__sections__section__controls__email {
 /* line 61, ../../src/app/site/sass/_site_testimonials.scss */
 .chromewebstore span {
   font-weight: 700;
+}
+
+/* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-select {
+  width: 100%;
+}
+
+/* line 13, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-select-deselect {
+  width: 100%;
+}
+
+/* line 15, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container {
+  display: inline-block;
+  font-size: 14px;
+  position: relative;
+  vertical-align: middle;
+}
+/* line 21, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-drop {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
+  margin-top: -1px;
+  position: absolute;
+  top: 100%;
+  left: -9000px;
+  z-index: 1060;
+}
+/* line 33, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+  right: 0;
+}
+/* line 38, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results {
+  color: #555555;
+  margin: 0 4px 4px 0;
+  max-height: 240px;
+  padding: 0 0 0 4px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+/* line 48, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li {
+  display: none;
+  line-height: 1.42857;
+  list-style: none;
+  margin: 0;
+  padding: 5px 6px;
+}
+/* line 55, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li em {
+  background: #feffde;
+  font-style: normal;
+}
+/* line 60, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.group-result {
+  display: list-item;
+  cursor: default;
+  color: #999;
+  font-weight: bold;
+}
+/* line 67, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.group-option {
+  padding-left: 15px;
+}
+/* line 71, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.active-result {
+  cursor: pointer;
+  display: list-item;
+}
+/* line 76, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.highlighted {
+  background-color: #bbbfc4;
+  background-image: none;
+  color: white;
+}
+/* line 81, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.highlighted em {
+  background: transparent;
+}
+/* line 86, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  color: #999999;
+}
+/* line 92, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results .no-results {
+  background: #eeeeee;
+  display: list-item;
+}
+/* line 98, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results-scroll {
+  background: white;
+  margin: 0 4px;
+  position: absolute;
+  text-align: center;
+  width: 321px;
+  z-index: 1;
+}
+/* line 106, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results-scroll span {
+  display: inline-block;
+  height: 1.42857;
+  text-indent: -5000px;
+  width: 9px;
+}
+/* line 114, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results-scroll-down {
+  bottom: 0;
+}
+/* line 117, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results-scroll-down span {
+  background: url("chosen-sprite.png") no-repeat -4px -3px;
+}
+/* line 123, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container .chosen-results-scroll-up span {
+  background: url("chosen-sprite.png") no-repeat -22px -3px;
+}
+
+/* line 130, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single {
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: #555555;
+  display: block;
+  height: 34px;
+  overflow: hidden;
+  line-height: 34px;
+  padding: 0 0 0 8px;
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* line 149, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single span {
+  display: block;
+  margin-right: 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* line 155, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single abbr {
+  background: url("chosen-sprite.png") right top no-repeat;
+  display: block;
+  font-size: 1px;
+  height: 10px;
+  position: absolute;
+  right: 26px;
+  top: 12px;
+  width: 12px;
+}
+/* line 165, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single abbr:hover {
+  background-position: right -11px;
+}
+/* line 170, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single.chosen-disabled .chosen-single abbr:hover {
+  background-position: right 2px;
+}
+/* line 174, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single div {
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+}
+/* line 182, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-single div b {
+  background: url("chosen-sprite.png") no-repeat 0 7px;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+/* line 191, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-default {
+  color: #999999;
+}
+/* line 195, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-search {
+  margin: 0;
+  padding: 3px 4px;
+  position: relative;
+  white-space: nowrap;
+  z-index: 1000;
+}
+/* line 202, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-search input[type="text"] {
+  background: url("chosen-sprite.png") no-repeat 100% -20px, #fff;
+  border: 1px solid #ccc;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  margin: 1px 0;
+  padding: 4px 20px 4px 4px;
+  width: 100%;
+}
+/* line 214, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+/* line 225, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-single-nosearch .chosen-search input[type="text"] {
+  position: absolute;
+  left: -9000px;
+}
+
+/* line 233, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  cursor: text;
+  height: auto !important;
+  height: 1%;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+}
+/* line 247, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices li {
+  float: left;
+  list-style: none;
+}
+/* line 252, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-field {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+/* line 257, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-field input[type="text"] {
+  background: transparent !important;
+  border: 0 !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #555555;
+  height: 32px;
+  margin: 0;
+  padding: 4px;
+  outline: 0;
+}
+/* line 268, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-field .default {
+  color: #999;
+}
+/* line 273, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-choice {
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  background-image: -webkit-gradient(linear, left 0%, left 100%, from(white), to(#eeeeee));
+  background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 100%);
+  background-image: -moz-linear-gradient(top, white 0%, #eeeeee 100%);
+  background-image: linear-gradient(to bottom, white 0%, #eeeeee 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  color: #333333;
+  cursor: default;
+  line-height: 13px;
+  margin: 6px 0 3px 5px;
+  padding: 3px 20px 3px 5px;
+  position: relative;
+}
+/* line 290, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-choice .search-choice-close {
+  background: url("chosen-sprite.png") right top no-repeat;
+  display: block;
+  font-size: 1px;
+  height: 10px;
+  position: absolute;
+  right: 4px;
+  top: 5px;
+  width: 12px;
+  cursor: pointer;
+}
+/* line 301, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-choice .search-choice-close:hover {
+  background-position: right -11px;
+}
+/* line 307, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-choice-focus {
+  background: #d4d4d4;
+}
+/* line 310, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-choices .search-choice-focus .search-choice-close {
+  background-position: right -11px;
+}
+/* line 316, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-results {
+  margin: 0 0 0 0;
+  padding: 0;
+}
+/* line 322, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-multi .chosen-drop .result-selected {
+  display: none;
+}
+
+/* line 329, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active .chosen-single {
+  border: 1px solid #8471B1;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 335, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single {
+  background-color: #fff;
+  border: 1px solid #8471B1;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 342, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  background: transparent;
+  border-left: none;
+}
+/* line 346, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 7px;
+}
+/* line 352, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active .chosen-choices {
+  border: 1px solid #8471B1;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #8471B1;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+/* line 358, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active .chosen-choices .search-field input[type="text"] {
+  color: #111 !important;
+}
+/* line 363, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-container-active.chosen-with-drop .chosen-choices {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* line 368, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-disabled {
+  cursor: default;
+  opacity: 0.5 !important;
+}
+/* line 372, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-disabled .chosen-single {
+  cursor: default;
+}
+/* line 376, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-disabled .chosen-choices .search-choice .search-choice-close {
+  cursor: default;
+}
+
+/* line 381, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl {
+  text-align: right;
+}
+/* line 384, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-single {
+  padding: 0 8px 0 0;
+  overflow: visible;
+}
+/* line 388, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-single span {
+  margin-left: 26px;
+  margin-right: 0;
+  direction: rtl;
+}
+/* line 394, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-single div {
+  left: 7px;
+  right: auto;
+}
+/* line 399, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-single abbr {
+  left: 26px;
+  right: auto;
+}
+/* line 406, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-choices .search-field input[type="text"] {
+  direction: rtl;
+}
+/* line 410, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-choices li {
+  float: right;
+}
+/* line 414, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-choices .search-choice {
+  margin: 6px 5px 3px 0;
+  padding: 3px 5px 3px 19px;
+}
+/* line 418, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-choices .search-choice .search-choice-close {
+  background-position: right top;
+  left: 4px;
+  right: auto;
+}
+/* line 426, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl.chosen-container-single .chosen-results {
+  margin: 0 0 4px 4px;
+  padding: 0 4px 0 0;
+}
+/* line 431, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-results .group-option {
+  padding-left: 0;
+  padding-right: 15px;
+}
+/* line 436, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-right: none;
+}
+/* line 440, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+.chosen-rtl .chosen-search input[type="text"] {
+  background: url("chosen-sprite.png") no-repeat -28px -20px, #fff;
+  direction: rtl;
+  padding: 4px 5px 4px 20px;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 2dppx) {
+  /* line 448, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
+  .chosen-rtl .chosen-search input[type="text"],
+  .chosen-container-single .chosen-single abbr,
+  .chosen-container-single .chosen-single div b,
+  .chosen-container-single .chosen-search input[type="text"],
+  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+  .chosen-container .chosen-results-scroll-down span,
+  .chosen-container .chosen-results-scroll-up span {
+    background-image: url("chosen-sprite@2x.png") !important;
+    background-size: 52px 37px !important;
+    background-repeat: no-repeat !important;
+  }
 }
 
 /*# sourceMappingURL=app.css.map */
