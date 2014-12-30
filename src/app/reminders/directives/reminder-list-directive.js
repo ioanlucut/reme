@@ -80,6 +80,22 @@ angular
                 scope.openUpdateReminderModalService = function (reminder) {
                     ReminderUpdateModalService.open(reminder);
                 };
+
+                /**
+                 * After last element is removed, perform a 1,5 second pause.
+                 */
+                scope.$watch("reminders.length", function (newValue) {
+                    if ( newValue === 0 ) {
+                        $timeout(function () {
+                            scope.isReminderListEmpty = true;
+                        }, 1500);
+                    } else {
+                        $timeout(function () {
+                            scope.isReminderListEmpty = false;
+                        })
+                    }
+
+                });
             }
         }
     });
