@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .filter('friendlyHour', function () {
+    .filter('friendlyHour', function (moment) {
         return function (date) {
 
             return moment(date).format("h:mm A");
