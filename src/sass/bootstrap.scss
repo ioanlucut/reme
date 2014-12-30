@@ -75,3 +75,6 @@
 @import "../app/common/sass/common";
 @import "../app/reminders/sass/reminders";
 @import "../app/site/sass/site";
+// BOOTSTRAP CHOSEN
+@import "../../bower_components/bootstrap-chosen/bootstrap-chosen-variables.scss";
+@import "../../bower_components/bootstrap-chosen/bootstrap-chosen.scss";

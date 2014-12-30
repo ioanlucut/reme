@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", function ($injector, TransformerUtils) {
+    .service("ReminderTransformerService", function ($injector, moment, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.

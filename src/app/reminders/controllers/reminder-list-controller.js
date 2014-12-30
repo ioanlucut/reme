@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log, flash) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log) {
 
         /**
          * The current user
@@ -28,35 +28,9 @@ angular
         $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
-         * Open DELETE modal
-         * @param reminder
-         */
-        $scope.openDeleteReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder);
-        };
-
-        /**
-         * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
-         * @param reminder
-         */
-        $scope.openUnSubscribeReminderModalService = function (reminder) {
-            ReminderDeleteModalService.open(reminder);
-        };
-
-        /**
-         * Open UPDATE modal
-         * @param reminder
-         */
-        $scope.openUpdateReminderModalService = function (reminder) {
-            ReminderUpdateModalService.open(reminder);
-        };
-
-        /**
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
-            flash.success = args.message;
-
             if ( args.reminder.model.dueOn > new Date() ) {
                 $scope.upcomingReminders.push(args.reminder);
             }
@@ -69,15 +43,12 @@ angular
          * On reminder updated, simply display the message.
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
-            flash.success = args.message;
         });
 
         /**
          * On reminder deleted, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
-            flash.success = args.message;
-
             removeReminderFrom($scope.upcomingReminders, args.reminder);
             removeReminderFrom($scope.pastReminders, args.reminder);
         });
@@ -86,7 +57,6 @@ angular
          * On reminder un subscribed, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isUnSubscribed, function (event, args) {
-            flash.success = args.message;
 
             removeReminderFrom($scope.upcomingReminders, args.reminder);
             removeReminderFrom($scope.pastReminders, args.reminder);

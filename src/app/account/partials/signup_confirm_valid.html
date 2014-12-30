@@ -33,10 +33,10 @@
                 </div>
 
                 <!-- Form groups -->
-                <div class="account__controls__form-groups--last">
+                <div class="account__controls__form-groups--small-offset">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
+                    <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
                         <input class="form-control form-control--account" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
 
                         <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
@@ -44,6 +44,11 @@
                             <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                         </div>
                     </div>
+                </div>
+
+                <div class="account__controls__form__info">
+                    <div class="account__controls__form__info__left">Timezone</div>
+                    <div class="account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Timezone automatically detected. This can be further customized on preferences page.">{{signUpData.timezone}}</div>
                 </div>
 
                 <!-- Button container -->

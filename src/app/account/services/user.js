@@ -16,7 +16,8 @@ angular
                         lastName: "",
                         email: "",
                         password: "",
-                        timezone: ""
+                        timezone: "",
+                        helpdeskAuthToken: ""
                     },
 
                     /**

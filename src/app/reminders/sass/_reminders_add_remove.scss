@@ -8,10 +8,10 @@
 }
 
 .reminder.ng-enter-active {
-  -webkit-transition: 5s;
-  transition: 5s;
-  opacity: 1;
   background-color: #FFFFFF;
+  opacity: 1;
+  @include transition(all 1s 1s ease-in);
+  @include bounceIn();
 }
 
 .reminder.ng-leave {
