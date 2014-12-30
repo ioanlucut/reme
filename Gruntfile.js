@@ -44,7 +44,9 @@ module.exports = function (grunt) {
                     "bower_components/ngstorage/ngStorage.js",
                     "bower_components/ladda/js/spin.js",
                     "bower_components/ladda/js/ladda.js",
-                    "bower_components/angular-ladda/src/angular-ladda.js"
+                    "bower_components/angular-ladda/src/angular-ladda.js",
+                    "bower_components/chosen/chosen.jquery.js",
+                    "bower_components/angular-chosen-localytics/chosen.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
