@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
 
         /**
          * Validate registration result.
@@ -24,6 +24,11 @@ angular
             password: "",
             timezone: jstz.determine().name()
         };
+
+        /**
+         * Timezone details
+         */
+        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
 
         /*
          * Sign up functionality.
