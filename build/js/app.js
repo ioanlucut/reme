@@ -11,10 +11,10 @@ angular
         "ui.bootstrap.modal",
         "localytics.directives"
     ])
-    .config(["$httpProvider", function ($httpProvider) {
+    .config(function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
-    }]).run(["moment", function (moment) {
+    }).run(function (moment) {
 
         /**
          * Callback function to check if the date should include year too.
@@ -37,7 +37,7 @@ angular
                 sameElse: callbackCalendarFormatter
             }
         });
-    }]);
+    });
 ;/**
  * Common states.
  */
@@ -78,7 +78,7 @@ angular
 
 angular
     .module("common")
-    .directive("autoFocus", ["$timeout", function ($timeout) {
+    .directive("autoFocus", function ($timeout) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -100,7 +100,7 @@ angular
                 }
             }
         }
-    }]);
+    });
 ;angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
 
     .constant('datepickerConfig', {
@@ -117,7 +117,7 @@ angular
         maxDate: null
     })
 
-    .controller('DatepickerController', ["$scope", "$attrs", "dateFilter", "datepickerConfig", function ($scope, $attrs, dateFilter, datepickerConfig) {
+    .controller('DatepickerController', function ($scope, $attrs, dateFilter, datepickerConfig) {
         var format = {
                 day: getValue($attrs.dayFormat, datepickerConfig.dayFormat),
                 month: getValue($attrs.monthFormat, datepickerConfig.monthFormat),
@@ -224,9 +224,9 @@ angular
             var currentMode = this.modes[mode || 0];
             return ((this.minDate && currentMode.compare(date, this.minDate) < 0) || (this.maxDate && currentMode.compare(date, this.maxDate) > 0) || ($scope.dateDisabled && $scope.dateDisabled({date: date, mode: currentMode.name})));
         };
-    }])
+    })
 
-    .directive('datepicker', ["dateFilter", "$parse", "datepickerConfig", "$log", function (dateFilter, $parse, datepickerConfig, $log) {
+    .directive('datepicker', function (dateFilter, $parse, datepickerConfig, $log) {
         return {
             restrict: 'EA',
             replace: true,
@@ -352,7 +352,7 @@ angular
                 }
             }
         };
-    }])
+    })
 
     .constant('datepickerPopupConfig', {
         dateFormat: 'yyyy-MM-dd',
@@ -685,7 +685,7 @@ angular
  */
 angular
     .module("common")
-    .directive("header", ["$rootScope", function ($rootScope) {
+    .directive("header", function ($rootScope) {
         return {
             restrict: "A",
             templateUrl: "app/common/partials/header.html",
@@ -698,13 +698,13 @@ angular
                 scope.currentUser = $rootScope.currentUser;
             }
         };
-    }]);
+    });
 ;/**
  * Header directive responsible for header common template.
  */
 angular
     .module("common")
-    .directive("headerHome", ["$rootScope", function ($rootScope) {
+    .directive("headerHome", function ($rootScope) {
         return {
             restrict: "A",
             templateUrl: "app/common/partials/header-home.html",
@@ -717,12 +717,12 @@ angular
                 scope.currentUser = $rootScope.currentUser;
             }
         };
-    }]);
+    });
 ;/* Natural Language Date Input */
 
 angular
     .module("common")
-    .directive("nlpDate", ["$rootScope", "$", function ($rootScope, $) {
+    .directive("nlpDate", function ($rootScope, $) {
         return {
             require: 'ngModel',
             scope: {
@@ -783,7 +783,7 @@ angular
                 });
             }
         }
-    }]);
+    });
 ;/* Perfect scrollbar */
 
 angular
@@ -817,7 +817,7 @@ angular
 
 angular
     .module("common")
-    .directive("reamazeInitializer", ["$rootScope", "$window", function ($rootScope, $window) {
+    .directive("reamazeInitializer", function ($rootScope, $window) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -846,12 +846,12 @@ angular
                 $window._support = _support;
             }
         }
-    }]);
+    });
 ;/* Scroll to an element on the page */
 
 angular
     .module("common")
-    .directive("scrollTo", ["$window", "$", function ($window, $) {
+    .directive("scrollTo", function ($window, $) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -863,7 +863,7 @@ angular
                 });
             }
         }
-    }]);
+    });
 ;/* Timepicker popup */
 
 angular.module("common").
@@ -966,7 +966,7 @@ angular.module("common").
 
 angular
     .module("common")
-    .filter('friendlyDate', ["moment", function (moment) {
+    .filter('friendlyDate', function (moment) {
         return function (date) {
 
             if ( !_.isDate(date) ) {
@@ -975,17 +975,17 @@ angular
 
             return moment(date).calendar();
         };
-    }]);
+    });
 ;/* Friendly date filter */
 
 angular
     .module("common")
-    .filter('friendlyHour', ["moment", function (moment) {
+    .filter('friendlyHour', function (moment) {
         return function (date) {
 
             return moment(date).format("h:mm A");
         };
-    }]);
+    });
 ;angular
     .module("common")
     .filter('friendlyRecipients', function () {
@@ -1038,7 +1038,7 @@ angular
     });
 ;angular
     .module("common")
-    .service("CamelCaseTransform", ["humps", function (humps) {
+    .service("CamelCaseTransform", function (humps) {
 
         /**
          * Transformation type. Can be camelize or decamelize only.
@@ -1089,10 +1089,10 @@ angular
                 });
             }
         };
-    }]);
+    });
 ;angular
     .module("common")
-    .factory("HumpsInterceptor", ["CamelCaseTransform", function (CamelCaseTransform) {
+    .factory("HumpsInterceptor", function (CamelCaseTransform) {
 
         return {
 
@@ -1110,7 +1110,7 @@ angular
 
         };
 
-    }]);
+    });
 ;/* Timezone detect */
 
 angular
@@ -1216,7 +1216,7 @@ angular
 
         var config = this;
 
-        this.$get = ["$q", "$injector", "$rootScope", "SessionService", "JWTTokenRefresher", function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
+        this.$get = function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
             return {
                 request: function (request) {
                     if ( request.skipAuthorization ) {
@@ -1243,11 +1243,11 @@ angular
                     });
                 }
             };
-        }];
+        };
     });
 ;angular
     .module("common")
-    .service("JWTTokenRefresher", ["$injector", "JWTHelper", "SessionService", function ($injector, JWTHelper, SessionService) {
+    .service("JWTTokenRefresher", function ($injector, JWTHelper, SessionService) {
 
         this.refreshTokenIfExpired = function () {
             if ( this.isTokenExpired() ) {
@@ -1262,7 +1262,7 @@ angular
         this.refreshToken = function () {
             return $injector.get('AuthService').refreshToken();
         };
-    }]);
+    });
 ;/* Mixpanel */
 
 angular
@@ -1284,7 +1284,7 @@ angular
  */
 angular
     .module("common")
-    .service("SessionService", ["$localStorage", "CamelCaseTransform", function ($localStorage, CamelCaseTransform) {
+    .service("SessionService", function ($localStorage, CamelCaseTransform) {
 
         /**
          * Local storage key for session data.
@@ -1350,10 +1350,10 @@ angular
             delete $localStorage[jwtTokenKey];
         };
 
-    }]);
+    });
 ;angular
     .module("common")
-    .service("StatesHandler", ["$state", "$stateParams", "STATES", function ($state, $stateParams, STATES) {
+    .service("StatesHandler", function ($state, $stateParams, STATES) {
 
         this.goHome = function () {
             this.go(STATES.home);
@@ -1386,7 +1386,7 @@ angular
                 notify: true
             });
         }
-    }]);;angular
+    });;angular
     .module("common")
     .service("TimezoneProvider", function () {
 
@@ -1599,7 +1599,7 @@ angular
         "restmod",
         "common"
     ])
-    .config(["$stateProvider", "$httpProvider", function ($stateProvider, $httpProvider) {
+    .config(function ($stateProvider, $httpProvider) {
 
         // Register AuthInterceptor
         $httpProvider.interceptors.push("AuthInterceptor");
@@ -1611,7 +1611,8 @@ angular
             .state("account", {
                 url: "/account",
                 controller: "LoginCtrl",
-                templateUrl: "app/account/partials/account.html"
+                templateUrl: "app/account/partials/account.html",
+                title: "Login - Reme.io"
             })
 
             // Settings page
@@ -1632,7 +1633,8 @@ angular
                     'billing@settings': {
                         templateUrl: "app/account/partials/settings/settings.billing.html"
                     }
-                }
+                },
+                title: "Settings - Reme.io"
             })
 
             // Logout page
@@ -1641,12 +1643,13 @@ angular
                 controller: "LogoutCtrl",
                 templateUrl: "app/account/partials/logout.html",
                 resolve: {
-                    isSuccessfullyLoggedOut: ["$q", "AuthService", function ($q, AuthService) {
+                    isSuccessfullyLoggedOut: function ($q, AuthService) {
                         AuthService.logout();
 
                         return true;
-                    }]
-                }
+                    }
+                },
+                title: "Logout - Reme.io"
             })
 
             ///////////////////////////////////////////////
@@ -1667,7 +1670,7 @@ angular
                 templateUrl: "app/account/partials/validate_password_reset_token_valid.html",
                 controller: "ValidatePasswordResetTokenCtrl",
                 resolve: {
-                    validateTokenResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
+                    validateTokenResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
                         AuthService.validatePasswordResetToken($stateParams.email, $stateParams.token)
@@ -1682,15 +1685,17 @@ angular
                             });
 
                         return deferred.promise;
-                    }]
-                }
+                    }
+                },
+                title: "Reset password - Reme.io"
             })
             // Validate password reset token - invalid token
             .state({
                 name: "account:validatePasswordResetToken.invalid",
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
-                controller: "ValidatePasswordResetTokenInvalidCtrl"
+                controller: "ValidatePasswordResetTokenInvalidCtrl",
+                title: "Reset password - Reme.io"
             })
 
             /////////////////////////
@@ -1711,7 +1716,7 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_valid.html",
                 controller: "SignUpConfirmCtrl",
                 resolve: {
-                    validateRegistrationResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
+                    validateRegistrationResult: function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
                         AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
@@ -1728,24 +1733,26 @@ angular
                             });
 
                         return deferred.promise;
-                    }]
-                }
+                    }
+                },
+                title: "Register - Reme.io"
             })
             // Sign up confirm - invalid
             .state({
                 name: "account:confirmRegistration.invalid",
                 url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidCtrl"
+                controller: "SignUpConfirmInvalidCtrl",
+                title: "Register - Reme.io"
             })
-    }])
+    })
 
-    .run(["$rootScope", "AuthFilter", function ($rootScope, AuthFilter) {
+    .run(function ($rootScope, AuthFilter) {
 
         // Setup route filters
         $rootScope.$on("$stateChangeStart", AuthFilter);
 
-    }]);;/**
+    });;/**
  * Account related constants.
  */
 angular
@@ -1801,7 +1808,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", ["$state", "$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("ForgotPasswordCtrl", function ($state, $scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Request password reset up user information.
@@ -1826,13 +1833,13 @@ angular
             }
 
         }
-    }]);
+    });
 ;/**
  * Login controller responsible for user login actions.
  */
 angular
     .module("account")
-    .controller("LoginCtrl", ["$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
 
         /**
          * Set default state.
@@ -1868,13 +1875,13 @@ angular
                     });
             }
         }
-    }]);
+    });
 ;/**
  * Logout controller responsible for user logout actions.
  */
 angular
     .module("account")
-    .controller("LogoutCtrl", ["$scope", "$timeout", "StatesHandler", "isSuccessfullyLoggedOut", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
+    .controller("LogoutCtrl", function ($scope, $timeout, StatesHandler, isSuccessfullyLoggedOut) {
 
         $scope.isSuccessfullyLoggedOut = isSuccessfullyLoggedOut;
 
@@ -1885,13 +1892,13 @@ angular
             StatesHandler.goHome();
         }, 1500);
 
-    }]);
+    });
 ;/**
  * Preferences controller responsible for user update preferences action.
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
+    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
 
         /**
          * Current user.
@@ -1935,12 +1942,12 @@ angular
                     });
             }
         };
-    }]);;/**
+    });;/**
  * Profile controller responsible for user update profile action.
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
 
         /**
          * Set default state.
@@ -1990,12 +1997,12 @@ angular
         $scope.getMeBack = function () {
             StatesHandler.goToReminders();
         }
-    }]);;/**
+    });;/**
  * Request registration controller responsible for first sign up action on the home page, having only the email.
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
         /**
          * Set default state.
@@ -2026,10 +2033,10 @@ angular
                     });
             }
         }
-    }]);
+    });
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
 
         /**
          * Validate registration result.
@@ -2088,7 +2095,7 @@ angular
             }
 
         };
-    }]);
+    });
 ;angular
     .module("account")
     .controller("SignUpConfirmInvalidCtrl", function () {
@@ -2097,7 +2104,7 @@ angular
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
+    .controller("UpdatePasswordCtrl", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
 
         /**
          * Update password user information.
@@ -2128,9 +2135,9 @@ angular
                     });
             }
         }
-    }]);;angular
+    });;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
 
         /**
          * Reset password data (used if
@@ -2172,10 +2179,10 @@ angular
                     });
             }
         };
-    }]);
+    });
 ;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenInvalidCtrl", ["$scope", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .controller("ValidatePasswordResetTokenInvalidCtrl", function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
         /**
          * Flag which tells if user is currently authenticated while coming to this page.
@@ -2192,13 +2199,13 @@ angular
             ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
             StatesHandler.goToLogin();
         }
-    }]);
+    });
 ;/**
  * Directive responsible for switching account forms between them.
  */
 angular
     .module("account")
-    .directive("accountFormToggle", ["AccountFormToggle", "ACCOUNT_FORM_STATE", function (AccountFormToggle, ACCOUNT_FORM_STATE) {
+    .directive("accountFormToggle", function (AccountFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
             link: function (scope) {
@@ -2206,13 +2213,13 @@ angular
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
             }
         };
-    }]);
+    });
 ;/**
  * Directive responsible for switching update profile forms between them.
  */
 angular
     .module("account")
-    .directive("profileFormToggle", ["ProfileFormToggle", "ACCOUNT_FORM_STATE", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
+    .directive("profileFormToggle", function (ProfileFormToggle, ACCOUNT_FORM_STATE) {
         return {
             restrict: "A",
             link: function (scope) {
@@ -2220,7 +2227,7 @@ angular
                 scope.ACCOUNT_FORM_STATE = ACCOUNT_FORM_STATE;
             }
         };
-    }]);
+    });
 ;/**
  * Directive responsible for checking of a password is strong enough.
  */
@@ -2249,7 +2256,7 @@ angular
     });
 ;angular
     .module("account")
-    .directive("uniqueEmail", ["$q", "$timeout", "UserService", function ($q, $timeout, UserService) {
+    .directive("uniqueEmail", function ($q, $timeout, UserService) {
         return {
             require: "ngModel",
             scope: {
@@ -2282,7 +2289,7 @@ angular
                 }
             }
         };
-    }]);
+    });
 ;/**
  * Directive responsible for checking of an email is valid.
  */
@@ -2314,13 +2321,13 @@ angular
  */
 angular
     .module("account")
-    .service("AccountFormToggle", ["ACCOUNT_FORM_STATE", function (ACCOUNT_FORM_STATE) {
+    .service("AccountFormToggle", function (ACCOUNT_FORM_STATE) {
         this.state = ACCOUNT_FORM_STATE.login;
 
         this.setState = function (state) {
             this.state = state;
         };
-    }]);
+    });
 
 
 
@@ -2329,7 +2336,7 @@ angular
  */
 angular
     .module("account")
-    .service("AuthService", ["$rootScope", "$q", "$http", "SessionService", "AUTH_EVENTS", "AUTH_URLS", "AUTH_TOKEN_HEADER", function ($rootScope, $q, $http, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+    .service("AuthService", function ($rootScope, $q, $http, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
          * Is User already authenticated ?
@@ -2475,13 +2482,13 @@ angular
                     return response.data;
                 });
         };
-    }]);
+    });
 ;/**
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
 angular
     .module("account")
-    .service("AuthFilter", ["AuthService", "StatesHandler", function (AuthService, StatesHandler) {
+    .service("AuthFilter", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
             if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
@@ -2497,12 +2504,12 @@ angular
             }
         };
 
-    }]);;/**
+    });;/**
  * Authentication service interceptor used to listen to server responses.
  */
 angular
     .module("account")
-    .factory("AuthInterceptor", ["$rootScope", "$q", "SessionService", "AUTH_EVENTS", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
+    .factory("AuthInterceptor", function ($rootScope, $q, SessionService, AUTH_EVENTS) {
 
         return {
 
@@ -2527,25 +2534,25 @@ angular
             }
         };
 
-    }]);
+    });
 ;/**
  * Profile form toggle responsible to keep the state of the current displayed update profile form.
  */
 angular
     .module("account")
-    .service("ProfileFormToggle", ["ACCOUNT_FORM_STATE", function (ACCOUNT_FORM_STATE) {
+    .service("ProfileFormToggle", function (ACCOUNT_FORM_STATE) {
         this.state = ACCOUNT_FORM_STATE.updateProfile;
 
         this.setState = function (state) {
             this.state = state;
         };
-    }]);
+    });
 
 
 
 ;angular
     .module("account")
-    .service("UserService", ["$http", "$q", "USER_URLS", function ($http, $q, USER_URLS) {
+    .service("UserService", function ($http, $q, USER_URLS) {
 
         /**
          * The list of already verified email addresses.
@@ -2598,10 +2605,10 @@ angular
         this.resetUniqueEmailCache = function () {
             this.uniqueEmailCache = {};
         };
-    }]);
+    });
 ;angular
     .module("account")
-    .factory("User", ["SessionService", "TransformerUtils", "$q", "$http", "AUTH_URLS", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
+    .factory("User", function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
         return {
 
             $new: function () {
@@ -2730,7 +2737,7 @@ angular
             }
 
         }
-    }])
+    })
 ;;/**
  * Main site module declaration including ui templates.
  */
@@ -2739,7 +2746,7 @@ angular
         "ngAnimate",
         "ui.router"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(function ($stateProvider) {
 
         // Home
         $stateProvider
@@ -2751,14 +2758,8 @@ angular
                 controller: "RequestSignUpRegistrationCtrl",
                 title: "Home - Reme.io"
             })
-    }]);
+    });
 ;/**
- * Home controller.
- */
-angular
-    .module("site")
-    .controller("HomeCtrl", ["$scope", function ($scope) {
-    }]);;/**
  * Main site module declaration including ui templates.
  */
 angular
@@ -2770,8 +2771,7 @@ angular
         "ui.bootstrap.modal",
         "ui.bootstrap.tabs",
         "angular-ladda",
-        "common",
-        "feedback"
+        "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -2792,7 +2792,7 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: ["$q", "ReminderService", function ($q, ReminderService) {
+                            reminderList: function ($q, ReminderService) {
                                 var deferred = $q.defer();
                                 ReminderService
                                     .getAllReminders()
@@ -2803,10 +2803,11 @@ angular
                                     });
 
                                 return deferred.promise;
-                            }]
+                            }
                         }
                     }
-                }
+                },
+                title: "Reminders - Reme.io"
             });
     }]);
 ;/**
@@ -2831,15 +2832,15 @@ angular
         isUpdated: "reminder-is-updated"
     });;angular
     .module("reminders")
-    .controller("ReminderCtrl", ["$scope", "ReminderModalService", function ($scope, ReminderModalService) {
+    .controller("ReminderCtrl", function ($scope, ReminderModalService) {
 
         $scope.openReminderModalService = function () {
             ReminderModalService.open();
         };
-    }]);
+    });
 ;angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2926,13 +2927,13 @@ angular
                     });
             }
         };
-    }]);
+    });
 ;/**
  * Reminders controller.
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$log", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log) {
 
         /**
          * The current user
@@ -3007,9 +3008,9 @@ angular
                 return reminderFromArrayId === reminderId;
             });
         }
-    }]);;angular
+    });;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -3116,12 +3117,12 @@ angular
             }
         };
 
-    }]);
+    });
 ;/* Saved reminder controller */
 
 angular
     .module("reminders")
-    .controller("ReminderSavedCtrl", ["$rootScope", "$scope", "$state", "FeedbackModal", "reminder", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
+    .controller("ReminderSavedCtrl", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
 
         $rootScope.$state = $state;
         $scope.reminder = reminder;
@@ -3131,12 +3132,12 @@ angular
             FeedbackModal.open();
         };
 
-    }]);
+    });
 ;/* Email list */
 
 angular
     .module("reminders")
-    .directive("reminderList", ["$rootScope", "$timeout", "ReminderDeleteModalService", "ReminderUpdateModalService", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService) {
         return {
             restrict: "A",
             scope: {
@@ -3232,12 +3233,12 @@ angular
                 });
             }
         }
-    }]);
+    });
 ;/* Feedback modal */
 
 angular
     .module("reminders")
-    .service("ReminderDeleteModalService", ["$modal", function ($modal) {
+    .service("ReminderDeleteModalService", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -3258,7 +3259,7 @@ angular
             });
         };
 
-    }]);
+    });
 ;/**
  * Reminder group service which computes the upcoming and past reminders from a list.
  */
@@ -3326,7 +3327,7 @@ angular
 
 angular
     .module("reminders")
-    .service("ReminderModalService", ["$modal", function ($modal) {
+    .service("ReminderModalService", function ($modal) {
 
         /**
          * Reminder modal instance.
@@ -3345,7 +3346,7 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["$window", "$rootScope", "Reminder", "jstz", function ($window, $rootScope, Reminder, jstz) {
+                    reminder: function ($window, $rootScope, Reminder, jstz) {
                         var defaultDueOn = Date.create().addHours(1).set({ minute: 0, second: 0 });
 
                         return Reminder.build({
@@ -3354,18 +3355,18 @@ angular
                             timezone: jstz.determine().name(),
                             recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
-                    }]
+                    }
                 }
             });
         };
 
-    }]);
+    });
 ;/**
  * Reminders service which encapsulates the whole logic related to reminders.
  */
 angular
     .module("reminders")
-    .service("ReminderService", ["REMINDER_URLS", "$q", "$http", "$injector", "ReminderTransformerService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
+    .service("ReminderService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
 
         /**
          * Update a reminder.
@@ -3456,13 +3457,13 @@ angular
                     return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
                 });
         };
-    }]);
+    });
 ;/**
  * Reminder transformer service which transforms a reminder DTO model object to a reminder business object.
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", ["$injector", "moment", "TransformerUtils", function ($injector, moment, TransformerUtils) {
+    .service("ReminderTransformerService", function ($injector, moment, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.
@@ -3524,12 +3525,12 @@ angular
 
             return reminders;
         };
-    }]);
+    });
 ;/* Feedback modal */
 
 angular
     .module("reminders")
-    .service("ReminderUpdateModalService", ["$modal", function ($modal) {
+    .service("ReminderUpdateModalService", function ($modal) {
 
         // Init modal instance
         this.modalInstance = null;
@@ -3550,10 +3551,10 @@ angular
             });
         };
 
-    }]);
+    });
 ;angular
     .module("reminders")
-    .factory("Reminder", ["$q", "$http", "ReminderService", "ReminderTransformerService", function ($q, $http, ReminderService, ReminderTransformerService) {
+    .factory("Reminder", function ($q, $http, ReminderService, ReminderTransformerService) {
 
         /**
          * Reminder class.
@@ -3703,120 +3704,7 @@ angular
         };
 
         return Reminder;
-    }]);;angular
-    .module("feedback", [
-    ]);;/* Feedback modal controller */
-
-angular
-    .module("feedback")
-    .controller("FeedbackModalCtrl", ["$scope", "$timeout", "FeedbackModal", "FeedbackMessage", function ($scope, $timeout, FeedbackModal, FeedbackMessage) {
-
-        $scope.isSending = false;
-        $scope.isSent = false;
-        $scope.feedbackMessage = new FeedbackMessage();
-
-        // Focus the first input when modal is opened
-        FeedbackModal.modalInstance.opened.then($.proxy(function () {
-            $scope.isOpen = true;
-        }, this));
-
-        // Send the feedback message, and close the modal
-        $scope.sendAndClose = function (feedbackForm) {
-            if ( feedbackForm.$valid && !$scope.isSending ) {
-
-                // Form is valid, send the message
-                $scope.isSending = true;
-                $scope.feedbackMessage.send().
-
-                    then(function () {
-                        $scope.isSent = true;
-
-                        // Wait 2 seconds, and close the modal
-                        $timeout(function () {
-                            FeedbackModal.modalInstance.close();
-                        }, 2500);
-                    }).
-
-                    finally(function () {
-                        $scope.isSending = false;
-                        $scope.isOpen = false;
-                    });
-            }
-            else {
-                // Form is invalid
-                feedbackForm.submitted = true;
-            }
-        };
-
-        $scope.cancel = function () {
-            FeedbackModal.modalInstance.dismiss("cancel");
-            $scope.isOpen = false;
-        };
-    }]);
-;/* Feedback message */
-
-angular
-    .module("feedback")
-    .factory("FeedbackMessage", ["$http", "$q", "URLTo", function ($http, $q, URLTo) {
-
-        function FeedbackMessage() {
-
-            // The url root to API urls
-            this.urlRoot = "feedback";
-
-            // Setup
-            this.attributes = {};
-
-            // Send the message
-            this.send = function () {
-
-                // Create deferred
-                var deferred = $q.defer();
-
-                $http({method: "POST", url: URLTo.api(this.urlRoot), data: this.attributes}).
-
-                    success(function () {
-
-                        // Resolve the deferred
-                        deferred.resolve();
-                    }).
-
-                    error(function (data) {
-
-                        // Reject the deferred with error data
-                        deferred.reject(data);
-                    });
-
-                // Return the promise
-                return deferred.promise;
-            };
-        }
-
-        return FeedbackMessage;
-
-    }]);
-;/* Feedback modal */
-
-angular
-    .module("feedback")
-    .service("FeedbackModal", ["$modal", function ($modal) {
-
-        // Init modal instance
-        this.modalInstance = null;
-
-        // Init the feedback modal window
-        this.open = function () {
-
-            // Create modal instance
-            this.modalInstance = $modal.open({
-                templateUrl: "app/feedback/partials/feedbackModal/feedbackModal.html",
-                controller: "FeedbackModalCtrl",
-                windowClass: "modal-feedback"
-            });
-        };
-
-    }]);
-;/**
+    });;/**
  * Main app module declaration.
  */
 angular
@@ -3830,18 +3718,17 @@ angular
         "partials",
         "site",
         "common",
-        "feedback",
         "reminders",
         "account"
     ])
-    .config(["$locationProvider", function ($locationProvider) {
+    .config(function ($locationProvider) {
 
         // Enable html5 mode
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
-    }])
+    })
     .run(function () {
 
         // Set the base API URL
@@ -3851,7 +3738,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppCtrl", ["AUTH_EVENTS", "$rootScope", "$scope", "$state", "$log", "AuthService", "User", "StatesHandler", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
+    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
 
         /**
          * Save the state on root scope
@@ -3912,8 +3799,8 @@ angular
                 $log.log(unfoundState, fromState, fromParams);
             });
         }
-    }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+    });
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -4218,47 +4105,6 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "&lt;!&ndash;While saving&ndash;&gt;\n" +
     "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>-->\n" +
     "");
-}]);
-
-angular.module("app/feedback/partials/feedbackModal/feedbackModal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/feedback/partials/feedbackModal/feedbackModal.html",
-    "<form name=\"feedbackForm\" ng-submit=\"sendAndClose(feedbackForm)\" novalidate focus-first-error>\n" +
-    "\n" +
-    "    <div class=\"modal-header\">\n" +
-    "        <h3>Feedback</h3>\n" +
-    "    </div>\n" +
-    "\n" +
-    "\n" +
-    "    <div class=\"modal-body\" ng-if=\"! isSending && ! isSent\">\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.name.$invalid && feedbackForm.submitted}\">\n" +
-    "            <input class=\"form-control\" type=\"text\" name=\"name\" ng-model=\"feedbackMessage.attributes.name\" placeholder=\"Your name\" required auto-focus=\"isOpen\" />\n" +
-    "        </div>\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.email.$invalid && feedbackForm.submitted}\">\n" +
-    "            <input class=\"form-control\" type=\"email\" name=\"email\" ng-model=\"feedbackMessage.attributes.email\" placeholder=\"Your email address\" required />\n" +
-    "        </div>\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.subject.$invalid && feedbackForm.submitted}\">\n" +
-    "            <input class=\"form-control\" type=\"text\" name=\"subject\" ng-model=\"feedbackMessage.attributes.subject\" placeholder=\"Subject\" required />\n" +
-    "        </div>\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': feedbackForm.message.$invalid && feedbackForm.submitted}\">\n" +
-    "            <textarea class=\"form-control\" rows=\"6\" name=\"message\" ng-model=\"feedbackMessage.attributes.message\" placeholder=\"Your message\" required></textarea>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"modal-body\" ng-if=\"isSending\">\n" +
-    "        <div class=\"sending-status\">Sending your message..</div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "\n" +
-    "    <div class=\"modal-body\" ng-if=\"isSent\">\n" +
-    "        <div class=\"sending-status\">Thank you! You are awesome.</div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "\n" +
-    "    <div class=\"modal-footer\">\n" +
-    "        <button class=\"btn btn-link\" type=\"button\" ng-click=\"cancel()\">Cancel</button>\n" +
-    "        <button class=\"btn btn-primary\" type=\"submit\" ng-disabled=\"isSending || isSent\">Send</button>\n" +
-    "    </div>\n" +
-    "</form>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {

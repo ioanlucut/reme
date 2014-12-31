@@ -45,6 +45,7 @@ angular
                             }
                         }
                     }
-                }
+                },
+                title: "Reminders - Reme.io"
             });
     }]);
