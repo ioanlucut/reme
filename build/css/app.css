@@ -1,5 +1,6 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,300,400);
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 /*$line-height-base: 1.428571429 !default;*/
 /*$text-color: $text-color-base;*/
 @-webkit-keyframes bounce {
@@ -4907,7 +4908,7 @@ html {
 
 /* line 22, ../../bower_components/bootstrap-sass/lib/_scaffolding.scss */
 body {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #333333;
@@ -5095,7 +5096,7 @@ cite {
 /* line 78, ../../bower_components/bootstrap-sass/lib/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -12168,11 +12169,16 @@ textarea.form-control--account {
 }
 
 /* line 56, ../../src/app/account/sass/_account_forms.scss */
+.account__controls__form-groups--medium-offset {
+  margin-bottom: 15px;
+}
+
+/* line 60, ../../src/app/account/sass/_account_forms.scss */
 .form-group--small-offset {
   margin-bottom: 5px;
 }
 
-/* line 60, ../../src/app/account/sass/_account_forms.scss */
+/* line 64, ../../src/app/account/sass/_account_forms.scss */
 .account__button {
   color: #fff;
   background-color: #8471B1;
@@ -12208,17 +12214,17 @@ textarea.form-control--account {
   border-color: #8471B1;
 }
 
-/* line 69, ../../src/app/account/sass/_account_forms.scss */
+/* line 73, ../../src/app/account/sass/_account_forms.scss */
 .link-primary {
   color: #222222;
 }
 
-/* line 73, ../../src/app/account/sass/_account_forms.scss */
+/* line 77, ../../src/app/account/sass/_account_forms.scss */
 .link-secondary {
   color: #bbbfc4;
 }
 
-/* line 77, ../../src/app/account/sass/_account_forms.scss */
+/* line 81, ../../src/app/account/sass/_account_forms.scss */
 .centered-section-account {
   max-width: 700px;
   width: 100%;
@@ -12226,7 +12232,7 @@ textarea.form-control--account {
   min-height: 600px;
 }
 
-/* line 84, ../../src/app/account/sass/_account_forms.scss */
+/* line 88, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info {
   margin-bottom: 35px;
   padding-left: 5px;
@@ -12244,13 +12250,13 @@ textarea.form-control--account {
   clear: both;
 }
 
-/* line 91, ../../src/app/account/sass/_account_forms.scss */
+/* line 95, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__left {
   float: left;
-  color: #848b91;
+  color: #000;
 }
 
-/* line 96, ../../src/app/account/sass/_account_forms.scss */
+/* line 100, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__right {
   float: right;
   font-size: 16px;
@@ -12574,24 +12580,24 @@ textarea.form-control--account {
 }
 
 /* Additional styles to display a spinner image while options are loading */
-/* line 2, ../../src/app/common/sass/_chosen_spinner.scss */
+/* line 2, ../../src/app/common/sass/chosen.scss */
 .localytics-chosen.loading + .chosen-container-multi .chosen-choices {
   background-image: url("spinner.gif");
   background-repeat: no-repeat;
   background-position: 95%;
 }
 
-/* line 8, ../../src/app/common/sass/_chosen_spinner.scss */
+/* line 8, ../../src/app/common/sass/chosen.scss */
 .localytics-chosen.loading + .chosen-container-single .chosen-single span {
   background: url("spinner.gif") no-repeat right;
 }
 
-/* line 12, ../../src/app/common/sass/_chosen_spinner.scss */
+/* line 12, ../../src/app/common/sass/chosen.scss */
 .localytics-chosen.loading + .chosen-container-single .chosen-single .search-choice-close {
   display: none;
 }
 
-/* line 16, ../../src/app/common/sass/_chosen_spinner.scss */
+/* line 16, ../../src/app/common/sass/chosen.scss */
 .chosen-container {
   width: 100% !important;
   font-weight: 300;
@@ -12600,6 +12606,11 @@ textarea.form-control--account {
   font-size: 16px;
   line-height: 1.33;
   border-radius: 4px;
+}
+
+/* line 26, ../../src/app/common/sass/chosen.scss */
+.chosen-container .chosen-results li.active-result {
+  text-align: left;
 }
 
 /* Import sub-modules */
@@ -13392,9 +13403,10 @@ textarea.form-control--friend-email {
   font-weight: 300;
   font-size: 20px;
   color: #999999;
+  font-family: "Indie Flower", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 7, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+/* line 8, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty {
   position: relative;
   padding: 100px 30px;
@@ -13431,7 +13443,7 @@ textarea.form-control--friend-email {
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-/* line 14, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+/* line 15, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty .reminder__empty__arrow {
   background-image: url("../assets/img/handmade_arrow.png");
   background-repeat: no-repeat;
