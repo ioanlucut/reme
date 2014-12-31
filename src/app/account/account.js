@@ -19,7 +19,8 @@ angular
             .state("account", {
                 url: "/account",
                 controller: "LoginCtrl",
-                templateUrl: "app/account/partials/account.html"
+                templateUrl: "app/account/partials/account.html",
+                title: "Login - Reme.io"
             })
 
             // Settings page
@@ -40,7 +41,8 @@ angular
                     'billing@settings': {
                         templateUrl: "app/account/partials/settings/settings.billing.html"
                     }
-                }
+                },
+                title: "Settings - Reme.io"
             })
 
             // Logout page
@@ -54,7 +56,8 @@ angular
 
                         return true;
                     }
-                }
+                },
+                title: "Logout - Reme.io"
             })
 
             ///////////////////////////////////////////////
@@ -91,14 +94,16 @@ angular
 
                         return deferred.promise;
                     }
-                }
+                },
+                title: "Reset password - Reme.io"
             })
             // Validate password reset token - invalid token
             .state({
                 name: "account:validatePasswordResetToken.invalid",
                 url: "/invalid-token",
                 templateUrl: "app/account/partials/validate_password_reset_token_invalid.html",
-                controller: "ValidatePasswordResetTokenInvalidCtrl"
+                controller: "ValidatePasswordResetTokenInvalidCtrl",
+                title: "Reset password - Reme.io"
             })
 
             /////////////////////////
@@ -137,14 +142,16 @@ angular
 
                         return deferred.promise;
                     }
-                }
+                },
+                title: "Register - Reme.io"
             })
             // Sign up confirm - invalid
             .state({
                 name: "account:confirmRegistration.invalid",
                 url: "/registration-failed",
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
-                controller: "SignUpConfirmInvalidCtrl"
+                controller: "SignUpConfirmInvalidCtrl",
+                title: "Register - Reme.io"
             })
     })
 
