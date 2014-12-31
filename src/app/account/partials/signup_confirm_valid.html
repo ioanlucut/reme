@@ -7,7 +7,7 @@
     <div class="account__section">
 
         <!-- Title -->
-        <h1 class="account__title">Get started with registration confirmation!</h1>
+        <h1 class="account__title">Finalize your account!</h1>
 
         <!-- Sign-up form -->
         <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
@@ -16,9 +16,7 @@
             <div class="account__controls">
 
                 <!-- Flash messages. -->
-                <div flash-alert active-class="in alert" class="fade">
-                    <span class="alert-message">{{flash.message}}</span>
-                </div>
+                <div flash-messages flash="flash"></div>
 
                 <!-- Form groups -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
@@ -33,7 +31,7 @@
                 </div>
 
                 <!-- Form groups -->
-                <div class="account__controls__form-groups--small-offset">
+                <div class="account__controls__form-groups--medium-offset">
 
                     <!-- Form group -->
                     <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
@@ -48,7 +46,7 @@
 
                 <div class="account__controls__form__info">
                     <div class="account__controls__form__info__left">Timezone</div>
-                    <div class="account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Timezone automatically detected. This can be further customized on preferences page.">{{signUpData.timezone}}</div>
+                    <div class="account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Timezone automatically detected. This can be further customized on preferences page.">{{timezoneDetails.value}}</div>
                 </div>
 
                 <!-- Button container -->

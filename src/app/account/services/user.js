@@ -36,8 +36,7 @@ angular
                         TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
 
                         return this;
-                    }
-                    ,
+                    },
 
                     /**
                      * Saves a user to cookies.
@@ -49,8 +48,7 @@ angular
                         SessionService.setData(sessionData);
 
                         return this;
-                    }
-                    ,
+                    },
 
                     /**
                      * Updates a user account.
@@ -61,8 +59,7 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
                         return this.updateAccount(toBeSaved);
-                    }
-                    ,
+                    },
 
                     /**
                      * Creates a user account with given fromData.
@@ -75,8 +72,7 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated, token);
-                    }
-                    ,
+                    },
 
                     $refresh: function () {
                         var that = this;
@@ -92,8 +88,7 @@ angular
                             .catch(function (response) {
                                 return $q.reject(response);
                             });
-                    }
-                    ,
+                    },
 
                     /**
                      * Retrieves details about the current account.
@@ -101,8 +96,7 @@ angular
                      */
                     retrieveDetails: function () {
                         return $http.get(URLTo.api(AUTH_URLS.details));
-                    }
-                    ,
+                    },
 
                     /**
                      * Creates the account.
@@ -120,8 +114,7 @@ angular
                             .then(function (response) {
                                 return response.data;
                             });
-                    }
-                    ,
+                    },
 
                     /**
                      * Updates given account.
