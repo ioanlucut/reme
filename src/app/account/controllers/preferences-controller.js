@@ -1,9 +1,9 @@
 /**
- * Profile controller responsible for user update profile action.
+ * Preferences controller responsible for user update preferences action.
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, flash) {
+    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
 
         /**
          * Current user.
@@ -22,7 +22,12 @@ angular
         };
 
         /**
-         * Update profile functionality.
+         * Available timezones.
+         */
+        $scope.timezones = TimezoneProvider.getTimezones();
+
+        /**
+         * Update preferences functionality.
          */
         $scope.updatePreferences = function (preferencesData) {
 
@@ -32,15 +37,13 @@ angular
                 $scope.user
                     .$save(preferencesData)
                     .then(function () {
-                        $scope.user.$refresh().then(function () {
-                            $scope.preferencesForm.$setPristine();
+                        $scope.preferencesForm.$setPristine();
 
-                            flash.success = 'We\'ve successfully updated your account!';
-                        });
+                        flash.success = 'We\'ve successfully updated your preferences!';
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your account.';
+                        flash.error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
             }
         };
