@@ -14,9 +14,7 @@
             <div class="account__controls">
 
                 <!-- Flash messages. -->
-                <div flash-alert active-class="in alert" class="fade">
-                    <span class="alert-message">{{flash.message}}</span>
-                </div>
+                <div flash-messages flash="flash"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups account__controls__form-groups--last">
@@ -46,9 +44,6 @@
         </form>
 
         <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
-        <br />
-        <br />
-        <a href="#" ng-click="getMeBack()">{{profileForm.updated ? 'Ok, get me back.' : 'Nevermind.'}}</a>
     </div>
 
     <!-- Update password section -->
@@ -64,9 +59,7 @@
             <div class="account__controls">
 
                 <!-- Flash messages. -->
-                <div flash-alert active-class="in alert" class="fade">
-                    <span class="alert-message">{{flash.message}}</span>
-                </div>
+                <div flash-messages flash="flash"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
