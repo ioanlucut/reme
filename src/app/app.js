@@ -12,7 +12,6 @@ angular
         "partials",
         "site",
         "common",
-        "feedback",
         "reminders",
         "account"
     ])

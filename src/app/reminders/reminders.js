@@ -10,8 +10,7 @@ angular
         "ui.bootstrap.modal",
         "ui.bootstrap.tabs",
         "angular-ladda",
-        "common",
-        "feedback"
+        "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
