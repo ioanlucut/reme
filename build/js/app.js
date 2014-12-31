@@ -619,6 +619,22 @@ angular
             }
         }
     });
+;/**
+ * Header directive responsible for header common template.
+ */
+angular
+    .module("common")
+    .directive("flashMessages", function () {
+        return {
+            scope: {
+                flash: "="
+            },
+            restrict: "A",
+            templateUrl: "app/common/partials/flash-messages.html",
+            link: function (scope, el) {
+            }
+        };
+    });
 ;/* Focus the first erroneous input on form submit */
 
 angular
@@ -669,29 +685,39 @@ angular
  */
 angular
     .module("common")
-    .directive("header", function () {
+    .directive("header", ["$rootScope", function ($rootScope) {
         return {
             restrict: "A",
             templateUrl: "app/common/partials/header.html",
             link: function (scope, el) {
 
+                /**
+                 * Reference to the current user.
+                 * @type {$rootScope.currentUser|*}
+                 */
+                scope.currentUser = $rootScope.currentUser;
             }
         };
-    });
+    }]);
 ;/**
  * Header directive responsible for header common template.
  */
 angular
     .module("common")
-    .directive("headerHome", function () {
+    .directive("headerHome", ["$rootScope", function ($rootScope) {
         return {
             restrict: "A",
             templateUrl: "app/common/partials/header-home.html",
             link: function (scope, el) {
 
+                /**
+                 * Reference to the current user.
+                 * @type {$rootScope.currentUser|*}
+                 */
+                scope.currentUser = $rootScope.currentUser;
             }
         };
-    });
+    }]);
 ;/* Natural Language Date Input */
 
 angular
@@ -1360,7 +1386,181 @@ angular
                 notify: true
             });
         }
-    }]);;/**
+    }]);;angular
+    .module("common")
+    .service("TimezoneProvider", function () {
+
+        /**
+         * All timezones
+         * @type {{key: string, value: string}[]}
+         */
+        this.timezones = [
+            { key: "Pacific/Midway", value: "(UTC-11:00) Midway Island" },
+            { key: "Pacific/Samoa", value: "(UTC-11:00) Samoa" },
+            { key: "Pacific/Honolulu", value: "(UTC-10:00) Hawaii" },
+            { key: "US/Alaska", value: "(UTC-09:00) Alaska" },
+            { key: "America/Los_Angeles", value: "(UTC-08:00) Pacific Time (US &amp; Canada)" },
+            { key: "America/Tijuana", value: "(UTC-08:00) Tijuana" },
+            { key: "US/Arizona", value: "(UTC-07:00) Arizona" },
+            { key: "America/Chihuahua", value: "(UTC-07:00) Chihuahua" },
+            { key: "America/Chihuahua", value: "(UTC-07:00) La Paz" },
+            { key: "America/Mazatlan", value: "(UTC-07:00) Mazatlan" },
+            { key: "US/Mountain", value: "(UTC-07:00) Mountain Time (US &amp; Canada)" },
+            { key: "America/Managua", value: "(UTC-06:00) Central America" },
+            { key: "US/Central", value: "(UTC-06:00) Central Time (US &amp; Canada)" },
+            { key: "America/Mexico_City", value: "(UTC-06:00) Guadalajara" },
+            { key: "America/Mexico_City", value: "(UTC-06:00) Mexico City" },
+            { key: "America/Monterrey", value: "(UTC-06:00) Monterrey" },
+            { key: "Canada/Saskatchewan", value: "(UTC-06:00) Saskatchewan" },
+            { key: "America/Bogota", value: "(UTC-05:00) Bogota" },
+            { key: "US/Eastern", value: "(UTC-05:00) Eastern Time (US &amp; Canada)" },
+            { key: "US/East-Indiana", value: "(UTC-05:00) Indiana (East)" },
+            { key: "America/Lima", value: "(UTC-05:00) Lima" },
+            { key: "America/Bogota", value: "(UTC-05:00) Quito" },
+            { key: "Canada/Atlantic", value: "(UTC-04:00) Atlantic Time (Canada)" },
+            { key: "America/Caracas", value: "(UTC-04:30) Caracas" },
+            { key: "America/La_Paz", value: "(UTC-04:00) La Paz" },
+            { key: "America/Santiago", value: "(UTC-04:00) Santiago" },
+            { key: "Canada/Newfoundland", value: "(UTC-03:30) Newfoundland" },
+            { key: "America/Sao_Paulo", value: "(UTC-03:00) Brasilia" },
+            { key: "America/Argentina/Buenos_Aires", value: "(UTC-03:00) Buenos Aires" },
+            { key: "America/Argentina/Buenos_Aires", value: "(UTC-03:00) Georgetown" },
+            { key: "America/Godthab", value: "(UTC-03:00) Greenland" },
+            { key: "America/Noronha", value: "(UTC-02:00) Mid-Atlantic" },
+            { key: "Atlantic/Azores", value: "(UTC-01:00) Azores" },
+            { key: "Atlantic/Cape_Verde", value: "(UTC-01:00) Cape Verde Is." },
+            { key: "Africa/Casablanca", value: "(UTC+00:00) Casablanca" },
+            { key: "Europe/London", value: "(UTC+00:00) Edinburgh" },
+            { key: "Etc/Greenwich", value: "(UTC+00:00) Greenwich Mean Time : Dublin" },
+            { key: "Europe/Lisbon", value: "(UTC+00:00) Lisbon" },
+            { key: "Europe/London", value: "(UTC+00:00) London" },
+            { key: "Africa/Monrovia", value: "(UTC+00:00) Monrovia" },
+            { key: "UTC", value: "(UTC+00:00) UTC" },
+            { key: "Europe/Amsterdam", value: "(UTC+01:00) Amsterdam" },
+            { key: "Europe/Belgrade", value: "(UTC+01:00) Belgrade" },
+            { key: "Europe/Berlin", value: "(UTC+01:00) Berlin" },
+            { key: "Europe/Berlin", value: "(UTC+01:00) Bern" },
+            { key: "Europe/Bratislava", value: "(UTC+01:00) Bratislava" },
+            { key: "Europe/Brussels", value: "(UTC+01:00) Brussels" },
+            { key: "Europe/Budapest", value: "(UTC+01:00) Budapest" },
+            { key: "Europe/Copenhagen", value: "(UTC+01:00) Copenhagen" },
+            { key: "Europe/Ljubljana", value: "(UTC+01:00) Ljubljana" },
+            { key: "Europe/Madrid", value: "(UTC+01:00) Madrid" },
+            { key: "Europe/Paris", value: "(UTC+01:00) Paris" },
+            { key: "Europe/Prague", value: "(UTC+01:00) Prague" },
+            { key: "Europe/Rome", value: "(UTC+01:00) Rome" },
+            { key: "Europe/Sarajevo", value: "(UTC+01:00) Sarajevo" },
+            { key: "Europe/Skopje", value: "(UTC+01:00) Skopje" },
+            { key: "Europe/Stockholm", value: "(UTC+01:00) Stockholm" },
+            { key: "Europe/Vienna", value: "(UTC+01:00) Vienna" },
+            { key: "Europe/Warsaw", value: "(UTC+01:00) Warsaw" },
+            { key: "Africa/Lagos", value: "(UTC+01:00) West Central Africa" },
+            { key: "Europe/Zagreb", value: "(UTC+01:00) Zagreb" },
+            { key: "Europe/Athens", value: "(UTC+02:00) Athens" },
+            { key: "Europe/Bucharest", value: "(UTC+02:00) Bucharest" },
+            { key: "Africa/Cairo", value: "(UTC+02:00) Cairo" },
+            { key: "Africa/Harare", value: "(UTC+02:00) Harare" },
+            { key: "Europe/Helsinki", value: "(UTC+02:00) Helsinki" },
+            { key: "Europe/Istanbul", value: "(UTC+02:00) Istanbul" },
+            { key: "Asia/Jerusalem", value: "(UTC+02:00) Jerusalem" },
+            { key: "Europe/Helsinki", value: "(UTC+02:00) Kyiv" },
+            { key: "Africa/Johannesburg", value: "(UTC+02:00) Pretoria" },
+            { key: "Europe/Riga", value: "(UTC+02:00) Riga" },
+            { key: "Europe/Sofia", value: "(UTC+02:00) Sofia" },
+            { key: "Europe/Tallinn", value: "(UTC+02:00) Tallinn" },
+            { key: "Europe/Vilnius", value: "(UTC+02:00) Vilnius" },
+            { key: "Asia/Baghdad", value: "(UTC+03:00) Baghdad" },
+            { key: "Asia/Kuwait", value: "(UTC+03:00) Kuwait" },
+            { key: "Europe/Minsk", value: "(UTC+03:00) Minsk" },
+            { key: "Africa/Nairobi", value: "(UTC+03:00) Nairobi" },
+            { key: "Asia/Riyadh", value: "(UTC+03:00) Riyadh" },
+            { key: "Europe/Volgograd", value: "(UTC+03:00) Volgograd" },
+            { key: "Asia/Tehran", value: "(UTC+03:30) Tehran" },
+            { key: "Asia/Muscat", value: "(UTC+04:00) Abu Dhabi" },
+            { key: "Asia/Baku", value: "(UTC+04:00) Baku" },
+            { key: "Europe/Moscow", value: "(UTC+04:00) Moscow" },
+            { key: "Asia/Muscat", value: "(UTC+04:00) Muscat" },
+            { key: "Europe/Moscow", value: "(UTC+04:00) St. Petersburg" },
+            { key: "Asia/Tbilisi", value: "(UTC+04:00) Tbilisi" },
+            { key: "Asia/Yerevan", value: "(UTC+04:00) Yerevan" },
+            { key: "Asia/Kabul", value: "(UTC+04:30) Kabul" },
+            { key: "Asia/Karachi", value: "(UTC+05:00) Islamabad" },
+            { key: "Asia/Karachi", value: "(UTC+05:00) Karachi" },
+            { key: "Asia/Tashkent", value: "(UTC+05:00) Tashkent" },
+            { key: "Asia/Calcutta", value: "(UTC+05:30) Chennai" },
+            { key: "Asia/Kolkata", value: "(UTC+05:30) Kolkata" },
+            { key: "Asia/Calcutta", value: "(UTC+05:30) Mumbai" },
+            { key: "Asia/Calcutta", value: "(UTC+05:30) New Delhi" },
+            { key: "Asia/Calcutta", value: "(UTC+05:30) Sri Jayawardenepura" },
+            { key: "Asia/Katmandu", value: "(UTC+05:45) Kathmandu" },
+            { key: "Asia/Almaty", value: "(UTC+06:00) Almaty" },
+            { key: "Asia/Dhaka", value: "(UTC+06:00) Astana" },
+            { key: "Asia/Dhaka", value: "(UTC+06:00) Dhaka" },
+            { key: "Asia/Yekaterinburg", value: "(UTC+06:00) Ekaterinburg" },
+            { key: "Asia/Rangoon", value: "(UTC+06:30) Rangoon" },
+            { key: "Asia/Bangkok", value: "(UTC+07:00) Bangkok" },
+            { key: "Asia/Bangkok", value: "(UTC+07:00) Hanoi" },
+            { key: "Asia/Jakarta", value: "(UTC+07:00) Jakarta" },
+            { key: "Asia/Novosibirsk", value: "(UTC+07:00) Novosibirsk" },
+            { key: "Asia/Hong_Kong", value: "(UTC+08:00) Beijing" },
+            { key: "Asia/Chongqing", value: "(UTC+08:00) Chongqing" },
+            { key: "Asia/Hong_Kong", value: "(UTC+08:00) Hong Kong" },
+            { key: "Asia/Krasnoyarsk", value: "(UTC+08:00) Krasnoyarsk" },
+            { key: "Asia/Kuala_Lumpur", value: "(UTC+08:00) Kuala Lumpur" },
+            { key: "Australia/Perth", value: "(UTC+08:00) Perth" },
+            { key: "Asia/Singapore", value: "(UTC+08:00) Singapore" },
+            { key: "Asia/Taipei", value: "(UTC+08:00) Taipei" },
+            { key: "Asia/Ulan_Bator", value: "(UTC+08:00) Ulaan Bataar" },
+            { key: "Asia/Urumqi", value: "(UTC+08:00) Urumqi" },
+            { key: "Asia/Irkutsk", value: "(UTC+09:00) Irkutsk" },
+            { key: "Asia/Tokyo", value: "(UTC+09:00) Osaka" },
+            { key: "Asia/Tokyo", value: "(UTC+09:00) Sapporo" },
+            { key: "Asia/Seoul", value: "(UTC+09:00) Seoul" },
+            { key: "Asia/Tokyo", value: "(UTC+09:00) Tokyo" },
+            { key: "Australia/Adelaide", value: "(UTC+09:30) Adelaide" },
+            { key: "Australia/Darwin", value: "(UTC+09:30) Darwin" },
+            { key: "Australia/Brisbane", value: "(UTC+10:00) Brisbane" },
+            { key: "Australia/Canberra", value: "(UTC+10:00) Canberra" },
+            { key: "Pacific/Guam", value: "(UTC+10:00) Guam" },
+            { key: "Australia/Hobart", value: "(UTC+10:00) Hobart" },
+            { key: "Australia/Melbourne", value: "(UTC+10:00) Melbourne" },
+            { key: "Pacific/Port_Moresby", value: "(UTC+10:00) Port Moresby" },
+            { key: "Australia/Sydney", value: "(UTC+10:00) Sydney" },
+            { key: "Asia/Yakutsk", value: "(UTC+10:00) Yakutsk" },
+            { key: "Asia/Vladivostok", value: "(UTC+11:00) Vladivostok" },
+            { key: "Pacific/Auckland", value: "(UTC+12:00) Auckland" },
+            { key: "Pacific/Fiji", value: "(UTC+12:00) Fiji" },
+            { key: "Pacific/Kwajalein", value: "(UTC+12:00) International Date Line West" },
+            { key: "Asia/Kamchatka", value: "(UTC+12:00) Kamchatka" },
+            { key: "Asia/Magadan", value: "(UTC+12:00) Magadan" },
+            { key: "Pacific/Fiji", value: "(UTC+12:00) Marshall Is." },
+            { key: "Asia/Magadan", value: "(UTC+12:00) New Caledonia" },
+            { key: "Asia/Magadan", value: "(UTC+12:00) Solomon Is." },
+            { key: "Pacific/Auckland", value: "(UTC+12:00) Wellington" },
+            { key: "Pacific/Tongatapu", value: "(UTC+13:00) Nuku'alofa" }
+        ];
+
+        /**
+         * Returns timezones.
+         */
+        this.getTimezones = function () {
+            return this.timezones;
+        };
+
+        /**
+         * Returns timezone details.
+         */
+        this.getTimezoneDescription = function (timezone) {
+            var that = this;
+            var timezoneDetail = _.filter(that.timezones, { 'key': timezone });
+
+            if ( timezoneDetail ) {
+                return _.isArray(timezoneDetail) ? timezoneDetail[0] : timezoneDetail;
+            }
+        };
+
+    });
+;/**
  * Transformer utils service.
  */
 angular
@@ -1514,20 +1714,18 @@ angular
                     validateRegistrationResult: ["$stateParams", "$q", "AuthService", "$state", function ($stateParams, $q, AuthService, $state) {
                         var deferred = $q.defer();
 
+                        AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
+                            .then(function (response) {
                                 deferred.resolve({
                                     email: $stateParams.email,
                                     token: $stateParams.token
                                 });
-                        /*
-                         AuthService.validateRegistrationToken($stateParams.email, $stateParams.token)
-                         .then(function (response) {
                                 return response;
                             })
                             .catch(function (response) {
                                 $state.go("account:confirmRegistration.invalid");
                                 return response;
                             });
-                         */
 
                         return deferred.promise;
                     }]
@@ -1689,11 +1887,11 @@ angular
 
     }]);
 ;/**
- * Profile controller responsible for user update profile action.
+ * Preferences controller responsible for user update preferences action.
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "flash", function ($q, $scope, $rootScope, flash) {
+    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
 
         /**
          * Current user.
@@ -1712,7 +1910,12 @@ angular
         };
 
         /**
-         * Update profile functionality.
+         * Available timezones.
+         */
+        $scope.timezones = TimezoneProvider.getTimezones();
+
+        /**
+         * Update preferences functionality.
          */
         $scope.updatePreferences = function (preferencesData) {
 
@@ -1722,15 +1925,13 @@ angular
                 $scope.user
                     .$save(preferencesData)
                     .then(function () {
-                        $scope.user.$refresh().then(function () {
-                            $scope.preferencesForm.$setPristine();
+                        $scope.preferencesForm.$setPristine();
 
-                            flash.success = 'We\'ve successfully updated your account!';
-                        });
+                        flash.success = 'We\'ve successfully updated your preferences!';
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your account.';
+                        flash.error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
             }
         };
@@ -1828,7 +2029,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult) {
+    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
 
         /**
          * Validate registration result.
@@ -1852,6 +2053,11 @@ angular
             password: "",
             timezone: jstz.determine().name()
         };
+
+        /**
+         * Timezone details
+         */
+        $scope.timezoneDetails = TimezoneProvider.getTimezoneDescription($scope.signUpData.timezone);
 
         /*
          * Sign up functionality.
@@ -2431,8 +2637,7 @@ angular
                         TransformerUtils.copyKeysFromTo(SessionService.getData() || {}, this.model);
 
                         return this;
-                    }
-                    ,
+                    },
 
                     /**
                      * Saves a user to cookies.
@@ -2444,8 +2649,7 @@ angular
                         SessionService.setData(sessionData);
 
                         return this;
-                    }
-                    ,
+                    },
 
                     /**
                      * Updates a user account.
@@ -2456,8 +2660,7 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeSaved);
 
                         return this.updateAccount(toBeSaved);
-                    }
-                    ,
+                    },
 
                     /**
                      * Creates a user account with given fromData.
@@ -2470,8 +2673,7 @@ angular
                         TransformerUtils.copyKeysFromTo(fromData, toBeCreated);
 
                         return this.createAccount(toBeCreated, token);
-                    }
-                    ,
+                    },
 
                     $refresh: function () {
                         var that = this;
@@ -2487,8 +2689,7 @@ angular
                             .catch(function (response) {
                                 return $q.reject(response);
                             });
-                    }
-                    ,
+                    },
 
                     /**
                      * Retrieves details about the current account.
@@ -2496,8 +2697,7 @@ angular
                      */
                     retrieveDetails: function () {
                         return $http.get(URLTo.api(AUTH_URLS.details));
-                    }
-                    ,
+                    },
 
                     /**
                      * Creates the account.
@@ -2515,8 +2715,7 @@ angular
                             .then(function (response) {
                                 return response.data;
                             });
-                    }
-                    ,
+                    },
 
                     /**
                      * Updates given account.
@@ -3714,7 +3913,7 @@ angular
             });
         }
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/feedback/partials/feedbackModal/feedbackModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -4080,9 +4279,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4127,9 +4324,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4188,9 +4383,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4296,161 +4489,14 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
-    "                        <select chosen class=\"form-control\" name=\"timezone\" ng-model=\"preferencesData.timezone\" required>\n" +
-    "                            <option value=\"{{preferencesData.timezone}}\">{{preferencesData.timezone}}</option>\n" +
-    "                            <option value=\"Pacific/Midway\">(UTC-11:00) Midway Island</option>\n" +
-    "                            <option value=\"Pacific/Samoa\">(UTC-11:00) Samoa</option>\n" +
-    "                            <option value=\"Pacific/Honolulu\">(UTC-10:00) Hawaii</option>\n" +
-    "                            <option value=\"US/Alaska\">(UTC-09:00) Alaska</option>\n" +
-    "                            <option value=\"America/Los_Angeles\">(UTC-08:00) Pacific Time (US &amp; Canada)</option>\n" +
-    "                            <option value=\"America/Tijuana\">(UTC-08:00) Tijuana</option>\n" +
-    "                            <option value=\"US/Arizona\">(UTC-07:00) Arizona</option>\n" +
-    "                            <option value=\"America/Chihuahua\">(UTC-07:00) Chihuahua</option>\n" +
-    "                            <option value=\"America/Chihuahua\">(UTC-07:00) La Paz</option>\n" +
-    "                            <option value=\"America/Mazatlan\">(UTC-07:00) Mazatlan</option>\n" +
-    "                            <option value=\"US/Mountain\">(UTC-07:00) Mountain Time (US &amp; Canada)</option>\n" +
-    "                            <option value=\"America/Managua\">(UTC-06:00) Central America</option>\n" +
-    "                            <option value=\"US/Central\">(UTC-06:00) Central Time (US &amp; Canada)</option>\n" +
-    "                            <option value=\"America/Mexico_City\">(UTC-06:00) Guadalajara</option>\n" +
-    "                            <option value=\"America/Mexico_City\">(UTC-06:00) Mexico City</option>\n" +
-    "                            <option value=\"America/Monterrey\">(UTC-06:00) Monterrey</option>\n" +
-    "                            <option value=\"Canada/Saskatchewan\">(UTC-06:00) Saskatchewan</option>\n" +
-    "                            <option value=\"America/Bogota\">(UTC-05:00) Bogota</option>\n" +
-    "                            <option value=\"US/Eastern\">(UTC-05:00) Eastern Time (US &amp; Canada)</option>\n" +
-    "                            <option value=\"US/East-Indiana\">(UTC-05:00) Indiana (East)</option>\n" +
-    "                            <option value=\"America/Lima\">(UTC-05:00) Lima</option>\n" +
-    "                            <option value=\"America/Bogota\">(UTC-05:00) Quito</option>\n" +
-    "                            <option value=\"Canada/Atlantic\">(UTC-04:00) Atlantic Time (Canada)</option>\n" +
-    "                            <option value=\"America/Caracas\">(UTC-04:30) Caracas</option>\n" +
-    "                            <option value=\"America/La_Paz\">(UTC-04:00) La Paz</option>\n" +
-    "                            <option value=\"America/Santiago\">(UTC-04:00) Santiago</option>\n" +
-    "                            <option value=\"Canada/Newfoundland\">(UTC-03:30) Newfoundland</option>\n" +
-    "                            <option value=\"America/Sao_Paulo\">(UTC-03:00) Brasilia</option>\n" +
-    "                            <option value=\"America/Argentina/Buenos_Aires\">(UTC-03:00) Buenos Aires</option>\n" +
-    "                            <option value=\"America/Argentina/Buenos_Aires\">(UTC-03:00) Georgetown</option>\n" +
-    "                            <option value=\"America/Godthab\">(UTC-03:00) Greenland</option>\n" +
-    "                            <option value=\"America/Noronha\">(UTC-02:00) Mid-Atlantic</option>\n" +
-    "                            <option value=\"Atlantic/Azores\">(UTC-01:00) Azores</option>\n" +
-    "                            <option value=\"Atlantic/Cape_Verde\">(UTC-01:00) Cape Verde Is.</option>\n" +
-    "                            <option value=\"Africa/Casablanca\">(UTC+00:00) Casablanca</option>\n" +
-    "                            <option value=\"Europe/London\">(UTC+00:00) Edinburgh</option>\n" +
-    "                            <option value=\"Etc/Greenwich\">(UTC+00:00) Greenwich Mean Time : Dublin</option>\n" +
-    "                            <option value=\"Europe/Lisbon\">(UTC+00:00) Lisbon</option>\n" +
-    "                            <option value=\"Europe/London\">(UTC+00:00) London</option>\n" +
-    "                            <option value=\"Africa/Monrovia\">(UTC+00:00) Monrovia</option>\n" +
-    "                            <option value=\"UTC\">(UTC+00:00) UTC</option>\n" +
-    "                            <option value=\"Europe/Amsterdam\">(UTC+01:00) Amsterdam</option>\n" +
-    "                            <option value=\"Europe/Belgrade\">(UTC+01:00) Belgrade</option>\n" +
-    "                            <option value=\"Europe/Berlin\">(UTC+01:00) Berlin</option>\n" +
-    "                            <option value=\"Europe/Berlin\">(UTC+01:00) Bern</option>\n" +
-    "                            <option value=\"Europe/Bratislava\">(UTC+01:00) Bratislava</option>\n" +
-    "                            <option value=\"Europe/Brussels\">(UTC+01:00) Brussels</option>\n" +
-    "                            <option value=\"Europe/Budapest\">(UTC+01:00) Budapest</option>\n" +
-    "                            <option value=\"Europe/Copenhagen\">(UTC+01:00) Copenhagen</option>\n" +
-    "                            <option value=\"Europe/Ljubljana\">(UTC+01:00) Ljubljana</option>\n" +
-    "                            <option value=\"Europe/Madrid\">(UTC+01:00) Madrid</option>\n" +
-    "                            <option value=\"Europe/Paris\">(UTC+01:00) Paris</option>\n" +
-    "                            <option value=\"Europe/Prague\">(UTC+01:00) Prague</option>\n" +
-    "                            <option value=\"Europe/Rome\">(UTC+01:00) Rome</option>\n" +
-    "                            <option value=\"Europe/Sarajevo\">(UTC+01:00) Sarajevo</option>\n" +
-    "                            <option value=\"Europe/Skopje\">(UTC+01:00) Skopje</option>\n" +
-    "                            <option value=\"Europe/Stockholm\">(UTC+01:00) Stockholm</option>\n" +
-    "                            <option value=\"Europe/Vienna\">(UTC+01:00) Vienna</option>\n" +
-    "                            <option value=\"Europe/Warsaw\">(UTC+01:00) Warsaw</option>\n" +
-    "                            <option value=\"Africa/Lagos\">(UTC+01:00) West Central Africa</option>\n" +
-    "                            <option value=\"Europe/Zagreb\">(UTC+01:00) Zagreb</option>\n" +
-    "                            <option value=\"Europe/Athens\">(UTC+02:00) Athens</option>\n" +
-    "                            <option value=\"Europe/Bucharest\" selected=\"selected\">(UTC+02:00) Bucharest</option>\n" +
-    "                            <option value=\"Africa/Cairo\">(UTC+02:00) Cairo</option>\n" +
-    "                            <option value=\"Africa/Harare\">(UTC+02:00) Harare</option>\n" +
-    "                            <option value=\"Europe/Helsinki\">(UTC+02:00) Helsinki</option>\n" +
-    "                            <option value=\"Europe/Istanbul\">(UTC+02:00) Istanbul</option>\n" +
-    "                            <option value=\"Asia/Jerusalem\">(UTC+02:00) Jerusalem</option>\n" +
-    "                            <option value=\"Europe/Helsinki\">(UTC+02:00) Kyiv</option>\n" +
-    "                            <option value=\"Africa/Johannesburg\">(UTC+02:00) Pretoria</option>\n" +
-    "                            <option value=\"Europe/Riga\">(UTC+02:00) Riga</option>\n" +
-    "                            <option value=\"Europe/Sofia\">(UTC+02:00) Sofia</option>\n" +
-    "                            <option value=\"Europe/Tallinn\">(UTC+02:00) Tallinn</option>\n" +
-    "                            <option value=\"Europe/Vilnius\">(UTC+02:00) Vilnius</option>\n" +
-    "                            <option value=\"Asia/Baghdad\">(UTC+03:00) Baghdad</option>\n" +
-    "                            <option value=\"Asia/Kuwait\">(UTC+03:00) Kuwait</option>\n" +
-    "                            <option value=\"Europe/Minsk\">(UTC+03:00) Minsk</option>\n" +
-    "                            <option value=\"Africa/Nairobi\">(UTC+03:00) Nairobi</option>\n" +
-    "                            <option value=\"Asia/Riyadh\">(UTC+03:00) Riyadh</option>\n" +
-    "                            <option value=\"Europe/Volgograd\">(UTC+03:00) Volgograd</option>\n" +
-    "                            <option value=\"Asia/Tehran\">(UTC+03:30) Tehran</option>\n" +
-    "                            <option value=\"Asia/Muscat\">(UTC+04:00) Abu Dhabi</option>\n" +
-    "                            <option value=\"Asia/Baku\">(UTC+04:00) Baku</option>\n" +
-    "                            <option value=\"Europe/Moscow\">(UTC+04:00) Moscow</option>\n" +
-    "                            <option value=\"Asia/Muscat\">(UTC+04:00) Muscat</option>\n" +
-    "                            <option value=\"Europe/Moscow\">(UTC+04:00) St. Petersburg</option>\n" +
-    "                            <option value=\"Asia/Tbilisi\">(UTC+04:00) Tbilisi</option>\n" +
-    "                            <option value=\"Asia/Yerevan\">(UTC+04:00) Yerevan</option>\n" +
-    "                            <option value=\"Asia/Kabul\">(UTC+04:30) Kabul</option>\n" +
-    "                            <option value=\"Asia/Karachi\">(UTC+05:00) Islamabad</option>\n" +
-    "                            <option value=\"Asia/Karachi\">(UTC+05:00) Karachi</option>\n" +
-    "                            <option value=\"Asia/Tashkent\">(UTC+05:00) Tashkent</option>\n" +
-    "                            <option value=\"Asia/Calcutta\">(UTC+05:30) Chennai</option>\n" +
-    "                            <option value=\"Asia/Kolkata\">(UTC+05:30) Kolkata</option>\n" +
-    "                            <option value=\"Asia/Calcutta\">(UTC+05:30) Mumbai</option>\n" +
-    "                            <option value=\"Asia/Calcutta\">(UTC+05:30) New Delhi</option>\n" +
-    "                            <option value=\"Asia/Calcutta\">(UTC+05:30) Sri Jayawardenepura</option>\n" +
-    "                            <option value=\"Asia/Katmandu\">(UTC+05:45) Kathmandu</option>\n" +
-    "                            <option value=\"Asia/Almaty\">(UTC+06:00) Almaty</option>\n" +
-    "                            <option value=\"Asia/Dhaka\">(UTC+06:00) Astana</option>\n" +
-    "                            <option value=\"Asia/Dhaka\">(UTC+06:00) Dhaka</option>\n" +
-    "                            <option value=\"Asia/Yekaterinburg\">(UTC+06:00) Ekaterinburg</option>\n" +
-    "                            <option value=\"Asia/Rangoon\">(UTC+06:30) Rangoon</option>\n" +
-    "                            <option value=\"Asia/Bangkok\">(UTC+07:00) Bangkok</option>\n" +
-    "                            <option value=\"Asia/Bangkok\">(UTC+07:00) Hanoi</option>\n" +
-    "                            <option value=\"Asia/Jakarta\">(UTC+07:00) Jakarta</option>\n" +
-    "                            <option value=\"Asia/Novosibirsk\">(UTC+07:00) Novosibirsk</option>\n" +
-    "                            <option value=\"Asia/Hong_Kong\">(UTC+08:00) Beijing</option>\n" +
-    "                            <option value=\"Asia/Chongqing\">(UTC+08:00) Chongqing</option>\n" +
-    "                            <option value=\"Asia/Hong_Kong\">(UTC+08:00) Hong Kong</option>\n" +
-    "                            <option value=\"Asia/Krasnoyarsk\">(UTC+08:00) Krasnoyarsk</option>\n" +
-    "                            <option value=\"Asia/Kuala_Lumpur\">(UTC+08:00) Kuala Lumpur</option>\n" +
-    "                            <option value=\"Australia/Perth\">(UTC+08:00) Perth</option>\n" +
-    "                            <option value=\"Asia/Singapore\">(UTC+08:00) Singapore</option>\n" +
-    "                            <option value=\"Asia/Taipei\">(UTC+08:00) Taipei</option>\n" +
-    "                            <option value=\"Asia/Ulan_Bator\">(UTC+08:00) Ulaan Bataar</option>\n" +
-    "                            <option value=\"Asia/Urumqi\">(UTC+08:00) Urumqi</option>\n" +
-    "                            <option value=\"Asia/Irkutsk\">(UTC+09:00) Irkutsk</option>\n" +
-    "                            <option value=\"Asia/Tokyo\">(UTC+09:00) Osaka</option>\n" +
-    "                            <option value=\"Asia/Tokyo\">(UTC+09:00) Sapporo</option>\n" +
-    "                            <option value=\"Asia/Seoul\">(UTC+09:00) Seoul</option>\n" +
-    "                            <option value=\"Asia/Tokyo\">(UTC+09:00) Tokyo</option>\n" +
-    "                            <option value=\"Australia/Adelaide\">(UTC+09:30) Adelaide</option>\n" +
-    "                            <option value=\"Australia/Darwin\">(UTC+09:30) Darwin</option>\n" +
-    "                            <option value=\"Australia/Brisbane\">(UTC+10:00) Brisbane</option>\n" +
-    "                            <option value=\"Australia/Canberra\">(UTC+10:00) Canberra</option>\n" +
-    "                            <option value=\"Pacific/Guam\">(UTC+10:00) Guam</option>\n" +
-    "                            <option value=\"Australia/Hobart\">(UTC+10:00) Hobart</option>\n" +
-    "                            <option value=\"Australia/Melbourne\">(UTC+10:00) Melbourne</option>\n" +
-    "                            <option value=\"Pacific/Port_Moresby\">(UTC+10:00) Port Moresby</option>\n" +
-    "                            <option value=\"Australia/Sydney\">(UTC+10:00) Sydney</option>\n" +
-    "                            <option value=\"Asia/Yakutsk\">(UTC+10:00) Yakutsk</option>\n" +
-    "                            <option value=\"Asia/Vladivostok\">(UTC+11:00) Vladivostok</option>\n" +
-    "                            <option value=\"Pacific/Auckland\">(UTC+12:00) Auckland</option>\n" +
-    "                            <option value=\"Pacific/Fiji\">(UTC+12:00) Fiji</option>\n" +
-    "                            <option value=\"Pacific/Kwajalein\">(UTC+12:00) International Date Line West</option>\n" +
-    "                            <option value=\"Asia/Kamchatka\">(UTC+12:00) Kamchatka</option>\n" +
-    "                            <option value=\"Asia/Magadan\">(UTC+12:00) Magadan</option>\n" +
-    "                            <option value=\"Pacific/Fiji\">(UTC+12:00) Marshall Is.</option>\n" +
-    "                            <option value=\"Asia/Magadan\">(UTC+12:00) New Caledonia</option>\n" +
-    "                            <option value=\"Asia/Magadan\">(UTC+12:00) Solomon Is.</option>\n" +
-    "                            <option value=\"Pacific/Auckland\">(UTC+12:00) Wellington</option>\n" +
-    "                            <option value=\"Pacific/Tongatapu\">(UTC+13:00) Nuku'alofa</option>\n" +
-    "                        </select>\n" +
+    "                        <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
     "                        <span class=\"help-block\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -4482,9 +4528,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
@@ -4514,9 +4558,6 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "        </form>\n" +
     "\n" +
     "        <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password.</a>\n" +
-    "        <br />\n" +
-    "        <br />\n" +
-    "        <a href=\"#\" ng-click=\"getMeBack()\">{{profileForm.updated ? 'Ok, get me back.' : 'Nevermind.'}}</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Update password section -->\n" +
@@ -4532,9 +4573,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4616,7 +4655,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "    <div class=\"account__section\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Get started with registration confirmation!</h1>\n" +
+    "        <h1 class=\"account__title\">Finalize your account!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
     "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error-on-submit>\n" +
@@ -4625,9 +4664,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            <div class=\"account__controls\">\n" +
     "\n" +
     "                <!-- Flash messages. -->\n" +
-    "                <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                    <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                </div>\n" +
+    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
@@ -4642,7 +4679,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
-    "                <div class=\"account__controls__form-groups--small-offset\">\n" +
+    "                <div class=\"account__controls__form-groups--medium-offset\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group form-group--small-offset\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}\">\n" +
@@ -4657,7 +4694,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <div class=\"account__controls__form__info\">\n" +
     "                    <div class=\"account__controls__form__info__left\">Timezone</div>\n" +
-    "                    <div class=\"account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Timezone automatically detected. This can be further customized on preferences page.\">{{signUpData.timezone}}</div>\n" +
+    "                    <div class=\"account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Timezone automatically detected. This can be further customized on preferences page.\">{{timezoneDetails.value}}</div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
@@ -4712,9 +4749,7 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "        <div class=\"account__controls\">\n" +
     "\n" +
     "            <!-- Flash messages. -->\n" +
-    "            <div flash-alert active-class=\"in alert\" class=\"fade\">\n" +
-    "                <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "            </div>\n" +
+    "            <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "            <!-- Form groups -->\n" +
     "            <div class=\"account__controls__form-groups--last\">\n" +
@@ -4768,6 +4803,15 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "</div>\n" +
     "\n" +
     "<a class=\"btn-add-emails\" href=\"#\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
+}]);
+
+angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/common/partials/flash-messages.html",
+    "<!-- Flash messages. -->\n" +
+    "<div flash-alert active-class=\"in alert\" class=\"fade\" duration=\"2000\">\n" +
+    "    <button type=\"button\" class=\"close\" ng-click=\"hide()\">&times;</button>\n" +
+    "    <span class=\"alert-message\">{{flash.message}}</span>\n" +
+    "</div>");
 }]);
 
 angular.module("app/common/partials/footer-home.html", []).run(["$templateCache", function($templateCache) {
