@@ -187,7 +187,7 @@
   }
 
   .btn--reminder-popup {
-    @include button-variant($gray3, $gray12, transparent);
+    @include button-variant($gray3, $gray-primary, transparent);
     @extend .btn-block;
     height: 40px;
     line-height: $line-height-large;
@@ -256,4 +256,17 @@
   background-color: $gray12;
   height: 40px;
   padding-left: 50px;
+  border: 0;
 }
+
+/*Add border on error*/
+.has-error .form-control--friend-email {
+  border: 1px solid $state-danger-text;
+}
+
+/*First input - the user email*/
+.form-control--friend-email.form-control[disabled] {
+  background-color: $gray-primary;
+  border: 0;
+}
+
