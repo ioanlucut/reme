@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,300,400);
+@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 /*$line-height-base: 1.428571429 !default;*/
 /*$text-color: $text-color-base;*/
@@ -4908,7 +4908,7 @@ html {
 
 /* line 22, ../../bower_components/bootstrap-sass/lib/_scaffolding.scss */
 body {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Oxygen", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #333333;
@@ -5096,7 +5096,7 @@ cite {
 /* line 78, ../../bower_components/bootstrap-sass/lib/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Oxygen", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
