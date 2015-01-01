@@ -25,6 +25,7 @@
 /*If new reminder is added, the last reminder from list is deleted, so we skip transition*/
 .reminder.ng-leave-active.reminder--last-add-remove {
   @include duration(0s !important);
+  display: none;
 }
 
 /*If reminders are added with load more, reminders should have different transitions*/
