@@ -35,6 +35,9 @@ $gray10: #d7dbde !default;
 $gray11: #e6e9eb !default;
 $gray12: #f5f6f7 !default;
 
+$gray-primary: #ededed !default;
+$gray-primary-hover: #e0e0e0 !default;
+
 // Brand colors
 // -------------------------
 
@@ -61,7 +64,7 @@ $link-hover-color: darken($link-color, 10%) !default;
 // -------------------------
 
 //$font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif !default;
-$font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-sans-serif: "Oxygen", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $font-family-serif: Georgia, "Times New Roman", Times, serif !default;
 $font-family-monospace: Monaco, Menlo, Consolas, "Courier New", monospace !default;
 $font-family-base: $font-family-sans-serif !default;
