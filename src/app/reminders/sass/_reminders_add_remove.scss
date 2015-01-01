@@ -21,3 +21,13 @@
 .reminder.ng-leave-active {
   @include bounceOutRight();
 }
+
+/*If new reminder is added, the last reminder from list is deleted, so we skip transition*/
+.reminder.ng-leave-active.reminder--last-add-remove {
+  @include duration(0s !important);
+}
+
+/*If reminders are added with load more, reminders should have different transitions*/
+.reminder.ng-enter-active.reminder--loaded {
+  @include fadeIn();
+}
