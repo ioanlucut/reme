@@ -3219,7 +3219,12 @@ angular
                 /**
                  * After last element is removed, perform a 1,5 second pause.
                  */
-                scope.$watch("reminders.length", function (newValue) {
+                scope.$watch("reminders.length", function (newValue, oldValue) {
+
+                    // Is new reminder created while having empty list ?
+                    scope.firstReminderCreated = !!(newValue === 1 && oldValue === 0);
+
+                    //Hook to check when we deleted the last reminder
                     if ( newValue === 0 ) {
                         $timeout(function () {
                             scope.isReminderListEmpty = true;
@@ -3947,7 +3952,7 @@ angular.module("app/reminders/partials/privacy.html", []).run(["$templateCache",
 angular.module("app/reminders/partials/reminder/reminder.list.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminder.list.template.html",
     "<!--Reminder list is empty-->\n" +
-    "<div class=\"reminder__empty empty-state--text\" ng-if=\"isReminderListEmpty\">\n" +
+    "<div class=\"reminder__empty empty-state--text\" ng-class=\"{'reminder__empty--revived':firstReminderCreated}\" ng-if=\"isReminderListEmpty\">\n" +
     "    You have no reminders. Don't be shy, go ahead and create one! :)\n" +
     "    <span class=\"reminder__empty__arrow\">Arrow</span>\n" +
     "</div>\n" +
@@ -4301,7 +4306,7 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
     "<div header></div>\n" +
     "\n" +
     "<div class=\"centered-section-account\">\n" +
-    "    <tabset>\n" +
+    "    <tabset vertical=\"true\">\n" +
     "        <tab heading=\"Profile\">\n" +
     "            <div class=\"account__sections account__sections--settings\" ui-view=\"profile\"></div>\n" +
     "        </tab>\n" +
@@ -4835,7 +4840,7 @@ angular.module("template/datepicker/popup.html", []).run(["$templateCache", func
     "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\">\n" +
     "	<li ng-transclude></li>\n" +
     "	<li ng-show=\"showButtonBar\" class=\"datepicker-button-bar\">\n" +
-    "        <button type=\"button\" class=\"btn btn-sm btn-default btn-block\" ng-click=\"today(dt)\">{{currentText}}</button>\n" +
+    "		<button type=\"button\" class=\"btn btn-sm btn-default btn-block\" ng-click=\"today(dt)\">Today</button>\n" +
     "	</li>\n" +
     "</ul>\n" +
     "");
@@ -4848,7 +4853,7 @@ angular.module("template/modal/backdrop.html", []).run(["$templateCache", functi
 
 angular.module("template/modal/window.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/modal/window.html",
-    "<div tabindex=\"-1\" class=\"modal fade {{ windowClass }}\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10, display: 'block'}\" ng-click=\"close($event)\">\n" +
+    "<div tabindex=\"-1\" class=\"modal reminder-modal--animate {{ windowClass }}\" ng-class=\"{in: animate}\" ng-style=\"{'z-index': 1050 + index*10, display: 'block'}\" ng-click=\"close($event)\">\n" +
     "    <div class=\"modal-dialog\"><div class=\"modal-content\" ng-transclude></div></div>\n" +
     "</div>");
 }]);
@@ -4877,8 +4882,8 @@ angular.module("template/tabs/tab.html", []).run(["$templateCache", function($te
 angular.module("template/tabs/tabset.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/tabs/tabset.html",
     "<div>\n" +
-    "    <ul class=\"nav nav-{{type || 'tabs'}} nav-tabs--reminders nav-tabs--underlined\"\n" +
-    "        ng-class=\"{'nav-stacked': vertical, 'nav-justified': justified}\"\n" +
+    "    <ul class=\"nav nav-{{type || 'tabs'}} nav-tabs--horizontal nav-tabs--underlined\"\n" +
+    "        ng-class=\"{'nav-stacked nav-tabs--vertical': vertical, 'nav-justified': justified}\"\n" +
     "        ng-transclude></ul>\n" +
     "    <div class=\"tab-content\">\n" +
     "        <div class=\"tab-pane\"\n" +
