@@ -5,13 +5,17 @@
   font-family: $font-family-hand;
 }
 
+.reminder__empty--revived {
+  @include duration(0s !important);
+}
+
 .reminder__empty {
   position: relative;
   padding: 100px 30px;
   margin: 0 auto;
   text-align: center;
   @include fadeIn();
-  
+
   .reminder__empty__arrow {
     background-image: url("../assets/img/handmade_arrow.png");
     background-repeat: no-repeat;
