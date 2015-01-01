@@ -1,5 +1,5 @@
 <!--Reminder list is empty-->
-<div class="reminder__empty empty-state--text" ng-if="isReminderListEmpty">
+<div class="reminder__empty empty-state--text" ng-class="{'reminder__empty--revived':firstReminderCreated}" ng-if="isReminderListEmpty">
     You have no reminders. Don't be shy, go ahead and create one! :)
     <span class="reminder__empty__arrow">Arrow</span>
 </div>

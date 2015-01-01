@@ -84,7 +84,12 @@ angular
                 /**
                  * After last element is removed, perform a 1,5 second pause.
                  */
-                scope.$watch("reminders.length", function (newValue) {
+                scope.$watch("reminders.length", function (newValue, oldValue) {
+
+                    // Is new reminder created while having empty list ?
+                    scope.firstReminderCreated = !!(newValue === 1 && oldValue === 0);
+
+                    //Hook to check when we deleted the last reminder
                     if ( newValue === 0 ) {
                         $timeout(function () {
                             scope.isReminderListEmpty = true;
