@@ -6,10 +6,7 @@ angular
         return {
             restrict: "A",
             scope: {
-                reminders: "=",
-                onUpdate: "&",
-                onDelete: "&",
-                onUnsubscribe: "&"
+                reminders: "="
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
