@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Oxygen:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 /*$line-height-base: 1.428571429 !default;*/
 /*$text-color: $text-color-base;*/
@@ -4908,7 +4908,7 @@ html {
 
 /* line 22, ../../bower_components/bootstrap-sass/lib/_scaffolding.scss */
 body {
-  font-family: "Oxygen", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #333333;
@@ -5096,7 +5096,7 @@ cite {
 /* line 78, ../../bower_components/bootstrap-sass/lib/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Oxygen", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -13171,7 +13171,7 @@ textarea.form-control--friend-email {
 
 /* line 10, ../../src/app/reminders/sass/_reminders_add_remove.scss */
 .reminder.ng-enter-active {
-  background-color: #FFFFFF;
+  background-color: #fff;
   opacity: 1;
   -webkit-transition: all 1s 1s ease-in;
   transition: all 1s 1s ease-in;
@@ -13219,6 +13219,72 @@ textarea.form-control--friend-email {
   -ms-animation-name: bounceOutRight;
   -o-animation-name: bounceOutRight;
   animation-name: bounceOutRight;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -ms-animation-duration: 1s;
+  -o-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  -ms-animation-delay: 0s;
+  -o-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  -ms-animation-timing-function: ease;
+  -o-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/*If new reminder is added, the last reminder from list is deleted, so we skip transition*/
+/* line 26, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+.reminder.ng-leave-active.reminder--last-add-remove {
+  -webkit-animation-duration: 0s !important;
+  -moz-animation-duration: 0s !important;
+  -ms-animation-duration: 0s !important;
+  -o-animation-duration: 0s !important;
+  animation-duration: 0s !important;
+  display: none;
+}
+
+/*If reminder is deleted, the last reminder from list is added, so we skip transition*/
+/* line 33, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+.reminder.ng-enter.reminder--last-add-remove:not(.reminder--loaded) {
+  -webkit-animation-duration: 0s !important;
+  -moz-animation-duration: 0s !important;
+  -ms-animation-duration: 0s !important;
+  -o-animation-duration: 0s !important;
+  animation-duration: 0s !important;
+  background-color: #fff;
+}
+
+/* line 40, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+.reminder.ng-enter-active.reminder--last-add-remove:not(.reminder--loaded) {
+  -webkit-animation-duration: 0s !important;
+  -moz-animation-duration: 0s !important;
+  -ms-animation-duration: 0s !important;
+  -o-animation-duration: 0s !important;
+  animation-duration: 0s !important;
+}
+
+/*If reminders are added with load more, reminders should have different transitions*/
+/* line 46, ../../src/app/reminders/sass/_reminders_add_remove.scss */
+.reminder.ng-enter-active.reminder--loaded {
+  -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+  -ms-animation-name: fadeIn;
+  -o-animation-name: fadeIn;
+  animation-name: fadeIn;
   -webkit-animation-duration: 1s;
   -moz-animation-duration: 1s;
   -ms-animation-duration: 1s;
@@ -13437,7 +13503,7 @@ textarea.form-control--friend-email {
   animation-duration: 0s !important;
 }
 
-/* line 12, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+/* line 16, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty {
   position: relative;
   padding: 100px 30px;
@@ -13474,7 +13540,7 @@ textarea.form-control--friend-email {
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-/* line 19, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+/* line 23, ../../src/app/reminders/sass/_reminders_empty_state.scss */
 .reminder__empty .reminder__empty__arrow {
   background-image: url("../assets/img/handmade_arrow.png");
   background-repeat: no-repeat;
