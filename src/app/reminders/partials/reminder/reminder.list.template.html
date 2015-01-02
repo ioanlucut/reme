@@ -12,8 +12,6 @@
         {{reminder.model.text}}
     </div>
 
-    LOADED : {{$index > defaultRemindersLimit - 1}}
-
     <!--Reminder edit/delete-->
     <div class="reminder__menu">
         <a class="reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth" data-tooltip="Edit reminder" ng-if="reminder.isCreatedBy(currentUserEmail)" href="#" ng-click="openUpdateReminderModalService(reminder)"><span class="icon-pencil"></span></a>
