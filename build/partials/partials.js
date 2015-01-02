@@ -151,7 +151,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
+    "<div class=\"reminder\" ng-class=\"{'reminder--loaded': $index > defaultRemindersLimit - 1, 'reminder--last-add-remove': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +

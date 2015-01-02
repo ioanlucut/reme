@@ -3159,7 +3159,7 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                var defaultRemindersLimit = 5;
+                scope.defaultRemindersLimit = 5;
 
                 /**
                  * Is loading more reminders flag.
@@ -3171,7 +3171,7 @@ angular
                  * Past reminders limit - initially has the default value.
                  * @type {number}
                  */
-                scope.remindersLimit = defaultRemindersLimit;
+                scope.remindersLimit = scope.defaultRemindersLimit;
 
                 /**
                  * Load more upcoming reminders.
@@ -3179,7 +3179,7 @@ angular
                 scope.loadMoreReminders = function () {
                     scope.isLoadingMore = true;
                     $timeout(function () {
-                        scope.remindersLimit = scope.remindersLimit + defaultRemindersLimit;
+                        scope.remindersLimit = scope.remindersLimit + scope.defaultRemindersLimit;
                         scope.isLoadingMore = false;
                     }, 500);
                 };
@@ -3958,7 +3958,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
+    "<div class=\"reminder\" ng-class=\"{'reminder--loaded': $index > defaultRemindersLimit - 1, 'reminder--last-add-remove': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
