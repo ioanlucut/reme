@@ -24,7 +24,7 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                var defaultRemindersLimit = 5;
+                scope.defaultRemindersLimit = 5;
 
                 /**
                  * Is loading more reminders flag.
@@ -36,7 +36,7 @@ angular
                  * Past reminders limit - initially has the default value.
                  * @type {number}
                  */
-                scope.remindersLimit = defaultRemindersLimit;
+                scope.remindersLimit = scope.defaultRemindersLimit;
 
                 /**
                  * Load more upcoming reminders.
@@ -44,7 +44,7 @@ angular
                 scope.loadMoreReminders = function () {
                     scope.isLoadingMore = true;
                     $timeout(function () {
-                        scope.remindersLimit = scope.remindersLimit + defaultRemindersLimit;
+                        scope.remindersLimit = scope.remindersLimit + scope.defaultRemindersLimit;
                         scope.isLoadingMore = false;
                     }, 500);
                 };
