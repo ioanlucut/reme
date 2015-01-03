@@ -44,15 +44,15 @@
 }
 
 .btn--load-more {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant($gray7, $gray10, $gray10);
   display: block;
   margin: 30px auto 0;
   width: 200px;
-  line-height: $line-height-large;
+  height: $form-height-small;
   border-radius: $border-radius-small;
-  text-transform: uppercase;
-  height: 50px;
-  font-size: $font-size-base;
+  //line-height: $line-height-large;
+  //text-transform: uppercase;
+  //font-size: $font-size-base;
 }
 
 // Reminder form
