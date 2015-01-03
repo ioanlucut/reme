@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout) {
 
         /**
          * The current user
@@ -57,7 +57,7 @@ angular
         });
 
         /**
-         * On reminder updated, simply display the message.
+         * On reminder updated.
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
         });
@@ -66,17 +66,20 @@ angular
          * On reminder deleted, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
-            removeReminderFrom($scope.upcomingReminders, args.reminder);
-            removeReminderFrom($scope.pastReminders, args.reminder);
+            $timeout(function () {
+                removeReminderFrom($scope.upcomingReminders, args.reminder);
+                removeReminderFrom($scope.pastReminders, args.reminder);
+            });
         });
 
         /**
          * On reminder un subscribed, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isUnSubscribed, function (event, args) {
-
-            removeReminderFrom($scope.upcomingReminders, args.reminder);
-            removeReminderFrom($scope.pastReminders, args.reminder);
+            $timeout(function () {
+                removeReminderFrom($scope.upcomingReminders, args.reminder);
+                removeReminderFrom($scope.pastReminders, args.reminder);
+            });
         });
 
         /**

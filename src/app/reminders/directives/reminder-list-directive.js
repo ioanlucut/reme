@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {
@@ -57,25 +57,28 @@ angular
                 /**
                  * Open DELETE modal
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openDeleteReminderModalService = function (reminder) {
-                    ReminderDeleteModalService.open(reminder);
+                scope.openDeleteReminderModalService = function (reminder, reminderIndex) {
+                    ReminderDeleteModalService.open(reminder, reminderIndex);
                 };
 
                 /**
                  * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openUnSubscribeReminderModalService = function (reminder) {
-                    ReminderDeleteModalService.open(reminder);
+                scope.openUnSubscribeReminderModalService = function (reminder, reminderIndex) {
+                    ReminderDeleteModalService.open(reminder, reminderIndex);
                 };
 
                 /**
                  * Open UPDATE modal
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openUpdateReminderModalService = function (reminder) {
-                    ReminderUpdateModalService.open(reminder);
+                scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
+                    ReminderUpdateModalService.open(reminder, reminderIndex);
                 };
 
                 /**
@@ -96,7 +99,22 @@ angular
                             scope.isReminderListEmpty = false;
                         })
                     }
+                });
 
+                /**
+                 * On reminder deleted flag the deleted index.
+                 */
+                scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
+                    // Set the current removed reminder index.
+                    scope.removedReminderIndex = args.reminderIndex;
+                });
+
+                /**
+                 * On reminder updated flag the updated index.
+                 */
+                scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
+                    // Set the current updated reminder index.
+                    scope.updatedReminderIndex = args.reminderIndex;
                 });
             }
         }

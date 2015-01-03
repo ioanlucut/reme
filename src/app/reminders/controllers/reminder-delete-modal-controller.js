@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -46,6 +46,7 @@ angular
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isDeleted, {
                                 reminder: $scope.reminder,
+                                reminderIndex: reminderIndex,
                                 message: 'Reminder successfully deleted!'
                             });
                         }, 400);
@@ -75,6 +76,7 @@ angular
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
                                 reminder: $scope.reminder,
+                                reminderIndex: reminderIndex,
                                 message: 'Successfully un-subscribed from this reminder!'
                             });
                         }, 400);
