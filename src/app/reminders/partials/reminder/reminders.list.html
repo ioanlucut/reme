@@ -1,11 +1,15 @@
 <div class="centered-section-reminders">
 
+    reminderTabs.upcomingRemindersTabActive ? {{reminderTabs.upcomingRemindersTabActive}}
+    <br />
+    reminderTabs.pastRemindersTabActive ? {{reminderTabs.pastRemindersTabActive}}
+
     <tabset>
-        <tab heading="Upcoming reminders">
+        <tab heading="Upcoming reminders" active="reminderTabs.upcomingRemindersTabActive">
             <div reminder-list reminders="upcomingReminders"></div>
         </tab>
 
-        <tab heading="Past reminders">
+        <tab heading="Past reminders" active="reminderTabs.pastRemindersTabActive">
             <div reminder-list reminders="pastReminders"></div>
         </tab>
     </tabset>
