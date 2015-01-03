@@ -63,10 +63,7 @@
   }
 }
 
-.btn--login {
-  width: 90px;
-}
-
+.btn--login,
 .btn--logout {
   @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
   height: $form-height-xs;
