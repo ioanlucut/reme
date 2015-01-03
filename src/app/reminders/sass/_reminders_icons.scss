@@ -49,7 +49,6 @@
   }
 }
 
-
 .reminder__menu__option--update {
   color: $gray-light;
 
@@ -58,6 +57,9 @@
   }
 }
 
+.reminder__menu__option--disabled {
+  cursor: not-allowed;
+}
 
 .reminder__menu__option--delete {
   color: lighten($brand-danger, 15%);
