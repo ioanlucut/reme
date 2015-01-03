@@ -877,14 +877,46 @@ angular.module("common").
             restrict: "A",
             link: function (scope, el, attrs) {
 
-                // Create the times array
-                scope.times = function createTimesArray() {
 
-                    var today = new Date();
-                    today.setHours(0);
-                    today.setMinutes(0);
+                // Update selected index when date changes
+                scope.$watch("date", function (date, oldDate) {
 
-                    var timestamp = today.getTime();
+                    // Create the times array with date as reference
+                    scope.times = createTimesArray(date);
+
+                    // Update date with first proper date which is not in past.
+                    var firstTimeNotInPast = _.find(scope.times, function (time) {
+                        if ( !time.inPast ) {
+                            return time;
+                        }
+                    });
+
+                    // Set date with firstTimeNotInPast
+                    scope.setTime(firstTimeNotInPast);
+                    /*
+                     // Init selectedIndex
+                     scope.selectedIndex = null;
+
+                     for ( var i = 0; i < scope.times.length; i++ ) {
+                     if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
+                     scope.selectedIndex = i;
+                     }
+                     }*/
+                });
+
+                /**
+                 * Creates the times array based on a referenceDate.
+                 * @param referenceDate
+                 * @returns {Array}
+                 */
+                function createTimesArray(referenceDate) {
+
+                    var now = new Date();
+                    referenceDate = referenceDate || new Date();
+                    referenceDate.setHours(0);
+                    referenceDate.setMinutes(0);
+
+                    var timestamp = referenceDate.getTime();
                     var step = scope.$eval(attrs.step) || 30;
                     var steps = 24 * 60 / step;
                     var times = [];
@@ -899,39 +931,35 @@ angular.module("common").
                             index: i,
                             hour: d.getHours(),
                             minute: d.getMinutes(),
-                            timestamp: timestamp
+                            timestamp: timestamp,
+                            inPast: timestamp < now.getTime()
                         });
 
                         timestamp += step * 60 * 1000;
                     }
 
                     return times;
-                }();
+                }
 
-                // Update selected index when date changes
-                scope.$watch("date", function (date) {
-
-                    // Init selectedIndex
-                    scope.selectedIndex = null;
-
-                    for ( var i = 0; i < scope.times.length; i++ ) {
-                        if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
-                            scope.selectedIndex = i;
-                        }
+                /**
+                 * Set date ng-model by selected time
+                 * @param time
+                 */
+                scope.setTime = function (time) {
+                    if ( !time.inPast ) {
+                        scope.selectedIndex = time.index;
+                        scope.date.setHours(time.hour);
+                        scope.date.setMinutes(time.minute);
                     }
-                });
-
-                // Set time by hour and minute
-                scope.setTime = function (i, hour, minute) {
-                    scope.selectedIndex = i;
-                    scope.date.setHours(hour);
-                    scope.date.setMinutes(minute);
                 };
 
                 // Get the dropdown toggle and dropdown menu
                 var dropdownToggle = el.children().eq(0);
                 var dropdownMenu = el.children().eq(1);
 
+                /**
+                 * On click hook.
+                 */
                 dropdownToggle.on("click", function () {
 
                     // Find the selected item
@@ -953,6 +981,9 @@ angular.module("common").
                     scope.$broadcast("perfectScrollbar:update", null);
                 });
 
+                /**
+                 * On mouse enter hook
+                 */
                 dropdownMenu.on("mouseenter", function () {
 
                     // Stop highlighting the selected item
@@ -986,10 +1017,26 @@ angular
             return moment(date).format("h:mm A");
         };
     }]);
+;/* Friendly date filter */
+
+angular
+    .module("common")
+    .filter('friendlyHourTimePicker', ["moment", function (moment) {
+        return function (date) {
+
+            return moment(date).format("hh:mm A");
+        };
+    }]);
 ;angular
     .module("common")
-    .filter('friendlyRecipients', function () {
+    .filter('friendlyRecipients', ["$rootScope", function ($rootScope) {
         return function (recipients) {
+
+            /**
+             * Current user email.
+             * @type {User.$new.model.email|*|.$new.model.email}
+             */
+            var currentUserEmail = $rootScope.currentUser.model.email;
 
             if ( _.isUndefined(recipients) || !_.isArray(recipients) ) {
                 return;
@@ -1000,12 +1047,13 @@ angular
                 if ( friendlyRecipients.length > 0 ) {
                     friendlyRecipients = friendlyRecipients + ", "
                 }
-                friendlyRecipients = friendlyRecipients + recipient.email;
+                var emailToBeAppended = currentUserEmail === recipient.email ? 'Me' : recipient.email;
+                friendlyRecipients = friendlyRecipients + emailToBeAppended;
             });
 
             return friendlyRecipients;
         };
-    });
+    }]);
 ;// See https://github.com/fmquaglia/ngOrderObjectB
 angular
     .module('common')
@@ -2781,7 +2829,9 @@ angular
                 url: "/reminders",
                 views: {
 
-                    '': { templateUrl: 'app/reminders/partials/reminder/reminders.html' },
+                    '': {
+                        templateUrl: 'app/reminders/partials/reminder/reminders.html'
+                    },
 
                     'create@reminders': {
                         templateUrl: "app/reminders/partials/reminder/reminders.create.html",
@@ -2792,17 +2842,9 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: ["$q", "ReminderService", function ($q, ReminderService) {
-                                var deferred = $q.defer();
-                                ReminderService
-                                    .getAllReminders()
-                                    .then(function (response) {
-                                        deferred.resolve(response);
-                                    }).catch(function () {
-                                        deferred.resolve([]);
-                                    });
-
-                                return deferred.promise;
+                            pastAndUpcomingReminders: ["ReminderService", function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
                             }]
                         }
                     }
@@ -2840,7 +2882,7 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "$timeout", "StatesHandler", "REMINDER_EVENTS", "reminder", "reminderIndex", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2886,6 +2928,7 @@ angular
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isDeleted, {
                                 reminder: $scope.reminder,
+                                reminderIndex: reminderIndex,
                                 message: 'Reminder successfully deleted!'
                             });
                         }, 400);
@@ -2915,6 +2958,7 @@ angular
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
                                 reminder: $scope.reminder,
+                                reminderIndex: reminderIndex,
                                 message: 'Successfully un-subscribed from this reminder!'
                             });
                         }, 400);
@@ -2933,19 +2977,13 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "reminderList", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$log", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $log) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders) {
 
         /**
          * The current user
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
-
-        /**
-         * Past and upcoming reminders.
-         * @type {{}}
-         */
-        var pastAndUpcomingReminders = ReminderGroupService.getPastAndUpcomingReminders(reminderList);
 
         /**
          * Upcoming reminders
@@ -2958,11 +2996,28 @@ angular
         $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
+         * Reminders tabs.
+         */
+        $scope.reminderTabs = {
+            upcomingRemindersTabActive: true,
+            pastRemindersTabActive: false,
+
+            /**
+             * Set upcoming tab active.
+             */
+            setUpcomingRemindersTabActive: function () {
+                this.upcomingRemindersTabActive = true;
+                this.pastRemindersTabActive = false;
+            }
+        };
+
+        /**
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
             if ( args.reminder.model.dueOn > new Date() ) {
                 $scope.upcomingReminders.push(args.reminder);
+                $scope.reminderTabs.setUpcomingRemindersTabActive();
             }
             else {
                 $scope.pastReminders.push(args.reminder);
@@ -2970,7 +3025,7 @@ angular
         });
 
         /**
-         * On reminder updated, simply display the message.
+         * On reminder updated.
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
         });
@@ -2979,17 +3034,20 @@ angular
          * On reminder deleted, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
-            removeReminderFrom($scope.upcomingReminders, args.reminder);
-            removeReminderFrom($scope.pastReminders, args.reminder);
+            $timeout(function () {
+                removeReminderFrom($scope.upcomingReminders, args.reminder);
+                removeReminderFrom($scope.pastReminders, args.reminder);
+            });
         });
 
         /**
          * On reminder un subscribed, display a success message, and remove the reminder from the list.
          */
         $scope.$on(REMINDER_EVENTS.isUnSubscribed, function (event, args) {
-
-            removeReminderFrom($scope.upcomingReminders, args.reminder);
-            removeReminderFrom($scope.pastReminders, args.reminder);
+            $timeout(function () {
+                removeReminderFrom($scope.upcomingReminders, args.reminder);
+                removeReminderFrom($scope.pastReminders, args.reminder);
+            });
         });
 
         /**
@@ -3010,7 +3068,7 @@ angular
         }
     }]);;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -3027,6 +3085,12 @@ angular
          * @type {boolean}
          */
         $scope.isSaving = false;
+
+        /**
+         * Minimum date to create reminder.
+         * @type {Date}
+         */
+        $scope.minDate = new Date();
 
         /**
          * Reminder examples pool
@@ -3099,6 +3163,7 @@ angular
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
                                     reminder: $scope.reminder,
+                                    reminderIndex: reminderIndex,
                                     message: 'Reminder successfully updated!'
                                 });
                             }, 800);
@@ -3118,33 +3183,15 @@ angular
         };
 
     }]);
-;/* Saved reminder controller */
-
-angular
-    .module("reminders")
-    .controller("ReminderSavedCtrl", ["$rootScope", "$scope", "$state", "FeedbackModal", "reminder", function ($rootScope, $scope, $state, FeedbackModal, reminder) {
-
-        $rootScope.$state = $state;
-        $scope.reminder = reminder;
-
-        // Open feedback modal
-        $scope.openFeedbackModal = function () {
-            FeedbackModal.open();
-        };
-
-    }]);
 ;/* Email list */
 
 angular
     .module("reminders")
-    .directive("reminderList", ["$rootScope", "$timeout", "ReminderDeleteModalService", "ReminderUpdateModalService", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService) {
+    .directive("reminderList", ["$rootScope", "$timeout", "ReminderDeleteModalService", "ReminderUpdateModalService", "REMINDER_EVENTS", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {
-                reminders: "=",
-                onUpdate: "&",
-                onDelete: "&",
-                onUnsubscribe: "&"
+                reminders: "="
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
@@ -3195,25 +3242,30 @@ angular
                 /**
                  * Open DELETE modal
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openDeleteReminderModalService = function (reminder) {
-                    ReminderDeleteModalService.open(reminder);
+                scope.openDeleteReminderModalService = function (reminder, reminderIndex) {
+                    ReminderDeleteModalService.open(reminder, reminderIndex);
                 };
 
                 /**
                  * Open UN SUBSCRIBE modal - which is the same as DELETE modal.
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openUnSubscribeReminderModalService = function (reminder) {
-                    ReminderDeleteModalService.open(reminder);
+                scope.openUnSubscribeReminderModalService = function (reminder, reminderIndex) {
+                    ReminderDeleteModalService.open(reminder, reminderIndex);
                 };
 
                 /**
                  * Open UPDATE modal
                  * @param reminder
+                 * @param reminderIndex
                  */
-                scope.openUpdateReminderModalService = function (reminder) {
-                    ReminderUpdateModalService.open(reminder);
+                scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
+                    if ( !reminder.inPast() ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
                 };
 
                 /**
@@ -3234,7 +3286,22 @@ angular
                             scope.isReminderListEmpty = false;
                         })
                     }
+                });
 
+                /**
+                 * On reminder deleted flag the deleted index.
+                 */
+                scope.$on(REMINDER_EVENTS.isDeleted, function (event, args) {
+                    // Set the current removed reminder index.
+                    scope.removedReminderIndex = args.reminderIndex;
+                });
+
+                /**
+                 * On reminder updated flag the updated index.
+                 */
+                scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
+                    // Set the current updated reminder index.
+                    scope.updatedReminderIndex = args.reminderIndex;
                 });
             }
         }
@@ -3249,7 +3316,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderToBeDeleted) {
+        this.open = function (reminderToBeDeleted, reminderIndex) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -3259,6 +3326,9 @@ angular
                 resolve: {
                     reminder: function () {
                         return reminderToBeDeleted;
+                    },
+                    reminderIndex: function () {
+                        return reminderIndex;
                     }
                 }
             });
@@ -3360,7 +3430,10 @@ angular
                             timezone: jstz.determine().name(),
                             recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
-                    }]
+                    }],
+                    reminderIndex: function () {
+                        return -1;
+                    }
                 }
             });
         };
@@ -3371,7 +3444,7 @@ angular
  */
 angular
     .module("reminders")
-    .service("ReminderService", ["REMINDER_URLS", "$q", "$http", "$injector", "ReminderTransformerService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
+    .service("ReminderService", ["REMINDER_URLS", "$q", "$http", "$injector", "ReminderGroupService", "ReminderTransformerService", function (REMINDER_URLS, $q, $http, $injector, ReminderGroupService, ReminderTransformerService) {
 
         /**
          * Update a reminder.
@@ -3447,6 +3520,24 @@ angular
                 }).catch(function (response) {
                     return $q.reject(response);
                 });
+        };
+
+        /**
+         * Gets all reminders grouped by upcoming and past reminders.
+         * @returns {*}
+         */
+        this.getAllRemindersGrouped = function () {
+            var deferred = $q.defer();
+
+            this
+                .getAllReminders()
+                .then(function (response) {
+                    deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders(response));
+                }).catch(function () {
+                    deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders([]));
+                });
+
+            return deferred.promise;
         };
 
         /**
@@ -3541,7 +3632,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderToBeUpdated) {
+        this.open = function (reminderToBeUpdated, reminderIndex) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -3551,6 +3642,9 @@ angular
                 resolve: {
                     reminder: function () {
                         return reminderToBeUpdated;
+                    },
+                    reminderIndex: function () {
+                        return reminderIndex;
                     }
                 }
             });
@@ -3629,6 +3723,17 @@ angular
              */
             this.isNew = function () {
                 return this.model.reminderId === "" || _.isUndefined(this.model.reminderId);
+            };
+
+            /**
+             * Is reminder in past.
+             * @returns {boolean}
+             */
+            this.inPast = function () {
+                if ( this.model.dueOn === "" || _.isUndefined(this.model.dueOn) ) {
+                    return false;
+                }
+                return moment().diff(this.model.dueOn, 'days') > 0;
             };
 
             /**
@@ -3954,11 +4059,10 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "<!--Reminder list is empty-->\n" +
     "<div class=\"reminder__empty empty-state--text\" ng-class=\"{'reminder__empty--revived':firstReminderCreated}\" ng-if=\"isReminderListEmpty\">\n" +
     "    You have no reminders. Don't be shy, go ahead and create one! :)\n" +
-    "    <span class=\"reminder__empty__arrow\">Arrow</span>\n" +
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-class=\"{'reminder--loaded': $index > defaultRemindersLimit - 1, 'reminder--last-add-remove': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
+    "<div class=\"reminder\" ng-class=\"{'reminder--first': $first, 'reminder--removed': removedReminderIndex === $index, 'reminder--loaded': $index > defaultRemindersLimit - 1 , 'reminder--last': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
@@ -3967,9 +4071,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder)\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a ng-class=\"{'reminder__menu__option--disabled': reminder.inPast()}\" class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder) : openUnSubscribeReminderModalService(reminder)\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -4012,7 +4116,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 angular.module("app/reminders/partials/reminder/reminders.create.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.create.html",
     "<div class=\"reminders__header\">\n" +
-    "    <a class=\"btn-outline reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
+    "    <a class=\"btn reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
     "</div>");
 }]);
 
@@ -4032,11 +4136,11 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "<div class=\"centered-section-reminders\">\n" +
     "\n" +
     "    <tabset>\n" +
-    "        <tab heading=\"Upcoming reminders\">\n" +
+    "        <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
     "            <div reminder-list reminders=\"upcomingReminders\"></div>\n" +
     "        </tab>\n" +
     "\n" +
-    "        <tab heading=\"Past reminders\">\n" +
+    "        <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
     "            <div reminder-list reminders=\"pastReminders\"></div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
@@ -4057,7 +4161,7 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
     "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
-    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -4067,25 +4171,18 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
   $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
-    "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate\n" +
-    "          focus-first-error>\n" +
+    "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\"\n" +
-    "                   name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\"\n" +
-    "                   separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <div class=\"reminder-modal__form__info\">\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
-    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup ng-model=\"reminder.model.dueOn\"\n" +
-    "                        show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\"\n" +
-    "                        animate-class=\"animated highlight-button\">\n" +
-    "                    {{reminder.model.dueOn | friendlyDate}}\n" +
-    "                </button>\n" +
+    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder time picker-->\n" +
@@ -4099,17 +4196,9 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
-    "            reminder\"}}\n" +
-    "        </button>\n" +
-    "\n" +
+    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update reminder\"}}</button>\n" +
     "    </form>\n" +
-    "</div>\n" +
-    "<!--\n" +
-    "\n" +
-    "&lt;!&ndash;While saving&ndash;&gt;\n" +
-    "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>-->\n" +
-    "");
+    "</div>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
@@ -4353,7 +4442,7 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Update</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "    </div>\n" +
@@ -4404,7 +4493,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">SAVE</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -4750,7 +4839,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <li><a href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
+    "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
     "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
     "                </li>\n" +
@@ -4797,13 +4886,11 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/timepickerPopup/timepickerPopup.html",
-    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\"\n" +
-    "        animate-class=\"animated highlight-button\" dropdown-toggle>\n" +
-    "        {{date | date:'hh:mm a'}}\n" +
-    "</button>\n" +
+    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
+    "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
-    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +
-    "        <a href ng-click=\"setTime(time.index, time.hour, time.minute)\">{{time.timestamp | date:'hh:mm a'}}</a>\n" +
+    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex, 'time-in-past': time.inPast}\">\n" +
+    "        <a href ng-click=\"setTime(time)\">{{time.timestamp | friendlyHourTimePicker}}</a>\n" +
     "    </li>\n" +
     "</ul>\n" +
     "");
@@ -4814,9 +4901,9 @@ angular.module("template/datepicker/datepicker.html", []).run(["$templateCache",
     "<table class=\"datepicker\">\n" +
     "  <thead>\n" +
     "    <tr class=\"datepicker-jump-controls\">\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm pull-left\" ng-click=\"move(-1)\">‹</button></th>\n" +
-    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn btn-default btn-sm btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm btn-block pull-right\" ng-click=\"move(1)\">›</button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default pull-left\" ng-click=\"move(-1)\">‹</button></th>\n" +
+    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default btn-block pull-right\" ng-click=\"move(1)\">›</button></th>\n" +
     "    </tr>\n" +
     "    <tr ng-show=\"labels.length > 0\" class=\"datepicker-day-labels\">\n" +
     "      <th ng-show=\"showWeekNumbers\" class=\"text-center\">#</th>\n" +
@@ -4827,7 +4914,7 @@ angular.module("template/datepicker/datepicker.html", []).run(["$templateCache",
     "    <tr ng-repeat=\"row in rows\">\n" +
     "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
     "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-    "        <button type=\"button\" class=\"btn btn-sm\" ng-class=\"{'btn-primary': dt.selected, 'btn-default': !dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{'text-muted': dt.secondary}\">{{dt.label}}</span></button>\n" +
+    "        <button type=\"button\" class=\"btn\" ng-class=\"{'btn-primary': dt.selected, 'btn-default': !dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{'text-muted': dt.secondary}\">{{dt.label}}</span></button>\n" +
     "      </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
@@ -4840,7 +4927,7 @@ angular.module("template/datepicker/popup.html", []).run(["$templateCache", func
     "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\">\n" +
     "	<li ng-transclude></li>\n" +
     "	<li ng-show=\"showButtonBar\" class=\"datepicker-button-bar\">\n" +
-    "		<button type=\"button\" class=\"btn btn-sm btn-default btn-block\" ng-click=\"today(dt)\">Today</button>\n" +
+    "		<button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"today(dt)\">Today</button>\n" +
     "	</li>\n" +
     "</ul>\n" +
     "");
