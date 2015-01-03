@@ -28,11 +28,28 @@ angular
         $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
 
         /**
+         * Reminders tabs.
+         */
+        $scope.reminderTabs = {
+            upcomingRemindersTabActive: true,
+            pastRemindersTabActive: false,
+
+            /**
+             * Set upcoming tab active.
+             */
+            setUpcomingRemindersTabActive: function () {
+                this.upcomingRemindersTabActive = true;
+                this.pastRemindersTabActive = false;
+            }
+        };
+
+        /**
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
             if ( args.reminder.model.dueOn > new Date() ) {
                 $scope.upcomingReminders.push(args.reminder);
+                $scope.reminderTabs.setUpcomingRemindersTabActive();
             }
             else {
                 $scope.pastReminders.push(args.reminder);
