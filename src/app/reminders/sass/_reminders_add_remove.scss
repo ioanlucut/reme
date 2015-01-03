@@ -3,15 +3,19 @@
 }
 
 .reminder.ng-enter {
-  opacity: 1;
-  background-color: $reminder-yellow;
+  &:not(.reminder--loaded) {
+    opacity: 1;
+    background-color: $reminder-yellow;
+  }
 }
 
 .reminder.ng-enter-active {
-  background-color: $white;
-  opacity: 1;
-  @include transition(all 1s 1s ease-in);
-  @include fadeInDown();
+  &:not(.reminder--loaded) {
+    background-color: $white;
+    opacity: 1;
+    @include transition(all 1s 1s ease-in);
+    @include fadeInDown();
+  }
 }
 
 .reminder.ng-leave {
@@ -40,9 +44,4 @@
   &:not(.reminder--loaded) {
     @include duration(0s !important);
   }
-}
-
-/*If reminders are added with load more, reminders should have different transitions*/
-.reminder.ng-enter-active.reminder--loaded {
-  @include fadeIn();
 }
