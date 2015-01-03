@@ -147,11 +147,10 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "<!--Reminder list is empty-->\n" +
     "<div class=\"reminder__empty empty-state--text\" ng-class=\"{'reminder__empty--revived':firstReminderCreated}\" ng-if=\"isReminderListEmpty\">\n" +
     "    You have no reminders. Don't be shy, go ahead and create one! :)\n" +
-    "    <span class=\"reminder__empty__arrow\">Arrow</span>\n" +
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-class=\"{'reminder--loaded': $index > defaultRemindersLimit - 1, 'reminder--last-add-remove': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
+    "<div class=\"reminder\" ng-class=\"{'reminder--first': $first, 'reminder--removed': removedReminderIndex === $index, 'reminder--loaded': $index > defaultRemindersLimit - 1 , 'reminder--last': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
@@ -160,9 +159,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder)\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a ng-class=\"{'reminder__menu__option--disabled': reminder.inPast()}\" class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder) : openUnSubscribeReminderModalService(reminder)\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -205,7 +204,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 angular.module("app/reminders/partials/reminder/reminders.create.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.create.html",
     "<div class=\"reminders__header\">\n" +
-    "    <a class=\"btn-outline reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
+    "    <a class=\"btn reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
     "</div>");
 }]);
 
@@ -225,11 +224,11 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "<div class=\"centered-section-reminders\">\n" +
     "\n" +
     "    <tabset>\n" +
-    "        <tab heading=\"Upcoming reminders\">\n" +
+    "        <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
     "            <div reminder-list reminders=\"upcomingReminders\"></div>\n" +
     "        </tab>\n" +
     "\n" +
-    "        <tab heading=\"Past reminders\">\n" +
+    "        <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
     "            <div reminder-list reminders=\"pastReminders\"></div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
@@ -250,7 +249,7 @@ angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", 
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
     "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
-    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -260,25 +259,18 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
   $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
-    "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate\n" +
-    "          focus-first-error>\n" +
+    "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\"\n" +
-    "                   name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\"\n" +
-    "                   separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <div class=\"reminder-modal__form__info\">\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
-    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup ng-model=\"reminder.model.dueOn\"\n" +
-    "                        show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\"\n" +
-    "                        animate-class=\"animated highlight-button\">\n" +
-    "                    {{reminder.model.dueOn | friendlyDate}}\n" +
-    "                </button>\n" +
+    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder time picker-->\n" +
@@ -292,17 +284,9 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        </div>\n" +
     "\n" +
     "        <!--Submit form button-->\n" +
-    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update\n" +
-    "            reminder\"}}\n" +
-    "        </button>\n" +
-    "\n" +
+    "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update reminder\"}}</button>\n" +
     "    </form>\n" +
-    "</div>\n" +
-    "<!--\n" +
-    "\n" +
-    "&lt;!&ndash;While saving&ndash;&gt;\n" +
-    "<div class=\"reminder--saving\" ng-show=\"isSaving\">{{isNew ? \"Saving reminder\" : \"Updating reminder\"}}</div>-->\n" +
-    "");
+    "</div>");
 }]);
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
@@ -546,7 +530,7 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Update</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "    </div>\n" +
@@ -597,7 +581,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">SAVE</button>\n" +
+    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -943,7 +927,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <li><a href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn-outline btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
+    "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
     "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
     "                </li>\n" +
@@ -990,13 +974,11 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/timepickerPopup/timepickerPopup.html",
-    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\"\n" +
-    "        animate-class=\"animated highlight-button\" dropdown-toggle>\n" +
-    "        {{date | date:'hh:mm a'}}\n" +
-    "</button>\n" +
+    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
+    "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
-    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +
-    "        <a href ng-click=\"setTime(time.index, time.hour, time.minute)\">{{time.timestamp | date:'hh:mm a'}}</a>\n" +
+    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex, 'time-in-past': time.inPast}\">\n" +
+    "        <a href ng-click=\"setTime(time)\">{{time.timestamp | friendlyHourTimePicker}}</a>\n" +
     "    </li>\n" +
     "</ul>\n" +
     "");
@@ -1007,9 +989,9 @@ angular.module("template/datepicker/datepicker.html", []).run(["$templateCache",
     "<table class=\"datepicker\">\n" +
     "  <thead>\n" +
     "    <tr class=\"datepicker-jump-controls\">\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm pull-left\" ng-click=\"move(-1)\">‹</button></th>\n" +
-    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn btn-default btn-sm btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm btn-block pull-right\" ng-click=\"move(1)\">›</button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default pull-left\" ng-click=\"move(-1)\">‹</button></th>\n" +
+    "      <th colspan=\"{{rows[0].length - 2 + showWeekNumbers}}\"><button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"toggleMode()\"><strong>{{title}}</strong></button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default btn-block pull-right\" ng-click=\"move(1)\">›</button></th>\n" +
     "    </tr>\n" +
     "    <tr ng-show=\"labels.length > 0\" class=\"datepicker-day-labels\">\n" +
     "      <th ng-show=\"showWeekNumbers\" class=\"text-center\">#</th>\n" +
@@ -1020,7 +1002,7 @@ angular.module("template/datepicker/datepicker.html", []).run(["$templateCache",
     "    <tr ng-repeat=\"row in rows\">\n" +
     "      <td ng-show=\"showWeekNumbers\" class=\"text-center\"><em>{{ getWeekNumber(row) }}</em></td>\n" +
     "      <td ng-repeat=\"dt in row\" class=\"text-center\">\n" +
-    "        <button type=\"button\" class=\"btn btn-sm\" ng-class=\"{'btn-primary': dt.selected, 'btn-default': !dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{'text-muted': dt.secondary}\">{{dt.label}}</span></button>\n" +
+    "        <button type=\"button\" class=\"btn\" ng-class=\"{'btn-primary': dt.selected, 'btn-default': !dt.selected}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\"><span ng-class=\"{'text-muted': dt.secondary}\">{{dt.label}}</span></button>\n" +
     "      </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
@@ -1033,7 +1015,7 @@ angular.module("template/datepicker/popup.html", []).run(["$templateCache", func
     "<ul class=\"dropdown-menu\" ng-style=\"{display: (isOpen && 'block') || 'none', top: position.top+'px', left: position.left+'px'}\">\n" +
     "	<li ng-transclude></li>\n" +
     "	<li ng-show=\"showButtonBar\" class=\"datepicker-button-bar\">\n" +
-    "		<button type=\"button\" class=\"btn btn-sm btn-default btn-block\" ng-click=\"today(dt)\">Today</button>\n" +
+    "		<button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"today(dt)\">Today</button>\n" +
     "	</li>\n" +
     "</ul>\n" +
     "");
