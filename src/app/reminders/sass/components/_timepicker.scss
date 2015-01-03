@@ -17,3 +17,16 @@
     }
   }
 }
+
+.reminder-modal__form__info--time {
+  .time-in-past {
+    pointer-events: none;
+    cursor: not-allowed;
+
+    > a {
+      color: rgb(182, 182, 182);
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+}

@@ -11,14 +11,46 @@ angular.module("common").
             restrict: "A",
             link: function (scope, el, attrs) {
 
-                // Create the times array
-                scope.times = function createTimesArray() {
 
-                    var today = new Date();
-                    today.setHours(0);
-                    today.setMinutes(0);
+                // Update selected index when date changes
+                scope.$watch("date", function (date, oldDate) {
 
-                    var timestamp = today.getTime();
+                    // Create the times array with date as reference
+                    scope.times = createTimesArray(date);
+
+                    // Update date with first proper date which is not in past.
+                    var firstTimeNotInPast = _.find(scope.times, function (time) {
+                        if ( !time.inPast ) {
+                            return time;
+                        }
+                    });
+
+                    // Set date with firstTimeNotInPast
+                    scope.setTime(firstTimeNotInPast);
+                    /*
+                     // Init selectedIndex
+                     scope.selectedIndex = null;
+
+                     for ( var i = 0; i < scope.times.length; i++ ) {
+                     if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
+                     scope.selectedIndex = i;
+                     }
+                     }*/
+                });
+
+                /**
+                 * Creates the times array based on a referenceDate.
+                 * @param referenceDate
+                 * @returns {Array}
+                 */
+                function createTimesArray(referenceDate) {
+
+                    var now = new Date();
+                    referenceDate = referenceDate || new Date();
+                    referenceDate.setHours(0);
+                    referenceDate.setMinutes(0);
+
+                    var timestamp = referenceDate.getTime();
                     var step = scope.$eval(attrs.step) || 30;
                     var steps = 24 * 60 / step;
                     var times = [];
@@ -33,39 +65,35 @@ angular.module("common").
                             index: i,
                             hour: d.getHours(),
                             minute: d.getMinutes(),
-                            timestamp: timestamp
+                            timestamp: timestamp,
+                            inPast: timestamp < now.getTime()
                         });
 
                         timestamp += step * 60 * 1000;
                     }
 
                     return times;
-                }();
+                }
 
-                // Update selected index when date changes
-                scope.$watch("date", function (date) {
-
-                    // Init selectedIndex
-                    scope.selectedIndex = null;
-
-                    for ( var i = 0; i < scope.times.length; i++ ) {
-                        if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
-                            scope.selectedIndex = i;
-                        }
+                /**
+                 * Set date ng-model by selected time
+                 * @param time
+                 */
+                scope.setTime = function (time) {
+                    if ( !time.inPast ) {
+                        scope.selectedIndex = time.index;
+                        scope.date.setHours(time.hour);
+                        scope.date.setMinutes(time.minute);
                     }
-                });
-
-                // Set time by hour and minute
-                scope.setTime = function (i, hour, minute) {
-                    scope.selectedIndex = i;
-                    scope.date.setHours(hour);
-                    scope.date.setMinutes(minute);
                 };
 
                 // Get the dropdown toggle and dropdown menu
                 var dropdownToggle = el.children().eq(0);
                 var dropdownMenu = el.children().eq(1);
 
+                /**
+                 * On click hook.
+                 */
                 dropdownToggle.on("click", function () {
 
                     // Find the selected item
@@ -87,6 +115,9 @@ angular.module("common").
                     scope.$broadcast("perfectScrollbar:update", null);
                 });
 
+                /**
+                 * On mouse enter hook
+                 */
                 dropdownMenu.on("mouseenter", function () {
 
                     // Stop highlighting the selected item

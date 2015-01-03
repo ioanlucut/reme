@@ -30,6 +30,9 @@ angular
                             timezone: jstz.determine().name(),
                             recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
+                    },
+                    reminderIndex: function () {
+                        return -1;
                     }
                 }
             });

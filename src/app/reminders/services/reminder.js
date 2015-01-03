@@ -73,6 +73,17 @@ angular
             };
 
             /**
+             * Is reminder in past.
+             * @returns {boolean}
+             */
+            this.inPast = function () {
+                if ( this.model.dueOn === "" || _.isUndefined(this.model.dueOn) ) {
+                    return false;
+                }
+                return moment().diff(this.model.dueOn, 'days') > 0;
+            };
+
+            /**
              * The given email is the user of this reminder.
              * @returns {boolean}
              */
