@@ -1,24 +1,17 @@
 <!--Reminder form-->
 <div class="reminder-modal">
-    <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate
-          focus-first-error>
+    <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
 
         <!--Reminder text-->
         <div class="form-group" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
             <label>Remind me to:</label>
-            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}"
-                   name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn"
-                   separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus="isOpen" required />
+            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="2014-01-01" max-date="2018-01-01" prefer="future" auto-focus="isOpen" required />
         </div>
 
         <div class="reminder-modal__form__info">
             <!--Reminder date picker-->
             <div class="reminder-modal__form__info--date">
-                <button type="button" class="btn btn--reminder-popup" datepicker-popup ng-model="reminder.model.dueOn"
-                        show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange"
-                        animate-class="animated highlight-button">
-                    {{reminder.model.dueOn | friendlyDate}}
-                </button>
+                <button type="button" class="btn btn--reminder-popup" datepicker-popup min="minDate" ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="animated highlight-button"> {{reminder.model.dueOn | friendlyDate}}</button>
             </div>
 
             <!--Reminder time picker-->
@@ -32,13 +25,6 @@
         </div>
 
         <!--Submit form button-->
-        <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update
-            reminder"}}
-        </button>
-
+        <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update reminder"}}</button>
     </form>
 </div>
-<!--
-
-&lt;!&ndash;While saving&ndash;&gt;
-<div class="reminder--saving" ng-show="isSaving">{{isNew ? "Saving reminder" : "Updating reminder"}}</div>-->
