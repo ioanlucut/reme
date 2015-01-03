@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -17,6 +17,12 @@ angular
          * @type {boolean}
          */
         $scope.isSaving = false;
+
+        /**
+         * Minimum date to create reminder.
+         * @type {Date}
+         */
+        $scope.minDate = new Date();
 
         /**
          * Reminder examples pool
@@ -89,6 +95,7 @@ angular
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
                                     reminder: $scope.reminder,
+                                    reminderIndex: reminderIndex,
                                     message: 'Reminder successfully updated!'
                                 });
                             }, 800);

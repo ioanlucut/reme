@@ -2,47 +2,41 @@
   opacity: 1;
 }
 
-.reminder.ng-enter {
-  opacity: 1;
-  background-color: $reminder-yellow;
+.reminder--first {
+
+  &.reminder.ng-enter {
+    opacity: 1;
+    background-color: $reminder-yellow;
+  }
+
+  &.reminder.ng-enter-active {
+    background-color: $white;
+    opacity: 1;
+    @include transition(all 1s 1s ease-in);
+    @include fadeInDown();
+  }
 }
 
-.reminder.ng-enter-active {
-  background-color: $white;
-  opacity: 1;
-  @include transition(all 1s 1s ease-in);
-  @include bounceIn();
-}
+.reminder--removed {
 
-.reminder.ng-leave {
-  background-color: lighten($brand-danger, 30%);
-}
+  &.reminder.ng-leave {
+    background-color: lighten($brand-danger, 30%);
+  }
 
-.reminder.ng-leave-active {
-  @include bounceOutRight();
+  &.reminder.ng-leave-active {
+    @include bounceOutRight();
+  }
 }
 
 /*If new reminder is added, the last reminder from list is deleted, so we skip transition*/
-.reminder.ng-leave-active.reminder--last-add-remove {
-  @include duration(0s !important);
-  display: none;
-}
+.reminder--last {
 
-/*If reminder is deleted, the last reminder from list is added, so we skip transition*/
-.reminder.ng-enter.reminder--last-add-remove {
-  &:not(.reminder--loaded) {
+  &.reminder.ng-leave-active {
     @include duration(0s !important);
-    background-color: $white;
+    display: none;
   }
 }
 
-.reminder.ng-enter-active.reminder--last-add-remove {
-  &:not(.reminder--loaded) {
-    @include duration(0s !important);
-  }
-}
-
-/*If reminders are added with load more, reminders should have different transitions*/
-.reminder.ng-enter-active.reminder--loaded {
-  @include fadeIn();
+.reminder--loaded {
+  //no transition
 }

@@ -20,7 +20,9 @@ angular
                 url: "/reminders",
                 views: {
 
-                    '': { templateUrl: 'app/reminders/partials/reminder/reminders.html' },
+                    '': {
+                        templateUrl: 'app/reminders/partials/reminder/reminders.html'
+                    },
 
                     'create@reminders': {
                         templateUrl: "app/reminders/partials/reminder/reminders.create.html",
@@ -31,17 +33,9 @@ angular
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
-                            reminderList: function ($q, ReminderService) {
-                                var deferred = $q.defer();
-                                ReminderService
-                                    .getAllReminders()
-                                    .then(function (response) {
-                                        deferred.resolve(response);
-                                    }).catch(function () {
-                                        deferred.resolve([]);
-                                    });
-
-                                return deferred.promise;
+                            pastAndUpcomingReminders: function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
                             }
                         }
                     }

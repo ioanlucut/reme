@@ -9,28 +9,10 @@
   @include duration(0s !important);
 }
 
-.reminder--last-add-remove {
-
-}
-
 .reminder__empty {
   position: relative;
   padding: 100px 30px;
   margin: 0 auto;
   text-align: center;
   @include fadeIn();
-
-  .reminder__empty__arrow {
-    background-image: url("../assets/img/handmade_arrow.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 71px;
-    height: 240px;
-    position: absolute;
-    top: -140px;
-    right: 180px;
-    opacity: 0.4;
-
-    text-indent: -9999px;
-  }
 }

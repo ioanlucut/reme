@@ -9,7 +9,7 @@
         <div class="reminder-form-container__form__recommend">
             <a href="#" ng-click="dismiss()">Keep calm and don't delete it!</a>
         </div>
-        <button type="submit" ladda="isDeleting" data-style="expand-left" data-spinner-size="20" class="btn btn--delete-reminder" ng-click="reminder.isCreatedBy(currentUserEmail) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)">Don't need it anymore</button>
+        <button type="submit" ladda="isDeleting" data-style="expand-left" data-spinner-size="20" class="btn btn--delete-reminder" ng-click="reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)">Don't need it anymore</button>
     </div>
 
 </div>

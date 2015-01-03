@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .service("ReminderService", function (REMINDER_URLS, $q, $http, $injector, ReminderTransformerService) {
+    .service("ReminderService", function (REMINDER_URLS, $q, $http, $injector, ReminderGroupService, ReminderTransformerService) {
 
         /**
          * Update a reminder.
@@ -79,6 +79,24 @@ angular
                 }).catch(function (response) {
                     return $q.reject(response);
                 });
+        };
+
+        /**
+         * Gets all reminders grouped by upcoming and past reminders.
+         * @returns {*}
+         */
+        this.getAllRemindersGrouped = function () {
+            var deferred = $q.defer();
+
+            this
+                .getAllReminders()
+                .then(function (response) {
+                    deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders(response));
+                }).catch(function () {
+                    deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders([]));
+                });
+
+            return deferred.promise;
         };
 
         /**
