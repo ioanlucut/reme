@@ -3,19 +3,13 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, reminderList, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders) {
 
         /**
          * The current user
          * @type {$rootScope.currentUser|*}
          */
         $scope.user = $rootScope.currentUser;
-
-        /**
-         * Past and upcoming reminders.
-         * @type {{}}
-         */
-        var pastAndUpcomingReminders = ReminderGroupService.getPastAndUpcomingReminders(reminderList);
 
         /**
          * Upcoming reminders

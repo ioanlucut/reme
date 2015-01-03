@@ -78,7 +78,9 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
-                    ReminderUpdateModalService.open(reminder, reminderIndex);
+                    if ( !reminder.inPast() ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
                 };
 
                 /**
