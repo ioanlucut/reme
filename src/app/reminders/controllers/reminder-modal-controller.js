@@ -19,6 +19,12 @@ angular
         $scope.isSaving = false;
 
         /**
+         * Minimum date to create reminder.
+         * @type {Date}
+         */
+        $scope.minDate = new Date();
+
+        /**
          * Reminder examples pool
          * @type {string[]}
          */
