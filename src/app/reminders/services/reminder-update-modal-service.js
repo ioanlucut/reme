@@ -8,7 +8,7 @@ angular
         this.modalInstance = null;
 
         // Init the feedback modal window
-        this.open = function (reminderToBeUpdated) {
+        this.open = function (reminderToBeUpdated, reminderIndex) {
 
             // Create modal instance
             this.modalInstance = $modal.open({
@@ -18,6 +18,9 @@ angular
                 resolve: {
                     reminder: function () {
                         return reminderToBeUpdated;
+                    },
+                    reminderIndex: function () {
+                        return reminderIndex;
                     }
                 }
             });
