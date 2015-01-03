@@ -11,7 +11,7 @@
   background-color: $white;
   opacity: 1;
   @include transition(all 1s 1s ease-in);
-  @include bounceIn();
+  @include fadeInDown();
 }
 
 .reminder.ng-leave {
