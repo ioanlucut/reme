@@ -1,7 +1,11 @@
-.alert {
-  width: auto;
-  max-width: 300px;
-  margin: 10px auto 20px;
+.alert, .alert--absolute {
+  position: absolute;
+  max-width: 500px;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: 5px auto 5px;
+  padding: 5px;
   text-align: center;
 }
 
