@@ -15,9 +15,6 @@
             <!-- Account controls -->
             <div class="account__controls">
 
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash"></div>
-
                 <!-- Form groups -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
                     <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
