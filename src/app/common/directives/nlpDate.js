@@ -44,8 +44,8 @@ angular
                     if ( !date.isValid() ) return;
 
                     // Make sure date limits are respected
-                    if ( attrs.minDate && date.isBefore(attrs.minDate) ) return;
-                    if ( attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
+                    if ( attrs.minDate && scope.$eval(attrs.minDate) && date.isBefore(scope.$eval(attrs.minDate)) ) return;
+                    if ( attrs.maxDate && scope.$eval(attrs.maxDate) && date.isAfter(scope.$eval(attrs.maxDate)) ) return;
 
                     if ( scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay() ) {
 
