@@ -4218,9 +4218,6 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
-    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
@@ -4262,9 +4259,6 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4321,9 +4315,6 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4428,9 +4419,6 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
-    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
@@ -4466,9 +4454,6 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
@@ -4511,9 +4496,6 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
@@ -4603,9 +4585,6 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\"></div>\n" +
-    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
@@ -4688,9 +4667,6 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "        <!-- Account controls -->\n" +
     "        <div class=\"account__controls\">\n" +
     "\n" +
-    "            <!-- Flash messages. -->\n" +
-    "            <div flash-messages flash=\"flash\"></div>\n" +
-    "\n" +
     "            <!-- Form groups -->\n" +
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
@@ -4748,7 +4724,7 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
 angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/flash-messages.html",
     "<!-- Flash messages. -->\n" +
-    "<div flash-alert active-class=\"in alert\" class=\"fade\" duration=\"2000\">\n" +
+    "<div flash-alert active-class=\"in alert\" class=\"fade alert--absolute\" duration=\"2000\">\n" +
     "    <button type=\"button\" class=\"close\" ng-click=\"hide()\">&times;</button>\n" +
     "    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "</div>");

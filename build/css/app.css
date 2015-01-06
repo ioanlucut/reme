@@ -11953,14 +11953,18 @@ td.visible-print {
 }
 
 /* line 1, ../../src/sass/_alerts.scss */
-.alert {
-  width: auto;
-  max-width: 300px;
-  margin: 10px auto 20px;
+.alert, .alert--absolute {
+  position: absolute;
+  max-width: 500px;
+  left: 0;
+  right: 0;
+  top: 50px;
+  margin: 5px auto 5px;
+  padding: 5px;
   text-align: center;
 }
 
-/* line 8, ../../src/sass/_alerts.scss */
+/* line 12, ../../src/sass/_alerts.scss */
 .alert-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -11975,7 +11979,7 @@ td.visible-print {
   color: #356635;
 }
 
-/* line 12, ../../src/sass/_alerts.scss */
+/* line 16, ../../src/sass/_alerts.scss */
 .alert-error {
   background-color: #f2dede;
   border-color: #ebccd1;
