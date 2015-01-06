@@ -22,7 +22,7 @@ module.exports = function (grunt) {
                     "bower_components/angular/angular.js",
                     "bower_components/angular-animate/angular-animate.js",
                     "bower_components/angular-sanitize/angular-sanitize.js",
-                    "bower_components/angular-i18n/angular-locale_ro.js",
+                    "bower_components/angular-i18n/angular-locale_en.js",
                     "bower_components/angular-ui-router/release/angular-ui-router.js",
                     "bower_components/angular-inflector/dist/angular-inflector.js",
                     "bower_components/angular-restmod/dist/angular-restmod-bundle.js",
