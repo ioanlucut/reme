@@ -183,8 +183,7 @@
     line-height: $line-height-large;
     border-radius: $border-radius-small;
     text-transform: uppercase;
-    height: 50px;
-    font-size: 16px;//$font-size-medium;
+    height: $form-height;
   }
 
   .btn--reminder-popup {
@@ -193,6 +192,7 @@
     height: 40px;
     line-height: $line-height-large;
     border-radius: $border-radius-small;
+    font-weight: $font-weight-light;
   }
 }
 
@@ -210,23 +210,6 @@
   color: $gray12;
 
   background: url("../assets/img/loading.gif") no-repeat center center;
-}
-
-// Form control reminder
-// --------------
-@include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
-
-.form-control--reminder {
-  font-weight: $font-weight-light;
-}
-
-.form-control--user-email {
-  background-color: $gray12;
-  border: 0;
-  height: 40px;
-  padding: 8px 20px 8px 20px;
-  text-align: left;
-  @include box-shadow(none);
 }
 
 .reminder-modal__form__info--date {
@@ -250,14 +233,40 @@
   }
 }
 
+// Form control reminder
+// --------------
+@include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
+
+.form-control--reminder {
+  font-weight: $font-weight-light;
+}
+
+.form-control--user-email {
+  background-color: $gray-primary;
+  border: 0;
+  height: 40px;
+  padding: 8px 20px 8px 20px;
+  text-align: left;
+  color: $black;
+  @include box-shadow(none);
+  @include placeholder($gray8);
+}
+
 @include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
   font-weight: $font-weight-light;
-  background-color: $gray12;
+  background-color: $gray-primary;
   height: 40px;
   padding-left: 50px;
   border: 0;
+  color: $black;
+  @include placeholder($gray8);
+
+  &:hover,
+  &:focus {
+    background-color: $gray-primary-hover;
+  }
 }
 
 /*Add border on error*/
