@@ -89,4 +89,21 @@ describe('ReminderTransformerService', function () {
         expect(actualReminders[1].model.recipients).toEqual([{ email: "xx@xx" }, { email: "yy@yy" }]);
     }));
 
+    it('Should remove duplicate emails inside a reminder recipients', inject(function (ReminderTransformerService, Reminder) {
+
+        var reminder = Reminder.build({
+            reminderId: "1",
+            text: "ABC @Today",
+            recipients: [{ email: "xx@xx" }, { email: "xx@xx" }, { email: "tyxx@xx" }, { email: "xxx@xx" }]
+        });
+
+        var actualReminderDto = ReminderTransformerService.toReminderDto(reminder);
+        expect(actualReminderDto).toBeTruthy();
+        expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
+        expect(actualReminderDto.text).toEqual("ABC");
+
+        console.log(actualReminderDto.recipients);
+        expect(actualReminderDto.recipients).toEqual([{ email: "xx@xx" }, { email: "tyxx@xx" }, { email: "xxx@xx" }]);
+    }));
+
 });
