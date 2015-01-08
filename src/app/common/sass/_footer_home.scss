@@ -1,5 +1,7 @@
+$footer-background-color: $gray9;
+
 .footer-home {
-  background-color: $brand-primary;
+  background-color: $footer-background-color;
   margin: 0;
   padding: 0;
   height: $footer-home-height;
@@ -8,7 +10,6 @@
 
 .footer__navbar {
   @include clearfix();
-  color: darken($brand-primary, 15%);
 
   ul {
     li {
@@ -16,10 +17,10 @@
       height: 20px;
 
       a {
-        color: darken($brand-primary, 15%);
+        color: darken($footer-background-color, 35%);
 
         &:hover {
-          color: darken($brand-primary, 7%);
+          color: darken($footer-background-color, 55%);
         }
       }
     }
@@ -32,12 +33,12 @@
 
 .footer__navbar__section-left__copyright {
   height: $footer-home-height;
-  color: darken($brand-primary, 15%);
+  color: darken($footer-background-color, 30%);
   display: table-cell;
   vertical-align: middle;
 
   span {
-    color: darken($brand-primary, 20%);
+    color: $brand-danger;
     margin-top: 5px;
     display: inline-block;
   }
