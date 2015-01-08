@@ -19,6 +19,7 @@ angular
                 reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             }
             reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
+            reminderDto["recipients"] = TransformerUtils.sanitizeRecipients(reminderDto["recipients"]);
 
             return reminderDto;
         };
