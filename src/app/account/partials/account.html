@@ -21,7 +21,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}">
-                        <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
+                        <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" auto-focus required />
                         <span class="help-message" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
 
@@ -66,7 +66,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" auto-focus required valid-email unique-email />
 
                         <!-- Error messages -->
                         <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
@@ -125,7 +125,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" auto-focus required valid-email />
 
                         <div class="help-message" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
