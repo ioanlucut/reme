@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -70,6 +70,14 @@ angular
         // Save the reminder
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
+
+                var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
+                if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
+                    reminderForm.selectedDate.$setValidity('validDate', false);
+                    flash.error = "Please make sure that the date and time are in the future.";
+
+                    return;
+                }
 
                 // Is saving reminder
                 $scope.isSaving = true;

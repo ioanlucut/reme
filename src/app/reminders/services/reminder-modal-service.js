@@ -21,12 +21,10 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: function ($window, $rootScope, Reminder, jstz) {
-                        var defaultDueOn = Date.create().addHours(1).set({ minute: 0, second: 0 });
-
+                    reminder: function ($window, $rootScope, Reminder, jstz, DatesUtils) {
                         return Reminder.build({
                             text: "",
-                            dueOn: defaultDueOn,
+                            dueOn: DatesUtils.prepareDate(),
                             timezone: jstz.determine().name(),
                             recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
