@@ -764,8 +764,8 @@ angular
                     if ( !date.isValid() ) return;
 
                     // Make sure date limits are respected
-                    if ( attrs.minDate && date.isBefore(attrs.minDate) ) return;
-                    if ( attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
+                    if ( attrs.minDate && attrs.minDate && date.isBefore(attrs.minDate) ) return;
+                    if ( attrs.maxDate && attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
 
                     if ( scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay() ) {
 
@@ -867,7 +867,7 @@ angular
 ;/* Timepicker popup */
 
 angular.module("common").
-    directive("timepickerPopup", function () {
+    directive("timepickerPopup", ["DatesUtils", function (DatesUtils) {
         return {
             require: "ngModel",
             scope: {
@@ -876,33 +876,6 @@ angular.module("common").
             templateUrl: "app/common/partials/timepickerPopup/timepickerPopup.html",
             restrict: "A",
             link: function (scope, el, attrs) {
-
-
-                // Update selected index when date changes
-                scope.$watch("date", function (date, oldDate) {
-
-                    // Create the times array with date as reference
-                    scope.times = createTimesArray(date);
-
-                    // Update date with first proper date which is not in past.
-                    var firstTimeNotInPast = _.find(scope.times, function (time) {
-                        if ( !time.inPast ) {
-                            return time;
-                        }
-                    });
-
-                    // Set date with firstTimeNotInPast
-                    scope.setTime(firstTimeNotInPast);
-                    /*
-                     // Init selectedIndex
-                     scope.selectedIndex = null;
-
-                     for ( var i = 0; i < scope.times.length; i++ ) {
-                     if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
-                     scope.selectedIndex = i;
-                     }
-                     }*/
-                });
 
                 /**
                  * Creates the times array based on a referenceDate.
@@ -941,17 +914,52 @@ angular.module("common").
                     return times;
                 }
 
+                // Generate the times.
+                scope.times = createTimesArray();
+
+                // Update selected index when date changes
+                scope.$watch("date", function (date) {
+
+                    // if is today, set first valid time
+                    if ( moment().diff(date, 'day') === 0 ) {
+                        date = DatesUtils.prepareDate(date);
+                    }
+                    else if ( moment().diff(date, 'day') < 0 ) {
+                        scope.setTime(scope.times[0]);
+                    }
+
+                    for ( var i = 0; i < scope.times.length; i++ ) {
+                        if ( date.getHours() == scope.times[i].hour && date.getMinutes() == scope.times[i].minute ) {
+                            scope.setTime(scope.times[i]);
+
+                            break;
+                        }
+                    }
+                });
+
                 /**
                  * Set date ng-model by selected time
                  * @param time
                  */
                 scope.setTime = function (time) {
-                    if ( !time.inPast ) {
-                        scope.selectedIndex = time.index;
-                        scope.date.setHours(time.hour);
-                        scope.date.setMinutes(time.minute);
-                    }
+                    scope.selectedIndex = time.index;
+                    scope.date.setHours(time.hour);
+                    scope.date.setMinutes(time.minute);
+                    reForceCheckValidity();
                 };
+
+                /**
+                 * Validate if the date is in the past always after setting the time.
+                 */
+                function reForceCheckValidity() {
+                    var isDateInPast = moment().diff(scope.date || scope.$parent.reminderForm.selectedDate) > 0;
+                    if ( scope.$parent.reminderForm.selectedDate.$invalid && !isDateInPast ) {
+                        scope.$parent.reminderForm.selectedDate.$setValidity('validDate', true);
+                    }
+                    else if ( scope.$parent.reminderForm.selectedDate.$valid && isDateInPast ) {
+                        scope.$parent.reminderForm.selectedDate.$setValidity('validDate', false);
+                    }
+                }
 
                 // Get the dropdown toggle and dropdown menu
                 var dropdownToggle = el.children().eq(0);
@@ -992,6 +1000,28 @@ angular.module("common").
                 });
             }
         }
+    }]);;angular
+    .module("common")
+    .directive("validDate", function () {
+        return {
+            require: "ngModel",
+            scope: {
+                ngModel: "="
+            },
+            link: function (scope, el, attr, ngModel) {
+
+                function isValidDate(date) {
+                    if ( date === "" || _.isUndefined(date) ) {
+                        return false;
+                    }
+                    return moment().diff(date) <= 0;
+                }
+
+                ngModel.$validators.validDate = function (date) {
+                    return isValidDate(date);
+                };
+            }
+        };
     });
 ;/* Friendly date filter */
 
@@ -1138,6 +1168,30 @@ angular
             }
         };
     }]);
+;/**
+ * Dates utils service.
+ */
+angular
+    .module("common")
+    .service("DatesUtils", function () {
+
+        this.prepareDate = function (givenDate) {
+            var step = 30;
+            var minute = moment().minutes();
+            var hours = moment().hours();
+
+            if ( minute > step ) {
+                minute = 0;
+                hours += 1;
+            }
+            else {
+                minute = step;
+            }
+
+            return Date.create(givenDate).set({ hours: hours, minute: minute, second: 0 });
+        };
+
+    });
 ;angular
     .module("common")
     .factory("HumpsInterceptor", ["CamelCaseTransform", function (CamelCaseTransform) {
@@ -1627,6 +1681,14 @@ angular
                     targetObject[key] = sourceObject[key];
                 }
             });
+        };
+
+        /**
+         * Sanitize recipients (remove duplicates).
+         */
+        this.sanitizeRecipients = function (recipients) {
+
+            return _.uniq(recipients, 'email');
         };
     });
 ;/* URL To */
@@ -3068,7 +3130,7 @@ angular
         }
     }]);;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -3138,6 +3200,14 @@ angular
         // Save the reminder
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
+
+                var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
+                if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
+                    reminderForm.selectedDate.$setValidity('validDate', false);
+                    flash.error = "Please make sure that the date and time are in the future.";
+
+                    return;
+                }
 
                 // Is saving reminder
                 $scope.isSaving = true;
@@ -3263,9 +3333,7 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
-                    if ( !reminder.inPast() ) {
-                        ReminderUpdateModalService.open(reminder, reminderIndex);
-                    }
+                    ReminderUpdateModalService.open(reminder, reminderIndex);
                 };
 
                 /**
@@ -3421,12 +3489,10 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["$window", "$rootScope", "Reminder", "jstz", function ($window, $rootScope, Reminder, jstz) {
-                        var defaultDueOn = Date.create().addHours(1).set({ minute: 0, second: 0 });
-
+                    reminder: ["$window", "$rootScope", "Reminder", "jstz", "DatesUtils", function ($window, $rootScope, Reminder, jstz, DatesUtils) {
                         return Reminder.build({
                             text: "",
-                            dueOn: defaultDueOn,
+                            dueOn: DatesUtils.prepareDate(),
                             timezone: jstz.determine().name(),
                             recipients: [{ email: $rootScope.currentUser.model.email }]
                         });
@@ -3575,6 +3641,7 @@ angular
                 reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             }
             reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
+            reminderDto["recipients"] = TransformerUtils.sanitizeRecipients(reminderDto["recipients"]);
 
             return reminderDto;
         };
@@ -3962,11 +4029,11 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
     "                    <!-- Title -->\n" +
-    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for registration!</h1>\n" +
+    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for signing up!</h1>\n" +
     "\n" +
     "                    <!-- Explain -->\n" +
     "                    <span class=\"home__signup__sections__section__submitted-message\">\n" +
-    "                        We've sent you an email with the instructions on how to further register your account on Reme.\n" +
+    "                        Please check your email. There's one more step in order to create your account.\n" +
     "                    </span>\n" +
     "                </div>\n" +
     "\n" +
@@ -4071,7 +4138,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a ng-class=\"{'reminder__menu__option--disabled': reminder.inPast()}\" class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
@@ -4176,10 +4243,15 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"reminder-modal__form__info\">\n" +
+    "        <!--Reminder info-->\n" +
+    "        <div class=\"reminder-modal__form__info\" ng-class=\"{'has-error': reminderForm.selectedDate.$invalid}\">\n" +
+    "\n" +
+    "            <!--Hidden input of the reminder chosen date-->\n" +
+    "            <input type=\"hidden\" name=\"selectedDate\" ng-model=\"reminder.model.dueOn\" valid-date />\n" +
+    "\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
     "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
@@ -4187,6 +4259,11 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "            <!--Reminder time picker-->\n" +
     "            <div class=\"reminder-modal__form__info--time\" timepicker-popup dropdown ng-model=\"reminder.model.dueOn\" step=\"30\"></div>\n" +
+    "\n" +
+    "            <!--Error messages-->\n" +
+    "            <div class=\"has-error-messages\" ng-messages=\"reminderForm.selectedDate.$error\">\n" +
+    "                <div ng-message=\"validDate\">Please make sure that the date and time are in the future.</div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder addresses-->\n" +
@@ -4812,7 +4889,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
-    "                <li><a href=\"#\">Pricing</a></li>\n" +
+    "                <li><a class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline simptip-success\" data-tooltip=\"It's free while in beta. Something small after. :)\" href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
@@ -4865,7 +4942,7 @@ angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).r
     "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
     "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
-    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex, 'time-in-past': time.inPast}\">\n" +
+    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +
     "        <a href ng-click=\"setTime(time)\">{{time.timestamp | friendlyHourTimePicker}}</a>\n" +
     "    </li>\n" +
     "</ul>\n" +
