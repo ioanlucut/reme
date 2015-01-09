@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.landingPageLoaded);
 
         /**
          * Set default state.
@@ -26,6 +31,11 @@ angular
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
                     })
                     .catch(function () {
                         $scope.requestSignUpRegistrationForm.email.$invalid = true;

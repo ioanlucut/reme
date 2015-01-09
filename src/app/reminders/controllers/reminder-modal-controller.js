@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -84,6 +84,11 @@ angular
 
                 $scope.reminder.save()
                     .then(function () {
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.reminderCreated : MIXPANEL_EVENTS.reminderUpdated);
 
                         if ( $scope.isNew ) {
                             $timeout(function () {
