@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settings);
 
         /**
          * Set default state.

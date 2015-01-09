@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, mixpanel, MIXPANEL_EVENTS) {
 
         /**
          * Validate registration result.
@@ -44,6 +44,11 @@ angular
                 User.$new()
                     .$create(signUpData, token)
                     .then(function () {
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
+
                         // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
