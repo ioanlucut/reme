@@ -16,7 +16,6 @@ angular
          * Request registration functionality.
          */
         $scope.requestSignUpRegistration = function () {
-            mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
 
             if ( $scope.requestSignUpRegistrationForm.$valid ) {
                 AuthService
@@ -25,7 +24,7 @@ angular
                         /**
                          * Track event.
                          */
-                        /*mixpanel.track(MIXPANEL_EVENTS.signUpRequested);*/
+                        mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
 
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
                     })
