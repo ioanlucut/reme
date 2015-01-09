@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, mixpanel, MIXPANEL_EVENTS) {
+    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.requestSignUpRegistration;
 
         /**
          * Request registration up user information.
@@ -31,7 +36,7 @@ angular
                     .catch(function () {
                         $scope.requestSignUpRegistrationForm.email.$invalid = true;
 
-                        flash.error = "We encountered a problem.";
+                        flash.to($scope.alertIdentifierId).error = "We encountered a problem.";
                     });
             }
         }

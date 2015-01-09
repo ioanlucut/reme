@@ -1,5 +1,10 @@
 <!--Reminder form-->
 <div class="reminder-modal">
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+    <!--Reminder form-->
     <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
 
         <!--Reminder text-->

@@ -15,16 +15,19 @@
             <!-- Account controls -->
             <div class="account__controls">
 
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                 <!-- Form groups -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
                     <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
-                    <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
+                    <span class="help-message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}">
                     <input class="form-control form-control--account" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
-                    <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
+                    <span class="help-message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
                 <!-- Form groups -->
@@ -34,7 +37,7 @@
                     <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
                         <input class="form-control form-control--account" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
 
-                        <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                        <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Please choose a password.</div>
                             <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                         </div>

@@ -13,19 +13,22 @@
             <!-- Account controls -->
             <div class="account__controls">
 
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}">
                         <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
-                        <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
+                        <span class="help-message" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}">
                         <input class="form-control form-control--account" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
-                        <span class="help-block" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
+                        <span class="help-message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
                 </div>
 
@@ -54,6 +57,9 @@
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
@@ -111,6 +117,9 @@
             <!-- Account controls -->
             <div class="account__controls">
 
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
@@ -118,7 +127,7 @@
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }">
                         <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
 
-                        <div class="help-block" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
+                        <div class="help-message" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
                         </div>
