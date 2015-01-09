@@ -1,6 +1,11 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateReminder;
 
         /**
          * Keep master reminder.
@@ -80,7 +85,7 @@ angular
                 var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
                 if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
                     reminderForm.selectedDate.$setValidity('validDate', false);
-                    flash.error = "Please make sure that the date and time are in the future.";
+                    flash.to($scope.alertIdentifierId).error = "Please make sure that the date and time are in the future.";
 
                     return;
                 }

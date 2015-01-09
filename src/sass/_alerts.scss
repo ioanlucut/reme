@@ -1,13 +1,13 @@
-.alert, .alert--absolute {
-  position: absolute;
+.alert--center {
+  width: 100%;
   max-width: 500px;
-  left: 0;
-  right: 0;
-  top: 50px;
-  margin: 5px auto 5px;
-  padding: 5px;
+  margin: 10px auto 20px;
   text-align: center;
-  z-index: 9999999;
+  display: none;
+}
+
+.alert {
+  display: block;
 }
 
 .alert-success {

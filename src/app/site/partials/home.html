@@ -15,6 +15,9 @@
                 <!-- Request registration section -->
                 <div class="home__signup__sections__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
+                    <!-- Flash messages. -->
+                    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                     <!-- Request registration form -->
                     <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error-on-submit>
 
