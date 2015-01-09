@@ -226,6 +226,19 @@
   }
 }
 
+.has-error {
+  .btn.btn--reminder-popup {
+    border: 1px solid $state-danger-text;
+  }
+
+  .has-error-messages {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    color: $state-danger-text;
+  }
+}
+
 .form-group--email-icon {
   &:before {
     @include icon-font-base(40px);
