@@ -50,11 +50,11 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
     "                    <!-- Title -->\n" +
-    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for registration!</h1>\n" +
+    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for signing up!</h1>\n" +
     "\n" +
     "                    <!-- Explain -->\n" +
     "                    <span class=\"home__signup__sections__section__submitted-message\">\n" +
-    "                        We've sent you an email with the instructions on how to further register your account on Reme.\n" +
+    "                        Please check your email. There's one more step in order to create your account.\n" +
     "                    </span>\n" +
     "                </div>\n" +
     "\n" +
@@ -159,7 +159,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a ng-class=\"{'reminder__menu__option--disabled': reminder.inPast()}\" class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
@@ -264,10 +264,15 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"2014-01-01\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"reminder-modal__form__info\">\n" +
+    "        <!--Reminder info-->\n" +
+    "        <div class=\"reminder-modal__form__info\" ng-class=\"{'has-error': reminderForm.selectedDate.$invalid}\">\n" +
+    "\n" +
+    "            <!--Hidden input of the reminder chosen date-->\n" +
+    "            <input type=\"hidden\" name=\"selectedDate\" ng-model=\"reminder.model.dueOn\" valid-date />\n" +
+    "\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
     "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
@@ -275,6 +280,11 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "            <!--Reminder time picker-->\n" +
     "            <div class=\"reminder-modal__form__info--time\" timepicker-popup dropdown ng-model=\"reminder.model.dueOn\" step=\"30\"></div>\n" +
+    "\n" +
+    "            <!--Error messages-->\n" +
+    "            <div class=\"has-error-messages\" ng-messages=\"reminderForm.selectedDate.$error\">\n" +
+    "                <div ng-message=\"validDate\">Please make sure that the date and time are in the future.</div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder addresses-->\n" +
@@ -900,7 +910,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
-    "                <li><a href=\"#\">Pricing</a></li>\n" +
+    "                <li><a class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline simptip-success\" data-tooltip=\"It's free while in beta. Something small after. :)\" href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
@@ -953,7 +963,7 @@ angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).r
     "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
     "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
-    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex, 'time-in-past': time.inPast}\">\n" +
+    "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +
     "        <a href ng-click=\"setTime(time)\">{{time.timestamp | friendlyHourTimePicker}}</a>\n" +
     "    </li>\n" +
     "</ul>\n" +

@@ -11872,59 +11872,84 @@ td.visible-print {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 77, ../../src/sass/fonts/_app-icons.scss */
+/* line 76, ../../src/sass/fonts/_app-icons.scss */
 .icon-recurring:before {
   content: "a";
 }
 
-/* line 80, ../../src/sass/fonts/_app-icons.scss */
+/* line 79, ../../src/sass/fonts/_app-icons.scss */
 .icon-calendar:before, .reminder-modal__form__info--date:before {
   content: "b";
 }
 
-/* line 83, ../../src/sass/fonts/_app-icons.scss */
+/* line 82, ../../src/sass/fonts/_app-icons.scss */
 .icon-checkmark:before {
   content: "c";
 }
 
-/* line 86, ../../src/sass/fonts/_app-icons.scss */
+/* line 85, ../../src/sass/fonts/_app-icons.scss */
 .icon-pencil:before {
   content: "d";
 }
 
-/* line 89, ../../src/sass/fonts/_app-icons.scss */
+/* line 88, ../../src/sass/fonts/_app-icons.scss */
 .icon-clock:before, .reminder-modal__form__info--time:before {
   content: "e";
 }
 
-/* line 92, ../../src/sass/fonts/_app-icons.scss */
+/* line 91, ../../src/sass/fonts/_app-icons.scss */
 .icon-trash:before {
   content: "f";
 }
 
-/* line 95, ../../src/sass/fonts/_app-icons.scss */
+/* line 94, ../../src/sass/fonts/_app-icons.scss */
 .icon-email:before, .form-group--email-icon:before {
   content: "g";
 }
 
-/* line 98, ../../src/sass/fonts/_app-icons.scss */
+/* line 97, ../../src/sass/fonts/_app-icons.scss */
 .icon-smile:before {
   content: "h";
 }
 
-/* line 101, ../../src/sass/fonts/_app-icons.scss */
+/* line 100, ../../src/sass/fonts/_app-icons.scss */
 .icon-user:before {
   content: "i";
 }
 
-/* line 104, ../../src/sass/fonts/_app-icons.scss */
+/* line 103, ../../src/sass/fonts/_app-icons.scss */
 .icon-coffee:before {
   content: "j";
 }
 
-/* line 107, ../../src/sass/fonts/_app-icons.scss */
+/* line 106, ../../src/sass/fonts/_app-icons.scss */
 .icon-comment:before {
   content: "k";
+}
+
+/* line 109, ../../src/sass/fonts/_app-icons.scss */
+.icon-info:before {
+  content: "l";
+}
+
+/* line 112, ../../src/sass/fonts/_app-icons.scss */
+.icon-heart:before {
+  content: "m";
+}
+
+/* line 115, ../../src/sass/fonts/_app-icons.scss */
+.icon-comment-heart:before {
+  content: "n";
+}
+
+/* line 118, ../../src/sass/fonts/_app-icons.scss */
+.icon-heart-2:before {
+  content: "o";
+}
+
+/* line 121, ../../src/sass/fonts/_app-icons.scss */
+.icon-comment-2:before {
+  content: "p";
 }
 
 /* line 10, ../../src/sass/_buttons.scss */
@@ -11962,9 +11987,10 @@ td.visible-print {
   margin: 5px auto 5px;
   padding: 5px;
   text-align: center;
+  z-index: 9999999;
 }
 
-/* line 12, ../../src/sass/_alerts.scss */
+/* line 13, ../../src/sass/_alerts.scss */
 .alert-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -11979,7 +12005,7 @@ td.visible-print {
   color: #356635;
 }
 
-/* line 16, ../../src/sass/_alerts.scss */
+/* line 17, ../../src/sass/_alerts.scss */
 .alert-error {
   background-color: #f2dede;
   border-color: #ebccd1;
@@ -12437,19 +12463,15 @@ textarea.form-control--account {
   border-color: #8471B1;
 }
 
-/* line 1, ../../src/app/common/sass/_footer_home.scss */
+/* line 3, ../../src/app/common/sass/_footer_home.scss */
 .footer-home {
-  background-color: #8471B1;
+  background-color: #bbbfc4;
   margin: 0;
   padding: 0;
   height: 180px;
   vertical-align: top;
 }
 
-/* line 9, ../../src/app/common/sass/_footer_home.scss */
-.footer__navbar {
-  color: #5e4c8a;
-}
 /* line 20, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .footer__navbar:before, .footer__navbar:after {
   content: " ";
@@ -12461,45 +12483,45 @@ textarea.form-control--account {
 .footer__navbar:after {
   clear: both;
 }
-/* line 14, ../../src/app/common/sass/_footer_home.scss */
+/* line 15, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li {
   list-style: none;
   height: 20px;
 }
-/* line 18, ../../src/app/common/sass/_footer_home.scss */
+/* line 19, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a {
-  color: #5e4c8a;
+  color: #5f656d;
 }
-/* line 21, ../../src/app/common/sass/_footer_home.scss */
+/* line 22, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a:hover {
-  color: #705aa4;
+  color: #303337;
 }
 
-/* line 29, ../../src/app/common/sass/_footer_home.scss */
+/* line 30, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left {
   float: left;
 }
 
-/* line 33, ../../src/app/common/sass/_footer_home.scss */
+/* line 34, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #5e4c8a;
+  color: #6b727b;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 39, ../../src/app/common/sass/_footer_home.scss */
+/* line 40, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright span {
-  color: #534379;
+  color: #d9534f;
   margin-top: 5px;
   display: inline-block;
 }
 
-/* line 46, ../../src/app/common/sass/_footer_home.scss */
+/* line 47, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right {
   float: right;
 }
 
-/* line 50, ../../src/app/common/sass/_footer_home.scss */
+/* line 51, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right__list {
   height: 180px;
   color: #5e4c8a;
@@ -12507,7 +12529,7 @@ textarea.form-control--account {
   vertical-align: middle;
   width: 180px;
 }
-/* line 57, ../../src/app/common/sass/_footer_home.scss */
+/* line 58, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right__list ul li {
   height: 26px;
 }
@@ -12922,7 +12944,6 @@ textarea.form-control--account {
   border-radius: 3px;
   text-transform: uppercase;
   height: 50px;
-  font-size: 16px;
 }
 /* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--create-reminder:hover, .reminder-modal__form .btn--create-reminder:focus, .reminder-modal__form .btn--create-reminder:active, .reminder-modal__form .btn--create-reminder.active {
@@ -12949,7 +12970,7 @@ textarea.form-control--account {
   background-color: #8471B1;
   border-color: #8471B1;
 }
-/* line 190, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 189, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--reminder-popup {
   color: #24282b;
   background-color: #ededed;
@@ -12957,6 +12978,7 @@ textarea.form-control--account {
   height: 40px;
   line-height: 1.33;
   border-radius: 3px;
+  font-weight: 300;
 }
 /* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
@@ -12996,6 +13018,75 @@ textarea.form-control--account {
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
+/* line 216, ../../src/app/reminders/sass/_reminders_form.scss */
+.reminder-modal__form__info--date:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 223, ../../src/app/reminders/sass/_reminders_form.scss */
+.reminder-modal__form__info--time:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 230, ../../src/app/reminders/sass/_reminders_form.scss */
+.has-error .btn.btn--reminder-popup {
+  border: 1px solid #b94a48;
+}
+/* line 234, ../../src/app/reminders/sass/_reminders_form.scss */
+.has-error .has-error-messages {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #b94a48;
+}
+
+/* line 243, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-group--email-icon:before {
+  position: absolute;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
 .form-control--reminder {
   height: 48px;
@@ -13016,77 +13107,37 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 219, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 253, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
   font-weight: 300;
 }
 
-/* line 223, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 257, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
-  background-color: #f5f6f7;
+  background-color: #ededed;
   border: 0;
   height: 40px;
   padding: 8px 20px 8px 20px;
   text-align: left;
+  color: #000;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-
-/* line 233, ../../src/app/reminders/sass/_reminders_form.scss */
-.reminder-modal__form__info--date:before {
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  top: 0;
-  font-size: 20px;
-  height: 40px;
-  font-family: "reme-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 40px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* line 57, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--user-email:-moz-placeholder {
+  color: #9fa5ab;
 }
-
-/* line 240, ../../src/app/reminders/sass/_reminders_form.scss */
-.reminder-modal__form__info--time:before {
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  top: 0;
-  font-size: 20px;
-  height: 40px;
-  font-family: "reme-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 40px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* line 58, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--user-email::-moz-placeholder {
+  color: #9fa5ab;
 }
-
-/* line 247, ../../src/app/reminders/sass/_reminders_form.scss */
-.form-group--email-icon:before {
-  position: absolute;
-  left: 15px;
-  bottom: 0;
-  top: 0;
-  font-size: 20px;
-  height: 40px;
-  font-family: "reme-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  speak: none;
-  line-height: 40px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* line 59, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--user-email:-ms-input-placeholder {
+  color: #9fa5ab;
+}
+/* line 60, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--user-email::-webkit-input-placeholder {
+  color: #9fa5ab;
 }
 
 /* line 848, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
@@ -13109,23 +13160,44 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 255, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 270, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
-  background-color: #f5f6f7;
+  background-color: #ededed;
   height: 40px;
   padding-left: 50px;
   border: 0;
+  color: #000;
+}
+/* line 57, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--friend-email:-moz-placeholder {
+  color: #9fa5ab;
+}
+/* line 58, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--friend-email::-moz-placeholder {
+  color: #9fa5ab;
+}
+/* line 59, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--friend-email:-ms-input-placeholder {
+  color: #9fa5ab;
+}
+/* line 60, ../../bower_components/bootstrap-sass/lib/_mixins.scss */
+.form-control--friend-email::-webkit-input-placeholder {
+  color: #9fa5ab;
+}
+/* line 279, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-control--friend-email:hover, .form-control--friend-email:focus {
+  background-color: #e0e0e0;
 }
 
 /*Add border on error*/
-/* line 264, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 286, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .form-control--friend-email {
   border: 1px solid #b94a48;
 }
 
 /*First input - the user email*/
-/* line 269, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 291, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email.form-control[disabled] {
   background-color: #ededed;
   border: 0;
@@ -13718,11 +13790,11 @@ textarea.form-control--friend-email {
 
 /* line 9, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
-  height: 600px;
+  height: 700px;
 }
 /* line 12, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
-  padding: 200px 15px 20px;
+  padding: 250px 15px 20px;
   font-size: 52px;
   font-weight: 700;
   text-align: center;
@@ -13880,7 +13952,7 @@ textarea.home__signup__sections__section__controls__email {
 .home__testimonials {
   background-color: #FFFFFF;
   text-align: center;
-  padding: 70px 0 10px 0;
+  padding: 140px 0 70px 0;
 }
 
 /* line 8, ../../src/app/site/sass/_site_testimonials.scss */
@@ -13895,7 +13967,7 @@ textarea.home__signup__sections__section__controls__email {
   height: 80px;
   width: 300px;
   display: inline-block;
-  margin: 15px 7px;
+  margin: 65px 7px;
 }
 
 /* line 24, ../../src/app/site/sass/_site_testimonials.scss */
