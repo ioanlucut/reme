@@ -30,12 +30,12 @@ angular
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
-                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
-
                         /**
                          * Track event.
                          */
                         mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
+
+                        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
                     })
                     .catch(function () {
                         $scope.requestSignUpRegistrationForm.email.$invalid = true;
