@@ -59,6 +59,12 @@ angular
                         $rootScope.$broadcast("nlpDate:timeChange", null);
                     }
 
+                    /**
+                     * We want to ignore set time in the time pickerr.
+                     * @type {boolean}
+                     */
+                    date.ignoreSetTime = true;
+
                     scope.date = date;
                 });
             }
