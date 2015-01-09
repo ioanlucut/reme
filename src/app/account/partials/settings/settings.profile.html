@@ -65,7 +65,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}">
-                        <input class="form-control form-control--account" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" required />
+                        <input class="form-control form-control--account" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" auto-focus required />
                         <span class="help-message" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Your old password is mandatory.</span>
                     </div>
 
