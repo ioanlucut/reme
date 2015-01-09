@@ -3,9 +3,15 @@ angular
     .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS) {
 
         /**
-         * Reminder to be created (injected with few default values)
+         * Keep master reminder.
+         * @type {XMLList|XML|*}
          */
-        $scope.reminder = reminder;
+        $scope.masterReminder = reminder;
+
+        /**
+         * Work with a copy of master reminder
+         */
+        $scope.reminder = angular.copy($scope.masterReminder);
 
         /**
          * Flag which says whether reminder is new or not.
@@ -105,6 +111,10 @@ angular
                             $timeout(function () {
                                 $scope.isSaving = false;
 
+                                // Ok, update master reminder.
+                                angular.copy($scope.reminder, $scope.masterReminder);
+
+                                // Close the modal
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
                                     reminder: $scope.reminder,
