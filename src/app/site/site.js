@@ -3,8 +3,7 @@
  */
 angular
     .module("site", [
-        "ngAnimate",
-        "ui.router"
+        "common"
     ])
     .config(function ($stateProvider) {
 
@@ -15,7 +14,7 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "RequestSignUpRegistrationCtrl",
+                controller: "LandingPageCtrl",
                 title: "Home - Reme.io"
             })
     });
