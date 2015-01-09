@@ -18,4 +18,12 @@ angular
                 }
             });
         };
+
+        /**
+         * Sanitize recipients (remove duplicates).
+         */
+        this.sanitizeRecipients = function (recipients) {
+
+            return _.uniq(recipients, 'email');
+        };
     });
