@@ -1,6 +1,6 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, ALERTS_CONSTANTS, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, mixpanel, MIXPANEL_EVENTS) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier

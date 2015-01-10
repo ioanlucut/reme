@@ -5,13 +5,18 @@
 }
 
 .home {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -180px;
+  padding: 0 0 180px;
 
   &__signup {
     height: 700px;
 
     h1.home__signup__title {
       padding: 250px 15px 20px;
-      font-size: 52px;
+      font-family: $font-family-serif;
+      font-size: 48px;
       font-weight: $font-weight-bold;
       text-align: center;
       margin: 0;
@@ -23,6 +28,7 @@
       font-size: 20px;
       font-weight: $font-weight-light;
       text-align: center;
+      line-height: 30px;
     }
   }
 }

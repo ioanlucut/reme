@@ -21,7 +21,7 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: function ($window, $rootScope, Reminder, jstz, DatesUtils) {
+                    reminder: function ($window, $rootScope, Reminder, DatesUtils) {
                         return Reminder.build({
                             text: "",
                             dueOn: DatesUtils.prepareDate(),

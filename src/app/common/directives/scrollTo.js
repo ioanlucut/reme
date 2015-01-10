@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("scrollTo", function ($window, $) {
+    .directive("scrollTo", function ($window) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {

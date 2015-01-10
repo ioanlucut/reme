@@ -1,0 +1,25 @@
+@media (max-width: $screen-desktop) {
+
+  .home {
+
+    h3.home__signup__description {
+      padding-right: 150px;
+      padding-left: 150px;
+    }
+  }
+}
+
+@media (max-width: $screen-tablet) {
+
+  .home {
+
+    h3.home__signup__description {
+      padding-right: 50px;
+      padding-left: 50px;
+    }
+  }
+
+  .home__signup {
+    height: 750px;
+  }
+}

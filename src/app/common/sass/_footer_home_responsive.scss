@@ -1,0 +1,14 @@
+@media (max-width: $screen-tablet) {
+
+  .footer__navbar__section-left {
+    width: 35%;
+
+    .footer__navbar__section-left__copyright {
+      text-align: center;
+    }
+  }
+
+  .footer__navbar__section-right {
+    width: 60%;
+  }
+}
