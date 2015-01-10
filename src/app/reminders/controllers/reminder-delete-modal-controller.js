@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, mixpanel, MIXPANEL_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, MIXPANEL_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
