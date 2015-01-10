@@ -1,4 +1,4 @@
-angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -19,16 +19,14 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <!-- Request registration section -->\n" +
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
+    "                    <!-- Flash messages. -->\n" +
+    "                    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                    <!-- Request registration form -->\n" +
     "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "                        <!-- Account controls -->\n" +
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
-    "\n" +
-    "                            <!-- Flash messages. -->\n" +
-    "                            <div flash-alert active-class=\"in alert home__signup__sections__section__controls__alert\" class=\"fade\">\n" +
-    "                                <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
     "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
@@ -236,29 +234,15 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "</div>");
 }]);
 
-angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminderModal/reminderDeleteModal.html",
-    "<!--Delete reminder form-->\n" +
-    "<div class=\"reminder-form-container\">\n" +
-    "\n" +
-    "    <div class=\"reminder-form-container__form\">\n" +
-    "        <div class=\"reminder-form-container__form__question\">\n" +
-    "            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on\n" +
-    "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
-    "        </div>\n" +
-    "        <div class=\"reminder-form-container__form__recommend\">\n" +
-    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
-    "        </div>\n" +
-    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
-    "    </div>\n" +
-    "\n" +
-    "</div>");
-}]);
-
-angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
+angular.module("app/reminders/partials/reminderModal/reminder_create_update_modal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminderModal/reminder_create_update_modal.html",
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "    <!--Reminder form-->\n" +
     "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
@@ -275,7 +259,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
-    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
+    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder time picker-->\n" +
@@ -299,6 +283,25 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "</div>");
 }]);
 
+angular.module("app/reminders/partials/reminderModal/reminder_delete_modal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminderModal/reminder_delete_modal.html",
+    "<!--Delete reminder form-->\n" +
+    "<div class=\"reminder-form-container\">\n" +
+    "\n" +
+    "    <div class=\"reminder-form-container__form\">\n" +
+    "        <div class=\"reminder-form-container__form__question\">\n" +
+    "            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on\n" +
+    "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
+    "        </div>\n" +
+    "        <div class=\"reminder-form-container__form__recommend\">\n" +
+    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
+    "        </div>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/account.html",
     "<!-- Account sections -->\n" +
@@ -316,19 +319,22 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" auto-focus required />\n" +
+    "                        <span class=\"help-message\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -358,12 +364,15 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" auto-focus required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -414,14 +423,17 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" auto-focus required valid-email />\n" +
     "\n" +
-    "                        <div class=\"help-block\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
+    "                        <div class=\"help-message\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                        </div>\n" +
@@ -517,13 +529,16 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
     "                        <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
-    "                        <span class=\"help-block\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -553,25 +568,27 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.email.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-model=\"profileData.email\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.email.$invalid && profileForm.$submitted\">Please tell us your email.</span>\n" +
+    "                    <div class=\"form-group\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -595,25 +612,28 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -683,16 +703,19 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" auto-focus required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\" name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                    <span class=\"help-message\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -702,7 +725,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                    <div class=\"form-group form-group--small-offset\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required strong-password />\n" +
     "\n" +
-    "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
+    "                        <div class=\"help-message\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Please choose a password.</div>\n" +
     "                            <div ng-message=\"strongPassword\">Your password needs to be at least 7 characters long.</div>\n" +
     "                        </div>\n" +
@@ -765,19 +788,22 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "        <!-- Account controls -->\n" +
     "        <div class=\"account__controls\">\n" +
     "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "            <!-- Form groups -->\n" +
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.password.$invalid || resetPasswordForm.$invalid)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" auto-focus required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.passwordConfirmation.$invalid || resetPasswordForm.$invalid)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -822,7 +848,7 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
 angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/flash-messages.html",
     "<!-- Flash messages. -->\n" +
-    "<div flash-alert active-class=\"in alert\" class=\"fade alert--absolute\" duration=\"2000\">\n" +
+    "<div ng-attr-id=\"{{ identifierId }}\" flash-alert active-class=\"in alert\" class=\"alert--center fade\" duration=\"0\">\n" +
     "    <button type=\"button\" class=\"close\" ng-click=\"hide()\">&times;</button>\n" +
     "    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "</div>");
@@ -910,7 +936,6 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
-    "                <li><a class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline simptip-success\" data-tooltip=\"It's free while in beta. Something small after. :)\" href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
@@ -960,7 +985,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/timepickerPopup/timepickerPopup.html",
-    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
+    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
     "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
     "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +

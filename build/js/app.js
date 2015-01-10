@@ -38,7 +38,21 @@ angular
             }
         });
     }]);
-;/**
+;angular
+    .module("common")
+    .constant("ALERTS_CONSTANTS", {
+        login: "login",
+        signUp: "signUp",
+        signUpConfirm: "signUpConfirm",
+        forgotPassword: "forgotPassword",
+        requestSignUpRegistration: "requestSignUpRegistration",
+        resetPassword: "resetPassword",
+        updatePassword: "updatePassword",
+        validatePassword: "validatePassword",
+        createUpdateReminder: "createUpdateReminder",
+        updateProfile: "updateProfile",
+        preferences: "preferences"
+    });;/**
  * Common states.
  */
 angular
@@ -53,7 +67,23 @@ angular
         forLoggedUser: "forLoggedUser",
         forGuestUser: "forGuestUser"
     });
-;/* Animate */
+;/**
+ * Common mixpanel events.
+ */
+angular
+    .module("common")
+    .constant("MIXPANEL_EVENTS", {
+        landingPageLoaded: "Landing page loaded",
+        signUpRequested: "Signup requested",
+        signUpCompleted: "Signup completed",
+        remindersPage: "Reminders page (site visited)",
+        reminderModalOpened: "Reminder modal opened",
+        reminderCreated: "Reminder created",
+        reminderUpdated: "Reminder updated",
+        reminderDeleted: "Reminder deleted",
+        reminderUnSubscribed: "Reminder unsubscribed",
+        settings: "Settings"
+    });;/* Animate */
 
 angular
     .module("common")
@@ -627,11 +657,12 @@ angular
     .directive("flashMessages", function () {
         return {
             scope: {
-                flash: "="
+                flash: "=",
+                identifierId: "@"
             },
             restrict: "A",
             templateUrl: "app/common/partials/flash-messages.html",
-            link: function (scope, el) {
+            link: function (scope, el, attrs) {
             }
         };
     });
@@ -764,7 +795,7 @@ angular
                     if ( !date.isValid() ) return;
 
                     // Make sure date limits are respected
-                    if ( attrs.minDate && attrs.minDate && date.isBefore(attrs.minDate) ) return;
+                    if ( attrs.minDate && date.isBefore(scope.$eval(attrs.minDate)) ) return;
                     if ( attrs.maxDate && attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
 
                     if ( scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay() ) {
@@ -778,6 +809,12 @@ angular
                         // Time was changed
                         $rootScope.$broadcast("nlpDate:timeChange", null);
                     }
+
+                    /**
+                     * We want to ignore set time in the time pickerr.
+                     * @type {boolean}
+                     */
+                    date.ignoreSetTime = true;
 
                     scope.date = date;
                 });
@@ -924,7 +961,7 @@ angular.module("common").
                     if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 ) {
+                    else if ( moment().diff(date, 'day') < 0 && !date.ignoreSetTime ) {
                         scope.setTime(scope.times[0]);
                     }
 
@@ -1918,7 +1955,12 @@ angular
  */
 angular
     .module("account")
-    .controller("ForgotPasswordCtrl", ["$state", "$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("ForgotPasswordCtrl", ["$state", "$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.forgotPassword;
 
         /**
          * Request password reset up user information.
@@ -1938,7 +1980,7 @@ angular
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPasswordEmailSent);
                     })
                     .catch(function (response) {
-                        flash.error = response.data && response.data.errors && response.data.errors[0];
+                        flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
 
@@ -1949,7 +1991,12 @@ angular
  */
 angular
     .module("account")
-    .controller("LoginCtrl", ["$scope", "flash", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.login;
 
         /**
          * Set default state.
@@ -1981,7 +2028,7 @@ angular
                     .catch(function () {
                         $scope.loginForm.$invalid = true;
 
-                        flash.error = "Your email or password are wrong. Please try again.";
+                        flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
                     });
             }
         }
@@ -2008,7 +2055,12 @@ angular
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
+    .controller("PreferencesCtrl", ["$q", "$scope", "$rootScope", "TimezoneProvider", "flash", "ALERTS_CONSTANTS", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
 
         /**
          * Current user.
@@ -2044,11 +2096,11 @@ angular
                     .then(function () {
                         $scope.preferencesForm.$setPristine();
 
-                        flash.success = 'We\'ve successfully updated your preferences!';
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your preferences.';
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
             }
         };
@@ -2057,7 +2109,17 @@ angular
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
+    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "mixpanel", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settings);
 
         /**
          * Set default state.
@@ -2076,7 +2138,6 @@ angular
         $scope.profileData = {
             firstName: $scope.user.model.firstName,
             lastName: $scope.user.model.lastName,
-            email: $scope.user.model.email,
             timezone: $scope.user.model.timezone
         };
 
@@ -2094,12 +2155,12 @@ angular
                         $scope.user.$refresh().then(function () {
                             $scope.profileForm.$setPristine();
 
-                            flash.success = 'We\'ve successfully updated your account!';
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
                         });
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your account.';
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
                     });
             }
         };
@@ -2112,12 +2173,12 @@ angular
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", function ($state, flash, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
+    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "ALERTS_CONSTANTS", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "$timeout", "mixpanel", "MIXPANEL_EVENTS", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, mixpanel, MIXPANEL_EVENTS) {
 
         /**
-         * Set default state.
+         * Alert identifier
          */
-        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration);
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.requestSignUpRegistration;
 
         /**
          * Request registration up user information.
@@ -2130,23 +2191,34 @@ angular
          * Request registration functionality.
          */
         $scope.requestSignUpRegistration = function () {
+
             if ( $scope.requestSignUpRegistrationForm.$valid ) {
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
+
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
                     })
                     .catch(function () {
                         $scope.requestSignUpRegistrationForm.email.$invalid = true;
 
-                        flash.error = "We encountered a problem.";
+                        flash.to($scope.alertIdentifierId).error = "We encountered a problem.";
                     });
             }
         }
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
+    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
 
         /**
          * Validate registration result.
@@ -2190,6 +2262,11 @@ angular
                 User.$new()
                     .$create(signUpData, token)
                     .then(function () {
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
+
                         // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
@@ -2200,7 +2277,7 @@ angular
                     .catch(function () {
                         $scope.signUpForm.$invalid = true;
 
-                        flash.error = "Sorry, something went wrong.";
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
             }
 
@@ -2214,7 +2291,12 @@ angular
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
+    .controller("UpdatePasswordCtrl", ["$scope", "flash", "AuthService", "ACCOUNT_FORM_STATE", "ALERTS_CONSTANTS", "ProfileFormToggle", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
 
         /**
          * Update password user information.
@@ -2241,13 +2323,18 @@ angular
                     .catch(function (response) {
                         $scope.updatePasswordForm.$invalid = true;
 
-                        flash.error = response.data && response.data.errors && response.data.errors[0];
+                        flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
         }
     }]);;angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", ["$scope", "$timeout", "flash", "AuthService", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "validateTokenResult", "ALERTS_CONSTANTS", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
 
         /**
          * Reset password data (used if
@@ -2285,7 +2372,7 @@ angular
                     .catch(function () {
                         $scope.resetPasswordForm.$invalid = true;
 
-                        flash.error = "Sorry, something went wrong.";
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
             }
         };
@@ -2853,8 +2940,7 @@ angular
  */
 angular
     .module("site", [
-        "ngAnimate",
-        "ui.router"
+        "common"
     ])
     .config(["$stateProvider", function ($stateProvider) {
 
@@ -2865,9 +2951,26 @@ angular
             .state("home", {
                 url: "/",
                 templateUrl: "app/site/partials/home.html",
-                controller: "RequestSignUpRegistrationCtrl",
+                controller: "LandingPageCtrl",
                 title: "Home - Reme.io"
             })
+    }]);
+;/**
+ * Landing page controller.
+ */
+angular
+    .module("common")
+    .controller("LandingPageCtrl", ["$state", "$scope", "AccountFormToggle", "ACCOUNT_FORM_STATE", "mixpanel", "MIXPANEL_EVENTS", function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.landingPageLoaded);
+
+        /**
+         * Set default state.
+         */
+        AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration);
     }]);
 ;/**
  * Main site module declaration including ui templates.
@@ -2944,7 +3047,152 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "$timeout", "StatesHandler", "REMINDER_EVENTS", "reminder", "reminderIndex", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", "mixpanel", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateReminder;
+
+        /**
+         * Keep master reminder.
+         * @type {XMLList|XML|*}
+         */
+        $scope.masterReminder = reminder;
+
+        /**
+         * Work with a copy of master reminder
+         */
+        $scope.reminder = angular.copy($scope.masterReminder);
+
+        /**
+         * Flag which says whether reminder is new or not.
+         */
+        $scope.isNew = $scope.reminder.isNew();
+
+        /**
+         * Flag which represents whether
+         * @type {boolean}
+         */
+        $scope.isSaving = false;
+
+        /**
+         * Minimum date to create reminder.
+         * @type {Date}
+         */
+        $scope.minDate = new Date();
+
+        /**
+         * Reminder examples pool
+         * @type {string[]}
+         */
+        var reminderExamples = [
+            "Pay rent @tomorrow at 3pm",
+            "Josh's birthday party @next Friday at 18:00",
+            "Christmas gifts @dec 20 at 3pm",
+            "Send email to Rachel @in 4 hours",
+            "Team meeting @10am",
+            "My brother's wedding next month @June 22"
+        ];
+
+        /**
+         * Random reminder example
+         * @type {string}
+         */
+        $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
+
+        /**
+         * If create reminder modal is opened
+         */
+        if ( ReminderModalService.modalInstance ) {
+            ReminderModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
+        /**
+         * If update reminder modal is opened
+         */
+        if ( ReminderUpdateModalService.modalInstance ) {
+            ReminderUpdateModalService.modalInstance
+                .opened
+                .then(function () {
+                    $scope.isOpen = true;
+                }
+            );
+        }
+
+        // Save the reminder
+        $scope.saveReminder = function (reminderForm) {
+            if ( reminderForm.$valid && !$scope.isSaving ) {
+
+                var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
+                if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
+                    reminderForm.selectedDate.$setValidity('validDate', false);
+                    flash.to($scope.alertIdentifierId).error = "Please make sure that the date and time are in the future.";
+
+                    return;
+                }
+
+                // Is saving reminder
+                $scope.isSaving = true;
+
+                $scope.reminder.save()
+                    .then(function () {
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.reminderCreated : MIXPANEL_EVENTS.reminderUpdated);
+
+                        if ( $scope.isNew ) {
+                            $timeout(function () {
+                                $scope.isSaving = false;
+
+                                ReminderModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
+                                    reminder: $scope.reminder,
+                                    message: 'Reminder successfully saved!'
+                                });
+                            }, 800);
+                        }
+                        else {
+                            $timeout(function () {
+                                $scope.isSaving = false;
+
+                                // Ok, update master reminder.
+                                angular.copy($scope.reminder, $scope.masterReminder);
+
+                                // Close the modal
+                                ReminderUpdateModalService.modalInstance.close();
+                                $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
+                                    reminder: $scope.reminder,
+                                    reminderIndex: reminderIndex,
+                                    message: 'Reminder successfully updated!'
+                                });
+                            }, 800);
+                        }
+                    })
+                    .catch(function () {
+
+                        // Error
+                        $scope.isSaving = false;
+                        alert("Something went wrong. Please try again.");
+                    })
+                    .finally(function () {
+
+                        $scope.isOpen = false;
+                    });
+            }
+        };
+
+    }]);
+;angular
+    .module("reminders")
+    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "$timeout", "StatesHandler", "REMINDER_EVENTS", "reminder", "reminderIndex", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, mixpanel, MIXPANEL_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -2985,6 +3233,11 @@ angular
                 $scope.reminder.destroy()
                     .then(function () {
 
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.reminderDeleted);
+
                         // Wait 2 seconds, and close the modal
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
@@ -3016,6 +3269,11 @@ angular
                 $scope.reminder.unSubscribe()
                     .then(function () {
 
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.reminderUnSubscribed);
+
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();
                             $rootScope.$broadcast(REMINDER_EVENTS.isUnSubscribed, {
@@ -3039,7 +3297,12 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.remindersPage);
 
         /**
          * The current user
@@ -3128,132 +3391,7 @@ angular
                 return reminderFromArrayId === reminderId;
             });
         }
-    }]);;angular
-    .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash) {
-
-        /**
-         * Reminder to be created (injected with few default values)
-         */
-        $scope.reminder = reminder;
-
-        /**
-         * Flag which says whether reminder is new or not.
-         */
-        $scope.isNew = $scope.reminder.isNew();
-
-        /**
-         * Flag which represents whether
-         * @type {boolean}
-         */
-        $scope.isSaving = false;
-
-        /**
-         * Minimum date to create reminder.
-         * @type {Date}
-         */
-        $scope.minDate = new Date();
-
-        /**
-         * Reminder examples pool
-         * @type {string[]}
-         */
-        var reminderExamples = [
-            "Pay rent @tomorrow at 3pm",
-            "Josh's birthday party @next Friday at 18:00",
-            "Christmas gifts @dec 20 at 3pm",
-            "Send email to Rachel @in 4 hours",
-            "Team meeting @10am",
-            "My brother's wedding next month @June 22"
-        ];
-
-        /**
-         * Random reminder example
-         * @type {string}
-         */
-        $scope.randomExample = reminderExamples[Math.floor((Math.random() * reminderExamples.length))];
-
-        /**
-         * If create reminder modal is opened
-         */
-        if ( ReminderModalService.modalInstance ) {
-            ReminderModalService.modalInstance
-                .opened
-                .then(function () {
-                    $scope.isOpen = true;
-                }
-            );
-        }
-
-        /**
-         * If update reminder modal is opened
-         */
-        if ( ReminderUpdateModalService.modalInstance ) {
-            ReminderUpdateModalService.modalInstance
-                .opened
-                .then(function () {
-                    $scope.isOpen = true;
-                }
-            );
-        }
-
-        // Save the reminder
-        $scope.saveReminder = function (reminderForm) {
-            if ( reminderForm.$valid && !$scope.isSaving ) {
-
-                var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
-                if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
-                    reminderForm.selectedDate.$setValidity('validDate', false);
-                    flash.error = "Please make sure that the date and time are in the future.";
-
-                    return;
-                }
-
-                // Is saving reminder
-                $scope.isSaving = true;
-
-                $scope.reminder.save()
-                    .then(function () {
-
-                        if ( $scope.isNew ) {
-                            $timeout(function () {
-                                $scope.isSaving = false;
-
-                                ReminderModalService.modalInstance.close();
-                                $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
-                                    reminder: $scope.reminder,
-                                    message: 'Reminder successfully saved!'
-                                });
-                            }, 800);
-                        }
-                        else {
-                            $timeout(function () {
-                                $scope.isSaving = false;
-
-                                ReminderUpdateModalService.modalInstance.close();
-                                $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
-                                    reminder: $scope.reminder,
-                                    reminderIndex: reminderIndex,
-                                    message: 'Reminder successfully updated!'
-                                });
-                            }, 800);
-                        }
-                    })
-                    .catch(function () {
-
-                        // Error
-                        $scope.isSaving = false;
-                        alert("Something went wrong. Please try again.");
-                    })
-                    .finally(function () {
-
-                        $scope.isOpen = false;
-                    });
-            }
-        };
-
-    }]);
-;/* Email list */
+    }]);;/* Email list */
 
 angular
     .module("reminders")
@@ -3388,7 +3526,7 @@ angular
 
             // Create modal instance
             this.modalInstance = $modal.open({
-                templateUrl: "app/reminders/partials/reminderModal/reminderDeleteModal.html",
+                templateUrl: "app/reminders/partials/reminderModal/reminder_delete_modal.html",
                 controller: "ReminderDeleteModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
@@ -3485,7 +3623,7 @@ angular
 
             // Create modal instance
             this.modalInstance = $modal.open({
-                templateUrl: "app/reminders/partials/reminderModal/reminderModal.html",
+                templateUrl: "app/reminders/partials/reminderModal/reminder_create_update_modal.html",
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
@@ -3703,7 +3841,7 @@ angular
 
             // Create modal instance
             this.modalInstance = $modal.open({
-                templateUrl: "app/reminders/partials/reminderModal/reminderModal.html",
+                templateUrl: "app/reminders/partials/reminderModal/reminder_create_update_modal.html",
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
@@ -3977,7 +4115,7 @@ angular
             });
         }
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminderDeleteModal.html', 'app/reminders/partials/reminderModal/reminderModal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -3998,16 +4136,14 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <!-- Request registration section -->\n" +
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
+    "                    <!-- Flash messages. -->\n" +
+    "                    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                    <!-- Request registration form -->\n" +
     "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
     "\n" +
     "                        <!-- Account controls -->\n" +
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
-    "\n" +
-    "                            <!-- Flash messages. -->\n" +
-    "                            <div flash-alert active-class=\"in alert home__signup__sections__section__controls__alert\" class=\"fade\">\n" +
-    "                                <span class=\"alert-message\">{{flash.message}}</span>\n" +
-    "                            </div>\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
     "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
@@ -4215,29 +4351,15 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "</div>");
 }]);
 
-angular.module("app/reminders/partials/reminderModal/reminderDeleteModal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminderModal/reminderDeleteModal.html",
-    "<!--Delete reminder form-->\n" +
-    "<div class=\"reminder-form-container\">\n" +
-    "\n" +
-    "    <div class=\"reminder-form-container__form\">\n" +
-    "        <div class=\"reminder-form-container__form__question\">\n" +
-    "            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on\n" +
-    "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
-    "        </div>\n" +
-    "        <div class=\"reminder-form-container__form__recommend\">\n" +
-    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
-    "        </div>\n" +
-    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
-    "    </div>\n" +
-    "\n" +
-    "</div>");
-}]);
-
-angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminderModal/reminderModal.html",
+angular.module("app/reminders/partials/reminderModal/reminder_create_update_modal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminderModal/reminder_create_update_modal.html",
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
+    "\n" +
+    "    <!-- Flash messages. -->\n" +
+    "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "    <!--Reminder form-->\n" +
     "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
@@ -4254,7 +4376,7 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "\n" +
     "            <!--Reminder date picker-->\n" +
     "            <div class=\"reminder-modal__form__info--date\">\n" +
-    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"animated highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
+    "                <button type=\"button\" class=\"btn btn--reminder-popup\" datepicker-popup min=\"minDate\" ng-model=\"reminder.model.dueOn\" show-weeks=\"false\" datepicker-options=\"{starting_day:1}\" animate animate-on=\"nlpDate:dateChange\" animate-class=\"highlight-button\"> {{reminder.model.dueOn | friendlyDate}}</button>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder time picker-->\n" +
@@ -4278,6 +4400,25 @@ angular.module("app/reminders/partials/reminderModal/reminderModal.html", []).ru
     "</div>");
 }]);
 
+angular.module("app/reminders/partials/reminderModal/reminder_delete_modal.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminderModal/reminder_delete_modal.html",
+    "<!--Delete reminder form-->\n" +
+    "<div class=\"reminder-form-container\">\n" +
+    "\n" +
+    "    <div class=\"reminder-form-container__form\">\n" +
+    "        <div class=\"reminder-form-container__form__question\">\n" +
+    "            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on\n" +
+    "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
+    "        </div>\n" +
+    "        <div class=\"reminder-form-container__form__recommend\">\n" +
+    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
+    "        </div>\n" +
+    "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>");
+}]);
+
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/account.html",
     "<!-- Account sections -->\n" +
@@ -4295,19 +4436,22 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" auto-focus required />\n" +
+    "                        <span class=\"help-message\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4337,12 +4481,15 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" auto-focus required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -4393,14 +4540,17 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" required valid-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"forgotPasswordData.email\" auto-focus required valid-email />\n" +
     "\n" +
-    "                        <div class=\"help-block\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
+    "                        <div class=\"help-message\" ng-messages=\"forgotPasswordForm.email.$error\" ng-if=\"forgotPasswordForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
     "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
     "                        </div>\n" +
@@ -4496,13 +4646,16 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
     "                        <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
-    "                        <span class=\"help-block\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4532,25 +4685,27 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.email.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-model=\"profileData.email\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"profileForm.email.$invalid && profileForm.$submitted\">Please tell us your email.</span>\n" +
+    "                    <div class=\"form-group\">\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4574,25 +4729,28 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
-    "                        <span class=\"help-block\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
@@ -4662,16 +4820,19 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
     "\n" +
+    "                <!-- Flash messages. -->\n" +
+    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "                <!-- Form groups -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" auto-focus required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\" name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
+    "                    <span class=\"help-message\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
@@ -4681,7 +4842,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                    <div class=\"form-group form-group--small-offset\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required strong-password />\n" +
     "\n" +
-    "                        <div class=\"help-block\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
+    "                        <div class=\"help-message\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
     "                            <div ng-message=\"required\">Please choose a password.</div>\n" +
     "                            <div ng-message=\"strongPassword\">Your password needs to be at least 7 characters long.</div>\n" +
     "                        </div>\n" +
@@ -4744,19 +4905,22 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "        <!-- Account controls -->\n" +
     "        <div class=\"account__controls\">\n" +
     "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
     "            <!-- Form groups -->\n" +
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.password.$invalid || resetPasswordForm.$invalid)}\">\n" +
-    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" auto-focus required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
     "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.passwordConfirmation.$invalid || resetPasswordForm.$invalid)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
-    "                    <span class=\"help-block\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
@@ -4801,7 +4965,7 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
 angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/flash-messages.html",
     "<!-- Flash messages. -->\n" +
-    "<div flash-alert active-class=\"in alert\" class=\"fade alert--absolute\" duration=\"2000\">\n" +
+    "<div ng-attr-id=\"{{ identifierId }}\" flash-alert active-class=\"in alert\" class=\"alert--center fade\" duration=\"0\">\n" +
     "    <button type=\"button\" class=\"close\" ng-click=\"hide()\">&times;</button>\n" +
     "    <span class=\"alert-message\">{{flash.message}}</span>\n" +
     "</div>");
@@ -4889,7 +5053,6 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
-    "                <li><a class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline simptip-success\" data-tooltip=\"It's free while in beta. Something small after. :)\" href=\"#\">Pricing</a></li>\n" +
     "                <li><a href=\"#\">About</a></li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
@@ -4939,7 +5102,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
 
 angular.module("app/common/partials/timepickerPopup/timepickerPopup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/timepickerPopup/timepickerPopup.html",
-    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"animated highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
+    "<button type=\"button\" class=\"btn btn--reminder-popup bg-sprite dropdown-toggle\" animate animate-on=\"nlpDate:timeChange\" animate-class=\"highlight-button\" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>\n" +
     "\n" +
     "<ul class=\"dropdown-menu dropdown-menu-time-picker\" perfect-scrollbar suppress-scroll-x=\"true\" wheel-speed=\"52\" update-on=\"perfectScrollbar:update\">\n" +
     "    <li ng-repeat=\"time in times\" ng-class=\"{selected: highlightSelected && time.index == selectedIndex}\">\n" +
