@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, mixpanel, MIXPANEL_EVENTS) {
+    .controller("RequestSignUpRegistrationCtrl", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
