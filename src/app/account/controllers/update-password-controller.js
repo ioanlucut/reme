@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("UpdatePasswordCtrl", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ProfileFormToggle) {
+    .controller("UpdatePasswordCtrl", function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updatePassword;
 
         /**
          * Update password user information.
@@ -30,7 +35,7 @@ angular
                     .catch(function (response) {
                         $scope.updatePasswordForm.$invalid = true;
 
-                        flash.error = response.data && response.data.errors && response.data.errors[0];
+                        flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
         }

@@ -1,11 +1,22 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
-         * Reminder to be created (injected with few default values)
+         * Alert identifier
          */
-        $scope.reminder = reminder;
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.createUpdateReminder;
+
+        /**
+         * Keep master reminder.
+         * @type {XMLList|XML|*}
+         */
+        $scope.masterReminder = reminder;
+
+        /**
+         * Work with a copy of master reminder
+         */
+        $scope.reminder = angular.copy($scope.masterReminder);
 
         /**
          * Flag which says whether reminder is new or not.
@@ -74,7 +85,7 @@ angular
                 var isDateInPast = moment().diff($scope.reminder.model.dueOn || reminderForm.selectedDate) > 0;
                 if ( reminderForm.selectedDate.$invalid && !isDateInPast ) {
                     reminderForm.selectedDate.$setValidity('validDate', false);
-                    flash.error = "Please make sure that the date and time are in the future.";
+                    flash.to($scope.alertIdentifierId).error = "Please make sure that the date and time are in the future.";
 
                     return;
                 }
@@ -84,6 +95,11 @@ angular
 
                 $scope.reminder.save()
                     .then(function () {
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.reminderCreated : MIXPANEL_EVENTS.reminderUpdated);
 
                         if ( $scope.isNew ) {
                             $timeout(function () {
@@ -100,6 +116,10 @@ angular
                             $timeout(function () {
                                 $scope.isSaving = false;
 
+                                // Ok, update master reminder.
+                                angular.copy($scope.reminder, $scope.masterReminder);
+
+                                // Close the modal
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
                                     reminder: $scope.reminder,

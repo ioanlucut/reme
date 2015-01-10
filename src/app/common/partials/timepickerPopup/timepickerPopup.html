@@ -1,4 +1,4 @@
-<button type="button" class="btn btn--reminder-popup bg-sprite dropdown-toggle" animate animate-on="nlpDate:timeChange" animate-class="animated highlight-button" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>
+<button type="button" class="btn btn--reminder-popup bg-sprite dropdown-toggle" animate animate-on="nlpDate:timeChange" animate-class="highlight-button" dropdown-toggle> {{date | friendlyHourTimePicker}}</button>
 
 <ul class="dropdown-menu dropdown-menu-time-picker" perfect-scrollbar suppress-scroll-x="true" wheel-speed="52" update-on="perfectScrollbar:update">
     <li ng-repeat="time in times" ng-class="{selected: highlightSelected && time.index == selectedIndex}">

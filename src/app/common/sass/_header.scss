@@ -10,13 +10,14 @@
 
 .header {
   background-color: $brand-primary;
-  margin: 0;
+  padding: 0 15px;
   height: $header-height;
   line-height: $header-height;
 
   .header__wrapper {
     @include clearfix;
-    width: $container-reminders-width;
+    max-width: $container-reminders-width;
+    width: 100%;
     margin: 0 auto;
 
     .header__wrapper__logo {
