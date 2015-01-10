@@ -29,7 +29,12 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <div class=\"home__signup__sections__section__controls--information\">\n" +
+    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "\n" +
+    "                                <div class=\"information simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Just keep in mind that old reminders will be migrated!\">\n" +
+    "                                    <i class=\"icon-info\"></i></div>\n" +
+    "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
@@ -967,10 +972,6 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                </li>\n" +
     "                <li>\n" +
     "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
-    "                </li>\n" +
-    "                <li class=\"divider\"></li>\n" +
-    "                <li class=\"disabled\">\n" +
-    "                    <a class=\"nav-link header__version\" href=\"#\">Version 1.9.4</a>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
