@@ -28,6 +28,7 @@
         display: inline-block;
         width: $logo-size;
         height: $logo-size;
+        margin-left: 20px;
         text-indent: -9999px;
         position: relative;
         @include translate(0, ($header-home-height/2)-($logo-size/2)-3); //Added -3 for pixel-perfect positioning :)
