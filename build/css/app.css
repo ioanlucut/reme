@@ -12410,42 +12410,43 @@ textarea.form-control--account {
   display: inline-block;
   width: 40px;
   height: 40px;
+  margin-left: 20px;
   text-indent: -9999px;
   position: relative;
   -webkit-transform: translate(0, 14px);
   -ms-transform: translate(0, 14px);
   transform: translate(0, 14px);
 }
-/* line 36, ../../src/app/common/sass/_header_home.scss */
+/* line 37, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__brand .header__wrapper__brand__text {
   color: #8471B1;
   font-size: 20px;
   margin-left: 5px;
 }
-/* line 42, ../../src/app/common/sass/_header_home.scss */
+/* line 43, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__brand:hover {
   opacity: 0.9;
 }
-/* line 47, ../../src/app/common/sass/_header_home.scss */
+/* line 48, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu {
   float: right;
   position: relative;
 }
-/* line 51, ../../src/app/common/sass/_header_home.scss */
+/* line 52, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar {
   list-style: none;
 }
-/* line 54, ../../src/app/common/sass/_header_home.scss */
+/* line 55, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar li {
   display: inline-block;
   margin-right: 20px;
 }
-/* line 58, ../../src/app/common/sass/_header_home.scss */
+/* line 59, ../../src/app/common/sass/_header_home.scss */
 .header-home .header__wrapper .header__wrapper__menu__navbar li.narrow {
   margin-right: 10px;
 }
 
-/* line 67, ../../src/app/common/sass/_header_home.scss */
+/* line 68, ../../src/app/common/sass/_header_home.scss */
 .btn--login,
 .btn--logout {
   color: #8471B1;
@@ -12471,7 +12472,7 @@ textarea.form-control--account {
   background-image: none;
 }
 
-/* line 74, ../../src/app/common/sass/_header_home.scss */
+/* line 75, ../../src/app/common/sass/_header_home.scss */
 .btn--to-reminders {
   color: #fff;
   background-color: #8471B1;
@@ -12575,6 +12576,21 @@ textarea.form-control--account {
   height: 26px;
 }
 
+@media (max-width: 768px) {
+  /* line 3, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-left {
+    width: 35%;
+  }
+  /* line 6, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-left .footer__navbar__section-left__copyright {
+    text-align: center;
+  }
+
+  /* line 11, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-right {
+    width: 60%;
+  }
+}
 /* Additional styles to display a spinner image while options are loading */
 /* line 2, ../../src/app/common/sass/chosen.scss */
 .localytics-chosen.loading + .chosen-container-multi .chosen-choices {
@@ -13830,27 +13846,55 @@ textarea.form-control--friend-email {
   margin: 0 auto;
 }
 
-/* line 9, ../../src/app/site/sass/_site_layout.scss */
+/* line 7, ../../src/app/site/sass/_site_layout.scss */
+.home {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -180px;
+  padding: 0 0 180px;
+}
+/* line 13, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
   height: 700px;
 }
-/* line 12, ../../src/app/site/sass/_site_layout.scss */
+/* line 16, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 250px 15px 20px;
-  font-size: 52px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 48px;
   font-weight: 700;
   text-align: center;
   margin: 0;
 }
-/* line 20, ../../src/app/site/sass/_site_layout.scss */
+/* line 25, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
   font-size: 20px;
   font-weight: 300;
   text-align: center;
+  line-height: 30px;
 }
 
+@media (max-width: 992px) {
+  /* line 5, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h3.home__signup__description {
+    padding-right: 150px;
+    padding-left: 150px;
+  }
+}
+@media (max-width: 768px) {
+  /* line 16, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h3.home__signup__description {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+
+  /* line 22, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home__signup {
+    height: 750px;
+  }
+}
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section {
   text-align: center;
@@ -13863,8 +13907,6 @@ textarea.form-control--friend-email {
 
 /* line 12, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__alert {
-  /*  @extend .alert;
-    @extend .alert-danger;*/
   width: 300px;
   text-align: center;
   margin: 10px auto;
@@ -13890,29 +13932,46 @@ textarea.home__signup__sections__section__controls__email {
   height: auto;
 }
 
-/* line 22, ../../src/app/site/sass/_site_signup.scss */
+/* line 20, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email {
   height: 50px;
-  width: 300px;
+  width: 100%;
   margin-right: 12px;
   font-size: 20px;
   font-weight: 300;
   display: inline-block;
 }
-/* line 30, ../../src/app/site/sass/_site_signup.scss */
+/* line 28, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email.has-error {
   border-color: #b94a48;
 }
 
-@media (max-width: 550px) {
-  /* line 36, ../../src/app/site/sass/_site_signup.scss */
-  .home__signup__sections__section__controls__email {
-    width: 100%;
-    margin-bottom: 6px;
-    margin-right: 0;
-  }
+/* line 33, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls--information {
+  position: relative;
+  width: 300px;
+  display: inline-block;
 }
-/* line 43, ../../src/app/site/sass/_site_signup.scss */
+/* line 38, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls--information .information {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 20px;
+}
+/* line 45, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls--information .icon-info {
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+}
+/* line 50, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section__controls--information .icon-info:before {
+  height: 50px;
+  line-height: 50px;
+}
+
+/* line 57, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
@@ -13948,30 +14007,24 @@ textarea.home__signup__sections__section__controls__email {
   border-color: #8471B1;
 }
 
-@media (max-width: 550px) {
-  /* line 52, ../../src/app/site/sass/_site_signup.scss */
-  .home__signup__sections__section__controls__button {
-    width: 100%;
-  }
-}
-/* line 57, ../../src/app/site/sass/_site_signup.scss */
+/* line 65, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: #b94a48;
 }
-/* line 61, ../../src/app/site/sass/_site_signup.scss */
+/* line 69, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages div {
   padding: 10px;
 }
 
-/* line 66, ../../src/app/site/sass/_site_signup.scss */
+/* line 74, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 72, ../../src/app/site/sass/_site_signup.scss */
+/* line 80, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -13980,7 +14033,7 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 80, ../../src/app/site/sass/_site_signup.scss */
+/* line 88, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 50px;
@@ -13990,30 +14043,22 @@ textarea.home__signup__sections__section__controls__email {
   color: #848b91;
 }
 
-@media (max-width: 580px) {
+@media (max-width: 650px) {
   /* line 3, ../../src/app/site/sass/_site_signup_responsive.scss */
   .home__signup__sections__section__controls {
     width: 100%;
   }
 
   /* line 7, ../../src/app/site/sass/_site_signup_responsive.scss */
-  .home__signup__sections__section__controls__email,
+  .home__signup__sections__section__controls--information,
   .home__signup__sections__section__controls__button {
     display: block;
-    margin: 0 auto;
+    width: 100%;
   }
 
   /* line 13, ../../src/app/site/sass/_site_signup_responsive.scss */
-  .home__signup__sections__section__controls__email {
+  .home__signup__sections__section__controls--information {
     margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* line 19, ../../src/app/site/sass/_site_signup_responsive.scss */
-  .home__signup h3.home__signup__description {
-    width: 100%;
-    padding: 20px;
   }
 }
 /* line 1, ../../src/app/site/sass/_site_testimonials.scss */
@@ -14023,14 +14068,14 @@ textarea.home__signup__sections__section__controls__email {
   padding: 140px 0 70px 0;
 }
 
-/* line 8, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 7, ../../src/app/site/sass/_site_testimonials.scss */
 .img_sprite {
   background-image: url("../assets/img/sprites.png");
   background-repeat: no-repeat;
   text-indent: -9999px;
 }
 
-/* line 17, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 13, ../../src/app/site/sass/_site_testimonials.scss */
 .press_logo {
   height: 80px;
   width: 300px;
@@ -14038,37 +14083,37 @@ textarea.home__signup__sections__section__controls__email {
   margin: 65px 7px;
 }
 
-/* line 24, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 20, ../../src/app/site/sass/_site_testimonials.scss */
 .lifehacker {
   background-position: 0 5px;
 }
 
-/* line 28, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 24, ../../src/app/site/sass/_site_testimonials.scss */
 .producthunt {
   background-position: 0 -80px;
 }
 
-/* line 32, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 28, ../../src/app/site/sass/_site_testimonials.scss */
 .makeuseof {
   background-position: 0 -157px;
 }
 
-/* line 36, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 32, ../../src/app/site/sass/_site_testimonials.scss */
 .feedmyapp {
   background-position: 0 -230px;
 }
 
-/* line 40, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 36, ../../src/app/site/sass/_site_testimonials.scss */
 .newstartups {
   background-position: 0 -310px;
 }
 
-/* line 44, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 40, ../../src/app/site/sass/_site_testimonials.scss */
 .addictivetips {
   background-position: 0 -390px;
 }
 
-/* line 48, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 44, ../../src/app/site/sass/_site_testimonials.scss */
 .chromewebstore {
   background-position: -125px -470px;
   display: block;
@@ -14082,11 +14127,22 @@ textarea.home__signup__sections__section__controls__email {
   text-indent: 0;
   text-align: left;
 }
-/* line 61, ../../src/app/site/sass/_site_testimonials.scss */
+/* line 57, ../../src/app/site/sass/_site_testimonials.scss */
 .chromewebstore span {
   font-weight: 700;
 }
 
+@media (max-width: 768px) {
+  /* line 3, ../../src/app/site/sass/_site_testimonials_responsive.scss */
+  .home__testimonials {
+    padding-top: 30px;
+  }
+
+  /* line 7, ../../src/app/site/sass/_site_testimonials_responsive.scss */
+  .press_logo {
+    margin: 30px 7px;
+  }
+}
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
 .chosen-select {
   width: 100%;

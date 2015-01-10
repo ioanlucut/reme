@@ -14,7 +14,7 @@ angular
     .config(["$httpProvider", function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
-    }]).run(["moment", function (moment) {
+    }]).run(function () {
 
         /**
          * Callback function to check if the date should include year too.
@@ -37,7 +37,7 @@ angular
                 sameElse: callbackCalendarFormatter
             }
         });
-    }]);
+    });
 ;angular
     .module("common")
     .constant("ALERTS_CONSTANTS", {
@@ -753,7 +753,7 @@ angular
 
 angular
     .module("common")
-    .directive("nlpDate", ["$rootScope", "$", function ($rootScope, $) {
+    .directive("nlpDate", ["$rootScope", function ($rootScope) {
         return {
             require: 'ngModel',
             scope: {
@@ -888,7 +888,7 @@ angular
 
 angular
     .module("common")
-    .directive("scrollTo", ["$window", "$", function ($window, $) {
+    .directive("scrollTo", ["$window", function ($window) {
         return {
             restrict: "A",
             link: function (scope, el, attrs) {
@@ -1064,7 +1064,7 @@ angular.module("common").
 
 angular
     .module("common")
-    .filter('friendlyDate', ["moment", function (moment) {
+    .filter('friendlyDate', function () {
         return function (date) {
 
             if ( !_.isDate(date) ) {
@@ -1073,27 +1073,27 @@ angular
 
             return moment(date).calendar();
         };
-    }]);
+    });
 ;/* Friendly date filter */
 
 angular
     .module("common")
-    .filter('friendlyHour', ["moment", function (moment) {
+    .filter('friendlyHour', function () {
         return function (date) {
 
             return moment(date).format("h:mm A");
         };
-    }]);
+    });
 ;/* Friendly date filter */
 
 angular
     .module("common")
-    .filter('friendlyHourTimePicker', ["moment", function (moment) {
+    .filter('friendlyHourTimePicker', function () {
         return function (date) {
 
             return moment(date).format("hh:mm A");
         };
-    }]);
+    });
 ;angular
     .module("common")
     .filter('friendlyRecipients', ["$rootScope", function ($rootScope) {
@@ -1153,7 +1153,7 @@ angular
     });
 ;angular
     .module("common")
-    .service("CamelCaseTransform", ["humps", function (humps) {
+    .service("CamelCaseTransform", function () {
 
         /**
          * Transformation type. Can be camelize or decamelize only.
@@ -1204,7 +1204,7 @@ angular
                 });
             }
         };
-    }]);
+    });
 ;/**
  * Dates utils service.
  */
@@ -1248,33 +1248,6 @@ angular
             }
 
         };
-
-    }]);
-;/* Timezone detect */
-
-angular
-    .module("common")
-    .factory("humps", [function () {
-
-        return window.humps;
-
-    }]);
-;/* jQuery */
-
-angular
-    .module("common")
-    .factory("$", [function () {
-
-        return window.$;
-
-    }]);
-;/* Timezone detect */
-
-angular
-    .module("common")
-    .factory("jstz", [function () {
-
-        return window.jstz;
 
     }]);
 ;angular
@@ -1401,22 +1374,6 @@ angular
         this.refreshToken = function () {
             return $injector.get('AuthService').refreshToken();
         };
-    }]);
-;/* Mixpanel */
-
-angular
-    .module("common")
-    .factory("mixpanel", [function () {
-
-        return window.mixpanel;
-    }]);
-;/* Moment js */
-
-angular
-    .module("common")
-    .factory("moment", [function () {
-
-        return window.moment;
     }]);
 ;/**
  * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
@@ -1728,15 +1685,6 @@ angular
             return _.uniq(recipients, 'email');
         };
     });
-;/* URL To */
-
-angular
-    .module("common")
-    .factory("URLTo", [function () {
-
-        return window.URLTo;
-
-    }]);
 ;/**
  * Main account module declaration including ui templates.
  */
@@ -2109,7 +2057,7 @@ angular
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "mixpanel", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, mixpanel, MIXPANEL_EVENTS) {
+    .controller("ProfileCtrl", ["$q", "$scope", "$rootScope", "StatesHandler", "ProfileFormToggle", "ACCOUNT_FORM_STATE", "flash", "ALERTS_CONSTANTS", "MIXPANEL_EVENTS", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -2173,7 +2121,7 @@ angular
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "ALERTS_CONSTANTS", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "$timeout", "mixpanel", "MIXPANEL_EVENTS", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, mixpanel, MIXPANEL_EVENTS) {
+    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "ALERTS_CONSTANTS", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "$timeout", "MIXPANEL_EVENTS", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -2213,7 +2161,7 @@ angular
     }]);
 ;angular
     .module("account")
-    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "jstz", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, mixpanel, MIXPANEL_EVENTS) {
+    .controller("SignUpConfirmCtrl", ["$scope", "$timeout", "flash", "ALERTS_CONSTANTS", "StatesHandler", "User", "AuthService", "validateRegistrationResult", "TimezoneProvider", "MIXPANEL_EVENTS", function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, MIXPANEL_EVENTS) {
 
         /**
          * Alert identifier
@@ -2960,7 +2908,7 @@ angular
  */
 angular
     .module("common")
-    .controller("LandingPageCtrl", ["$state", "$scope", "AccountFormToggle", "ACCOUNT_FORM_STATE", "mixpanel", "MIXPANEL_EVENTS", function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, mixpanel, MIXPANEL_EVENTS) {
+    .controller("LandingPageCtrl", ["$state", "$scope", "AccountFormToggle", "ACCOUNT_FORM_STATE", "MIXPANEL_EVENTS", function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
 
         /**
          * Track event.
@@ -3047,7 +2995,7 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", "mixpanel", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, mixpanel, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -3192,7 +3140,7 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "$", "URLTo", "ReminderDeleteModalService", "$timeout", "StatesHandler", "REMINDER_EVENTS", "reminder", "reminderIndex", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, mixpanel, MIXPANEL_EVENTS) {
+    .controller("ReminderDeleteModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "ReminderDeleteModalService", "$timeout", "StatesHandler", "REMINDER_EVENTS", "reminder", "reminderIndex", "MIXPANEL_EVENTS", function ($scope, $rootScope, $stateParams, $window, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, MIXPANEL_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -3297,7 +3245,7 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "mixpanel", "MIXPANEL_EVENTS", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, mixpanel, MIXPANEL_EVENTS) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "MIXPANEL_EVENTS", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS) {
 
         /**
          * Track event.
@@ -3627,7 +3575,7 @@ angular
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {
-                    reminder: ["$window", "$rootScope", "Reminder", "jstz", "DatesUtils", function ($window, $rootScope, Reminder, jstz, DatesUtils) {
+                    reminder: ["$window", "$rootScope", "Reminder", "DatesUtils", function ($window, $rootScope, Reminder, DatesUtils) {
                         return Reminder.build({
                             text: "",
                             dueOn: DatesUtils.prepareDate(),
@@ -3763,7 +3711,7 @@ angular
  */
 angular
     .module("reminders")
-    .service("ReminderTransformerService", ["$injector", "moment", "TransformerUtils", function ($injector, moment, TransformerUtils) {
+    .service("ReminderTransformerService", ["$injector", "TransformerUtils", function ($injector, TransformerUtils) {
 
         /**
          * Converts a reminder business object model to a reminderDto object.
@@ -4146,7 +4094,12 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
-    "                            <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                            <div class=\"home__signup__sections__section__controls--information\">\n" +
+    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "\n" +
+    "                                <div class=\"information simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Just keep in mind that old reminders will be migrated!\">\n" +
+    "                                    <i class=\"icon-info\"></i></div>\n" +
+    "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
     "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
@@ -5084,10 +5037,6 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                </li>\n" +
     "                <li>\n" +
     "                    <a class=\"nav-link\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
-    "                </li>\n" +
-    "                <li class=\"divider\"></li>\n" +
-    "                <li class=\"disabled\">\n" +
-    "                    <a class=\"nav-link header__version\" href=\"#\">Version 1.9.4</a>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
