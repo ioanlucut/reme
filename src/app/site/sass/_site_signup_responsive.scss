@@ -1,0 +1,24 @@
+@media (max-width: 580px) {
+
+  .home__signup__sections__section__controls {
+    width: 100%;
+  }
+
+  .home__signup__sections__section__controls__email,
+  .home__signup__sections__section__controls__button {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .home__signup__sections__section__controls__email {
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .home__signup h3.home__signup__description {
+    width: 100%;
+    padding: 20px;
+  }
+
+}

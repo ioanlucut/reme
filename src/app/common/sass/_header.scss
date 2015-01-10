@@ -16,7 +16,8 @@
 
   .header__wrapper {
     @include clearfix;
-    width: $container-reminders-width;
+    max-width: $container-reminders-width;
+    width: 100%;
     margin: 0 auto;
 
     .header__wrapper__logo {

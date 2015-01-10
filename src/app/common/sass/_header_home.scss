@@ -13,7 +13,8 @@
   .header__wrapper {
     @include clearfix;
 
-    width: $container-home-width;
+    max-width: $container-home-width;
+    width: 100%;
     margin: 0 auto;
 
     .header__wrapper__brand {
@@ -37,7 +38,7 @@
         font-size: $font-size-large;
         margin-left: 5px;
       }
-      
+
       &:hover {
         opacity: 0.9;
       }
