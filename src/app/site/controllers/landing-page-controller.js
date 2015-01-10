@@ -3,7 +3,7 @@
  */
 angular
     .module("common")
-    .controller("LandingPageCtrl", function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, mixpanel, MIXPANEL_EVENTS) {
+    .controller("LandingPageCtrl", function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
 
         /**
          * Track event.

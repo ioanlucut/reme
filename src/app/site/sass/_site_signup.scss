@@ -10,8 +10,6 @@
 }
 
 .home__signup__sections__section__controls__alert {
-  /*  @extend .alert;
-    @extend .alert-danger;*/
   width: 300px;
   text-align: center;
   margin: 10px auto;
@@ -21,7 +19,7 @@
 
 .home__signup__sections__section__controls__email {
   height: $form-height;
-  width: 300px;
+  width: 100%;
   margin-right: 12px;
   font-size: $font-size-extra;
   font-weight: $font-weight-light;
@@ -32,11 +30,27 @@
   }
 }
 
-@media (max-width: 550px) {
-  .home__signup__sections__section__controls__email {
-    width: 100%;
-    margin-bottom: 6px;
-    margin-right: 0;
+.home__signup__sections__section__controls--information {
+  position: relative;
+  width: 300px;
+  display: inline-block;
+
+  .information {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 20px;
+  }
+
+  .icon-info {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+
+    &:before {
+      height: 50px;
+      line-height: 50px;
+    }
   }
 }
 
@@ -46,12 +60,6 @@
   font-size: $font-size-extra;
   height: $form-height;
   width: 300px;
-}
-
-@media (max-width: 550px) {
-  .home__signup__sections__section__controls__button {
-    width: 100%;
-  }
 }
 
 .home__signup__sections__section__validation-messages {

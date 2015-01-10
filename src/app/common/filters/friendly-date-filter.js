@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .filter('friendlyDate', function (moment) {
+    .filter('friendlyDate', function () {
         return function (date) {
 
             if ( !_.isDate(date) ) {
