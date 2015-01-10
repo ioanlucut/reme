@@ -9,7 +9,7 @@
   width: 100%;
   max-width: 580px;
   padding: 25px 30px;
-  background-color: #fff;
+  background-color: $white;
   position: relative;
 
   @include clearfix();
@@ -50,9 +50,6 @@
   width: 200px;
   height: $form-height-small;
   border-radius: $border-radius-small;
-  //line-height: $line-height-large;
-  //text-transform: uppercase;
-  //font-size: $font-size-base;
 }
 
 // Reminder form
@@ -63,7 +60,7 @@
   width: 100%;
   max-width: 580px;
   padding: 25px 30px;
-  background-color: #fff;
+  background-color: $white;
 
   @include clearfix();
 
@@ -88,7 +85,6 @@
       }
 
       .dropdown-menu {
-        //background: $gray8;
         padding: 0;
       }
     }
@@ -105,10 +101,6 @@
       .dropdown-menu {
         min-width: 100%;
       }
-
-      & > .btn {
-        background-position: 15px -172px;
-      }
     }
 
     // Reminder time
@@ -119,10 +111,6 @@
       position: relative;
       margin-bottom: 10px;
       width: 153px;
-
-      & > .btn {
-        background-position: 15px -231px;
-      }
     }
   }
 
