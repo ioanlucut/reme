@@ -1,5 +1,10 @@
 <!--Reminder form-->
 <div class="reminder-modal">
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+    <!--Reminder form-->
     <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
 
         <!--Reminder text-->
@@ -16,7 +21,7 @@
 
             <!--Reminder date picker-->
             <div class="reminder-modal__form__info--date">
-                <button type="button" class="btn btn--reminder-popup" datepicker-popup min="minDate" ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="animated highlight-button"> {{reminder.model.dueOn | friendlyDate}}</button>
+                <button type="button" class="btn btn--reminder-popup" datepicker-popup min="minDate" ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="highlight-button"> {{reminder.model.dueOn | friendlyDate}}</button>
             </div>
 
             <!--Reminder time picker-->

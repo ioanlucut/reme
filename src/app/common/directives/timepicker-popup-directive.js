@@ -58,7 +58,7 @@ angular.module("common").
                     if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 ) {
+                    else if ( moment().diff(date, 'day') < 0 && !date.ignoreSetTime ) {
                         scope.setTime(scope.times[0]);
                     }
 

@@ -66,6 +66,7 @@
 
 @mixin icon-font-base($line-height) {
   position: absolute;
+  z-index: 999;
   left: 15px;
   bottom: 0;
   top: 0;

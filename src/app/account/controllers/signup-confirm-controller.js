@@ -1,6 +1,11 @@
 angular
     .module("account")
-    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider) {
+    .controller("SignUpConfirmCtrl", function ($scope, $timeout, flash, ALERTS_CONSTANTS, jstz, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, mixpanel, MIXPANEL_EVENTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.signUpConfirm;
 
         /**
          * Validate registration result.
@@ -44,6 +49,11 @@ angular
                 User.$new()
                     .$create(signUpData, token)
                     .then(function () {
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
+
                         // Log in the user
                         AuthService
                             .login(signUpData.email, signUpData.password)
@@ -54,7 +64,7 @@ angular
                     .catch(function () {
                         $scope.signUpForm.$invalid = true;
 
-                        flash.error = "Sorry, something went wrong.";
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
             }
 

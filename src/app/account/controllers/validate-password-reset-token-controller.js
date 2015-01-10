@@ -1,6 +1,11 @@
 angular
     .module("account")
-    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult) {
+    .controller("ValidatePasswordResetTokenCtrl", function ($scope, $timeout, flash, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, validateTokenResult, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.validatePassword;
 
         /**
          * Reset password data (used if
@@ -38,7 +43,7 @@ angular
                     .catch(function () {
                         $scope.resetPasswordForm.$invalid = true;
 
-                        flash.error = "Sorry, something went wrong.";
+                        flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
             }
         };
