@@ -5,6 +5,10 @@
 }
 
 .home {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -180px;
+  padding: 0 0 180px;
 
   &__signup {
     height: 700px;
