@@ -3,6 +3,10 @@
  */
 angular
     .module("common")
+    .constant("ACTIVITY_INTERCEPTOR", {
+        activityStart: "activity-interceptor-start",
+        activityEnd: "activity-interceptor-end"
+    })
     .constant("STATES", {
         home: "home",
         profile: "profile",

@@ -3,7 +3,7 @@
  */
 angular
     .module("app")
-    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
+    .controller("AppCtrl", function (AUTH_EVENTS, $rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, ACTIVITY_INTERCEPTOR) {
 
         /**
          * Save the state on root scope
@@ -42,6 +42,16 @@ angular
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $rootScope.currentUser = User.$new();
             $log.log("Logged out.");
+        });
+
+        /*Track activity*/
+        $rootScope.$on('$stateChangeStart', function () {
+            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
+        });
+        $rootScope.$on('$viewContentLoaded', function () {
+            $timeout(function () {
+                $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
+            }, 2000);
         });
 
         // DEVELOPMENT DEBUG
