@@ -14,6 +14,7 @@ angular
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
+        $httpProvider.interceptors.push("ActivityInterceptor");
     }).run(function () {
 
         /**
