@@ -28,7 +28,7 @@
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}">
                         <input class="form-control form-control--account" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
-                        <span class="help-message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
+                        <span class="help-message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your password is mandatory.</span>
                     </div>
                 </div>
 
