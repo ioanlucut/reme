@@ -15,6 +15,7 @@ angular
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
         $httpProvider.interceptors.push("ActivityInterceptor");
+        $httpProvider.interceptors.push("ErrorInterceptor");
     }).run(function () {
 
         /**

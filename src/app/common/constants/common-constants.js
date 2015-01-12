@@ -16,4 +16,7 @@ angular
     .constant("ACCESS_LEVEL", {
         forLoggedUser: "forLoggedUser",
         forGuestUser: "forGuestUser"
+    })
+    .constant("ERROR_INTERCEPTOR", {
+        status500: "status500"
     });
