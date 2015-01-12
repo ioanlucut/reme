@@ -8,7 +8,7 @@
         <h1 class="account__title">Welcome!</h1>
 
         <!-- Login form -->
-        <form name="loginForm" ng-submit="login(loginData)" novalidate>
+        <form name="loginForm" ng-submit="login(loginData)" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
@@ -53,7 +53,7 @@
         <h1 class="account__title">Get started!</h1>
 
         <!-- Sign-up form -->
-        <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error-on-submit>
+        <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
@@ -112,7 +112,7 @@
         </span>
 
         <!-- Forgot password form -->
-        <form name="forgotPasswordForm" ng-submit="requestPasswordReset(forgotPasswordData.email)" novalidate focus-first-error-on-submit>
+        <form name="forgotPasswordForm" ng-submit="requestPasswordReset(forgotPasswordData.email)" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
