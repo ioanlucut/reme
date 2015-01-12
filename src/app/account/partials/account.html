@@ -66,7 +66,7 @@
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" auto-focus required valid-email unique-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 250 }" auto-focus required valid-email unique-email />
 
                         <!-- Error messages -->
                         <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
