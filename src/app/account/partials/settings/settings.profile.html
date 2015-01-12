@@ -1,107 +1,102 @@
-<!-- Account sections -->
-<div class="account__sections" profile-form-toggle>
+<!-- Profile section -->
+<div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
 
-    <!-- Profile section -->
-    <div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile" ng-controller="ProfileCtrl">
+    <!-- Title -->
+    <h1 class="account__title">Modify profile</h1>
 
-        <!-- Title -->
-        <h1 class="account__title">Modify profile</h1>
+    <!-- Profile form -->
+    <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate>
 
-        <!-- Profile form -->
-        <form name="profileForm" ng-submit="updateProfile(profileData)" novalidate>
+        <!-- Account controls -->
+        <div class="account__controls">
 
-            <!-- Account controls -->
-            <div class="account__controls">
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+            <!-- Form groups -->
+            <div class="account__controls__form-groups account__controls__form-groups--last">
 
-                <!-- Form groups -->
-                <div class="account__controls__form-groups account__controls__form-groups--last">
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}">
-                        <input class="form-control form-control--account" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
-                        <span class="help-message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}">
-                        <input class="form-control form-control--account" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
-                        <span class="help-message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group">
-                        <input class="form-control form-control--account" type="text" placeholder="Email" name="email" ng-value="user.model.email" disabled />
-                    </div>
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}">
+                    <input class="form-control form-control--account" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
+                    <span class="help-message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
-                <!-- Button container -->
-                <button class="btn account__button" type="submit">Save changes</button>
-            </div>
-        </form>
-
-        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
-    </div>
-
-    <!-- Update password section -->
-    <div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword" ng-controller="UpdatePasswordCtrl">
-
-        <!-- Title -->
-        <h1 class="account__title">Welcome!</h1>
-
-        <!-- Update password form -->
-        <form name="updatePasswordForm" ng-submit="updatePassword(updatePasswordData)" novalidate>
-
-            <!-- Account controls -->
-            <div class="account__controls">
-
-                <!-- Flash messages. -->
-                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
-
-                <!-- Form groups -->
-                <div class="account__controls__form-groups--last">
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}">
-                        <input class="form-control form-control--account" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" auto-focus required />
-                        <span class="help-message" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Your old password is mandatory.</span>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}">
-                        <input class="form-control form-control--account" type="password" placeholder="New password" name="newPassword" ng-model="updatePasswordData.newPassword" required />
-                        <span class="help-message" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
-                    </div>
-
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}">
-                        <input class="form-control form-control--account" type="password" placeholder="New password confirmation" name="newPasswordConfirmation" ng-model="updatePasswordData.newPasswordConfirmation" required />
-                        <span class="help-message" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
-                    </div>
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}">
+                    <input class="form-control form-control--account" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
+                    <span class="help-message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
-                <!-- Button container -->
-                <button class="btn account__button" type="submit">Update password</button>
+                <!-- Form group -->
+                <div class="form-group">
+                    <input class="form-control form-control--account" type="text" placeholder="Email" name="email" ng-value="user.model.email" disabled />
+                </div>
             </div>
-        </form>
 
-        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Nevermind, take me back!</a>
+            <!-- Button container -->
+            <button class="btn account__button" type="submit">Save changes</button>
+        </div>
+    </form>
 
-    </div>
+    <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
+</div>
 
-    <!-- Change password section successfully-->
-    <div class="account__section" ng-if="ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully">
+<!-- Update password section -->
+<div class="account__section" ng-if="ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword" ng-controller="UpdatePasswordCtrl">
 
-        <!-- Title -->
-        <h1 class="account__title">Successfully</h1>
+    <!-- Title -->
+    <h1 class="account__title">Welcome!</h1>
 
-        <!-- Explain -->
-        <span class="account__explain">We've successfully updated your new password.</span>
+    <!-- Update password form -->
+    <form name="updatePasswordForm" ng-submit="updatePassword(updatePasswordData)" novalidate>
 
-        <!-- Button container -->
-        <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Continue</a>
-    </div>
+        <!-- Account controls -->
+        <div class="account__controls">
 
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+            <!-- Form groups -->
+            <div class="account__controls__form-groups--last">
+
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}">
+                    <input class="form-control form-control--account" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" auto-focus required />
+                    <span class="help-message" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Your old password is mandatory.</span>
+                </div>
+
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}">
+                    <input class="form-control form-control--account" type="password" placeholder="New password" name="newPassword" ng-model="updatePasswordData.newPassword" required />
+                    <span class="help-message" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
+                </div>
+
+                <!-- Form group -->
+                <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}">
+                    <input class="form-control form-control--account" type="password" placeholder="New password confirmation" name="newPasswordConfirmation" ng-model="updatePasswordData.newPasswordConfirmation" required />
+                    <span class="help-message" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
+                </div>
+            </div>
+
+            <!-- Button container -->
+            <button class="btn account__button" type="submit">Update password</button>
+        </div>
+    </form>
+
+    <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Nevermind, take me back!</a>
+
+</div>
+
+<!-- Change password section successfully-->
+<div class="account__section" ng-if="ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully">
+
+    <!-- Title -->
+    <h1 class="account__title">Successfully</h1>
+
+    <!-- Explain -->
+    <span class="account__explain">We've successfully updated your new password.</span>
+
+    <!-- Button container -->
+    <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)">Continue</a>
 </div>
