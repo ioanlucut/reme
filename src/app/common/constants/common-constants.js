@@ -10,7 +10,7 @@ angular
     .constant("STATES", {
         home: "home",
         profile: "profile",
-        reminders: "reminders",
+        reminders: "reminders.regular",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {
