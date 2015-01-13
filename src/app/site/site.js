@@ -20,6 +20,16 @@ angular
                 controller: "LandingPageCtrl",
                 title: "Home - Reme.io"
             })
+            .state("privacy", {
+                url: "/privacy",
+                templateUrl: "app/site/partials/privacy.html",
+                title: "Privacy - Reme.io"
+            })
+            .state("about", {
+                url: "/about",
+                templateUrl: "app/site/partials/about.html",
+                title: "About - Reme.io"
+            })
             .state("404", {
                 url: "/404",
                 templateUrl: "app/site/partials/404.html",
