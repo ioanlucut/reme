@@ -21,7 +21,7 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                scope.defaultRemindersLimit = 5;
+                scope.defaultRemindersLimit = 15;
 
                 /**
                  * Is loading more reminders flag.
