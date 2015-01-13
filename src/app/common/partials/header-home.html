@@ -12,7 +12,7 @@
                 <li ng-if="! currentUser.isAuthenticated()">
                     <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Login</a></li>
                 <li class="narrow" ng-if="currentUser.isAuthenticated()">
-                    <a class="btn btn--to-reminders" href="javascript:void(0)" ui-sref="reminders">Go to my reminders</a>
+                    <a class="btn btn--to-reminders" href="javascript:void(0)" ui-sref="reminders.regular">Go to my reminders</a>
                 </li>
                 <li ng-if="currentUser.isAuthenticated()">
                     <a class="btn btn--logout" href="javascript:void(0)" ui-sref="account:logout">Logout</a>

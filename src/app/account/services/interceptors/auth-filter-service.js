@@ -11,7 +11,7 @@ angular
                 // Prevent transition
                 event.preventDefault();
                 StatesHandler.goToReminders();
-            } else if ( (toState.url === '/profile' || toState.url === '/reminders') && !AuthService.isAuthenticated() ) {
+            } else if ( (toState.url === '/profile' || toState.url.indexOf("/reminders") > -1) && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
