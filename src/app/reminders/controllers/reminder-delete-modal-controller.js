@@ -25,7 +25,7 @@ angular
         $scope.dismiss = function () {
             ReminderDeleteModalService.modalInstance.dismiss("cancel");
 
-            $scope.isOpen = false;
+            $scope.isModalOpened = false;
         };
 
         /**
