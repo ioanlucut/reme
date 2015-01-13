@@ -17,6 +17,7 @@
   color: $gray8;
   font-weight: $font-weight-light;
   width: 100%;
+  padding-right: 10px;
   @include clearfix();
 }
 
@@ -25,7 +26,6 @@
   float: left;
   width: 33.33333%;
   min-height: 1px;
-  //padding: 0 5px;
 
   span {
     vertical-align: middle;
