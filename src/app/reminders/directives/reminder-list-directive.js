@@ -24,6 +24,17 @@ angular
                 scope.defaultRemindersLimit = 15;
 
                 /**
+                 * Number of the filtered reminders
+                 */
+                scope.filteredReminders = 0;
+
+                /**
+                 * Search by text
+                 * @type {string}
+                 */
+                scope.searchByText = "";
+
+                /**
                  * Is loading more reminders flag.
                  * @type {boolean}
                  */
