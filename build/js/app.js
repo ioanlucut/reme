@@ -14,6 +14,8 @@ angular
     .config(["$httpProvider", function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
+        $httpProvider.interceptors.push("ActivityInterceptor");
+        $httpProvider.interceptors.push("ErrorInterceptor");
     }]).run(function () {
 
         /**
@@ -57,15 +59,22 @@ angular
  */
 angular
     .module("common")
+    .constant("ACTIVITY_INTERCEPTOR", {
+        activityStart: "activity-interceptor-start",
+        activityEnd: "activity-interceptor-end"
+    })
     .constant("STATES", {
         home: "home",
         profile: "profile",
-        reminders: "reminders",
+        reminders: "reminders.regular",
         account: "account"
     })
     .constant("ACCESS_LEVEL", {
         forLoggedUser: "forLoggedUser",
         forGuestUser: "forGuestUser"
+    })
+    .constant("ERROR_INTERCEPTOR", {
+        status500: "status500"
     });
 ;/**
  * Common mixpanel events.
@@ -82,7 +91,9 @@ angular
         reminderUpdated: "Reminder updated",
         reminderDeleted: "Reminder deleted",
         reminderUnSubscribed: "Reminder unsubscribed",
-        settings: "Settings"
+        settings: "Settings",
+        error404: "error-404",
+        error500: "error-500"
     });;/* Animate */
 
 angular
@@ -749,6 +760,31 @@ angular
             }
         };
     }]);
+;/* Loading bar */
+
+angular.
+    module("common").
+    directive("loadingBar", ["$rootScope", "ACTIVITY_INTERCEPTOR", function ($rootScope, ACTIVITY_INTERCEPTOR) {
+        return {
+            restrict: "A",
+            template: "<div class='loading-bar-progress'></div>",
+            link: function (scope, el) {
+
+                // Loading class
+                var LOADING_CLASS = "loading-bar--active";
+
+                // Show the loading bar on activity start
+                $rootScope.$on(ACTIVITY_INTERCEPTOR.activityStart, function () {
+                    el.addClass(LOADING_CLASS);
+                });
+
+                // Hide the loading bar on activity end
+                $rootScope.$on(ACTIVITY_INTERCEPTOR.activityEnd, function () {
+                    el.removeClass(LOADING_CLASS);
+                });
+            }
+        }
+    }]);
 ;/* Natural Language Date Input */
 
 angular
@@ -1151,6 +1187,139 @@ angular
             return filtered;
         };
     });
+;/* Activity interceptor */
+
+angular.
+    module("common").
+    factory("ActivityInterceptor", ["$rootScope", "$q", "ACTIVITY_INTERCEPTOR", function ($rootScope, $q, ACTIVITY_INTERCEPTOR) {
+        return {
+
+            /**
+             * Request interceptor.
+             *
+             * @param config
+             * @returns {*}
+             */
+            request: function (config) {
+                if ( !config.cache ) {
+                    $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
+                }
+                return config;
+            },
+
+            /**
+             * Response interceptor.
+             *
+             * @param response
+             * @returns {Promise}
+             */
+
+            response: function (response) {
+                if ( !response.config.cache ) {
+                    $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
+                }
+                return response;
+            },
+
+            /**
+             * Response error interceptor.
+             *
+             * @param response
+             * @returns {Promise}
+             */
+            responseError: function (response) {
+                if ( !response.config.cache ) {
+                    $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+;/**
+ * Error service interceptor used to listen to ajax server responses.
+ */
+angular
+    .module("common")
+    .factory("ErrorInterceptor", ["$rootScope", "$q", "ERROR_INTERCEPTOR", function ($rootScope, $q, ERROR_INTERCEPTOR) {
+
+        return {
+
+            /**
+             * Response error interceptor.
+             *
+             * @param response
+             * @returns {*}
+             */
+            responseError: function (response) {
+
+                if ( response.status === 500 && !response.config.cache ) {
+                    $rootScope.$broadcast(ERROR_INTERCEPTOR.status500, response);
+                }
+
+                return $q.reject(response);
+            }
+        };
+
+    }]);
+;angular
+    .module("common")
+    .factory("HumpsInterceptor", ["CamelCaseTransform", function (CamelCaseTransform) {
+
+        return {
+
+            request: function (config) {
+                CamelCaseTransform.transform(config.data, CamelCaseTransform.TRANSFORMATION_TYPE.DECAMELIZE);
+
+                return config;
+            },
+
+            response: function (response) {
+                CamelCaseTransform.transform(response.data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
+
+                return response;
+            }
+
+        };
+
+    }]);
+;angular
+    .module("common")
+    .provider('JWTInterceptor', function () {
+
+        this.authHeader = 'Authorization';
+        this.authPrefix = 'Bearer ';
+
+        var config = this;
+
+        this.$get = ["$q", "$injector", "$rootScope", "SessionService", "JWTTokenRefresher", function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
+            return {
+                request: function (request) {
+                    if ( request.skipAuthorization ) {
+                        return request;
+                    }
+
+                    request.headers = request.headers || {};
+                    // Already has an Authorization header
+                    if ( request.headers[config.authHeader] ) {
+                        return request;
+                    }
+
+                    var tokenPromise = $q.when($injector.invoke(function () {
+                        return SessionService.getJwtToken();
+                    }, this, {
+                        config: request
+                    }));
+
+                    return tokenPromise.then(function (token) {
+                        if ( token ) {
+                            request.headers[config.authHeader] = config.authPrefix + token;
+                        }
+                        return request;
+                    });
+                }
+            };
+        }];
+    });
 ;angular
     .module("common")
     .service("CamelCaseTransform", function () {
@@ -1230,27 +1399,6 @@ angular
 
     });
 ;angular
-    .module("common")
-    .factory("HumpsInterceptor", ["CamelCaseTransform", function (CamelCaseTransform) {
-
-        return {
-
-            request: function (config) {
-                CamelCaseTransform.transform(config.data, CamelCaseTransform.TRANSFORMATION_TYPE.DECAMELIZE);
-
-                return config;
-            },
-
-            response: function (response) {
-                CamelCaseTransform.transform(response.data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
-
-                return response;
-            }
-
-        };
-
-    }]);
-;angular
     .module('common')
     .service('JWTHelper', function () {
 
@@ -1318,44 +1466,6 @@ angular
             // Token expired?
             return !(d.valueOf() > new Date().valueOf());
         };
-    });
-;angular
-    .module("common")
-    .provider('JWTInterceptor', function () {
-
-        this.authHeader = 'Authorization';
-        this.authPrefix = 'Bearer ';
-
-        var config = this;
-
-        this.$get = ["$q", "$injector", "$rootScope", "SessionService", "JWTTokenRefresher", function ($q, $injector, $rootScope, SessionService, JWTTokenRefresher) {
-            return {
-                request: function (request) {
-                    if ( request.skipAuthorization ) {
-                        return request;
-                    }
-
-                    request.headers = request.headers || {};
-                    // Already has an Authorization header
-                    if ( request.headers[config.authHeader] ) {
-                        return request;
-                    }
-
-                    var tokenPromise = $q.when($injector.invoke(function () {
-                        return SessionService.getJwtToken();
-                    }, this, {
-                        config: request
-                    }));
-
-                    return tokenPromise.then(function (token) {
-                        if ( token ) {
-                            request.headers[config.authHeader] = config.authPrefix + token;
-                        }
-                        return request;
-                    });
-                }
-            };
-        }];
     });
 ;angular
     .module("common")
@@ -2641,7 +2751,7 @@ angular
                 // Prevent transition
                 event.preventDefault();
                 StatesHandler.goToReminders();
-            } else if ( (toState.url === '/profile' || toState.url === '/reminders') && !AuthService.isAuthenticated() ) {
+            } else if ( (toState.url === '/profile' || toState.url.indexOf("/reminders") > -1) && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
@@ -2890,7 +3000,10 @@ angular
     .module("site", [
         "common"
     ])
-    .config(["$stateProvider", function ($stateProvider) {
+    .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+
+        // Otherwise
+        $urlRouterProvider.otherwise('/404');
 
         // Home
         $stateProvider
@@ -2902,6 +3015,52 @@ angular
                 controller: "LandingPageCtrl",
                 title: "Home - Reme.io"
             })
+            .state("privacy", {
+                url: "/privacy",
+                templateUrl: "app/site/partials/privacy.html",
+                title: "Privacy - Reme.io"
+            })
+            .state("about", {
+                url: "/about",
+                templateUrl: "app/site/partials/about.html",
+                title: "About - Reme.io"
+            })
+            .state("404", {
+                url: "/404",
+                templateUrl: "app/site/partials/404.html",
+                controller: "Error404PageCtrl",
+                title: "Not found - Reme.io"
+            })
+            .state("500", {
+                url: "/500",
+                templateUrl: "app/site/partials/500.html",
+                controller: "Error500PageCtrl",
+                title: "Error - Reme.io"
+            })
+    }]);
+;/**
+ * 404 page controller.
+ */
+angular
+    .module("common")
+    .controller("Error404PageCtrl", ["MIXPANEL_EVENTS", function (MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.error404);
+    }]);
+;/**
+ * 500 page controller.
+ */
+angular
+    .module("common")
+    .controller("Error500PageCtrl", ["MIXPANEL_EVENTS", function (MIXPANEL_EVENTS) {
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.error500);
     }]);
 ;/**
  * Landing page controller.
@@ -2940,18 +3099,21 @@ angular
 
             .state("reminders", {
                 url: "/reminders",
+                templateUrl: 'app/reminders/partials/reminder/reminders.template.html',
+                abstract: true
+            })
+
+            // Regular case
+            .state("reminders.regular", {
+                url: "",
                 views: {
 
-                    '': {
-                        templateUrl: 'app/reminders/partials/reminder/reminders.html'
-                    },
-
-                    'create@reminders': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.create.html",
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
                         controller: "ReminderCtrl"
                     },
 
-                    'list@reminders': {
+                    'list': {
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
@@ -2963,9 +3125,78 @@ angular
                     }
                 },
                 title: "Reminders - Reme.io"
-            });
-    }]);
-;/**
+            })
+
+            // Review case
+            .state("reminders.review", {
+                url: "/review/{reminderId}",
+                views: {
+
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        controller: "ReminderAutoEditCtrl",
+                        resolve: {
+                            reminderToReview: ["$stateParams", "$q", "$state", "ReminderService", function ($stateParams, $q, $state, ReminderService) {
+                                var deferred = $q.defer();
+
+                                ReminderService
+                                    .getDetails($stateParams.reminderId)
+                                    .then(function (response) {
+                                        deferred.resolve(response);
+
+                                        return response;
+                                    })
+                                    .catch(function (response) {
+
+                                        $state.go("reminders.regular");
+                                        return response;
+                                    });
+
+                                return deferred.promise;
+                            }]
+                        }
+
+                    },
+
+                    'list': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        controller: "ReminderListCtrl",
+                        resolve: {
+                            pastAndUpcomingReminders: ["ReminderService", function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
+                            }]
+                        }
+                    }
+                },
+                title: "Preview reminder - Reme.io"
+            })
+
+            // Opened modal
+            .state("reminders.opened", {
+                url: "/opened",
+                views: {
+
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        controller: "ReminderAutoOpenCtrl"
+                    },
+
+                    'list': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        controller: "ReminderListCtrl",
+                        resolve: {
+                            pastAndUpcomingReminders: ["ReminderService", function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
+                            }]
+                        }
+                    }
+                },
+                title: "Preview reminder - Reme.io"
+            })
+
+    }]);;/**
  * Reminders constants.
  */
 angular
@@ -2987,8 +3218,41 @@ angular
         isUpdated: "reminder-is-updated"
     });;angular
     .module("reminders")
+    .controller("ReminderAutoEditCtrl", ["$scope", "$timeout", "ReminderModalService", "ReminderUpdateModalService", "reminderToReview", function ($scope, $timeout, ReminderModalService, ReminderUpdateModalService, reminderToReview) {
+
+        /**
+         * Auto open the modal.
+         */
+        $timeout(function () {
+            ReminderUpdateModalService.open(reminderToReview, -1);
+        });
+
+        $scope.openReminderModalService = function () {
+            ReminderModalService.open();
+        };
+    }]);
+;angular
+    .module("reminders")
+    .controller("ReminderAutoOpenCtrl", ["$scope", "$timeout", "ReminderModalService", function ($scope, $timeout, ReminderModalService) {
+
+        /**
+         * Auto open the modal.
+         */
+        $timeout(function () {
+            ReminderModalService.open();
+        });
+
+        $scope.openReminderModalService = function () {
+            ReminderModalService.open();
+        };
+    }]);
+;angular
+    .module("reminders")
     .controller("ReminderCtrl", ["$scope", "ReminderModalService", function ($scope, ReminderModalService) {
 
+        /**
+         * Open reminder modal service.
+         */
         $scope.openReminderModalService = function () {
             ReminderModalService.open();
         };
@@ -3056,7 +3320,7 @@ angular
             ReminderModalService.modalInstance
                 .opened
                 .then(function () {
-                    $scope.isOpen = true;
+                    $scope.isModalOpened = true;
                 }
             );
         }
@@ -3068,7 +3332,7 @@ angular
             ReminderUpdateModalService.modalInstance
                 .opened
                 .then(function () {
-                    $scope.isOpen = true;
+                    $scope.isModalOpened = true;
                 }
             );
         }
@@ -3132,7 +3396,7 @@ angular
                     })
                     .finally(function () {
 
-                        $scope.isOpen = false;
+                        $scope.isModalOpened = false;
                     });
             }
         };
@@ -3165,7 +3429,7 @@ angular
         $scope.dismiss = function () {
             ReminderDeleteModalService.modalInstance.dismiss("cancel");
 
-            $scope.isOpen = false;
+            $scope.isModalOpened = false;
         };
 
         /**
@@ -3362,7 +3626,18 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                scope.defaultRemindersLimit = 5;
+                scope.defaultRemindersLimit = 15;
+
+                /**
+                 * Number of the filtered reminders
+                 */
+                scope.filteredReminders = 0;
+
+                /**
+                 * Search by text
+                 * @type {string}
+                 */
+                scope.searchByText = "";
 
                 /**
                  * Is loading more reminders flag.
@@ -3419,7 +3694,9 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
-                    ReminderUpdateModalService.open(reminder, reminderIndex);
+                    if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
                 };
 
                 /**
@@ -3695,14 +3972,13 @@ angular
         /**
          * Get details of a reminder.
          * @param reminderId
-         * @param reminder
          * @returns {*}
          */
-        this.getDetails = function (reminderId, reminder) {
+        this.getDetails = function (reminderId) {
             return $http
                 .get(URLTo.api(REMINDER_URLS.details, { ":reminderId": reminderId }))
                 .then(function (response) {
-                    return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
+                    return ReminderTransformerService.toReminder(response.data, $injector.get('Reminder').build());
                 });
         };
     }]);
@@ -3935,15 +4211,6 @@ angular
             };
 
             /**
-             * Fetches and updates existing reminder.
-             * @param reminderId
-             * @returns {*}
-             */
-            this.fetch = function (reminderId) {
-                return ReminderService.getDetails(reminderId);
-            };
-
-            /**
              * Destroys (deletes) a reminder.
              * @returns {*}
              */
@@ -4001,7 +4268,7 @@ angular
  */
 angular
     .module("app")
-    .controller("AppCtrl", ["AUTH_EVENTS", "$rootScope", "$scope", "$state", "$log", "AuthService", "User", "StatesHandler", function (AUTH_EVENTS, $rootScope, $scope, $state, $log, AuthService, User, StatesHandler) {
+    .controller("AppCtrl", ["$rootScope", "$scope", "$state", "$timeout", "$log", "AuthService", "User", "StatesHandler", "AUTH_EVENTS", "ACTIVITY_INTERCEPTOR", "ERROR_INTERCEPTOR", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR) {
 
         /**
          * Save the state on root scope
@@ -4023,26 +4290,53 @@ angular
             $log.log("Logged in: ", $rootScope.currentUser);
         });
 
-        // Listen to the session timeout event
+        /**
+         * Listen to the session timeout event
+         */
         $scope.$on(AUTH_EVENTS.sessionTimeout, function () {
             $log.log("Session timed out.");
             AuthService.logout();
         });
 
-        // Listen to the not authenticated event
+        /**
+         * Listen to the not authenticated event
+         */
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $log.log("Not authenticated.");
             AuthService.logout();
             StatesHandler.goToLogin();
         });
 
-        // Listen to the logout event
+        /**
+         * Listen to the logout event
+         */
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             $rootScope.currentUser = User.$new();
             $log.log("Logged out.");
         });
 
-        // DEVELOPMENT DEBUG
+        /**
+         * Track activity - for animation loading bar
+         */
+        $rootScope.$on('$stateChangeStart', function () {
+            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
+        });
+        $rootScope.$on('$viewContentLoaded', function () {
+            $timeout(function () {
+                $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
+            }, 2000);
+        });
+
+        /**
+         * Listen to the logout event
+         */
+        $scope.$on(ERROR_INTERCEPTOR.status500, function () {
+            $state.go('500');
+        });
+
+        /**
+         * Development debug listeners
+         */
         if ( URLTo.apiBase() !== "http://reme-api.reme.io" ) {
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
@@ -4063,7 +4357,22 @@ angular
             });
         }
     }]);
-;angular.module('partials', ['app/site/partials/home.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.create.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.action.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminder/reminders.template.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+
+angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/site/partials/404.html",
+    "Page not found!");
+}]);
+
+angular.module("app/site/partials/500.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/site/partials/500.html",
+    "Temporary problem!");
+}]);
+
+angular.module("app/site/partials/about.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/site/partials/about.html",
+    "ABOUT");
+}]);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
@@ -4076,7 +4385,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "            <h1 class=\"home__signup__title\">Create email reminders in seconds!</h1>\n" +
     "\n" +
-    "            <h3 class=\"home__signup__description\">Those reminders that you don't want to see in your calendar... Give them to Reme and please do forget about them! Reme will not.</h3>\n" +
+    "            <h3 class=\"home__signup__description\">The sole purpose of Reme is to remind you the things that matter. Create a reminder and forget about it! Reme will not.</h3>\n" +
     "\n" +
     "            <!-- Register  section -->\n" +
     "            <div class=\"home__signup__sections\" account-form-toggle>\n" +
@@ -4088,28 +4397,25 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "                    <!-- Request registration form -->\n" +
-    "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
+    "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error>\n" +
     "\n" +
     "                        <!-- Account controls -->\n" +
     "                        <div class=\"home__signup__sections__section__controls\">\n" +
     "\n" +
     "                            <!-- Email input -->\n" +
     "                            <div class=\"home__signup__sections__section__controls--information\">\n" +
-    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" required valid-email unique-email />\n" +
+    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" required valid-email unique-email />\n" +
     "\n" +
-    "                                <div class=\"information simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Just keep in mind that old reminders will be migrated!\">\n" +
-    "                                    <i class=\"icon-info\"></i></div>\n" +
+    "                                <!-- Error messages -->\n" +
+    "                                <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
+    "                                    <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
+    "                                    <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
+    "                                    <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
+    "                                </div>\n" +
     "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button class=\"btn home__signup__sections__section__controls__button\" type=\"submit\">Get started for FREE!</button>\n" +
-    "                        </div>\n" +
-    "\n" +
-    "                        <!-- Error messages -->\n" +
-    "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
-    "                            <div ng-message=\"required\">Your email address is mandatory.</div>\n" +
-    "                            <div ng-message=\"validEmail\">This email address is not valid.</div>\n" +
-    "                            <div ng-message=\"uniqueEmail\">This email address is already used.</div>\n" +
+    "                            <button type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "                </div>\n" +
@@ -4149,6 +4455,11 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "<div footer-home></div>\n" +
     "\n" +
     "");
+}]);
+
+angular.module("app/site/partials/privacy.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/site/partials/privacy.html",
+    "PRIVACY");
 }]);
 
 angular.module("app/reminders/partials/privacy.html", []).run(["$templateCache", function($templateCache) {
@@ -4217,8 +4528,16 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "    You have no reminders. Don't be shy, go ahead and create one! :)\n" +
     "</div>\n" +
     "\n" +
+    "<!--Search in reminder list-->\n" +
+    "<div class=\"form-group form-group--search\">\n" +
+    "    <input class=\"form-control\" type=\"text\" placeholder=\"e.g. Search\" name=\"text\" maxlength=\"140\" ng-model=\"searchByText\" />\n" +
+    "</div>\n" +
+    "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder\" ng-class=\"{'reminder--first': $first, 'reminder--removed': removedReminderIndex === $index, 'reminder--loaded': $index > defaultRemindersLimit - 1 , 'reminder--last': $index === remindersLimit - 1}\" ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit\">\n" +
+    "<div class=\"reminder reminder--show\"\n" +
+    "     ng-click=\"openUpdateReminderModalService(reminder, $index)\"\n" +
+    "     ng-class=\"{'reminder--first': $first, 'reminder--removed': removedReminderIndex === $index, 'reminder--loaded': $index > defaultRemindersLimit - 1 , 'reminder--last': $index === remindersLimit - 1, 'reminder--owner': reminder.isCreatedBy(currentUserEmail) }\"\n" +
+    "     ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
     "    <div class=\"reminder__title\">\n" +
@@ -4227,8 +4546,6 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--update simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Edit reminder\" ng-if=\"reminder.isCreatedBy(currentUserEmail)\" href=\"#\" ng-click=\"openUpdateReminderModalService(reminder, $index)\"><span class=\"icon-pencil\"></span></a>\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--complete\" href=\"#\"><span class=\"icon-checkmark\"></span></a>\n" +
     "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
@@ -4264,13 +4581,13 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "</div>\n" +
     "\n" +
-    "<div ng-if=\"isStillRemindersToBeLoaded()\" class=\"load-more-reminders\">\n" +
+    "<div ng-if=\"filteredReminders.length >= defaultRemindersLimit && isStillRemindersToBeLoaded()\" class=\"load-more-reminders reminder--show load-more-reminders--hide\">\n" +
     "    <button type=\"submit\" ladda=\"isLoadingMore\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--load-more\" ng-click=\"loadMoreReminders()\">LOAD MORE</button>\n" +
     "</div>");
 }]);
 
-angular.module("app/reminders/partials/reminder/reminders.create.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminder/reminders.create.html",
+angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
     "<div class=\"reminders__header\">\n" +
     "    <a class=\"btn reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
     "</div>");
@@ -4280,7 +4597,7 @@ angular.module("app/reminders/partials/reminder/reminders.html", []).run(["$temp
   $templateCache.put("app/reminders/partials/reminder/reminders.html",
     "<div header></div>\n" +
     "\n" +
-    "<div ui-view=\"create\"></div>\n" +
+    "<div ui-view=\"action\"></div>\n" +
     "\n" +
     "<div ui-view=\"list\"></div>\n" +
     "\n" +
@@ -4293,15 +4610,26 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "\n" +
     "    <tabset>\n" +
     "        <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
-    "            <div reminder-list reminders=\"upcomingReminders\"></div>\n" +
+    "            <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\"></div>\n" +
     "        </tab>\n" +
     "\n" +
     "        <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
-    "            <div reminder-list reminders=\"pastReminders\"></div>\n" +
+    "            <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\"></div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
     "\n" +
     "</div>");
+}]);
+
+angular.module("app/reminders/partials/reminder/reminders.template.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("app/reminders/partials/reminder/reminders.template.html",
+    "<div header></div>\n" +
+    "\n" +
+    "<div ui-view=\"action\"></div>\n" +
+    "\n" +
+    "<div ui-view=\"list\"></div>\n" +
+    "\n" +
+    "<div footer></div>");
 }]);
 
 angular.module("app/reminders/partials/reminderModal/reminder_create_update_modal.html", []).run(["$templateCache", function($templateCache) {
@@ -4318,7 +4646,7 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isOpen\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isModalOpened\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder info-->\n" +
@@ -4384,7 +4712,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Welcome!</h1>\n" +
     "\n" +
     "        <!-- Login form -->\n" +
-    "        <form name=\"loginForm\" ng-submit=\"login(loginData)\" novalidate>\n" +
+    "        <form name=\"loginForm\" ng-submit=\"login(loginData)\" novalidate focus-first-error>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
@@ -4404,13 +4732,13 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
+    "                        <span class=\"help-message\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your password is mandatory.</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Reset password -->\n" +
     "                <div class=\"form-group\">\n" +
-    "                    <a class=\"link-secondary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
+    "                    <a class=\"link-secondary link--lg-middle\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
@@ -4418,7 +4746,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
+    "        <a class=\"link-primary link--lg\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -4429,7 +4757,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <h1 class=\"account__title\">Get started!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
-    "        <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error-on-submit>\n" +
+    "        <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
@@ -4442,7 +4770,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 800 }\" auto-focus required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" auto-focus required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -4458,7 +4786,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a class=\"link-primary\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
+    "        <a class=\"link-primary link--lg\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -4472,7 +4800,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <span class=\"account__explain\">We've sent you an email with the instructions on how to confirm your registration.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
+    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Recover password section -->\n" +
@@ -4488,7 +4816,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        </span>\n" +
     "\n" +
     "        <!-- Forgot password form -->\n" +
-    "        <form name=\"forgotPasswordForm\" ng-submit=\"requestPasswordReset(forgotPasswordData.email)\" novalidate focus-first-error-on-submit>\n" +
+    "        <form name=\"forgotPasswordForm\" ng-submit=\"requestPasswordReset(forgotPasswordData.email)\" novalidate focus-first-error>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
@@ -4515,7 +4843,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Nevermind, take me back!</a>\n" +
+    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Nevermind, take me back!</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Password recovery email sent section -->\n" +
@@ -4528,7 +4856,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <span class=\"account__explain\">We've sent you an email with the instructions on how to reset your password.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
+    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Continue</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -4568,7 +4896,7 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
     "<div class=\"centered-section-account\">\n" +
     "    <tabset vertical=\"true\">\n" +
     "        <tab heading=\"Profile\">\n" +
-    "            <div class=\"account__sections account__sections--settings\" ui-view=\"profile\"></div>\n" +
+    "            <div class=\"account__sections account__sections--settings\" ui-view=\"profile\" profile-form-toggle></div>\n" +
     "        </tab>\n" +
     "        <tab heading=\"Preferences\">\n" +
     "            <div class=\"account__sections account__sections--settings\" ui-view=\"preferences\"></div>\n" +
@@ -4584,151 +4912,141 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
 
 angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.preferences.html",
-    "<!-- Preferences sections -->\n" +
-    "<div class=\"account__sections\">\n" +
+    "<!-- Profile section -->\n" +
+    "<div class=\"account__section\" ng-controller=\"PreferencesCtrl\">\n" +
     "\n" +
-    "    <!-- Profile section -->\n" +
-    "    <div class=\"account__section\" ng-controller=\"PreferencesCtrl\">\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Modify timezone</h1>\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Modify timezone</h1>\n" +
+    "    <!-- Profile form -->\n" +
+    "    <form name=\"preferencesForm\" ng-submit=\"updatePreferences(preferencesData)\" novalidate>\n" +
     "\n" +
-    "        <!-- Profile form -->\n" +
-    "        <form name=\"preferencesForm\" ng-submit=\"updatePreferences(preferencesData)\" novalidate>\n" +
+    "        <!-- Account controls -->\n" +
+    "        <div class=\"account__controls\">\n" +
     "\n" +
-    "            <!-- Account controls -->\n" +
-    "            <div class=\"account__controls\">\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "            <!-- Form groups -->\n" +
+    "            <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
-    "                <!-- Form groups -->\n" +
-    "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
-    "                        <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
-    "                        <span class=\"help-message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
-    "                    </div>\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
+    "                    <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
+    "                    <span class=\"help-message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
     "                </div>\n" +
-    "\n" +
-    "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
     "            </div>\n" +
-    "        </form>\n" +
-    "    </div>\n" +
     "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
     "</div>");
 }]);
 
 angular.module("app/account/partials/settings/settings.profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.profile.html",
-    "<!-- Account sections -->\n" +
-    "<div class=\"account__sections\" profile-form-toggle>\n" +
+    "<!-- Profile section -->\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileCtrl\">\n" +
     "\n" +
-    "    <!-- Profile section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updateProfile\" ng-controller=\"ProfileCtrl\">\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Modify profile</h1>\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Modify profile</h1>\n" +
+    "    <!-- Profile form -->\n" +
+    "    <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate>\n" +
     "\n" +
-    "        <!-- Profile form -->\n" +
-    "        <form name=\"profileForm\" ng-submit=\"updateProfile(profileData)\" novalidate>\n" +
+    "        <!-- Account controls -->\n" +
+    "        <div class=\"account__controls\">\n" +
     "\n" +
-    "            <!-- Account controls -->\n" +
-    "            <div class=\"account__controls\">\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "            <!-- Form groups -->\n" +
+    "            <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
-    "                <!-- Form groups -->\n" +
-    "                <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
-    "                    </div>\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Prenume\" name=\"firstName\" ng-model=\"profileData.firstName\" required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"profileForm.firstName.$invalid && profileForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
-    "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
-    "            </div>\n" +
-    "        </form>\n" +
-    "\n" +
-    "        <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password.</a>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <!-- Update password section -->\n" +
-    "    <div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordCtrl\">\n" +
-    "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Welcome!</h1>\n" +
-    "\n" +
-    "        <!-- Update password form -->\n" +
-    "        <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate>\n" +
-    "\n" +
-    "            <!-- Account controls -->\n" +
-    "            <div class=\"account__controls\">\n" +
-    "\n" +
-    "                <!-- Flash messages. -->\n" +
-    "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
-    "                <!-- Form groups -->\n" +
-    "                <div class=\"account__controls__form-groups--last\">\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
-    "                    </div>\n" +
-    "\n" +
-    "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
-    "                        <span class=\"help-message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
-    "                    </div>\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Nume\" name=\"lastName\" ng-model=\"profileData.lastName\" required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"profileForm.lastName.$invalid && profileForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
     "\n" +
-    "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Update password</button>\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Email\" name=\"email\" ng-value=\"user.model.email\" disabled />\n" +
+    "                </div>\n" +
     "            </div>\n" +
-    "        </form>\n" +
     "\n" +
-    "        <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Nevermind, take me back!</a>\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"btn account__button\" type=\"submit\">Save changes</button>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
     "\n" +
-    "    </div>\n" +
+    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password.</a>\n" +
+    "</div>\n" +
     "\n" +
-    "    <!-- Change password section successfully-->\n" +
-    "    <div class=\"account__section\" ng-if=\"ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully\">\n" +
+    "<!-- Update password section -->\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state === ACCOUNT_FORM_STATE.updatePassword\" ng-controller=\"UpdatePasswordCtrl\">\n" +
     "\n" +
-    "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Successfully</h1>\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Welcome!</h1>\n" +
     "\n" +
-    "        <!-- Explain -->\n" +
-    "        <span class=\"account__explain\">We've successfully updated your new password.</span>\n" +
+    "    <!-- Update password form -->\n" +
+    "    <form name=\"updatePasswordForm\" ng-submit=\"updatePassword(updatePasswordData)\" novalidate>\n" +
     "\n" +
-    "        <!-- Button container -->\n" +
-    "        <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
-    "    </div>\n" +
+    "        <!-- Account controls -->\n" +
+    "        <div class=\"account__controls\">\n" +
     "\n" +
+    "            <!-- Flash messages. -->\n" +
+    "            <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
+    "\n" +
+    "            <!-- Form groups -->\n" +
+    "            <div class=\"account__controls__form-groups--last\">\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "                <!-- Form group -->\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
+    "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!-- Button container -->\n" +
+    "            <button class=\"btn account__button\" type=\"submit\">Update password</button>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
+    "\n" +
+    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Nevermind, take me back!</a>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!-- Change password section successfully-->\n" +
+    "<div class=\"account__section\" ng-if=\"ProfileFormToggle.state == ACCOUNT_FORM_STATE.updatePasswordSuccessfully\">\n" +
+    "\n" +
+    "    <!-- Title -->\n" +
+    "    <h1 class=\"account__title\">Successfully</h1>\n" +
+    "\n" +
+    "    <!-- Explain -->\n" +
+    "    <span class=\"account__explain\">We've successfully updated your new password.</span>\n" +
+    "\n" +
+    "    <!-- Button container -->\n" +
+    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
     "</div>");
 }]);
 
@@ -4768,7 +5086,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "        <h1 class=\"account__title\">Finalize your account!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
-    "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error-on-submit>\n" +
+    "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error>\n" +
     "\n" +
     "            <!-- Account controls -->\n" +
     "            <div class=\"account__controls\">\n" +
@@ -4932,13 +5250,12 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "        <div class=\"footer__navbar\">\n" +
     "            <div class=\"footer__navbar__section-left\">\n" +
     "                <div class=\"footer__navbar__section-left__copyright\">\n" +
-    "                    Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "                    Made with <span class=\"icon-heart\"></span> in Cluj-Napoca.\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"#\">Pricing</a></li>\n" +
     "                        <li><a href=\"#\">About</a></li>\n" +
     "                        <li><a href=\"#\">Press kit</a></li>\n" +
     "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
@@ -4949,7 +5266,6 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
     "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
     "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
-    "                        <li><a href=\"mailto:hello@reme.io\">Email</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -4961,19 +5277,18 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
 
 angular.module("app/common/partials/footer.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/common/partials/footer.html",
-    "<div class=\"footer-home\">\n" +
+    "<div class=\"footer\">\n" +
     "    <div class=\"centered-section-home\">\n" +
     "\n" +
     "        <div class=\"footer__navbar\">\n" +
     "            <div class=\"footer__navbar__section-left\">\n" +
     "                <div class=\"footer__navbar__section-left__copyright\">\n" +
-    "                    Made with <span class=\"icon-coffee\"></span> by some geeks.\n" +
+    "                    Made with <span class=\"icon-heart\"></span> in Cluj-Napoca.\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"#\">Pricing</a></li>\n" +
     "                        <li><a href=\"#\">About</a></li>\n" +
     "                        <li><a href=\"#\">Press kit</a></li>\n" +
     "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
@@ -4984,7 +5299,6 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "                        <li><a href=\"https://twitter.com/reme_io\">Twitter</a></li>\n" +
     "                        <li><a href=\"https://www.facebook.com/reme.io\">Facebook</a></li>\n" +
     "                        <li><a href=\"https://plus.google.com/+RemeIo\">Google+</a></li>\n" +
-    "                        <li><a href=\"mailto:hello@reme.io\">Email</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -5010,7 +5324,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
     "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
-    "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders\">Go to my reminders</a>\n" +
+    "                    <a class=\"btn btn--to-reminders\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">Go to my reminders</a>\n" +
     "                </li>\n" +
     "                <li ng-if=\"currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--logout\" href=\"javascript:void(0)\" ui-sref=\"account:logout\">Logout</a>\n" +
@@ -5027,7 +5341,10 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "<header class=\"header\">\n" +
     "    <div class=\"header__wrapper\">\n" +
     "\n" +
-    "        <a class=\"header__wrapper__logo\" href=\"javascript:void(0)\" ui-sref=\"reminders\"> Reme </a>\n" +
+    "        <a class=\"header__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
+    "            <span class=\"header__wrapper__brand__logo\">logo</span>\n" +
+    "            <span class=\"header__wrapper__brand__text\">Reme</span>\n" +
+    "        </a>\n" +
     "\n" +
     "        <div class=\"header__wrapper__menu dropdown\" dropdown>\n" +
     "            <a ng-show=\"currentUser.model.email\" class=\"link--brand-bg dropdown-toggle header__wrapper__menu__email\" dropdown-toggle href=\"javascript:void(0)\">{{currentUser.model.email}}<span class=\"caret\"></span></a>\n" +
