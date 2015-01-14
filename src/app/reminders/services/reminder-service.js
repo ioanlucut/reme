@@ -102,14 +102,13 @@ angular
         /**
          * Get details of a reminder.
          * @param reminderId
-         * @param reminder
          * @returns {*}
          */
-        this.getDetails = function (reminderId, reminder) {
+        this.getDetails = function (reminderId) {
             return $http
                 .get(URLTo.api(REMINDER_URLS.details, { ":reminderId": reminderId }))
                 .then(function (response) {
-                    return ReminderTransformerService.toReminder(response.data, reminder || $injector.get('Reminder').build());
+                    return ReminderTransformerService.toReminder(response.data, $injector.get('Reminder').build());
                 });
         };
     });

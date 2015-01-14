@@ -3,6 +3,14 @@
   width: 96%;
   margin: 0 auto;
   min-height: $container-reminders-height;
+  position: relative;
+}
+
+.form-group--search {
+  max-width: 140px;
+  position: absolute;
+  top: 3px;
+  right: 0;
 }
 
 .reminders__header {
@@ -20,20 +28,34 @@
 }
 
 .reminder {
-  border: solid 0px $body-bg;
+  border: solid 0px #FFFFFF;
   border-radius: 3px;
   width: 100%;
-  height: 90px;
-  padding: 10px;
-  margin-bottom: 22px;
+  height: 60px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
   position: relative;
-  background-color: #ffffff;
-  @include transition(all 0.3s);
+  background-color: $white;
+
+  &.reminder--owner:hover {
+    cursor: pointer;
+  }
+
+  &:hover {
+    outline: solid 3px $gray11;
+
+    .reminder__title {
+      font-weight: bold;
+      color: $brand-primary;
+    }
+    .reminder__menu {
+      opacity: 1;
+    }
+  }
 
   &__title {
     font-size: $font-size-large;
-    font-weight: $font-weight-bold;
-    @include transition(all 0.5s);
+    @include transition(all 0.2s);
   }
 
   &__menu {
@@ -42,7 +64,7 @@
     right: 0;
     opacity: 0;
     text-align: right;
-    @include transition(all 0.4s);
+    @include transition(all 0.2s);
 
     &__option {
       display: inline-block;
@@ -56,28 +78,11 @@
       }
 
       span {
-        //border: solid 1px #ff0000;
         display: block;
         margin: 0;
         font-size: 30px;
         text-align: center;
       }
-
-      &--complete {
-        display: none;
-      }
-    }
-  }
-
-  &:hover {
-    border-left: solid 15px $brand-primary;
-
-    .reminder__title {
-      padding-left: 20px;
-    }
-
-    .reminder__menu {
-      opacity: 1;
     }
   }
 }

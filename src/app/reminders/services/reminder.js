@@ -129,15 +129,6 @@ angular
             };
 
             /**
-             * Fetches and updates existing reminder.
-             * @param reminderId
-             * @returns {*}
-             */
-            this.fetch = function (reminderId) {
-                return ReminderService.getDetails(reminderId);
-            };
-
-            /**
              * Destroys (deletes) a reminder.
              * @returns {*}
              */
