@@ -12106,25 +12106,38 @@ a:active, a:focus {
 }
 
 /* line 20, ../../src/app/account/sass/_account_forms.scss */
+.link--lg {
+  display: block;
+  margin-top: 40px;
+}
+
+/* line 25, ../../src/app/account/sass/_account_forms.scss */
+.link--lg-middle {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* line 31, ../../src/app/account/sass/_account_forms.scss */
 .account__title {
   margin-bottom: 20px;
-  line-height: 25px;
+  line-height: 1.1;
   text-align: center;
   font-size: 36px;
   font-weight: 400;
 }
 
-/* line 28, ../../src/app/account/sass/_account_forms.scss */
+/* line 39, ../../src/app/account/sass/_account_forms.scss */
 .account__explain {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   line-height: 20px;
   font-weight: 300;
   font-size: 15px;
   color: #848b91;
 }
 
-/* line 37, ../../src/app/account/sass/_account_forms.scss */
+/* line 48, ../../src/app/account/sass/_account_forms.scss */
 .account__controls {
   position: relative;
   padding-top: 40px;
@@ -12150,32 +12163,32 @@ textarea.form-control--account {
   height: auto;
 }
 
-/* line 44, ../../src/app/account/sass/_account_forms.scss */
+/* line 55, ../../src/app/account/sass/_account_forms.scss */
 .form-control--account {
   font-weight: 300;
 }
 
-/* line 48, ../../src/app/account/sass/_account_forms.scss */
+/* line 59, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form-groups--last {
   margin-bottom: 20px;
 }
 
-/* line 52, ../../src/app/account/sass/_account_forms.scss */
+/* line 63, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form-groups--small-offset {
   margin-bottom: 5px;
 }
 
-/* line 56, ../../src/app/account/sass/_account_forms.scss */
+/* line 67, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form-groups--medium-offset {
   margin-bottom: 15px;
 }
 
-/* line 60, ../../src/app/account/sass/_account_forms.scss */
+/* line 71, ../../src/app/account/sass/_account_forms.scss */
 .form-group--small-offset {
   margin-bottom: 5px;
 }
 
-/* line 64, ../../src/app/account/sass/_account_forms.scss */
+/* line 75, ../../src/app/account/sass/_account_forms.scss */
 .account__button {
   color: #fff;
   background-color: #8471B1;
@@ -12212,17 +12225,17 @@ textarea.form-control--account {
   border-color: #8471B1;
 }
 
-/* line 74, ../../src/app/account/sass/_account_forms.scss */
+/* line 85, ../../src/app/account/sass/_account_forms.scss */
 .link-primary {
   color: #222222;
 }
 
-/* line 78, ../../src/app/account/sass/_account_forms.scss */
+/* line 89, ../../src/app/account/sass/_account_forms.scss */
 .link-secondary {
   color: #bbbfc4;
 }
 
-/* line 82, ../../src/app/account/sass/_account_forms.scss */
+/* line 93, ../../src/app/account/sass/_account_forms.scss */
 .centered-section-account {
   max-width: 700px;
   width: 100%;
@@ -12230,7 +12243,7 @@ textarea.form-control--account {
   min-height: 600px;
 }
 
-/* line 89, ../../src/app/account/sass/_account_forms.scss */
+/* line 100, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info {
   margin-bottom: 35px;
   padding-left: 5px;
@@ -12246,19 +12259,44 @@ textarea.form-control--account {
   clear: both;
 }
 
-/* line 96, ../../src/app/account/sass/_account_forms.scss */
+/* line 107, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__left {
   float: left;
   color: #000;
 }
 
-/* line 101, ../../src/app/account/sass/_account_forms.scss */
+/* line 112, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__right {
   float: right;
   font-size: 16px;
   font-weight: bold;
 }
 
+@media (max-width: 580px) {
+  /* line 3, ../../src/app/account/sass/_account_forms_responsive.scss */
+  .account__sections {
+    max-width: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  /* line 9, ../../src/app/account/sass/_account_forms_responsive.scss */
+  .account__section {
+    width: 100%;
+  }
+
+  /* line 13, ../../src/app/account/sass/_account_forms_responsive.scss */
+  .account__button {
+    width: 100%;
+  }
+
+  /* line 17, ../../src/app/account/sass/_account_forms_responsive.scss */
+  .nav-tabs--vertical {
+    top: 70px;
+    left: 10px;
+    z-index: 99;
+  }
+}
 /* Import sub-modules */
 @media (max-width: 580px) {
   /* line 3, ../../src/app/common/sass/_header_responsive.scss */
@@ -12268,23 +12306,23 @@ textarea.form-control--account {
 }
 /* line 1, ../../src/app/common/sass/_header.scss */
 .link--brand-bg {
-  color: #bdb3d5;
+  color: #a192c3;
 }
 /* line 4, ../../src/app/common/sass/_header.scss */
 .link--brand-bg:hover, .link--brand-bg:active, .link--brand-bg:focus {
-  color: #f6f5f9;
+  color: #bdb3d5;
 }
 
 /* line 11, ../../src/app/common/sass/_header.scss */
 .header {
-  background-color: #8471B1;
+  background-color: #fff;
   padding: 0 15px;
   height: 50px;
   line-height: 50px;
 }
 /* line 17, ../../src/app/common/sass/_header.scss */
 .header .header__wrapper {
-  max-width: 700px;
+  max-width: 960px;
   width: 100%;
   margin: 0 auto;
 }
@@ -12297,13 +12335,43 @@ textarea.form-control--account {
 .header .header__wrapper:after {
   clear: both;
 }
-/* line 23, ../../src/app/common/sass/_header.scss */
+/* line 24, ../../src/app/common/sass/_header.scss */
 .header .header__wrapper .header__wrapper__logo {
   float: left;
-  color: #ffffff;
+  color: #8471B1;
   display: block;
 }
-/* line 29, ../../src/app/common/sass/_header.scss */
+/* line 30, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__brand {
+  display: block;
+  float: left;
+}
+/* line 34, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__brand .header__wrapper__brand__logo {
+  background: url("../assets/img/logo.svg") no-repeat top left;
+  background-size: contain;
+  display: inline-block;
+  vertical-align: top;
+  width: 25px;
+  height: 25px;
+  margin-left: 20px;
+  text-indent: -9999px;
+  position: relative;
+  -webkit-transform: translate(0, 14px);
+  -ms-transform: translate(0, 14px);
+  transform: translate(0, 14px);
+}
+/* line 48, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__brand .header__wrapper__brand__text {
+  color: #8471B1;
+  font-size: 20px;
+  margin-left: 5px;
+}
+/* line 54, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__brand:hover {
+  opacity: 0.9;
+}
+/* line 59, ../../src/app/common/sass/_header.scss */
 .header .header__wrapper .header__wrapper__feedback {
   display: block;
   float: right;
@@ -12311,63 +12379,27 @@ textarea.form-control--account {
   padding-left: 20px;
   position: relative;
 }
-/* line 36, ../../src/app/common/sass/_header.scss */
+/* line 66, ../../src/app/common/sass/_header.scss */
 .header .header__wrapper .header__wrapper__feedback span {
   vertical-align: middle;
 }
-/* line 49, ../../src/app/common/sass/_header.scss */
+/* line 71, ../../src/app/common/sass/_header.scss */
 .header .header__wrapper .header__wrapper__menu {
   float: right;
   position: relative;
 }
-/* line 53, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu a {
-  padding: 4px 8px;
+/* line 75, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu__navbar {
+  list-style: none;
 }
-/* line 57, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu .header__wrapper__menu__dropdown {
-  -webkit-animation-name: fadeInDown;
-  -moz-animation-name: fadeInDown;
-  -ms-animation-name: fadeInDown;
-  -o-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-  -webkit-animation-duration: 0.2s;
-  -moz-animation-duration: 0.2s;
-  -ms-animation-duration: 0.2s;
-  -o-animation-duration: 0.2s;
-  animation-duration: 0.2s;
-  -webkit-animation-delay: 0s;
-  -moz-animation-delay: 0s;
-  -ms-animation-delay: 0s;
-  -o-animation-delay: 0s;
-  animation-delay: 0s;
-  -webkit-animation-timing-function: ease;
-  -moz-animation-timing-function: ease;
-  -ms-animation-timing-function: ease;
-  -o-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: both;
-  -moz-animation-fill-mode: both;
-  -ms-animation-fill-mode: both;
-  -o-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
-  backface-visibility: hidden;
-  right: 10px;
-  top: 36px;
-  left: inherit;
+/* line 78, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu__navbar li {
+  display: inline-block;
+  margin-right: 20px;
 }
-/* line 63, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu .header__wrapper__menu__dropdown .header__version {
-  color: #e6e9eb;
-  cursor: default;
-}
-/* line 72, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu__email .caret {
-  border-top: 4px solid #bdb3d5;
+/* line 82, ../../src/app/common/sass/_header.scss */
+.header .header__wrapper .header__wrapper__menu__navbar li.narrow {
+  margin-right: 10px;
 }
 
 /* line 1, ../../src/app/common/sass/_header_home.scss */
@@ -12507,9 +12539,73 @@ textarea.form-control--account {
   border-color: #8471B1;
 }
 
-/* line 3, ../../src/app/common/sass/_footer_home.scss */
+/* line 1, ../../src/app/common/sass/_footer.scss */
+.footer {
+  background-color: #e6e9eb;
+  margin: 0;
+  padding: 0;
+  height: 180px;
+  vertical-align: top;
+}
+/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.footer .footer__navbar:before, .footer .footer__navbar:after {
+  content: " ";
+  display: table;
+}
+/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.footer .footer__navbar:after {
+  clear: both;
+}
+/* line 12, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar ul li {
+  list-style: none;
+  height: 20px;
+}
+/* line 16, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar ul li a {
+  color: #83929c;
+}
+/* line 19, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar ul li a:hover {
+  color: #525e66;
+}
+/* line 27, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-left {
+  float: left;
+}
+/* line 31, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-left__copyright {
+  height: 180px;
+  color: #919ea7;
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 37, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-left__copyright span {
+  color: #d9534f;
+  margin-top: 5px;
+  display: inline-block;
+}
+/* line 44, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-right {
+  float: right;
+}
+/* line 48, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-right__list {
+  height: 180px;
+  color: #5e4c8a;
+  display: table-cell;
+  vertical-align: middle;
+  width: 180px;
+}
+/* line 55, ../../src/app/common/sass/_footer.scss */
+.footer .footer__navbar__section-right__list ul li {
+  height: 26px;
+}
+
+/* line 1, ../../src/app/common/sass/_footer_home.scss */
 .footer-home {
-  background-color: #bbbfc4;
+  background-color: #f5f6f7;
   margin: 0;
   padding: 0;
   height: 180px;
@@ -12525,45 +12621,45 @@ textarea.form-control--account {
 .footer__navbar:after {
   clear: both;
 }
-/* line 15, ../../src/app/common/sass/_footer_home.scss */
+/* line 13, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li {
   list-style: none;
   height: 20px;
 }
-/* line 19, ../../src/app/common/sass/_footer_home.scss */
+/* line 17, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a {
-  color: #5f656d;
+  color: #929da8;
 }
-/* line 22, ../../src/app/common/sass/_footer_home.scss */
+/* line 20, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a:hover {
-  color: #303337;
+  color: #5e6a75;
 }
 
-/* line 30, ../../src/app/common/sass/_footer_home.scss */
+/* line 28, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left {
   float: left;
 }
 
-/* line 34, ../../src/app/common/sass/_footer_home.scss */
+/* line 32, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #6b727b;
+  color: #a0aab3;
   display: table-cell;
   vertical-align: middle;
 }
-/* line 40, ../../src/app/common/sass/_footer_home.scss */
+/* line 38, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright span {
   color: #d9534f;
   margin-top: 5px;
   display: inline-block;
 }
 
-/* line 47, ../../src/app/common/sass/_footer_home.scss */
+/* line 45, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right {
   float: right;
 }
 
-/* line 51, ../../src/app/common/sass/_footer_home.scss */
+/* line 49, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right__list {
   height: 180px;
   color: #5e4c8a;
@@ -12571,7 +12667,7 @@ textarea.form-control--account {
   vertical-align: middle;
   width: 180px;
 }
-/* line 58, ../../src/app/common/sass/_footer_home.scss */
+/* line 56, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-right__list ul li {
   height: 26px;
 }
@@ -12626,11 +12722,67 @@ textarea.form-control--account {
 }
 
 /* line 1, ../../src/app/common/sass/_messages.scss */
-.help-message {
+.account__controls .form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+/* line 6, ../../src/app/common/sass/_messages.scss */
+.help-message,
+.home__signup__sections__section__validation-messages {
   display: block;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: 12px;
+  margin: 0;
   color: #b94a48;
+}
+
+/* Loading bar animation */
+@-webkit-keyframes loading-bar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes loading-bar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+/* Loading bar */
+/* line 3, ../../src/app/common/sass/_loading-bar.scss */
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 2px;
+  z-index: 3000;
+}
+
+/* line 13, ../../src/app/common/sass/_loading-bar.scss */
+.loading-bar--active {
+  display: block;
+}
+/* line 16, ../../src/app/common/sass/_loading-bar.scss */
+.loading-bar--active .loading-bar-progress {
+  -webkit-animation: loading-bar 3s infinite;
+  animation: loading-bar 3s infinite;
+}
+
+/* line 21, ../../src/app/common/sass/_loading-bar.scss */
+.loading-bar-progress {
+  width: 0;
+  height: 100%;
+  background-color: #8471B1;
 }
 
 /* Import sub-modules */
@@ -12640,14 +12792,23 @@ textarea.form-control--account {
   width: 96%;
   margin: 0 auto;
   min-height: 600px;
+  position: relative;
 }
 
-/* line 8, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 9, ../../src/app/reminders/sass/_reminders_layout.scss */
+.form-group--search {
+  max-width: 140px;
+  position: absolute;
+  top: 3px;
+  right: 0;
+}
+
+/* line 16, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header {
   height: 100px;
   width: 100%;
 }
-/* line 12, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 20, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn {
   color: #8471B1;
   background-color: transparent;
@@ -12669,37 +12830,51 @@ textarea.form-control--account {
   background-image: none;
 }
 
-/* line 22, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 30, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder {
-  border: solid 0px #f5f6f7;
+  border: solid 0px #FFFFFF;
   border-radius: 3px;
   width: 100%;
-  height: 90px;
-  padding: 10px;
-  margin-bottom: 22px;
+  height: 60px;
+  padding: 5px 10px;
+  margin-bottom: 15px;
   position: relative;
-  background-color: #ffffff;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  background-color: #fff;
 }
-/* line 33, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 40, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder.reminder--owner:hover {
+  cursor: pointer;
+}
+/* line 44, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover {
+  outline: solid 3px #e6e9eb;
+}
+/* line 47, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover .reminder__title {
+  font-weight: bold;
+  color: #8471B1;
+}
+/* line 51, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder:hover .reminder__menu {
+  opacity: 1;
+}
+/* line 56, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title {
   font-size: 20px;
-  font-weight: 700;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
-/* line 39, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 61, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu {
   position: absolute;
   top: 0;
   right: 0;
   opacity: 0;
   text-align: right;
-  -webkit-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
 }
-/* line 47, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 69, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option {
   display: inline-block;
   width: 30px;
@@ -12707,32 +12882,16 @@ textarea.form-control--account {
   margin: 3px 5px;
   border-radius: 3px;
 }
-/* line 54, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 76, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option:hover {
   color: #000000;
 }
-/* line 58, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 80, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option span {
   display: block;
   margin: 0;
   font-size: 30px;
   text-align: center;
-}
-/* line 66, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__menu__option--complete {
-  display: none;
-}
-/* line 72, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder:hover {
-  border-left: solid 15px #8471B1;
-}
-/* line 75, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder:hover .reminder__title {
-  padding-left: 20px;
-}
-/* line 79, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder:hover .reminder__menu {
-  opacity: 1;
 }
 
 /* line 12, ../../src/app/reminders/sass/_reminders_modal.scss */
@@ -13394,33 +13553,26 @@ textarea.form-control--friend-email {
 /* line 1, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item__icon {
   position: absolute;
-  margin-left: 10px;
 }
 
 /* line 6, ../../src/app/reminders/sass/_reminders_icons.scss */
-.reminder__info__item__icon--recurring {
-  right: 90px;
-}
-
-/* line 10, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item__icon--user {
   right: 50px;
 }
 
-/* line 14, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 10, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item__icon--email {
   right: 10px;
 }
 
-/* line 18, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 14, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info {
   position: absolute;
-  bottom: 10px;
-  color: #555555;
+  bottom: 5px;
+  color: #9fa5ab;
   font-weight: 300;
   width: 100%;
-  margin-left: -10px;
-  margin-right: -10px;
+  padding-right: 10px;
 }
 /* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
 .reminder__info:before, .reminder__info:after {
@@ -13432,46 +13584,45 @@ textarea.form-control--friend-email {
   clear: both;
 }
 
-/* line 29, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 24, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item {
   position: relative;
   float: left;
   width: 33.33333%;
   min-height: 1px;
-  padding: 0 5px;
 }
-/* line 36, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 30, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item span {
   vertical-align: middle;
 }
-/* line 43, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 37, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item--time {
   text-align: center;
 }
-/* line 47, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 41, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__info__item--additional {
   position: relative;
 }
 
-/* line 52, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 46, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__menu__option--update {
   color: #999999;
 }
-/* line 55, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 49, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__menu__option--update:hover {
   color: #555555;
 }
 
-/* line 60, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 54, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__menu__option--disabled {
   cursor: not-allowed;
 }
 
-/* line 64, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 58, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__menu__option--delete {
   color: #e7908e;
 }
-/* line 67, ../../src/app/reminders/sass/_reminders_icons.scss */
+/* line 61, ../../src/app/reminders/sass/_reminders_icons.scss */
 .reminder__menu__option--delete:hover {
   color: #d9534f;
 }
@@ -14012,19 +14163,15 @@ textarea.home__signup__sections__section__controls__email {
   text-align: center;
   color: #b94a48;
 }
-/* line 69, ../../src/app/site/sass/_site_signup.scss */
-.home__signup__sections__section__validation-messages div {
-  padding: 10px;
-}
 
-/* line 74, ../../src/app/site/sass/_site_signup.scss */
+/* line 70, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 80, ../../src/app/site/sass/_site_signup.scss */
+/* line 76, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -14033,7 +14180,7 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 88, ../../src/app/site/sass/_site_signup.scss */
+/* line 84, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 50px;
