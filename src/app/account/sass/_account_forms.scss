@@ -17,6 +17,17 @@
   min-height: $container-reminders-height;
 }
 
+.link--lg {
+  display: block;
+  margin-top: 40px;
+}
+
+.link--lg-middle {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .account__title {
   margin-bottom: 20px;
   line-height: 1.1;
@@ -27,7 +38,7 @@
 
 .account__explain {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   line-height: 20px;
   font-weight: $font-weight-light;
   font-size: 15px;
