@@ -78,7 +78,9 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
-                    ReminderUpdateModalService.open(reminder, reminderIndex);
+                    if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
                 };
 
                 /**
