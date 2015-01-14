@@ -8,7 +8,9 @@
 
         <div class="header__wrapper__menu">
             <ul class="header__wrapper__menu__navbar">
-                <li><a href="#">About</a></li>
+                <li>
+                    <a href="javascript:void(0)" ui-sref="about">About</a>
+                </li>
                 <li ng-if="! currentUser.isAuthenticated()">
                     <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Login</a></li>
                 <li class="narrow" ng-if="currentUser.isAuthenticated()">
