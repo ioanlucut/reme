@@ -1,29 +1,59 @@
 .link--brand-bg {
-  color: lighten($brand-primary, 20%);
+  color: lighten($brand-primary, 10%);
 
   &:hover,
   &:active,
   &:focus {
-    color: lighten($brand-primary, 40%)
+    color: lighten($brand-primary, 20%)
   }
 }
 
 .header {
-  background-color: $brand-primary;
+  background-color: $white;
   padding: 0 15px;
   height: $header-height;
   line-height: $header-height;
 
   .header__wrapper {
     @include clearfix;
-    max-width: $container-reminders-width;
+
+    max-width: $container-home-width;
     width: 100%;
     margin: 0 auto;
 
     .header__wrapper__logo {
       float: left;
-      color: #ffffff;
+      color: $brand-primary;
       display: block;
+    }
+
+    .header__wrapper__brand {
+      display: block;
+      float: left;
+
+      .header__wrapper__brand__logo {
+        $logo-size: 40px;
+        background: url("../assets/img/logo.svg") no-repeat top left;
+        background-size: contain;
+        display: inline-block;
+        vertical-align: top;
+        width: 25px;
+        height: 25px;
+        margin-left: 20px;
+        text-indent: -9999px;
+        position: relative;
+        @include translate(0, ($header-home-height/2)-($logo-size/2)-3); //Added -3 for pixel-perfect positioning :)
+      }
+
+      .header__wrapper__brand__text {
+        color: $brand-primary;
+        font-size: $font-size-large;
+        margin-left: 5px;
+      }
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
 
     .header__wrapper__feedback {
@@ -36,43 +66,24 @@
       span {
         vertical-align: middle;
       }
-
-      .icon-comment {
-        //font-size: 20px;
-        //position: absolute;
-        //display: inline-block;
-        //top: 2px;
-        //padding-top: 5px;
-      }
     }
 
     .header__wrapper__menu {
       float: right;
       position: relative;
 
-      a {
-        padding: 4px 8px;
-      }
+      &__navbar {
+        list-style: none;
 
-      .header__wrapper__menu__dropdown {
-        @include fadeInDown($duration: 0.2s);
-        right: 10px;
-        top: 36px;
-        left: inherit;
+        li {
+          display: inline-block;
+          margin-right: 20px;
 
-        .header__version {
-          color: $gray11;
-          cursor: default;
+          &.narrow {
+            margin-right: 10px;
+          }
         }
       }
     }
-
-    .header__wrapper__menu__email {
-
-      .caret {
-        border-top: 4px solid lighten($brand-primary, 20%);
-      }
-    }
-
   }
 }

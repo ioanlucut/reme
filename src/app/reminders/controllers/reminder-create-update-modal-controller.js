@@ -61,7 +61,7 @@ angular
             ReminderModalService.modalInstance
                 .opened
                 .then(function () {
-                    $scope.isOpen = true;
+                    $scope.isModalOpened = true;
                 }
             );
         }
@@ -73,7 +73,7 @@ angular
             ReminderUpdateModalService.modalInstance
                 .opened
                 .then(function () {
-                    $scope.isOpen = true;
+                    $scope.isModalOpened = true;
                 }
             );
         }
@@ -137,7 +137,7 @@ angular
                     })
                     .finally(function () {
 
-                        $scope.isOpen = false;
+                        $scope.isModalOpened = false;
                     });
             }
         };

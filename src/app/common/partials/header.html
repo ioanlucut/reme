@@ -1,7 +1,10 @@
 <header class="header">
     <div class="header__wrapper">
 
-        <a class="header__wrapper__logo" href="javascript:void(0)" ui-sref="reminders"> Reme </a>
+        <a class="header__wrapper__brand" href="javascript:void(0)" ui-sref="reminders.regular">
+            <span class="header__wrapper__brand__logo">logo</span>
+            <span class="header__wrapper__brand__text">Reme</span>
+        </a>
 
         <div class="header__wrapper__menu dropdown" dropdown>
             <a ng-show="currentUser.model.email" class="link--brand-bg dropdown-toggle header__wrapper__menu__email" dropdown-toggle href="javascript:void(0)">{{currentUser.model.email}}<span class="caret"></span></a>

@@ -13,5 +13,7 @@ angular
         reminderUpdated: "Reminder updated",
         reminderDeleted: "Reminder deleted",
         reminderUnSubscribed: "Reminder unsubscribed",
-        settings: "Settings"
+        settings: "Settings",
+        error404: "error-404",
+        error500: "error-500"
     });

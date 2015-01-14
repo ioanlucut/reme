@@ -18,18 +18,21 @@ angular
 
             .state("reminders", {
                 url: "/reminders",
+                templateUrl: 'app/reminders/partials/reminder/reminders.template.html',
+                abstract: true
+            })
+
+            // Regular case
+            .state("reminders.regular", {
+                url: "",
                 views: {
 
-                    '': {
-                        templateUrl: 'app/reminders/partials/reminder/reminders.html'
-                    },
-
-                    'create@reminders': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.create.html",
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
                         controller: "ReminderCtrl"
                     },
 
-                    'list@reminders': {
+                    'list': {
                         templateUrl: "app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
@@ -41,5 +44,75 @@ angular
                     }
                 },
                 title: "Reminders - Reme.io"
-            });
+            })
+
+            // Review case
+            .state("reminders.review", {
+                url: "/review/{reminderId}",
+                views: {
+
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        controller: "ReminderAutoEditCtrl",
+                        resolve: {
+                            reminderToReview: function ($stateParams, $q, $state, ReminderService) {
+                                var deferred = $q.defer();
+
+                                ReminderService
+                                    .getDetails($stateParams.reminderId)
+                                    .then(function (response) {
+                                        deferred.resolve(response);
+
+                                        return response;
+                                    })
+                                    .catch(function (response) {
+
+                                        $state.go("reminders.regular");
+                                        return response;
+                                    });
+
+                                return deferred.promise;
+                            }
+                        }
+
+                    },
+
+                    'list': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        controller: "ReminderListCtrl",
+                        resolve: {
+                            pastAndUpcomingReminders: function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
+                            }
+                        }
+                    }
+                },
+                title: "Preview reminder - Reme.io"
+            })
+
+            // Opened modal
+            .state("reminders.opened", {
+                url: "/opened",
+                views: {
+
+                    'action': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        controller: "ReminderAutoOpenCtrl"
+                    },
+
+                    'list': {
+                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        controller: "ReminderListCtrl",
+                        resolve: {
+                            pastAndUpcomingReminders: function (ReminderService) {
+                                return ReminderService
+                                    .getAllRemindersGrouped();
+                            }
+                        }
+                    }
+                },
+                title: "Preview reminder - Reme.io"
+            })
+
     }]);
