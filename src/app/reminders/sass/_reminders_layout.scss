@@ -40,6 +40,7 @@
   margin-bottom: 15px;
   position: relative;
   background-color: $white;
+  @include transition(all 0.3s);
 
   &.reminder--owner:hover {
     cursor: pointer;
@@ -88,6 +89,10 @@
       }
     }
   }
+}
+
+.reminder__title {
+  font-weight: bold;
 }
 
 .reminder__title--highlighted {
