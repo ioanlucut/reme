@@ -46,7 +46,9 @@ module.exports = function (grunt) {
                     "bower_components/ladda/js/ladda.js",
                     "bower_components/angular-ladda/src/angular-ladda.js",
                     "bower_components/chosen/chosen.jquery.js",
-                    "bower_components/angular-chosen-localytics/chosen.js"
+                    "bower_components/angular-chosen-localytics/chosen.js",
+                    "bower_components/bootstrap/js/collapse.js",
+                    "bower_components/bootstrap/js/dropdown.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
