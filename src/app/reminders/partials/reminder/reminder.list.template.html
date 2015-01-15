@@ -15,9 +15,7 @@
      ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
 
     <!--Reminder title-->
-    <div class="reminder__title">
-        {{reminder.model.text}}
-    </div>
+    <div class="reminder__title" ng-bind-html="reminder.model.text | highlightSearch:searchByText"></div>
 
     <!--Reminder edit/delete-->
     <div class="reminder__menu">
