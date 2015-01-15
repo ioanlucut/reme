@@ -1,8 +1,15 @@
 @media (max-width: $screen-phone) {
 
   .error__sections {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+    border: solid 3px white;
+
+    h1 {
+      font-size: 26px;
+    }
   }
 
   .error__sections__heading {
