@@ -27,8 +27,12 @@
   }
 }
 
+.reminder__menu {
+  z-index: 99999;
+}
+
 .reminder {
-  border: solid 0px #FFFFFF;
+  border: solid 0 $white;
   border-radius: 3px;
   width: 100%;
   height: 60px;
