@@ -7,6 +7,8 @@
   min-height: 330px;
   max-width: $screen-phone;
   color: $white;
+  border: solid 8px white;
+  border-radius: 3px;
 }
 
 .error__sections__heading {
@@ -33,8 +35,13 @@
   margin-bottom: 20px;
 }
 
-.error__sections__home {
+.error__sections__link {
   display: block;
   font-size: 16px;
   text-decoration: underline;
+  color: white;
+
+  &:hover {
+    color: lighten($brand-primary, 30%);
+  }
 }
