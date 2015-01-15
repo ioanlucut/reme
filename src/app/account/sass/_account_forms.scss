@@ -17,6 +17,17 @@
   min-height: $container-reminders-height;
 }
 
+.account__section__terms {
+  margin-left: -50px;
+  margin-right: -50px;
+  margin-top: 20px;
+  font-size: 12px;
+}
+
+.account__section__terms__link {
+  display: inline-block;
+}
+
 .link--lg {
   display: block;
   margin-top: 40px;
