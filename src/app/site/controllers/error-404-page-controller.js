@@ -3,10 +3,15 @@
  */
 angular
     .module("common")
-    .controller("Error404PageCtrl", function (MIXPANEL_EVENTS) {
+    .controller("Error404PageCtrl", function ($scope, $controller, MIXPANEL_EVENTS) {
 
         /**
-         * Track event.
+         * Inherit from this controller
          */
-        mixpanel.track(MIXPANEL_EVENTS.error404);
+        $controller('AbstractErrorPageCtrl', { $scope: $scope });
+
+        /**
+         * Track error event
+         */
+        $scope.trackErrorEvent(MIXPANEL_EVENTS.error404);
     });
