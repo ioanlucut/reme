@@ -3,18 +3,17 @@
 .account__sections {
   position: relative;
   width: auto;
-  max-width: 300px;
-  margin: 120px auto 0;
+  max-width: 400px;
+  margin: 170px auto 0;
   text-align: center;
+  padding: 50px;
+  background: white;
+  border-radius: 3px;
 }
 
 .account__sections--request-registration {
   max-width: 500px;
   margin: 10px auto 0;
-}
-
-.account__sections--settings {
-  min-height: $container-reminders-height;
 }
 
 .account__section__terms {
@@ -89,7 +88,7 @@
   border-radius: $border-radius-small;
   font-size: $font-size-medium;
   height: $form-height;
-  width: 300px;
+  width: 100%;
   text-transform: uppercase;
 }
 
