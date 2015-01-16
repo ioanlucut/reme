@@ -39,7 +39,7 @@
         </div>
     </form>
 
-    <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password.</a>
+    <a href="#" ng-click="ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)">Change password</a>
 </div>
 
 <!-- Update password section -->
@@ -63,19 +63,19 @@
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="password" placeholder="Old password" name="oldPassword" ng-model="updatePasswordData.oldPassword" auto-focus required />
-                    <span class="help-message" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Your old password is mandatory.</span>
+                    <span class="help-message" ng-if="updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted">Please enter your old password.</span>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="password" placeholder="New password" name="newPassword" ng-model="updatePasswordData.newPassword" required />
-                    <span class="help-message" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
+                    <span class="help-message" ng-if="updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted">Please enter a new password.</span>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="password" placeholder="New password confirmation" name="newPasswordConfirmation" ng-model="updatePasswordData.newPasswordConfirmation" required />
-                    <span class="help-message" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted">Your confirm password is mandatory.</span>
+                    <span class="help-message" ng-if="updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted">Please confirm your new password.</span>
                 </div>
             </div>
 
