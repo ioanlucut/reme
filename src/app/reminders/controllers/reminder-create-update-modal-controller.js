@@ -33,7 +33,7 @@ angular
          * Minimum date to create reminder.
          * @type {Date}
          */
-        $scope.minDate = new Date();
+        $scope.minDate = moment().hours(0).minutes(0).seconds(0);
 
         /**
          * Reminder examples pool

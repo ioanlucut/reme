@@ -19,13 +19,13 @@
                 <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" auto-focus required />
                     <span class="help-message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}">
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
                     <span class="help-message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="account__controls__form-groups--medium-offset">
 
                     <!-- Form group -->
-                    <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
+                    <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
                         <input class="form-control form-control--account" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
 
                         <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
@@ -54,6 +54,11 @@
             </div>
         </form>
 
+    </div>
+
+    <div class="account__section__terms">
+        * By singing up you agree to our
+        <a href="javascript:void(0)" ui-sref="privacy" class="account__section__terms__link">Terms and Privacy policy</a>
     </div>
 
 </div>

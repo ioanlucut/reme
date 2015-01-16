@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+.home__signup__sections__section--success {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 0;
+  text-align: center;
+  border-radius: 3px;
+}
+
 .home__signup__sections__section__controls {
   text-align: center;
 }
@@ -83,7 +91,7 @@
 
 .home__signup__sections__section__submitted-message {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   line-height: 20px;
   font-weight: 300;
   font-size: $font-size-base;

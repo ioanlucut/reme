@@ -20,3 +20,11 @@
     z-index: 99;
   }
 }
+
+@media (max-width: 360px) {
+
+  .account__section__terms {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

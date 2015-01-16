@@ -29,18 +29,7 @@ angular
                     if ( !text ) return;
 
                     // Parse the string with SugarJS (http://sugarjs.com/)
-                    var date;
-                    switch ( attrs.prefer ) {
-                        case "past":
-                            date = Date.past(text);
-                            break;
-                        case "future":
-                            date = Date.future(text);
-                            break;
-                        default:
-                            date = Date.create(text);
-                            break;
-                    }
+                    var date = Date.create(text);
                     if ( !date.isValid() ) return;
 
                     // Make sure date limits are respected
@@ -63,7 +52,7 @@ angular
                      * We want to ignore set time in the time pickerr.
                      * @type {boolean}
                      */
-                    date.ignoreSetTime = true;
+                    date.isDateSetFromNlpParser = true;
 
                     scope.date = date;
                 });

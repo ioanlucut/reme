@@ -33,7 +33,8 @@ angular
                         ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePasswordSuccessfully);
                     })
                     .catch(function (response) {
-                        $scope.updatePasswordForm.$invalid = true;
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
                     });

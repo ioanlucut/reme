@@ -62,7 +62,8 @@ angular
                             });
                     })
                     .catch(function () {
-                        $scope.signUpForm.$invalid = true;
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });

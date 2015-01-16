@@ -35,6 +35,13 @@ angular
                 scope.searchByText = "";
 
                 /**
+                 * Tells if the search by is activated;
+                 */
+                scope.isSearchByActivated = function () {
+                    return scope.searchByText !== "" && !_.isUndefined(scope.searchByText);
+                };
+
+                /**
                  * Is loading more reminders flag.
                  * @type {boolean}
                  */
