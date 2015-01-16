@@ -1,3 +1,4 @@
+
 .header-home {
   position: fixed;
   left: 0;
@@ -63,18 +64,4 @@
       }
     }
   }
-}
-
-.btn--login,
-.btn--logout {
-  @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
-  height: $form-height-xs;
-  width: 90px;
-}
-
-.btn--to-reminders {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-  border-radius: $border-radius-small;
-  height: $form-height-xs;
-  width: 156px;
 }
