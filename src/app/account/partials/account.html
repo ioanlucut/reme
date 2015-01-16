@@ -20,13 +20,13 @@
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}">
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || badPostSubmitResponse)}">
                         <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" auto-focus required />
                         <span class="help-message" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}">
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || badPostSubmitResponse)}">
                         <input class="form-control form-control--account" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
                         <span class="help-message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your password is mandatory.</span>
                     </div>
