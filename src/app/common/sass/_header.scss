@@ -31,6 +31,12 @@
   }
 }
 
+.navbar--home {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 70px;
+}
+
 .navbar--white .navbar-nav > li > a {
   color: lighten($brand-primary, 10%);
 
@@ -45,6 +51,10 @@
   max-width: $container-reminders-width;
   margin: 0 auto;
   width: 100%;
+}
+
+.navbar__wrapper--home {
+  max-width: $container-home-width;
 }
 
 .navbar__wrapper__feedback {
@@ -88,4 +98,35 @@
     opacity: 0.9;
   }
 
+}
+
+.btn__wrapper {
+  margin-right: 20px;
+  min-width: 200px;
+  position: relative;
+
+  a {
+    position: absolute;
+    max-height: 34px;
+    display: inline-block;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.btn--login,
+.btn--logout {
+  @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+  height: $form-height-xs;
+  width: 90px;
+}
+
+.btn--to-reminders {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  border-radius: $border-radius-small;
+  height: $form-height-xs;
+  width: 156px;
 }
