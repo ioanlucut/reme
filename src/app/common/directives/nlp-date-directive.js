@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("nlpDate", function ($rootScope) {
+    .directive("nlpDate", function ($rootScope, DATE_SOURCE) {
         return {
             require: 'ngModel',
             scope: {
@@ -49,11 +49,15 @@ angular
                     }
 
                     /**
-                     * We want to ignore set time in the time pickerr.
+                     * Set date source.
                      * @type {boolean}
                      */
-                    date.isDateSetFromNlpParser = true;
+                    date[DATE_SOURCE.isFromNlp] = true;
 
+                    /**
+                     * Set the computed date
+                     * @type {text}
+                     */
                     scope.date = date;
                 });
             }
