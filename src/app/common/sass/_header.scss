@@ -8,82 +8,129 @@
   }
 }
 
-.header {
+.navbar__link {
+  color: lighten($brand-primary, 10%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 20%)
+  }
+}
+
+.navbar--white {
   background-color: $white;
-  padding: 0 15px;
-  height: $header-height;
-  line-height: $header-height;
+  border-radius: 0;
 
-  .header__wrapper {
-    @include clearfix;
-
-    max-width: $container-home-width;
-    width: 100%;
-    margin: 0 auto;
-
-    .header__wrapper__logo {
-      float: left;
-      color: $brand-primary;
-      display: block;
-    }
-
-    .header__wrapper__brand {
-      display: block;
-      float: left;
-
-      .header__wrapper__brand__logo {
-        $logo-size: 40px;
-        background: url("../assets/img/logo.svg") no-repeat top left;
-        background-size: contain;
-        display: inline-block;
-        vertical-align: top;
-        width: 25px;
-        height: 25px;
-        margin-left: 20px;
-        text-indent: -9999px;
-        position: relative;
-        @include translate(0, ($header-home-height/2)-($logo-size/2)-3); //Added -3 for pixel-perfect positioning :)
-      }
-
-      .header__wrapper__brand__text {
-        color: $brand-primary;
-        font-size: $font-size-large;
-        margin-left: 5px;
-      }
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
-    .header__wrapper__feedback {
-      display: block;
-      float: right;
-      margin-right: 30px;
-      padding-left: 20px;
-      position: relative;
-
-      span {
-        vertical-align: middle;
-      }
-    }
-
-    .header__wrapper__menu {
-      float: right;
-      position: relative;
-
-      &__navbar {
-        list-style: none;
-
-        li {
-          display: inline-block;
-          margin-right: 20px;
-
-          &.narrow {
-            margin-right: 10px;
-          }
-        }
-      }
+  .navbar--white .navbar-nav > .open > a {
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent;
     }
   }
 }
+
+.navbar--home {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 70px;
+}
+
+.navbar--white .navbar-nav > li > a {
+  color: lighten($brand-primary, 10%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 20%)
+  }
+}
+
+.navbar__wrapper {
+  max-width: $container-reminders-width;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.navbar__wrapper--home {
+  max-width: $container-home-width;
+}
+
+.navbar__wrapper__feedback {
+  display: block;
+  margin-right: 30px;
+  padding-left: 20px;
+  position: relative;
+
+  span {
+    vertical-align: middle;
+  }
+}
+
+.navbar__wrapper__brand {
+  display: block;
+  position: relative;
+  padding-left: 50px;
+
+  .navbar__wrapper__brand__logo {
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .navbar__wrapper__brand__text {
+    color: $brand-primary;
+    font-size: $font-size-large;
+    margin-left: 5px;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+}
+
+.navbar--white .navbar-nav > li {
+
+  &.btn__wrapper {
+    margin-right: 20px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+
+    & > a {
+      &.btn--login,
+      &.btn--logout {
+        @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+        height: $form-height-xs;
+        width: 90px;
+      }
+
+      &.btn--to-reminders {
+        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        border-radius: $border-radius-small;
+        height: $form-height-xs;
+        width: 156px;
+      }
+
+      &.btn--login,
+      &.btn--logout,
+      &.btn--to-reminders {
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding: 6px 12px;
+      }
+    }
+
+  }
+}
+

@@ -47,8 +47,8 @@ angular
             })
 
             // Review case
-            .state("reminders.review", {
-                url: "/review/{reminderId}",
+            .state("reminders.update", {
+                url: "/{reminderId}/update",
                 views: {
 
                     'action': {
@@ -92,8 +92,8 @@ angular
             })
 
             // Opened modal
-            .state("reminders.opened", {
-                url: "/opened",
+            .state("reminders.new", {
+                url: "/new",
                 views: {
 
                     'action': {

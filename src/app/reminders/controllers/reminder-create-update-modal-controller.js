@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ReminderModalCtrl", function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS, DATE_SOURCE) {
 
         /**
          * Alert identifier
@@ -22,6 +22,13 @@ angular
          * Flag which says whether reminder is new or not.
          */
         $scope.isNew = $scope.reminder.isNew();
+
+        /**
+         * Set the date source - if is update action.
+         */
+        if ( !$scope.isNew ) {
+            $scope.reminder.model.dueOn[DATE_SOURCE.isFromUpdateAction] = true;
+        }
 
         /**
          * Flag which represents whether

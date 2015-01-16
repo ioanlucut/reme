@@ -4,3 +4,21 @@
     width: 100%;
   }
 }
+
+@media (max-width: 768px) {
+
+  .navbar--white .navbar-nav > li {
+
+    &.btn__wrapper {
+      margin-right: 0;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      & > a {
+        width: 100% !important;
+        text-align: center;
+      }
+
+    }
+  }
+}

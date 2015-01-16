@@ -50,7 +50,7 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
         <!-- Title -->
-        <h1 class="account__title">Get started!</h1>
+        <h1 class="account__title">Let's get you started!</h1>
 
         <!-- Sign-up form -->
         <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error>
@@ -90,13 +90,13 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
         <!-- Title -->
-        <h1 class="account__title">Email has been sent!</h1>
+        <h1 class="account__title">Yey! Email has been sent!</h1>
 
         <!-- Explain -->
-        <span class="account__explain">We've sent you an email with the instructions on how to confirm your registration.</span>
+        <span class="account__explain">Please check your email to finish your account creation.</span>
 
         <!-- Button container -->
-        <a href="#" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+        <a href="#" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">I think I've misspelled my email</a>
     </div>
 
     <!-- Recover password section -->
@@ -149,10 +149,10 @@
         <h1 class="account__title">Email has been sent!</h1>
 
         <!-- Explain -->
-        <span class="account__explain">We've sent you an email with the instructions on how to reset your password.</span>
+        <span class="account__explain">Please check your email. We've sent you a link to reset your password.</span>
 
         <!-- Button container -->
-        <a href="#" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+        <a href="#" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Actually I remember the password</a>
     </div>
 
 </div>
