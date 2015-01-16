@@ -38,7 +38,8 @@ angular
                         StatesHandler.goToReminders();
                     })
                     .catch(function () {
-                        $scope.loginForm.$invalid = true;
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
                     });
