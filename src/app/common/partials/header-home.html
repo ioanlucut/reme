@@ -1,26 +1,38 @@
-<header class="header-home">
-    <div class="header__wrapper">
+<nav class="navbar navbar-default navbar--white navbar--home navbar-fixed-top">
 
-        <a class="header__wrapper__brand" href="javascript:void(0)" ui-sref="home">
-            <span class="header__wrapper__brand__logo">logo</span>
-            <span class="header__wrapper__brand__text">Reme</span>
-        </a>
+    <div class="navbar__wrapper navbar__wrapper--home">
 
-        <div class="header__wrapper__menu">
-            <ul class="header__wrapper__menu__navbar">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-target">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar__wrapper__brand" href="javascript:void(0)" ui-sref="reminders.regular">
+                <span class="navbar__wrapper__brand__logo"></span>
+                <span class="navbar__wrapper__brand__text">Reme</span>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-target">
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="javascript:void(0)" ui-sref="about">About</a>
                 </li>
-                <li ng-if="! currentUser.isAuthenticated()">
+                <li ng-if="! currentUser.isAuthenticated()" class="btn__wrapper">
                     <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Login</a></li>
-                <li class="narrow" ng-if="currentUser.isAuthenticated()">
+                <li class="narrow btn__wrapper" ng-if="currentUser.isAuthenticated()">
                     <a class="btn btn--to-reminders" href="javascript:void(0)" ui-sref="reminders.regular">Go to my reminders</a>
                 </li>
-                <li ng-if="currentUser.isAuthenticated()">
+                <li class="btn__wrapper" ng-if="currentUser.isAuthenticated()">
                     <a class="btn btn--logout" href="javascript:void(0)" ui-sref="account:logout">Logout</a>
                 </li>
             </ul>
         </div>
 
     </div>
-</header>
+
+</nav>
