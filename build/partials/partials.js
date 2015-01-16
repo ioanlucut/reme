@@ -2,12 +2,28 @@ angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
-    "Page not found!");
+    "<div class=\"error__sections\">\n" +
+    "    <h1 class=\"error__sections__heading\">Hmm... looks like a 404</h1>\n" +
+    "\n" +
+    "    <div class=\"error__sections__reason\">We can't really impress you since that page doesn't actually exist.</div>\n" +
+    "    <div class=\"error__sections__reason error__sections__reason--last\">Probably a typo or the page may have moved.</div>\n" +
+    "\n" +
+    "    <a class=\"error__sections__link\" href=\"#\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
+    "\n" +
+    "</div>");
 }]);
 
 angular.module("app/site/partials/500.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/500.html",
-    "Temporary problem!");
+    "<div class=\"error__sections\">\n" +
+    "    <h1 class=\"error__sections__heading\">Oops... you found a 500</h1>\n" +
+    "\n" +
+    "    <div class=\"error__sections__reason\">Nothing you did. It seems like an internal problem on the server.</div>\n" +
+    "    <div class=\"error__sections__reason error__sections__reason--last\">If this happens again please let us know at <a class=\"link-primary\" href=\"mailto:hello@reme.io\">hello@reme.io</a></div>\n" +
+    "\n" +
+    "    <a class=\"error__sections__link\" href=\"#\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
+    "\n" +
+    "</div>");
 }]);
 
 angular.module("app/site/partials/about.html", []).run(["$templateCache", function($templateCache) {
@@ -62,10 +78,10 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                </div>\n" +
     "\n" +
     "                <!-- Request registration email sent section -->\n" +
-    "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
+    "                <div class=\"home__signup__sections__section home__signup__sections__section--success alert alert-success\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
     "                    <!-- Title -->\n" +
-    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thank you for signing up!</h1>\n" +
+    "                    <h1 class=\"home__signup__sections__section__submitted-title\">Thanks for signing up!</h1>\n" +
     "\n" +
     "                    <!-- Explain -->\n" +
     "                    <span class=\"home__signup__sections__section__submitted-message\">\n" +
@@ -100,7 +116,42 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
 
 angular.module("app/site/partials/privacy.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/privacy.html",
-    "PRIVACY");
+    "<div class=\"centered-section-reminders\">\n" +
+    "    <a class=\"link-primary\" href=\"#\" ng-click=\"goToHomePage()\">< Go back to the homepage</a>\n" +
+    "    <h1>Terms of use</h1>\n" +
+    "    <ul>\n" +
+    "        <li>Reme is a tool created in the sole purpose of helping people get organized by creating reminders which will be sent to the provided e-mail address(es) at a specific date and time. Reme is not responsible for the content entered by the user.</li>\n" +
+    "        <li>Reme uses e-mail as the only notification method. Reme is not responsible for missed dead-lines, appointments or other time-critical events.</li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <h3>What personal data do we collect?</h3>\n" +
+    "    <ul>\n" +
+    "        <li>By registering or authenticating, you allow Reme to identify you and give you access to its services.</li>\n" +
+    "        <li>We store your name and email address used for registration.</li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <h3>Third party service that use personal data</h3>\n" +
+    "    <ul>\n" +
+    "        <li>Mandrill (from Mailchimp) - the mail server used to send the reminders</li>\n" +
+    "        <li>Mixpanel - used to track actions with the purpose of improving the application&#39;s user experience</li>\n" +
+    "        <li>Reamaze - used to manage the conversations with our users</li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <h1>Privacy Policy</h1>\n" +
+    "    <ul>\n" +
+    "        <li>The information Reme stores is the subject of the reminder and the e-mail address(es) the user enters for the reminder recipient.</li>\n" +
+    "        <li>We use local storage to save reminder related data for better user-experience. We do not collect anonymous data of any kind.</li>\n" +
+    "        <li>The only e-mail Reme will send to the provided address(es) as recipients will be the reminder which the user creates.</li>\n" +
+    "        <li>We will only use your email address(es) to send the reminders you create or for Reme related notifications.</li>\n" +
+    "        <li>We will not use your email address to send newsletters or advertising that you didn&#39;t subscribe to.</li>\n" +
+    "        <li>We will not share your e-mail address or the e-mail address(es) you used for other recipients with 3rd party entities in the scope of advertising or spam.</li>\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <p>We may change the Privacy policy and/or the Terms of use without notice.</p>\n" +
+    "\n" +
+    "    <h3>Contact</h3>\n" +
+    "    <p>Please feel free to contact us at hello@reme.io for any questions or concerns you may have regarding the terms of use or the privacy policy.</p>\n" +
+    "</div>");
 }]);
 
 angular.module("app/reminders/partials/privacy.html", []).run(["$templateCache", function($templateCache) {
@@ -175,15 +226,18 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
-    "<div class=\"reminder reminder--show\"\n" +
+    "<div class=\"reminder\"\n" +
     "     ng-click=\"openUpdateReminderModalService(reminder, $index)\"\n" +
-    "     ng-class=\"{'reminder--first': $first, 'reminder--removed': removedReminderIndex === $index, 'reminder--loaded': $index > defaultRemindersLimit - 1 , 'reminder--last': $index === remindersLimit - 1, 'reminder--owner': reminder.isCreatedBy(currentUserEmail) }\"\n" +
+    "     ng-class=\"{ 'reminder--first': $first,\n" +
+    "                 'reminder--removed': removedReminderIndex === $index,\n" +
+    "                 'reminder--loaded': $index > defaultRemindersLimit - 1 ,\n" +
+    "                 'reminder--last': $index === remindersLimit - 1,\n" +
+    "                 'reminder--filter-activated': isSearchByActivated(),\n" +
+    "                 'reminder--owner': reminder.isCreatedBy(currentUserEmail) }\"\n" +
     "     ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders\">\n" +
     "\n" +
     "    <!--Reminder title-->\n" +
-    "    <div class=\"reminder__title\">\n" +
-    "        {{reminder.model.text}}\n" +
-    "    </div>\n" +
+    "    <div class=\"reminder__title\" ng-bind-html=\"reminder.model.text | highlightSearch:searchByText\"></div>\n" +
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
@@ -222,7 +276,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "</div>\n" +
     "\n" +
-    "<div ng-if=\"filteredReminders.length >= defaultRemindersLimit && isStillRemindersToBeLoaded()\" class=\"load-more-reminders reminder--show load-more-reminders--hide\">\n" +
+    "<div ng-if=\"filteredReminders.length >= defaultRemindersLimit && isStillRemindersToBeLoaded()\" class=\"load-more-reminders\">\n" +
     "    <button type=\"submit\" ladda=\"isLoadingMore\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--load-more\" ng-click=\"loadMoreReminders()\">LOAD MORE</button>\n" +
     "</div>");
 }]);
@@ -287,7 +341,7 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" prefer=\"future\" auto-focus=\"isModalOpened\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" auto-focus=\"isModalOpened\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder info-->\n" +
@@ -365,13 +419,13 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}\">\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.email.$invalid || badPostSubmitResponse)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"email\" name=\"email\" ng-model=\"loginData.email\" auto-focus required />\n" +
     "                        <span class=\"help-message\" ng-if=\"loginForm.email.$invalid && loginForm.$submitted\">Your email address is mandatory.</span>\n" +
     "                    </div>\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}\">\n" +
+    "                    <div class=\"form-group\" ng-class=\"{'has-error': loginForm.$submitted && (loginForm.password.$invalid || badPostSubmitResponse)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"password\" name=\"password\" ng-model=\"loginData.password\" required />\n" +
     "                        <span class=\"help-message\" ng-if=\"loginForm.password.$invalid && loginForm.$submitted\">Your password is mandatory.</span>\n" +
     "                    </div>\n" +
@@ -537,13 +591,13 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
     "<div class=\"centered-section-account\">\n" +
     "    <tabset vertical=\"true\">\n" +
     "        <tab heading=\"Profile\">\n" +
-    "            <div class=\"account__sections account__sections--settings\" ui-view=\"profile\" profile-form-toggle></div>\n" +
+    "            <div class=\"account__sections\" ui-view=\"profile\" profile-form-toggle></div>\n" +
     "        </tab>\n" +
     "        <tab heading=\"Preferences\">\n" +
-    "            <div class=\"account__sections account__sections--settings\" ui-view=\"preferences\"></div>\n" +
+    "            <div class=\"account__sections\" ui-view=\"preferences\"></div>\n" +
     "        </tab>\n" +
     "        <tab heading=\"Billing\">\n" +
-    "            <div class=\"account__sections account__sections--settings\" ui-view=\"billing\"></div>\n" +
+    "            <div class=\"account__sections\" ui-view=\"billing\"></div>\n" +
     "        </tab>\n" +
     "    </tabset>\n" +
     "</div>\n" +
@@ -650,19 +704,19 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.oldPassword.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Old password\" name=\"oldPassword\" ng-model=\"updatePasswordData.oldPassword\" auto-focus required />\n" +
     "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.oldPassword.$invalid && updatePasswordForm.$submitted\">Your old password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPassword.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"newPassword\" ng-model=\"updatePasswordData.newPassword\" required />\n" +
     "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.newPassword.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || updatePasswordForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': updatePasswordForm.$submitted && (updatePasswordForm.newPasswordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"newPasswordConfirmation\" ng-model=\"updatePasswordData.newPasswordConfirmation\" required />\n" +
     "                    <span class=\"help-message\" ng-if=\"updatePasswordForm.newPasswordConfirmation.$invalid && updatePasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
@@ -736,13 +790,13 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
     "                <!-- Form groups -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"First Name\" name=\"firstName\" ng-model=\"signUpData.firstName\" auto-focus required />\n" +
     "                    <span class=\"help-message\" ng-if=\"signUpForm.firstName.$invalid && signUpForm.$submitted\">Please tell us your First Name.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"text\" placeholder=\"Last Name\" name=\"lastName\" ng-model=\"signUpData.lastName\" required />\n" +
     "                    <span class=\"help-message\" ng-if=\"signUpForm.lastName.$invalid && signUpForm.$submitted\">Please tell us your Last Name.</span>\n" +
     "                </div>\n" +
@@ -751,7 +805,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "                <div class=\"account__controls__form-groups--medium-offset\">\n" +
     "\n" +
     "                    <!-- Form group -->\n" +
-    "                    <div class=\"form-group form-group--small-offset\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}\">\n" +
+    "                    <div class=\"form-group form-group--small-offset\" ng-class=\"{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}\">\n" +
     "                        <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"Choose a password\" name=\"password\" ng-model=\"signUpData.password\" required strong-password />\n" +
     "\n" +
     "                        <div class=\"help-message\" ng-messages=\"signUpForm.password.$error\" ng-if=\"signUpForm.$submitted\">\n" +
@@ -771,6 +825,11 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"account__section__terms\">\n" +
+    "        * By singing up you agree to our\n" +
+    "        <a href=\"javascript:void(0)\" ui-sref=\"privacy\" class=\"account__section__terms__link\">Terms and Privacy policy</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -824,13 +883,13 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "            <div class=\"account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.password.$invalid || resetPasswordForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.password.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password\" name=\"password\" ng-model=\"resetPasswordData.password\" auto-focus required />\n" +
     "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.password.$invalid && resetPasswordForm.$submitted\">Your new password is mandatory.</span>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.passwordConfirmation.$invalid || resetPasswordForm.$invalid)}\">\n" +
+    "                <div class=\"form-group\" ng-class=\"{'has-error': resetPasswordForm.$submitted && (resetPasswordForm.passwordConfirmation.$invalid || badPostSubmitResponse)}\">\n" +
     "                    <input class=\"form-control form-control--account\" type=\"password\" placeholder=\"New password confirmation\" name=\"passwordConfirmation\" ng-model=\"resetPasswordData.passwordConfirmation\" required />\n" +
     "                    <span class=\"help-message\" ng-if=\"resetPasswordForm.passwordConfirmation.$invalid && resetPasswordForm.$submitted\">Your confirm password is mandatory.</span>\n" +
     "                </div>\n" +
@@ -897,9 +956,9 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"#\">About</a></li>\n" +
-    "                        <li><a href=\"#\">Press kit</a></li>\n" +
-    "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\" ui-sref=\"about\">About</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\">Press kit</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\" ui-sref=\"privacy\">Privacy and Terms</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
@@ -930,9 +989,9 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
-    "                        <li><a href=\"#\">About</a></li>\n" +
-    "                        <li><a href=\"#\">Press kit</a></li>\n" +
-    "                        <li><a href=\"#\">Privacy policy</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\" ui-sref=\"about\">About</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\">Press kit</a></li>\n" +
+    "                        <li><a href=\"javascript:void(0)\" ui-sref=\"privacy\">Privacy and Terms</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
@@ -961,7 +1020,9 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "\n" +
     "        <div class=\"header__wrapper__menu\">\n" +
     "            <ul class=\"header__wrapper__menu__navbar\">\n" +
-    "                <li><a href=\"#\">About</a></li>\n" +
+    "                <li>\n" +
+    "                    <a href=\"javascript:void(0)\" ui-sref=\"about\">About</a>\n" +
+    "                </li>\n" +
     "                <li ng-if=\"! currentUser.isAuthenticated()\">\n" +
     "                    <a class=\"btn btn--login\" href=\"javascript:void(0)\" ui-sref=\"account\">Login</a></li>\n" +
     "                <li class=\"narrow\" ng-if=\"currentUser.isAuthenticated()\">\n" +
