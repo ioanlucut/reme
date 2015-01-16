@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
 /*$line-height-base: 1.428571429 !default;*/
 /*$text-color: $text-color-base;*/
@@ -4908,7 +4908,7 @@ html {
 
 /* line 22, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_scaffolding.scss */
 body {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #333333;
@@ -5001,7 +5001,7 @@ hr {
 /* line 9, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
@@ -9557,29 +9557,29 @@ input[type="button"].account__button,
 }
 /* line 383, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #bdb3d5;
 }
 /* line 385, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #a192c3;
   background-color: transparent;
 }
 /* line 392, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-text {
-  color: #777;
+  color: #8471B1;
 }
 /* line 397, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: #bdb3d5;
 }
 /* line 400, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #333;
+  color: #a192c3;
   background-color: transparent;
 }
 /* line 407, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
+  color: #a192c3;
   background-color: #e7e7e7;
 }
 /* line 415, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
@@ -9607,21 +9607,21 @@ input[type="button"].account__button,
 /* line 444, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   background-color: #e7e7e7;
-  color: #555;
+  color: #a192c3;
 }
 @media (max-width: 767px) {
   /* line 455, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #777;
+    color: #bdb3d5;
   }
   /* line 457, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #333;
+    color: #a192c3;
     background-color: transparent;
   }
   /* line 464, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #555;
+    color: #a192c3;
     background-color: #e7e7e7;
   }
   /* line 472, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
@@ -9632,11 +9632,11 @@ input[type="button"].account__button,
 }
 /* line 488, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-link {
-  color: #777;
+  color: #bdb3d5;
 }
 /* line 490, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-default .navbar-link:hover {
-  color: #333;
+  color: #a192c3;
 }
 
 /* line 499, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_navbar.scss */
@@ -12090,7 +12090,7 @@ a:active, a:focus {
   position: relative;
   width: auto;
   max-width: 400px;
-  margin: 170px auto 0;
+  margin: 100px auto 0;
   text-align: center;
   padding: 50px;
   background: white;
@@ -12131,7 +12131,7 @@ a:active, a:focus {
 
 /* line 41, ../../src/app/account/sass/_account_forms.scss */
 .account__title {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   line-height: 1.1;
   text-align: center;
   font-size: 36px;
@@ -12322,6 +12322,19 @@ textarea.form-control--account {
     width: 100%;
   }
 }
+@media (max-width: 768px) {
+  /* line 12, ../../src/app/common/sass/_header_responsive.scss */
+  .navbar--white .navbar-nav > li.btn__wrapper {
+    margin-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  /* line 17, ../../src/app/common/sass/_header_responsive.scss */
+  .navbar--white .navbar-nav > li.btn__wrapper > a {
+    width: 100% !important;
+    text-align: center;
+  }
+}
 /* line 1, ../../src/app/common/sass/_header.scss */
 .link--brand-bg {
   color: #a192c3;
@@ -12332,173 +12345,104 @@ textarea.form-control--account {
 }
 
 /* line 11, ../../src/app/common/sass/_header.scss */
-.header {
+.navbar__link {
+  color: #a192c3;
+}
+/* line 14, ../../src/app/common/sass/_header.scss */
+.navbar__link:hover, .navbar__link:active, .navbar__link:focus {
+  color: #bdb3d5;
+}
+
+/* line 21, ../../src/app/common/sass/_header.scss */
+.navbar--white {
   background-color: #fff;
-  padding: 0 15px;
-  height: 50px;
-  line-height: 50px;
+  border-radius: 0;
 }
-/* line 17, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper {
-  max-width: 960px;
-  width: 100%;
-  margin: 0 auto;
+/* line 26, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar--white .navbar-nav > .open > a:hover, .navbar--white .navbar--white .navbar-nav > .open > a:active, .navbar--white .navbar--white .navbar-nav > .open > a:focus {
+  background-color: transparent;
 }
-/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.header .header__wrapper:before, .header .header__wrapper:after {
-  content: " ";
-  display: table;
-}
-/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.header .header__wrapper:after {
-  clear: both;
-}
-/* line 24, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__logo {
-  float: left;
-  color: #8471B1;
-  display: block;
-}
-/* line 30, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__brand {
-  display: block;
-  float: left;
-}
+
 /* line 34, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__brand .header__wrapper__brand__logo {
-  background: url("../assets/img/logo.svg") no-repeat top left;
-  background-size: contain;
-  display: inline-block;
-  vertical-align: top;
-  width: 25px;
-  height: 25px;
-  margin-left: 20px;
-  text-indent: -9999px;
-  position: relative;
-  -webkit-transform: translate(0, 14px);
-  -ms-transform: translate(0, 14px);
-  transform: translate(0, 14px);
+.navbar--home {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 70px;
 }
-/* line 48, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__brand .header__wrapper__brand__text {
-  color: #8471B1;
-  font-size: 20px;
-  margin-left: 5px;
+
+/* line 40, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li > a {
+  color: #a192c3;
 }
-/* line 54, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__brand:hover {
-  opacity: 0.9;
+/* line 43, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li > a:hover, .navbar--white .navbar-nav > li > a:active, .navbar--white .navbar-nav > li > a:focus {
+  color: #bdb3d5;
 }
-/* line 59, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__feedback {
+
+/* line 50, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* line 56, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper--home {
+  max-width: 960px;
+}
+
+/* line 60, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper__feedback {
   display: block;
-  float: right;
   margin-right: 30px;
   padding-left: 20px;
   position: relative;
 }
 /* line 66, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__feedback span {
+.navbar__wrapper__feedback span {
   vertical-align: middle;
 }
-/* line 71, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu {
-  float: right;
-  position: relative;
-}
-/* line 75, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu__navbar {
-  list-style: none;
-}
-/* line 78, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu__navbar li {
-  display: inline-block;
-  margin-right: 20px;
-}
-/* line 82, ../../src/app/common/sass/_header.scss */
-.header .header__wrapper .header__wrapper__menu__navbar li.narrow {
-  margin-right: 10px;
-}
 
-/* line 1, ../../src/app/common/sass/_header_home.scss */
-.header-home {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 1000;
-  margin: 0;
-  height: 74px;
-  line-height: 74px;
-  background-color: #fff;
-  transform: translate3d(0, 0, 0);
-}
-/* line 13, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper {
-  max-width: 960px;
-  width: 100%;
-  margin: 0 auto;
-}
-/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.header-home .header__wrapper:before, .header-home .header__wrapper:after {
-  content: " ";
-  display: table;
-}
-/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
-.header-home .header__wrapper:after {
-  clear: both;
-}
-/* line 20, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__brand {
+/* line 71, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper__brand {
   display: block;
-  float: left;
+  position: relative;
+  padding-left: 50px;
 }
-/* line 24, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__brand .header__wrapper__brand__logo {
+/* line 76, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper__brand .navbar__wrapper__brand__logo {
   background: url("../assets/img/logo.svg") no-repeat top left;
   background-size: contain;
-  display: inline-block;
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
   width: 40px;
   height: 40px;
-  margin-left: 20px;
-  text-indent: -9999px;
-  position: relative;
-  -webkit-transform: translate(0, 14px);
-  -ms-transform: translate(0, 14px);
-  transform: translate(0, 14px);
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-/* line 37, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__brand .header__wrapper__brand__text {
+/* line 90, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper__brand .navbar__wrapper__brand__text {
   color: #8471B1;
   font-size: 20px;
   margin-left: 5px;
 }
-/* line 43, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__brand:hover {
+/* line 96, ../../src/app/common/sass/_header.scss */
+.navbar__wrapper__brand:hover {
   opacity: 0.9;
 }
-/* line 48, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu {
-  float: right;
+
+/* line 104, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li.btn__wrapper {
+  margin-right: 20px;
+  height: 50px;
+  line-height: 50px;
   position: relative;
 }
-/* line 52, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar {
-  list-style: none;
-}
-/* line 55, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar li {
-  display: inline-block;
-  margin-right: 20px;
-}
-/* line 59, ../../src/app/common/sass/_header_home.scss */
-.header-home .header__wrapper .header__wrapper__menu__navbar li.narrow {
-  margin-right: 10px;
-}
-
-/* line 68, ../../src/app/common/sass/_header_home.scss */
-.btn--login,
-.btn--logout {
+/* line 111, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--login, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout {
   color: #8471B1;
   background-color: transparent;
   border: solid 2px #8471B1;
@@ -12507,23 +12451,16 @@ textarea.form-control--account {
   width: 90px;
 }
 /* line 42, ../../src/sass/_buttons.scss */
-.btn--login:hover, .btn--login:focus, .btn--login:active, .btn--login.active,
-.btn--logout:hover,
-.btn--logout:focus,
-.btn--logout:active,
-.btn--logout.active {
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--login:hover, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--login:focus, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--login:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--login.active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout:hover, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout:focus, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout.active {
   color: white;
   background-color: #8471B1;
 }
 /* line 49, ../../src/sass/_buttons.scss */
-.btn--login:active, .btn--login.active,
-.btn--logout:active,
-.btn--logout.active {
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--login:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--login.active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout.active {
   background-image: none;
 }
-
-/* line 75, ../../src/app/common/sass/_header_home.scss */
-.btn--to-reminders {
+/* line 118, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders {
   color: #fff;
   background-color: #8471B1;
   border-color: #8471B1;
@@ -12532,29 +12469,35 @@ textarea.form-control--account {
   width: 156px;
 }
 /* line 10, ../../src/sass/_mixins.scss */
-.btn--to-reminders:hover, .btn--to-reminders:focus, .btn--to-reminders:active, .btn--to-reminders.active {
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:hover, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:focus, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.active {
   color: #fff;
   background-color: #6e58a1;
   border-color: #6e58a1;
 }
 /* line 19, ../../src/sass/_mixins.scss */
-.open .btn--to-reminders.dropdown-toggle {
+.open .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.dropdown-toggle {
   color: #fff;
   background-color: #6e58a1;
   border-color: #6e58a1;
 }
 /* line 25, ../../src/sass/_mixins.scss */
-.btn--to-reminders:active, .btn--to-reminders.active {
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.active {
   background-image: none;
 }
 /* line 30, ../../src/sass/_mixins.scss */
-.open .btn--to-reminders.dropdown-toggle {
+.open .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.dropdown-toggle {
   background-image: none;
 }
 /* line 37, ../../src/sass/_mixins.scss */
-.btn--to-reminders.disabled, .btn--to-reminders.disabled:hover, .btn--to-reminders.disabled:focus, .btn--to-reminders.disabled:active, .btn--to-reminders.disabled.active, .btn--to-reminders[disabled], .btn--to-reminders[disabled]:hover, .btn--to-reminders[disabled]:focus, .btn--to-reminders[disabled]:active, .btn--to-reminders[disabled].active, fieldset[disabled] .btn--to-reminders, fieldset[disabled] .btn--to-reminders:hover, fieldset[disabled] .btn--to-reminders:focus, fieldset[disabled] .btn--to-reminders:active, fieldset[disabled] .btn--to-reminders.active {
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.disabled, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.disabled:hover, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.disabled:focus, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.disabled:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.disabled.active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders[disabled], .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders[disabled]:hover, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders[disabled]:focus, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders[disabled]:active, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders[disabled].active, fieldset[disabled] .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders, fieldset[disabled] .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:hover, fieldset[disabled] .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:focus, fieldset[disabled] .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders:active, fieldset[disabled] .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders.active {
   background-color: #8471B1;
   border-color: #8471B1;
+}
+/* line 125, ../../src/app/common/sass/_header.scss */
+.navbar--white .navbar-nav > li.btn__wrapper > a.btn--login, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--logout, .navbar--white .navbar-nav > li.btn__wrapper > a.btn--to-reminders {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  padding: 6px 12px;
 }
 
 /* line 1, ../../src/app/common/sass/_footer.scss */
