@@ -59,7 +59,6 @@
 
 .navbar__wrapper__feedback {
   display: block;
-  float: right;
   margin-right: 30px;
   padding-left: 20px;
   position: relative;
@@ -100,33 +99,38 @@
 
 }
 
-.btn__wrapper {
-  margin-right: 20px;
-  min-width: 200px;
-  position: relative;
+.navbar--white .navbar-nav > li {
 
-  a {
-    position: absolute;
-    max-height: 34px;
-    display: inline-block;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  &.btn__wrapper {
+    margin-right: 20px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+
+    & > a {
+      &.btn--login,
+      &.btn--logout {
+        @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+        height: $form-height-xs;
+        width: 90px;
+      }
+
+      &.btn--to-reminders {
+        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        border-radius: $border-radius-small;
+        height: $form-height-xs;
+        width: 156px;
+      }
+
+      &.btn--login,
+      &.btn--logout,
+      &.btn--to-reminders {
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding: 6px 12px;
+      }
+    }
+
   }
 }
 
-.btn--login,
-.btn--logout {
-  @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
-  height: $form-height-xs;
-  width: 90px;
-}
-
-.btn--to-reminders {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-  border-radius: $border-radius-small;
-  height: $form-height-xs;
-  width: 156px;
-}
