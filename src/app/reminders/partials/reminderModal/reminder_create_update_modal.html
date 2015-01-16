@@ -10,7 +10,7 @@
         <!--Reminder text-->
         <div class="form-group" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
             <label>Remind me to:</label>
-            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" prefer="future" auto-focus="isModalOpened" required />
+            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" auto-focus="isModalOpened" required />
         </div>
 
         <!--Reminder info-->
