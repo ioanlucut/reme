@@ -17,6 +17,7 @@ angular
                 windowClass: "modal-feedback",
                 resolve: {
                     reminder: function () {
+                        reminderToBeUpdated.model.dueOn.isDateSetFromUpdate = true;
                         return reminderToBeUpdated;
                     },
                     reminderIndex: function () {

@@ -1,7 +1,7 @@
 /* Timepicker popup */
 
 angular.module("common").
-    directive("timepickerPopup", function (DatesUtils) {
+    directive("timepickerPopup", function (DatesUtils, DATE_SOURCE) {
         return {
             require: "ngModel",
             scope: {
@@ -55,14 +55,14 @@ angular.module("common").
                 scope.$watch("date", function (date) {
 
                     // if is today and comes from nlp parser, let it be.
-                    if ( moment().diff(date, 'day') === 0 && date.isDateSetFromNlpParser ) {
+                    if ( moment().diff(date, 'day') === 0 && (date[DATE_SOURCE.isFromNlp] || date[DATE_SOURCE.isFromUpdateAction]) ) {
                         // skip
                     }
                     // if is today, set first valid time
                     else if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 && !date.isDateSetFromNlpParser ) {
+                    else if ( moment().diff(date, 'day') < 0 && !date[DATE_SOURCE.isFromNlp] ) {
                         scope.setTime(scope.times[0]);
                     }
 
