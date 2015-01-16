@@ -54,11 +54,15 @@ angular.module("common").
                 // Update selected index when date changes
                 scope.$watch("date", function (date) {
 
+                    // if is today and comes from nlp parser, let it be.
+                    if ( moment().diff(date, 'day') === 0 && date.isDateSetFromNlpParser ) {
+                        // skip
+                    }
                     // if is today, set first valid time
-                    if ( moment().diff(date, 'day') === 0 ) {
+                    else if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 && !date.ignoreSetTime ) {
+                    else if ( moment().diff(date, 'day') < 0 && !date.isDateSetFromNlpParser ) {
                         scope.setTime(scope.times[0]);
                     }
 
