@@ -51,7 +51,7 @@
   color: darken($brand-primary, 15%);
   display: table-cell;
   vertical-align: middle;
-  width: 180px;
+  width: $footer-home-height;
 
   ul li {
     height: 26px;

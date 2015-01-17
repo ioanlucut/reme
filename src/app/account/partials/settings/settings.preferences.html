@@ -17,8 +17,8 @@
             <div class="account__controls__form-groups account__controls__form-groups--last">
 
                 <!-- Form group -->
-                <div class="form-group" ng-class="{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}">
-                    <select chosen="{inherit_select_classes:true}" ng-options="timezone.key as timezone.value for timezone in timezones" ng-model="preferencesData.timezone" required> </select>
+                <div class="form-group form-group--timezone" ng-class="{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}">
+                    <select class="form-control" chosen="{inherit_select_classes:true}" ng-options="timezone.key as timezone.value for timezone in timezones" ng-model="preferencesData.timezone" required> </select>
                     <span class="help-message" ng-if="preferencesForm.timezone.$invalid && preferencesForm.$submitted">Please tell us your email.</span>
                 </div>
             </div>

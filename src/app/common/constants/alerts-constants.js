@@ -10,6 +10,7 @@ angular
         updatePassword: "updatePassword",
         validatePassword: "validatePassword",
         createUpdateReminder: "createUpdateReminder",
+        reminderList: "reminderList",
         updateProfile: "updateProfile",
         preferences: "preferences"
     });

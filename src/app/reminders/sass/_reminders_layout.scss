@@ -1,9 +1,12 @@
 .centered-section-reminders {
-  max-width: $container-reminders-width;
-  width: 96%;
-  margin: 0 auto;
-  min-height: $container-reminders-height;
   position: relative;
+  max-width: $container-reminders-width;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: $footer-home-height;
 }
 
 .form-group--search {
@@ -20,7 +23,7 @@
 
 .reminders__header {
   position: absolute;
-  right: 0;
+  right: 10px;
   height: 34px;
   width: 34px;
 }
@@ -28,6 +31,7 @@
 .reminders__header__btn {
   display: block;
   position: fixed;
+  z-index: 999;
   background: $brand-primary url("../assets/img/add_reminder.png") no-repeat top left;
   background-size: 24px;
   background-position-x: 50%;
@@ -47,10 +51,6 @@
   &:active {
     box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
   }
-}
-
-.reminder__menu {
-  z-index: 99999;
 }
 
 .reminder {
@@ -95,13 +95,14 @@
 
     &__option {
       display: inline-block;
+      height: 30px;
       width: 30px;
-      height: 25px;
       margin: 3px 5px;
       border-radius: 3px;
+      padding: 3px;
 
       &:hover {
-        color: #000000;
+        color: $black;
       }
 
       span {

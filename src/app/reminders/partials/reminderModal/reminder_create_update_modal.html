@@ -41,5 +41,9 @@
 
         <!--Submit form button-->
         <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update reminder"}}</button>
+
+        <div class="reminder-modal__form__cancel">
+            <a href="javascript:void(0)" ng-click="dismissCurrentOpenedModal()">Nevermind</a>
+        </div>
     </form>
 </div>
