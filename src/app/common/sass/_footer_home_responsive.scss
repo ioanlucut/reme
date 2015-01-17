@@ -8,10 +8,6 @@
     }
   }
 
-  .footer__navbar__section-right {
-    width: 60%;
-  }
-
   .footer {
     .footer__navbar__section-right__list {
       width: 50%;
@@ -24,6 +20,10 @@
 }
 
 @media (max-width: $screen-phone) {
+
+  .footer__navbar__section-right {
+    width: 60%;
+  }
 
   .footer {
     .footer__navbar__section-right__list {
