@@ -4335,11 +4335,20 @@ angular
             requireBase: false
         });
     }])
-    .run(function () {
+    .run(["$window", function ($window) {
 
-        // Set the base API URL
-        URLTo.apiBase("http://api.reme.io");
-    });;/**
+        if ( $window.location.href.indexOf("dev.reme.io") > -1 || $window.location.href.indexOf("localhost") > -1 ) {
+            URLTo.apiBase("http://api-dev.reme.io");
+        }
+
+        else if ( $window.location.href.indexOf("production.reme.io") > -1 ) {
+            URLTo.apiBase("http://production-api.reme.io");
+        }
+
+        else {
+            URLTo.apiBase("http://api.reme.ro");
+        }
+    }]);;/**
  * Main app controller declaration.
  */
 angular
