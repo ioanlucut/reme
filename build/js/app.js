@@ -1838,10 +1838,6 @@ angular
 
                     'preferences@settings': {
                         templateUrl: "app/account/partials/settings/settings.preferences.html"
-                    },
-
-                    'billing@settings': {
-                        templateUrl: "app/account/partials/settings/settings.billing.html"
                     }
                 },
                 title: "Settings - Reme.io"
@@ -4419,7 +4415,7 @@ angular
             });
         }
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.action.html', 'app/reminders/partials/reminder/reminders.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminder/reminders.template.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.billing.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/reminders/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.action.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminder/reminders.template.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -4454,7 +4450,7 @@ angular.module("app/site/partials/about.html", []).run(["$templateCache", functi
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/home.html",
-    "<div header-home></div>\n" +
+    "<div header-home class=\"view-container__header\"></div>\n" +
     "\n" +
     "<div class=\"home\">\n" +
     "\n" +
@@ -4498,6 +4494,10 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                    </form>\n" +
     "                </div>\n" +
     "\n" +
+    "                <div class=\"text-center text-muted\">\n" +
+    "                    Rest assured, you'll see reminders created in old Reme after you sign up!\n" +
+    "                </div>\n" +
+    "\n" +
     "                <!-- Request registration email sent section -->\n" +
     "                <div class=\"home__signup__sections__section home__signup__sections__section--success alert alert-success\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent\">\n" +
     "\n" +
@@ -4530,7 +4530,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "</div>\n" +
     "\n" +
-    "<div footer-home></div>\n" +
+    "<div footer-home class=\"view-container__footer\"></div>\n" +
     "\n" +
     "");
 }]);
@@ -4643,7 +4643,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "<!--Search in reminder list-->\n" +
     "<div class=\"form-group form-group--search\">\n" +
-    "    <input class=\"form-control\" type=\"text\" placeholder=\"e.g. Search\" name=\"text\" maxlength=\"140\" ng-model=\"searchByText\" />\n" +
+    "    <input class=\"form-control\" type=\"text\" placeholder=\"Search\" name=\"text\" maxlength=\"140\" ng-model=\"searchByText\" />\n" +
     "</div>\n" +
     "\n" +
     "<!--Reminder list-->\n" +
@@ -4662,7 +4662,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index)\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -4704,48 +4704,37 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 
 angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
-    "<div class=\"reminders__header\">\n" +
-    "    <a class=\"btn reminders__header__btn\" href=\"#\" ng-click=\"openReminderModalService()\">Create reminder</a>\n" +
+    "<div class=\"reminders__header simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Compose\">\n" +
+    "    <button class=\"reminders__header__btn\" ng-click=\"openReminderModalService()\"></button>\n" +
     "</div>");
-}]);
-
-angular.module("app/reminders/partials/reminder/reminders.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminder/reminders.html",
-    "<div header></div>\n" +
-    "\n" +
-    "<div ui-view=\"action\"></div>\n" +
-    "\n" +
-    "<div ui-view=\"list\"></div>\n" +
-    "\n" +
-    "<div footer></div>");
 }]);
 
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
-    "<div class=\"centered-section-reminders\">\n" +
+    "<tabset>\n" +
+    "    <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
+    "        <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\"></div>\n" +
+    "    </tab>\n" +
     "\n" +
-    "    <tabset>\n" +
-    "        <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
-    "            <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\"></div>\n" +
-    "        </tab>\n" +
-    "\n" +
-    "        <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
-    "            <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\"></div>\n" +
-    "        </tab>\n" +
-    "    </tabset>\n" +
-    "\n" +
-    "</div>");
+    "    <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
+    "        <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\"></div>\n" +
+    "    </tab>\n" +
+    "</tabset>");
 }]);
 
 angular.module("app/reminders/partials/reminder/reminders.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.template.html",
-    "<div header></div>\n" +
+    "<div class=\"view-container__header\" header></div>\n" +
     "\n" +
-    "<div ui-view=\"action\"></div>\n" +
+    "<div class=\"centered-section-reminders\">\n" +
     "\n" +
-    "<div ui-view=\"list\"></div>\n" +
+    "    <div ui-view=\"action\"></div>\n" +
     "\n" +
-    "<div footer></div>");
+    "    <div ui-view=\"list\"></div>\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"view-container__footer\" footer></div>");
 }]);
 
 angular.module("app/reminders/partials/reminderModal/reminder_create_update_modal.html", []).run(["$templateCache", function($templateCache) {
@@ -5000,14 +4989,9 @@ angular.module("app/account/partials/logout.html", []).run(["$templateCache", fu
     "");
 }]);
 
-angular.module("app/account/partials/settings/settings.billing.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/account/partials/settings/settings.billing.html",
-    "BILLING");
-}]);
-
 angular.module("app/account/partials/settings/settings.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/settings/settings.html",
-    "<div header></div>\n" +
+    "<div header class=\"view-container__header\"></div>\n" +
     "\n" +
     "<div class=\"centered-section-account\">\n" +
     "    <tabset vertical=\"true\">\n" +
@@ -5017,13 +5001,10 @@ angular.module("app/account/partials/settings/settings.html", []).run(["$templat
     "        <tab heading=\"Preferences\">\n" +
     "            <div class=\"account__sections\" ui-view=\"preferences\"></div>\n" +
     "        </tab>\n" +
-    "        <tab heading=\"Billing\">\n" +
-    "            <div class=\"account__sections\" ui-view=\"billing\"></div>\n" +
-    "        </tab>\n" +
     "    </tabset>\n" +
     "</div>\n" +
     "\n" +
-    "<div footer></div>");
+    "<div footer class=\"view-container__footer\"></div>");
 }]);
 
 angular.module("app/account/partials/settings/settings.preferences.html", []).run(["$templateCache", function($templateCache) {
@@ -5180,8 +5161,9 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
     "\n" +
     "        <!-- Explain -->\n" +
     "        <span class=\"account__explain\">\n" +
-    "            Sorry, we couldn't validate your email and token. Please give another try.\n" +
+    "            Sorry, we couldn't validate your email. Maybe the link in the email is too old..\n" +
     "        </span>\n" +
+    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Request the email again</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -5199,7 +5181,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "    <div class=\"account__section\">\n" +
     "\n" +
     "        <!-- Title -->\n" +
-    "        <h1 class=\"account__title\">Finalize your account!</h1>\n" +
+    "        <h1 class=\"account__title\">Let's finalize your account!</h1>\n" +
     "\n" +
     "        <!-- Sign-up form -->\n" +
     "        <form name=\"signUpForm\" ng-submit=\"signUp(signUpData)\" novalidate focus-first-error>\n" +
@@ -5238,7 +5220,7 @@ angular.module("app/account/partials/signup_confirm_valid.html", []).run(["$temp
     "\n" +
     "                <div class=\"account__controls__form__info\">\n" +
     "                    <div class=\"account__controls__form__info__left\">Timezone</div>\n" +
-    "                    <div class=\"account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Timezone automatically detected. This can be further customized on preferences page.\">{{timezoneDetails.value}}</div>\n" +
+    "                    <div class=\"account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"We automatically detected your timezone. You can change this later in the Settings page.\">{{timezoneDetails.value}}</div>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
@@ -5331,7 +5313,7 @@ angular.module("app/account/partials/validate_password_reset_token_valid.html", 
     "\n" +
     "    <!-- Explain -->\n" +
     "    <span class=\"account__explain\">\n" +
-    "        We've successfully updated your new password.\n" +
+    "        We've successfully updated your password.\n" +
     "    </span>\n" +
     "</div>");
 }]);
