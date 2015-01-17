@@ -1,4 +1,4 @@
-@media (max-width: $screen-tablet) {
+@media (max-width: 580px) {
 
   .footer__navbar__section-left {
     width: 35%;
@@ -6,6 +6,10 @@
     .footer__navbar__section-left__copyright {
       text-align: center;
     }
+  }
+
+  .footer__navbar__section-right {
+    width: 60%;
   }
 
   .footer {
@@ -20,10 +24,6 @@
 }
 
 @media (max-width: $screen-phone) {
-
-  .footer__navbar__section-right {
-    width: 60%;
-  }
 
   .footer {
     .footer__navbar__section-right__list {
