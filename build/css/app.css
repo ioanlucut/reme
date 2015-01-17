@@ -3966,7 +3966,7 @@
  * http://lab.hakim.se/ladda
  * MIT licensed
  *
- * Copyright (C) 2014 Hakim El Hattab, http://hakim.se
+ * Copyright (C) 2015 Hakim El Hattab, http://hakim.se
  */
 /*************************************
  * CONFIG
@@ -4433,14 +4433,488 @@
   opacity: 1;
 }
 
-/** Contains the default Ladda button theme styles */
+/*!
+ * Ladda including the default theme.
+ */
+/*!
+ * Ladda
+ * http://lab.hakim.se/ladda
+ * MIT licensed
+ *
+ * Copyright (C) 2015 Hakim El Hattab, http://hakim.se
+ */
+/*************************************
+ * CONFIG
+ */
+/*************************************
+ * MIXINS
+ */
+/*************************************
+ * BUTTON BASE
+ */
+/* line 60, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button {
+  position: relative;
+}
+
+/* Spinner animation */
+/* line 66, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button .ladda-spinner {
+  position: absolute;
+  z-index: 2;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  top: 50%;
+  margin-top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Button label */
+/* line 79, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button .ladda-label {
+  position: relative;
+  z-index: 3;
+}
+
+/* Progress bar */
+/* line 85, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button .ladda-progress {
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: 0.1s linear all !important;
+  -moz-transition: 0.1s linear all !important;
+  -ms-transition: 0.1s linear all !important;
+  -o-transition: 0.1s linear all !important;
+  transition: 0.1s linear all !important;
+}
+
+/* line 98, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-loading] .ladda-progress {
+  opacity: 1;
+  visibility: visible;
+}
+
+/*************************************
+ * EASING
+ */
+/* line 108, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button,
+.ladda-button .ladda-spinner,
+.ladda-button .ladda-label {
+  -webkit-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -moz-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -ms-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  -o-transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
+}
+
+/* line 114, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in],
+.ladda-button[data-style=zoom-in] .ladda-spinner,
+.ladda-button[data-style=zoom-in] .ladda-label,
+.ladda-button[data-style=zoom-out],
+.ladda-button[data-style=zoom-out] .ladda-spinner,
+.ladda-button[data-style=zoom-out] .ladda-label {
+  -webkit-transition: 0.3s ease all !important;
+  -moz-transition: 0.3s ease all !important;
+  -ms-transition: 0.3s ease all !important;
+  -o-transition: 0.3s ease all !important;
+  transition: 0.3s ease all !important;
+}
+
+/*************************************
+ * EXPAND LEFT
+ */
+/* line 129, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-right] .ladda-spinner {
+  right: -6px;
+}
+/* line 133, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-right][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-right][data-size="xs"] .ladda-spinner {
+  right: -12px;
+}
+/* line 138, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading] {
+  padding-right: 56px;
+}
+/* line 141, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+/* line 145, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-right][data-loading][data-size="s"], .ladda-button[data-style=expand-right][data-loading][data-size="xs"] {
+  padding-right: 40px;
+}
+
+/*************************************
+ * EXPAND RIGHT
+ */
+/* line 158, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-left] .ladda-spinner {
+  left: 26px;
+}
+/* line 162, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-left][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-left][data-size="xs"] .ladda-spinner {
+  left: 4px;
+}
+/* line 167, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading] {
+  padding-left: 56px;
+}
+/* line 170, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+/* line 174, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-left][data-loading][data-size="s"], .ladda-button[data-style=expand-left][data-loading][data-size="xs"] {
+  padding-left: 40px;
+}
+
+/*************************************
+ * EXPAND UP
+ */
+/* line 186, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up] {
+  overflow: hidden;
+}
+/* line 189, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up] .ladda-spinner {
+  top: -32px;
+  left: 50%;
+  margin-left: 0;
+}
+/* line 195, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading] {
+  padding-top: 54px;
+}
+/* line 198, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading] .ladda-spinner {
+  opacity: 1;
+  top: 26px;
+  margin-top: 0;
+}
+/* line 204, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading][data-size="s"], .ladda-button[data-style=expand-up][data-loading][data-size="xs"] {
+  padding-top: 32px;
+}
+/* line 208, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-up][data-loading][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-up][data-loading][data-size="xs"] .ladda-spinner {
+  top: 4px;
+}
+
+/*************************************
+ * EXPAND DOWN
+ */
+/* line 220, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down] {
+  overflow: hidden;
+}
+/* line 223, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down] .ladda-spinner {
+  top: 62px;
+  left: 50%;
+  margin-left: 0;
+}
+/* line 229, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down][data-size="s"] .ladda-spinner, .ladda-button[data-style=expand-down][data-size="xs"] .ladda-spinner {
+  top: 40px;
+}
+/* line 234, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading] {
+  padding-bottom: 54px;
+}
+/* line 237, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+/* line 241, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=expand-down][data-loading][data-size="s"], .ladda-button[data-style=expand-down][data-loading][data-size="xs"] {
+  padding-bottom: 32px;
+}
+
+/*************************************
+ * SLIDE LEFT
+ */
+/* line 252, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-left] {
+  overflow: hidden;
+}
+/* line 255, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-left] .ladda-label {
+  position: relative;
+}
+/* line 258, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-left] .ladda-spinner {
+  left: 100%;
+  margin-left: 0;
+}
+/* line 264, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-left][data-loading] .ladda-label {
+  opacity: 0;
+  left: -100%;
+}
+/* line 268, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-left][data-loading] .ladda-spinner {
+  opacity: 1;
+  left: 50%;
+}
+
+/*************************************
+ * SLIDE RIGHT
+ */
+/* line 279, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-right] {
+  overflow: hidden;
+}
+/* line 282, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-right] .ladda-label {
+  position: relative;
+}
+/* line 285, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-right] .ladda-spinner {
+  right: 100%;
+  margin-left: 0;
+  left: 16px;
+}
+/* line 292, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-right][data-loading] .ladda-label {
+  opacity: 0;
+  left: 100%;
+}
+/* line 296, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-right][data-loading] .ladda-spinner {
+  opacity: 1;
+  left: 50%;
+}
+
+/*************************************
+ * SLIDE UP
+ */
+/* line 307, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-up] {
+  overflow: hidden;
+}
+/* line 310, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-up] .ladda-label {
+  position: relative;
+}
+/* line 313, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-up] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+  margin-top: 1em;
+}
+/* line 320, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-up][data-loading] .ladda-label {
+  opacity: 0;
+  top: -1em;
+}
+/* line 324, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-up][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-top: 0;
+}
+
+/*************************************
+ * SLIDE DOWN
+ */
+/* line 335, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-down] {
+  overflow: hidden;
+}
+/* line 338, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-down] .ladda-label {
+  position: relative;
+}
+/* line 341, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-down] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+  margin-top: -2em;
+}
+/* line 348, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-down][data-loading] .ladda-label {
+  opacity: 0;
+  top: 1em;
+}
+/* line 352, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=slide-down][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-top: 0;
+}
+
+/*************************************
+ * ZOOM-OUT
+ */
+/* line 364, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-out] {
+  overflow: hidden;
+}
+
+/* line 367, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-out] .ladda-spinner {
+  left: 50%;
+  margin-left: 32px;
+  -webkit-transform: scale(2.5);
+  -moz-transform: scale(2.5);
+  -ms-transform: scale(2.5);
+  -o-transform: scale(2.5);
+  transform: scale(2.5);
+}
+
+/* line 373, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-out] .ladda-label {
+  position: relative;
+  display: inline-block;
+}
+
+/* line 378, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-out][data-loading] .ladda-label {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+}
+
+/* line 383, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-out][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-left: 0;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+
+/*************************************
+ * ZOOM-IN
+ */
+/* line 395, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in] {
+  overflow: hidden;
+}
+
+/* line 398, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in] .ladda-spinner {
+  left: 50%;
+  margin-left: -16px;
+  -webkit-transform: scale(0.2);
+  -moz-transform: scale(0.2);
+  -ms-transform: scale(0.2);
+  -o-transform: scale(0.2);
+  transform: scale(0.2);
+}
+
+/* line 404, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in] .ladda-label {
+  position: relative;
+  display: inline-block;
+}
+
+/* line 409, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in][data-loading] .ladda-label {
+  opacity: 0;
+  -webkit-transform: scale(2.2);
+  -moz-transform: scale(2.2);
+  -ms-transform: scale(2.2);
+  -o-transform: scale(2.2);
+  transform: scale(2.2);
+}
+
+/* line 414, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=zoom-in][data-loading] .ladda-spinner {
+  opacity: 1;
+  margin-left: 0;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+
+/*************************************
+ * CONTRACT
+ */
+/* line 426, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract] {
+  overflow: hidden;
+  width: 100px;
+}
+
+/* line 430, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 435, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract][data-loading] {
+  border-radius: 50%;
+  width: 52px;
+}
+
+/* line 439, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract][data-loading] .ladda-label {
+  opacity: 0;
+}
+
+/* line 442, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
+/*************************************
+ * OVERLAY
+ */
+/* line 452, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract-overlay] {
+  overflow: hidden;
+  width: 100px;
+  box-shadow: 0px 0px 0px 2000px transparent;
+}
+
+/* line 458, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract-overlay] .ladda-spinner {
+  left: 50%;
+  margin-left: 0;
+}
+
+/* line 463, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] {
+  border-radius: 50%;
+  width: 52px;
+  /*outline: 10000px solid rgba( 0, 0, 0, 0.5 );*/
+  box-shadow: 0px 0px 0px 2000px rgba(0, 0, 0, 0.8);
+}
+
+/* line 470, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] .ladda-label {
+  opacity: 0;
+}
+
+/* line 473, ../../bower_components/ladda/css/ladda.scss */
+.ladda-button[data-style=contract-overlay][data-loading] .ladda-spinner {
+  opacity: 1;
+}
+
 /*************************************
  * CONFIG
  */
 /*************************************
  * BUTTON THEME
  */
-/* line 19, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 22, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button {
   background: #666;
   border: 0;
@@ -4454,7 +4928,7 @@
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
-/* line 34, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 37, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button:hover {
   border-color: rgba(0, 0, 0, 0.07);
   background-color: #888;
@@ -4499,38 +4973,36 @@
 .ladda-button[data-color=mint]:hover {
   background-color: #19b698;
 }
-/* line 45, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 48, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[disabled], .ladda-button[data-loading] {
   border-color: rgba(0, 0, 0, 0.07);
+}
+/* line 52, ../../bower_components/ladda/css/ladda-themed.scss */
+.ladda-button[disabled], .ladda-button[disabled]:hover, .ladda-button[data-loading], .ladda-button[data-loading]:hover {
   cursor: default;
   background-color: #999;
 }
-/* line 51, ../../bower_components/ladda/css/ladda-theme.scss */
-.ladda-button[disabled]:hover, .ladda-button[data-loading]:hover {
-  cursor: default;
-  background-color: #999;
-}
-/* line 57, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 58, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=xs] {
   padding: 4px 8px;
 }
-/* line 60, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 61, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=xs] .ladda-label {
   font-size: 0.7em;
 }
-/* line 65, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 66, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=s] {
   padding: 6px 10px;
 }
-/* line 68, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 69, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=s] .ladda-label {
   font-size: 0.9em;
 }
-/* line 73, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 74, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=l] .ladda-label {
   font-size: 1.2em;
 }
-/* line 77, ../../bower_components/ladda/css/ladda-theme.scss */
+/* line 78, ../../bower_components/ladda/css/ladda-themed.scss */
 .ladda-button[data-size=xl] .ladda-label {
   font-size: 1.5em;
 }
@@ -12248,13 +12720,15 @@ textarea.form-control--account {
 
 /* line 103, ../../src/app/account/sass/_account_forms.scss */
 .centered-section-account {
+  min-height: 100%;
   max-width: 700px;
   width: 100%;
   margin: 0 auto;
-  min-height: 600px;
+  position: relative;
+  padding-bottom: 180px;
 }
 
-/* line 110, ../../src/app/account/sass/_account_forms.scss */
+/* line 112, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info {
   margin-bottom: 35px;
   padding-left: 5px;
@@ -12270,17 +12744,24 @@ textarea.form-control--account {
   clear: both;
 }
 
-/* line 117, ../../src/app/account/sass/_account_forms.scss */
+/* line 119, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__left {
   float: left;
   color: #000;
 }
 
-/* line 122, ../../src/app/account/sass/_account_forms.scss */
+/* line 124, ../../src/app/account/sass/_account_forms.scss */
 .account__controls__form__info__right {
   float: right;
   font-size: 16px;
   font-weight: bold;
+}
+
+/* line 132, ../../src/app/account/sass/_account_forms.scss */
+.form-group--timezone .chosen-container {
+  height: 34px;
+  padding: 0;
+  border: 0;
 }
 
 @media (max-width: 580px) {
@@ -12303,8 +12784,8 @@ textarea.form-control--account {
 
   /* line 17, ../../src/app/account/sass/_account_forms_responsive.scss */
   .nav-tabs--vertical {
-    top: 70px;
-    left: 10px;
+    top: -100px;
+    left: 20px;
     z-index: 99;
   }
 }
@@ -12650,9 +13131,24 @@ textarea.form-control--account {
     text-align: center;
   }
 
-  /* line 11, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 12, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer .footer__navbar__section-right__list {
+    width: 50%;
+  }
+  /* line 15, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer .footer__navbar__section-right__list ul {
+    padding-left: 20px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 24, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer__navbar__section-right {
     width: 60%;
+  }
+
+  /* line 31, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer .footer__navbar__section-right__list ul {
+    padding-left: 10px;
   }
 }
 /* Additional styles to display a spinner image while options are loading */
@@ -12854,6 +13350,14 @@ html, body {
 }
 
 /* line 32, ../../src/app/reminders/sass/_reminders_form.scss */
+.reminder-modal__form__cancel {
+  margin: 20px auto 0;
+  width: 100%;
+  border-radius: 3px;
+  text-align: center;
+}
+
+/* line 39, ../../src/app/reminders/sass/_reminders_form.scss */
 .btn--delete-reminder {
   color: #fff;
   background-color: #d9534f;
@@ -12890,13 +13394,13 @@ html, body {
   border-color: #d9534f;
 }
 
-/* line 41, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 48, ../../src/app/reminders/sass/_reminders_form.scss */
 .load-more-reminders {
   display: block;
   margin: 50px auto;
 }
 
-/* line 46, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 53, ../../src/app/reminders/sass/_reminders_form.scss */
 .btn--load-more {
   color: #848b91;
   background-color: #d7dbde;
@@ -12933,7 +13437,7 @@ html, body {
   border-color: #d7dbde;
 }
 
-/* line 58, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 65, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form {
   margin: 0 auto;
   width: 100%;
@@ -12950,7 +13454,7 @@ html, body {
 .reminder-modal__form:after {
   clear: both;
 }
-/* line 70, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 77, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info {
   margin-top: 30px;
   font-weight: 300;
@@ -12964,48 +13468,48 @@ html, body {
 .reminder-modal__form__info:after {
   clear: both;
 }
-/* line 81, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 88, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date > .btn, .reminder-modal__form__info--time > .btn {
   width: 100%;
   padding-left: 50px;
   text-align: left;
 }
-/* line 87, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 94, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date .dropdown-menu, .reminder-modal__form__info--time .dropdown-menu {
   padding: 0;
 }
-/* line 95, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 102, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date {
   float: left;
   position: relative;
   width: 355px;
   margin: 0 10px 10px 0;
 }
-/* line 101, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 108, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date .dropdown-menu {
   min-width: 100%;
 }
-/* line 109, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 116, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time {
   float: left;
   position: relative;
   margin-bottom: 10px;
   width: 153px;
 }
-/* line 120, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 127, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees {
   text-align: center;
 }
-/* line 126, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 133, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .form-group {
   position: relative;
   margin-bottom: 6px;
 }
-/* line 131, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 138, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .form-group.has-error .form-control--reminder {
   border: 1px solid #d9534f;
 }
-/* line 140, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 147, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .close {
   display: block;
   width: 25px;
@@ -13016,12 +13520,12 @@ html, body {
   top: 8px;
   right: -25px;
 }
-/* line 157, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 164, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__addressees .btn-add-emails {
   display: inline-block;
   font-size: 13px;
 }
-/* line 166, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 173, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--create-reminder {
   color: #fff;
   background-color: #8471B1;
@@ -13059,7 +13563,7 @@ html, body {
   background-color: #8471B1;
   border-color: #8471B1;
 }
-/* line 177, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 184, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form .btn--reminder-popup {
   color: #24282b;
   background-color: #ededed;
@@ -13096,7 +13600,7 @@ html, body {
   border-color: transparent;
 }
 
-/* line 191, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 198, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder--saving {
   width: 150px;
   margin: 20px auto;
@@ -13108,7 +13612,7 @@ html, body {
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
-/* line 203, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 210, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date:before {
   position: absolute;
   z-index: 999;
@@ -13128,7 +13632,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 210, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time:before {
   position: absolute;
   z-index: 999;
@@ -13148,11 +13652,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 224, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .btn.btn--reminder-popup {
   border: 1px solid #b94a48;
 }
-/* line 221, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 228, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .has-error-messages {
   display: block;
   margin-bottom: 10px;
@@ -13160,7 +13664,7 @@ html, body {
   color: #b94a48;
 }
 
-/* line 230, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 237, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-group--email-icon:before {
   position: absolute;
   z-index: 999;
@@ -13200,12 +13704,12 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 240, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 247, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
   font-weight: 300;
 }
 
-/* line 244, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 251, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
   background-color: #ededed;
   border: 0;
@@ -13254,7 +13758,7 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 257, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 264, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
   background-color: #ededed;
@@ -13280,19 +13784,19 @@ textarea.form-control--friend-email {
 .form-control--friend-email::-webkit-input-placeholder {
   color: #9fa5ab;
 }
-/* line 266, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 273, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email:hover, .form-control--friend-email:focus {
   background-color: #e0e0e0;
 }
 
 /*Add border on error*/
-/* line 273, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 280, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .form-control--friend-email {
   border: 1px solid #b94a48;
 }
 
 /*First input - the user email*/
-/* line 278, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 285, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email.form-control[disabled] {
   background-color: #ededed;
   border: 0;
@@ -13664,38 +14168,42 @@ textarea.form-control--friend-email {
 
 /* line 1, ../../src/app/reminders/sass/_reminders_layout.scss */
 .centered-section-reminders {
-  max-width: 700px;
-  width: 96%;
-  margin: 0 auto;
-  min-height: 600px;
   position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
 }
 
-/* line 9, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 12, ../../src/app/reminders/sass/_reminders_layout.scss */
 .form-group--search {
   max-width: 140px;
   position: absolute;
   top: 1px;
   right: 50px;
 }
-/* line 15, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 18, ../../src/app/reminders/sass/_reminders_layout.scss */
 .form-group--search input {
   border: 1px solid #fff;
   border-radius: 3px;
 }
 
-/* line 21, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 24, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header {
   position: absolute;
-  right: 0;
+  right: 10px;
   height: 34px;
   width: 34px;
 }
 
-/* line 28, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 31, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn {
   display: block;
   position: fixed;
+  z-index: 999;
   background: #8471B1 url("../assets/img/add_reminder.png") no-repeat top left;
   background-size: 24px;
   background-position-x: 50%;
@@ -13712,14 +14220,9 @@ textarea.form-control--friend-email {
   pointer-events: auto;
   -webkit-user-drag: none;
 }
-/* line 47, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 51, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn:active {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36);
-}
-
-/* line 52, ../../src/app/reminders/sass/_reminders_layout.scss */
-.reminder__menu {
-  z-index: 99999;
 }
 
 /* line 56, ../../src/app/reminders/sass/_reminders_layout.scss */
@@ -13771,16 +14274,17 @@ textarea.form-control--friend-email {
 /* line 96, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option {
   display: inline-block;
+  height: 30px;
   width: 30px;
-  height: 25px;
   margin: 3px 5px;
   border-radius: 3px;
+  padding: 3px;
 }
-/* line 103, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 104, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option:hover {
-  color: #000000;
+  color: #000;
 }
-/* line 107, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 108, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__menu__option span {
   display: block;
   margin: 0;
@@ -13788,14 +14292,14 @@ textarea.form-control--friend-email {
   text-align: center;
 }
 
-/* line 117, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 118, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title {
   word-break: break-all;
   max-width: 90%;
   font-weight: bold;
 }
 
-/* line 123, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 124, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title--highlighted {
   display: inline-block;
   background: rgba(255, 230, 0, 0.5);
@@ -13850,6 +14354,22 @@ textarea.form-control--friend-email {
   /* line 41, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder__info__item--additional {
     width: 50%;
+  }
+}
+@media (max-width: 480px) {
+  /* line 50, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .centered-section-reminders .tab-content {
+    padding-top: 30px;
+  }
+
+  /* line 55, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .form-group--search {
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    top: 60px;
   }
 }
 /* line 1, ../../src/app/reminders/sass/components/_datepicker.scss */
@@ -14055,16 +14575,16 @@ textarea.form-control--friend-email {
 /* line 1, ../../src/app/site/sass/_site_layout.scss */
 .centered-section-home {
   max-width: 960px;
-  width: 96%;
   margin: 0 auto;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-/* line 7, ../../src/app/site/sass/_site_layout.scss */
+/* line 9, ../../src/app/site/sass/_site_layout.scss */
 .home {
   min-height: 100%;
-  height: auto;
-  margin: 0 auto -180px;
-  padding: 0 0 180px;
+  padding-bottom: 180px;
 }
 /* line 13, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
@@ -14098,15 +14618,28 @@ textarea.form-control--friend-email {
 }
 @media (max-width: 768px) {
   /* line 16, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h1.home__signup__title {
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 35px;
+  }
+  /* line 23, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h3.home__signup__description {
     padding-right: 50px;
     padding-left: 50px;
     padding-bottom: 30px;
   }
 
-  /* line 23, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 30, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 750px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 37, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home__signup {
+    height: 800px;
   }
 }
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
@@ -14260,6 +14793,14 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 300;
   font-size: 14px;
   color: #848b91;
+}
+
+/* line 101, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section--migration {
+  margin-top: 10px;
+  font-size: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 @media (max-width: 650px) {
