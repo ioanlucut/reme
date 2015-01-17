@@ -3,7 +3,17 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.reminderList;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.remindersPage);
 
         /**
          * The current user
@@ -41,13 +51,8 @@ angular
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
-            if ( args.reminder.model.dueOn > new Date() ) {
-                $scope.upcomingReminders.push(args.reminder);
-                $scope.reminderTabs.setUpcomingRemindersTabActive();
-            }
-            else {
-                $scope.pastReminders.push(args.reminder);
-            }
+            $scope.upcomingReminders.push(args.reminder);
+            $scope.reminderTabs.setUpcomingRemindersTabActive();
         });
 
         /**
@@ -82,7 +87,7 @@ angular
          * @param reminderToBeRemoved
          */
         function removeReminderFrom(reminderList, reminderToBeRemoved) {
-            _.remove(reminderList, function (reminderFromArray) {
+            return _.remove(reminderList, function (reminderFromArray) {
                 var reminderId = _.parseInt(reminderToBeRemoved.model.reminderId, 10);
                 var reminderFromArrayId = _.parseInt(reminderFromArray.model.reminderId, 10);
                 if ( _.isNaN(reminderFromArrayId) || _.isNaN(reminderId) ) {

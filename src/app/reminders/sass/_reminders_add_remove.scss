@@ -40,3 +40,8 @@
 .reminder--loaded {
   //no transition
 }
+
+/*During filtering we skip transition*/
+.reminder--filter-activated {
+  @include duration(0s !important);
+}

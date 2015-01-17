@@ -1,0 +1,15 @@
+<!--Delete reminder form-->
+<div class="reminder-form-container">
+
+    <div class="reminder-form-container__form">
+        <div class="reminder-form-container__form__question">
+            Don't you need to remember to <strong>{{reminder.model.text}}</strong> on
+            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?
+        </div>
+        <div class="reminder-form-container__form__recommend">
+            <a href="javascript:void(0)" ng-click="dismiss()">Keep calm and don't delete it!</a>
+        </div>
+        <button type="submit" ladda="isDeleting" data-style="expand-left" data-spinner-size="20" class="btn btn--delete-reminder" ng-click="reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)">Don't need it anymore</button>
+    </div>
+
+</div>

@@ -6,11 +6,12 @@ angular
     .directive("flashMessages", function () {
         return {
             scope: {
-                flash: "="
+                flash: "=",
+                identifierId: "@"
             },
             restrict: "A",
             templateUrl: "app/common/partials/flash-messages.html",
-            link: function (scope, el) {
+            link: function (scope, el, attrs) {
             }
         };
     });

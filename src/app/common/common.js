@@ -14,7 +14,9 @@ angular
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push("HumpsInterceptor");
         $httpProvider.interceptors.push("JWTInterceptor");
-    }).run(function (moment) {
+        $httpProvider.interceptors.push("ActivityInterceptor");
+        $httpProvider.interceptors.push("ErrorInterceptor");
+    }).run(function () {
 
         /**
          * Callback function to check if the date should include year too.

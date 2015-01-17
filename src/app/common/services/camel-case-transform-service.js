@@ -1,6 +1,6 @@
 angular
     .module("common")
-    .service("CamelCaseTransform", function (humps) {
+    .service("CamelCaseTransform", function () {
 
         /**
          * Transformation type. Can be camelize or decamelize only.

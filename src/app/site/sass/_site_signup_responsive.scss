@@ -1,0 +1,16 @@
+@media (max-width: 650px) {
+
+  .home__signup__sections__section__controls {
+    width: 100%;
+  }
+
+  .home__signup__sections__section__controls--information,
+  .home__signup__sections__section__controls__button {
+    display: block;
+    width: 100%;
+  }
+
+  .home__signup__sections__section__controls--information {
+    margin-bottom: 15px;
+  }
+}

@@ -2,7 +2,7 @@
 
 angular
     .module("common")
-    .directive("nlpDate", function ($rootScope, $) {
+    .directive("nlpDate", function ($rootScope, DATE_SOURCE) {
         return {
             require: 'ngModel',
             scope: {
@@ -29,22 +29,11 @@ angular
                     if ( !text ) return;
 
                     // Parse the string with SugarJS (http://sugarjs.com/)
-                    var date;
-                    switch ( attrs.prefer ) {
-                        case "past":
-                            date = Date.past(text);
-                            break;
-                        case "future":
-                            date = Date.future(text);
-                            break;
-                        default:
-                            date = Date.create(text);
-                            break;
-                    }
+                    var date = Date.create(text);
                     if ( !date.isValid() ) return;
 
                     // Make sure date limits are respected
-                    if ( attrs.minDate && attrs.minDate && date.isBefore(attrs.minDate) ) return;
+                    if ( attrs.minDate && date.isBefore(scope.$eval(attrs.minDate)) ) return;
                     if ( attrs.maxDate && attrs.maxDate && date.isAfter(attrs.maxDate) ) return;
 
                     if ( scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay() ) {
@@ -59,6 +48,16 @@ angular
                         $rootScope.$broadcast("nlpDate:timeChange", null);
                     }
 
+                    /**
+                     * Set date source.
+                     * @type {boolean}
+                     */
+                    date[DATE_SOURCE.isFromNlp] = true;
+
+                    /**
+                     * Set the computed date
+                     * @type {text}
+                     */
                     scope.date = date;
                 });
             }

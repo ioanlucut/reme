@@ -21,7 +21,25 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                scope.defaultRemindersLimit = 5;
+                scope.defaultRemindersLimit = 15;
+
+                /**
+                 * Number of the filtered reminders
+                 */
+                scope.filteredReminders = 0;
+
+                /**
+                 * Search by text
+                 * @type {string}
+                 */
+                scope.searchByText = "";
+
+                /**
+                 * Tells if the search by is activated;
+                 */
+                scope.isSearchByActivated = function () {
+                    return scope.searchByText !== "" && !_.isUndefined(scope.searchByText);
+                };
 
                 /**
                  * Is loading more reminders flag.
@@ -78,7 +96,9 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
-                    ReminderUpdateModalService.open(reminder, reminderIndex);
+                    if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
                 };
 
                 /**

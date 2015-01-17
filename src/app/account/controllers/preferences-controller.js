@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, TimezoneProvider, flash) {
+    .controller("PreferencesCtrl", function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.preferences;
 
         /**
          * Current user.
@@ -39,11 +44,11 @@ angular
                     .then(function () {
                         $scope.preferencesForm.$setPristine();
 
-                        flash.success = 'We\'ve successfully updated your preferences!';
+                        flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your preferences!';
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your preferences.';
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your preferences.';
                     });
             }
         };

@@ -1,7 +1,7 @@
 /* Timepicker popup */
 
 angular.module("common").
-    directive("timepickerPopup", function (DatesUtils) {
+    directive("timepickerPopup", function (DatesUtils, DATE_SOURCE) {
         return {
             require: "ngModel",
             scope: {
@@ -54,11 +54,15 @@ angular.module("common").
                 // Update selected index when date changes
                 scope.$watch("date", function (date) {
 
+                    // if is today and comes from nlp parser, let it be.
+                    if ( moment().diff(date, 'day') === 0 && (date[DATE_SOURCE.isFromNlp] || date[DATE_SOURCE.isFromUpdateAction]) ) {
+                        // skip
+                    }
                     // if is today, set first valid time
-                    if ( moment().diff(date, 'day') === 0 ) {
+                    else if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 ) {
+                    else if ( moment().diff(date, 'day') < 0 && !date[DATE_SOURCE.isFromNlp] ) {
                         scope.setTime(scope.times[0]);
                     }
 
@@ -112,15 +116,19 @@ angular.module("common").
 
                     // Calculate and apply scrollTop
                     var visibleItems = Math.round(dropdownMenu.height() / selectedItem.outerHeight());
-                    var scrollTop = selectedItem.position().top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
-                    dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Highlight the selected item
-                    scope.highlightSelected = true;
-                    scope.$apply();
+                    var position = selectedItem.position();
+                    if ( position && position.top ) {
+                        var scrollTop = position.top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
+                        dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Update the perfect scrollbar
-                    scope.$broadcast("perfectScrollbar:update", null);
+                        // Highlight the selected item
+                        scope.highlightSelected = true;
+                        scope.$apply();
+
+                        // Update the perfect scrollbar
+                        scope.$broadcast("perfectScrollbar:update", null);
+                    }
                 });
 
                 /**
