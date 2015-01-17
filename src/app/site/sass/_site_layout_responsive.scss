@@ -14,16 +14,15 @@
   .home {
 
     h1.home__signup__title {
-      padding-top: 100px;
+      padding-top: 150px;
       padding-left: 10px;
       padding-right: 10px;
-      font-size: 35px;
+      font-size: 45px;
     }
 
     h3.home__signup__description {
       padding-right: 50px;
       padding-left: 50px;
-      padding-bottom: 30px;
     }
   }
 
@@ -36,5 +35,12 @@
 
   .home__signup {
     height: 800px;
+  }
+
+  .home {
+
+    h3.home__signup__description {
+      padding-bottom: 30px;
+    }
   }
 }
