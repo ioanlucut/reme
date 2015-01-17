@@ -12395,7 +12395,7 @@ td.visible-print {
 }
 
 /* line 83, ../../src/sass/fonts/_app-icons.scss */
-.icon-checkmark:before {
+.icon-checkmark:before, .home__signup__sections__section--success:before {
   content: "c";
 }
 
@@ -12990,7 +12990,7 @@ textarea.form-control--account {
 }
 /* line 1, ../../src/app/common/sass/_footer.scss */
 .footer {
-  background-color: #e6e9eb;
+  background-color: #8471B1;
   margin: 0;
   padding: 0;
   height: 180px;
@@ -13012,11 +13012,11 @@ textarea.form-control--account {
 }
 /* line 16, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar ul li a {
-  color: #83929c;
+  color: #fff;
 }
 /* line 19, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar ul li a:hover {
-  color: #525e66;
+  color: #d9d9d9;
 }
 /* line 27, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar__section-left {
@@ -13025,7 +13025,7 @@ textarea.form-control--account {
 /* line 31, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #919ea7;
+  color: #fff;
   display: table-cell;
   vertical-align: middle;
 }
@@ -13054,7 +13054,7 @@ textarea.form-control--account {
 
 /* line 1, ../../src/app/common/sass/_footer_home.scss */
 .footer-home {
-  background-color: #f5f6f7;
+  background-color: #8471B1;
   margin: 0;
   padding: 0;
   height: 180px;
@@ -13077,11 +13077,11 @@ textarea.form-control--account {
 }
 /* line 17, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a {
-  color: #929da8;
+  color: #fff;
 }
 /* line 20, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a:hover {
-  color: #5e6a75;
+  color: #d9d9d9;
 }
 
 /* line 28, ../../src/app/common/sass/_footer_home.scss */
@@ -13092,7 +13092,7 @@ textarea.form-control--account {
 /* line 32, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #a0aab3;
+  color: #fff;
   display: table-cell;
   vertical-align: middle;
 }
@@ -13121,7 +13121,7 @@ textarea.form-control--account {
   height: 26px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 580px) {
   /* line 3, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer__navbar__section-left {
     width: 35%;
@@ -13131,21 +13131,21 @@ textarea.form-control--account {
     text-align: center;
   }
 
-  /* line 12, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 11, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-right {
+    width: 60%;
+  }
+
+  /* line 16, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list {
     width: 50%;
   }
-  /* line 15, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 19, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 20px;
   }
 }
 @media (max-width: 480px) {
-  /* line 24, ../../src/app/common/sass/_footer_home_responsive.scss */
-  .footer__navbar__section-right {
-    width: 60%;
-  }
-
   /* line 31, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 10px;
@@ -14619,27 +14619,31 @@ textarea.form-control--friend-email {
 @media (max-width: 768px) {
   /* line 16, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h1.home__signup__title {
-    padding-top: 100px;
+    padding-top: 150px;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 35px;
+    font-size: 45px;
   }
   /* line 23, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h3.home__signup__description {
     padding-right: 50px;
     padding-left: 50px;
-    padding-bottom: 30px;
   }
 
-  /* line 30, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 29, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 750px;
   }
 }
 @media (max-width: 480px) {
-  /* line 37, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 36, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 800px;
+  }
+
+  /* line 42, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h3.home__signup__description {
+    padding-bottom: 30px;
   }
 }
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
@@ -14654,14 +14658,36 @@ textarea.form-control--friend-email {
   margin: 0 auto 0;
   text-align: center;
   border-radius: 3px;
+  padding-left: 60px;
+}
+/* line 16, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section--success:before {
+  position: absolute;
+  z-index: 999;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: auto;
+  font-size: 40px;
 }
 
-/* line 16, ../../src/app/site/sass/_site_signup.scss */
+/* line 24, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls {
   text-align: center;
 }
 
-/* line 20, ../../src/app/site/sass/_site_signup.scss */
+/* line 28, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__alert {
   width: 300px;
   text-align: center;
@@ -14688,7 +14714,7 @@ textarea.home__signup__sections__section__controls__email {
   height: auto;
 }
 
-/* line 28, ../../src/app/site/sass/_site_signup.scss */
+/* line 36, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email {
   height: 50px;
   width: 100%;
@@ -14697,37 +14723,37 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 300;
   display: inline-block;
 }
-/* line 36, ../../src/app/site/sass/_site_signup.scss */
+/* line 44, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email.has-error {
   border-color: #b94a48;
 }
 
-/* line 41, ../../src/app/site/sass/_site_signup.scss */
+/* line 49, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information {
   position: relative;
   width: 300px;
   display: inline-block;
 }
-/* line 46, ../../src/app/site/sass/_site_signup.scss */
+/* line 54, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .information {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 20px;
 }
-/* line 53, ../../src/app/site/sass/_site_signup.scss */
+/* line 61, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .icon-info {
   height: 50px;
   line-height: 50px;
   font-size: 16px;
 }
-/* line 58, ../../src/app/site/sass/_site_signup.scss */
+/* line 66, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .icon-info:before {
   height: 50px;
   line-height: 50px;
 }
 
-/* line 65, ../../src/app/site/sass/_site_signup.scss */
+/* line 73, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
@@ -14763,20 +14789,20 @@ textarea.home__signup__sections__section__controls__email {
   border-color: #8471B1;
 }
 
-/* line 73, ../../src/app/site/sass/_site_signup.scss */
+/* line 81, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: #b94a48;
 }
 
-/* line 78, ../../src/app/site/sass/_site_signup.scss */
+/* line 86, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 84, ../../src/app/site/sass/_site_signup.scss */
+/* line 92, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -14785,17 +14811,17 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 92, ../../src/app/site/sass/_site_signup.scss */
+/* line 100, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 20px;
   line-height: 20px;
   font-weight: 300;
-  font-size: 14px;
-  color: #848b91;
+  font-size: 16px;
+  color: #468847;
 }
 
-/* line 101, ../../src/app/site/sass/_site_signup.scss */
+/* line 109, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section--migration {
   margin-top: 10px;
   font-size: 12px;
@@ -14981,6 +15007,131 @@ textarea.home__signup__sections__section__controls__email {
   .error__sections__reason {
     margin-left: 35px;
     margin-right: 35px;
+  }
+}
+/* line 1, ../../src/app/site/sass/_site_about.scss */
+.view-container--about {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
+}
+
+/* line 12, ../../src/app/site/sass/_site_about.scss */
+.about__sections {
+  position: relative;
+  padding-top: 71px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+  color: black;
+}
+
+/* line 21, ../../src/app/site/sass/_site_about.scss */
+.about__sections__heading {
+  font-size: 36px;
+  text-align: center;
+  max-width: 100%;
+  margin-left: 90px;
+  margin-right: 90px;
+  margin-top: 100px;
+}
+
+/* line 30, ../../src/app/site/sass/_site_about.scss */
+.about__sections__description {
+  font-size: 14px;
+  text-align: center;
+  max-width: 100%;
+  margin: 60px 200px;
+  color: #bbbfc4;
+}
+
+/* line 38, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team {
+  font-size: 16px;
+  text-align: center;
+  max-width: 100%;
+  margin: 150px 90px 0 90px;
+}
+/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:before, .about__sections__team:after {
+  content: " ";
+  display: table;
+}
+/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:after {
+  clear: both;
+}
+
+/* line 46, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry {
+  position: relative;
+  float: left;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 33.33333%;
+}
+
+/* line 56, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__link a {
+  font-size: 12px;
+}
+
+/* line 61, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry__img {
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  margin-bottom: 5px;
+  -webkit-box-shadow: 0 2px 1px #f4f7f9;
+  box-shadow: 0 2px 1px #f4f7f9;
+}
+
+@media (max-width: 768px) {
+  /* line 3, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  /* line 8, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 100px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 15, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+  }
+
+  /* line 22, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__heading {
+    max-width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  /* line 28, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 30px;
+  }
+
+  /* line 32, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team__entry {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
