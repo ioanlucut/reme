@@ -8,7 +8,29 @@
     }
   }
 
+  .footer {
+    .footer__navbar__section-right__list {
+      width: 50%;
+
+      ul {
+        padding-left: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-phone) {
+
   .footer__navbar__section-right {
     width: 60%;
+  }
+
+  .footer {
+    .footer__navbar__section-right__list {
+
+      ul {
+        padding-left: 10px;
+      }
+    }
   }
 }

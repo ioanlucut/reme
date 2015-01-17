@@ -42,3 +42,22 @@
     width: 50%;
   }
 }
+
+@media (max-width: $screen-phone) {
+
+  .centered-section-reminders {
+
+    .tab-content {
+      padding-top: 30px;
+    }
+  }
+
+  .form-group--search {
+    width: 100%;
+    max-width: 100%;
+    right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    top: 60px;
+  }
+}
