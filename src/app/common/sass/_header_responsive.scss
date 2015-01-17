@@ -7,6 +7,10 @@
 
 @media (max-width: 768px) {
 
+  .navbar__wrapper__brand {
+    margin-left: 15px;
+  }
+
   .navbar--white .navbar-nav > li {
 
     &.btn__wrapper {
