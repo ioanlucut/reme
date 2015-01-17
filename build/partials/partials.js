@@ -113,10 +113,10 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            <button type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
     "                        </div>\n" +
     "                    </form>\n" +
+    "                </div>\n" +
     "\n" +
-    "                    <div class=\"text-center text-muted home__signup__sections__section--migration\">\n" +
-    "                        Rest assured, you'll see reminders created in old Reme after you sign up!\n" +
-    "                    </div>\n" +
+    "                <div class=\"text-center text-muted home__signup__sections__section--migration\">\n" +
+    "                    Rest assured, the reminders created in old Reme will be imported in your account after you sign up.\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Request registration email sent section -->\n" +
