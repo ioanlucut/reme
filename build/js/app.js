@@ -4346,7 +4346,7 @@ angular
         }
 
         else {
-            URLTo.apiBase("http://api.reme.ro");
+            URLTo.apiBase("http://api.reme.io");
         }
     }]);;/**
  * Main app controller declaration.
