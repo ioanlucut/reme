@@ -4469,10 +4469,7 @@ angular.module("app/site/partials/about.html", []).run(["$templateCache", functi
     "    <div class=\"about__sections\">\n" +
     "        <h1 class=\"about__sections__heading\">About us</h1>\n" +
     "\n" +
-    "        <h1 class=\"about__sections__description\">\n" +
-    "            We are a small team of 3 and we're really passioned about building Reme. Our main goal is to make our users happy (that's you!)\n" +
-    "            and we hope you like using it. If you'd like to send us your feedback or just drop us a line, here we are.\n" +
-    "        </h1>\n" +
+    "        <h1 class=\"about__sections__description\">We are building Reme in our free time out of our geeky-nerdy passion for development and for neat application.</h1>\n" +
     "\n" +
     "        <div class=\"about__sections__team\">\n" +
     "            <div class=\"about__sections__team__entry\">\n" +
@@ -4480,7 +4477,7 @@ angular.module("app/site/partials/about.html", []).run(["$templateCache", functi
     "\n" +
     "                <div class=\"about__sections__team__desc\">Sorin Pantiş</div>\n" +
     "                <div class=\"about__sections__team__link\">\n" +
-    "                    <a href=\"https://twitter.com/sorinpantis\" target=\"_blank\">@sorinpantis</a>\n" +
+    "                    <a href=\"https://twitter.com/sorinpantis\">@sorinpantis</a>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"about__sections__team__entry\">\n" +
@@ -4488,15 +4485,15 @@ angular.module("app/site/partials/about.html", []).run(["$templateCache", functi
     "\n" +
     "                <div class=\"about__sections__team__desc\">Tamás Pap</div>\n" +
     "                <div class=\"about__sections__team__link\">\n" +
-    "                    <a href=\"https://twitter.com/paptamas\" target=\"_blank\">@paptamas</a>\n" +
+    "                    <a href=\"https://twitter.com/paptamas\">@paptamas</a>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"about__sections__team__entry\">\n" +
-    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4105efc-9cf2-11e4-99aa-22889cb05bd0.jpeg\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4105efc-9cf2-11e4-99aa-22889cb05bd0s.jpg\">\n" +
     "\n" +
     "                <div class=\"about__sections__team__desc\">Ioan Lucuţ</div>\n" +
     "                <div class=\"about__sections__team__link\">\n" +
-    "                    <a href=\"https://twitter.com/ioanlucut\" target=\"_blank\">@ioanlucut</a>\n" +
+    "                    <a href=\"https://twitter.com/ioanlucut\">@ioanlucut</a>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -4553,7 +4550,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                    </form>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"text-center home__signup__sections__section--migration\">\n" +
+    "                <div class=\"text-center text-muted home__signup__sections__section--migration\">\n" +
     "                    Rest assured, the reminders created in old Reme will be imported in your account after you sign up.\n" +
     "                </div>\n" +
     "\n" +
@@ -4808,7 +4805,7 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "    <form class=\"reminder-modal__form\" name=\"reminderForm\" ng-submit=\"saveReminder(reminderForm)\" novalidate focus-first-error>\n" +
     "\n" +
     "        <!--Reminder text-->\n" +
-    "        <div class=\"form-group\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
+    "        <div class=\"form-group form-group--reminder-text\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
     "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" auto-focus=\"isModalOpened\" required />\n" +
     "        </div>\n" +
@@ -5488,7 +5485,7 @@ angular.module("app/common/partials/header-home.html", []).run(["$templateCache"
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "            </button>\n" +
-    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
+    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"http://www.reme.io\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
     "                <span class=\"navbar__wrapper__brand__text\">Reme</span>\n" +
     "            </a>\n" +
