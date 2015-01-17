@@ -1,5 +1,5 @@
 .footer {
-  background-color: $footer-background-color;
+  background-color: $brand-primary;
   margin: 0;
   padding: 0;
   height: $footer-home-height;
@@ -14,10 +14,10 @@
         height: 20px;
 
         a {
-          color: darken($footer-background-color, 35%);
+          color: $white;
 
           &:hover {
-            color: darken($footer-background-color, 55%);
+            color: darken($white, 15%);
           }
         }
       }
@@ -30,7 +30,7 @@
 
   .footer__navbar__section-left__copyright {
     height: $footer-home-height;
-    color: darken($footer-background-color, 30%);
+    color: $white;
     display: table-cell;
     vertical-align: middle;
 
