@@ -22,19 +22,23 @@
   }
 
   .reminder__info__item {
-    position: relative;
-    float: none;
     width: 100%;
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  .reminder__info__item--date {
+    float: none;
+    width: 100%;
     text-align: left;
   }
 
   .reminder__info__item--time {
     text-align: left;
+    width: 50%;
   }
 
   .reminder__info__item--additional {
-    height: 20px;
+    width: 50%;
   }
 }
