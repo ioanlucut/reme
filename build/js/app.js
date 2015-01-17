@@ -52,6 +52,7 @@ angular
         updatePassword: "updatePassword",
         validatePassword: "validatePassword",
         createUpdateReminder: "createUpdateReminder",
+        reminderList: "reminderList",
         updateProfile: "updateProfile",
         preferences: "preferences"
     });;/**
@@ -1056,15 +1057,19 @@ angular.module("common").
 
                     // Calculate and apply scrollTop
                     var visibleItems = Math.round(dropdownMenu.height() / selectedItem.outerHeight());
-                    var scrollTop = selectedItem.position().top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
-                    dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Highlight the selected item
-                    scope.highlightSelected = true;
-                    scope.$apply();
+                    var position = selectedItem.position();
+                    if ( position && position.top ) {
+                        var scrollTop = position.top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
+                        dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Update the perfect scrollbar
-                    scope.$broadcast("perfectScrollbar:update", null);
+                        // Highlight the selected item
+                        scope.highlightSelected = true;
+                        scope.$apply();
+
+                        // Update the perfect scrollbar
+                        scope.$broadcast("perfectScrollbar:update", null);
+                    }
                 });
 
                 /**
@@ -3379,7 +3384,20 @@ angular
             );
         }
 
-        // Save the reminder
+        /**
+         * Dismiss the create/update modal.
+         */
+        $scope.dismissCurrentOpenedModal = function () {
+            var currentModal = $scope.isNew ? ReminderModalService.modalInstance : ReminderUpdateModalService.modalInstance;
+            currentModal.dismiss("cancel");
+
+            $scope.isModalOpened = false;
+        };
+
+        /**
+         * Saves the reminder or updates it.
+         * @param reminderForm
+         */
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
 
@@ -3551,7 +3569,12 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "MIXPANEL_EVENTS", function ($scope, $rootScope, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "flash", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.reminderList;
 
         /**
          * Track event.
@@ -3594,13 +3617,8 @@ angular
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
-            if ( args.reminder.model.dueOn > new Date() ) {
-                $scope.upcomingReminders.push(args.reminder);
-                $scope.reminderTabs.setUpcomingRemindersTabActive();
-            }
-            else {
-                $scope.pastReminders.push(args.reminder);
-            }
+            $scope.upcomingReminders.push(args.reminder);
+            $scope.reminderTabs.setUpcomingRemindersTabActive();
         });
 
         /**
@@ -3635,7 +3653,7 @@ angular
          * @param reminderToBeRemoved
          */
         function removeReminderFrom(reminderList, reminderToBeRemoved) {
-            _.remove(reminderList, function (reminderFromArray) {
+            return _.remove(reminderList, function (reminderFromArray) {
                 var reminderId = _.parseInt(reminderToBeRemoved.model.reminderId, 10);
                 var reminderFromArrayId = _.parseInt(reminderFromArray.model.reminderId, 10);
                 if ( _.isNaN(reminderFromArrayId) || _.isNaN(reminderId) ) {
@@ -4425,7 +4443,7 @@ angular.module("app/site/partials/404.html", []).run(["$templateCache", function
     "    <div class=\"error__sections__reason\">We can't really impress you since that page doesn't actually exist.</div>\n" +
     "    <div class=\"error__sections__reason error__sections__reason--last\">Probably a typo or the page may have moved.</div>\n" +
     "\n" +
-    "    <a class=\"error__sections__link\" href=\"#\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
+    "    <a class=\"error__sections__link\" href=\"javascript:void(0)\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
     "\n" +
     "</div>");
 }]);
@@ -4438,7 +4456,7 @@ angular.module("app/site/partials/500.html", []).run(["$templateCache", function
     "    <div class=\"error__sections__reason\">Nothing you did. It seems like an internal problem on the server.</div>\n" +
     "    <div class=\"error__sections__reason error__sections__reason--last\">If this happens again please let us know at <a class=\"link-primary\" href=\"mailto:hello@reme.io\">hello@reme.io</a></div>\n" +
     "\n" +
-    "    <a class=\"error__sections__link\" href=\"#\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
+    "    <a class=\"error__sections__link\" href=\"javascript:void(0)\" ng-click=\"goToHomePage()\">Go to homepage</a>\n" +
     "\n" +
     "</div>");
 }]);
@@ -4494,7 +4512,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                    </form>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"text-center text-muted\">\n" +
+    "                <div class=\"text-center text-muted home__signup__sections__section--migration\">\n" +
     "                    Rest assured, you'll see reminders created in old Reme after you sign up!\n" +
     "                </div>\n" +
     "\n" +
@@ -4538,7 +4556,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
 angular.module("app/site/partials/privacy.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/privacy.html",
     "<div class=\"centered-section-reminders\">\n" +
-    "    <a class=\"link-primary\" href=\"#\" ng-click=\"goToHomePage()\">< Go back to the homepage</a>\n" +
+    "    <a class=\"link-primary\" href=\"javascript:void(0)\" ng-click=\"goToHomePage()\">< Go back to the homepage</a>\n" +
     "    <h1>Terms of use</h1>\n" +
     "    <ul>\n" +
     "        <li>Reme is a tool created in the sole purpose of helping people get organized by creating reminders which will be sent to the provided e-mail address(es) at a specific date and time. Reme is not responsible for the content entered by the user.</li>\n" +
@@ -4662,7 +4680,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "    <!--Reminder edit/delete-->\n" +
     "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"#\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
+    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"javascript:void(0)\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!--Reminder info-->\n" +
@@ -4704,7 +4722,7 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 
 angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
-    "<div class=\"reminders__header simptip-position-top simptip-fade simptip-smooth\" data-tooltip=\"Compose\">\n" +
+    "<div class=\"reminders__header simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Compose\">\n" +
     "    <button class=\"reminders__header__btn\" ng-click=\"openReminderModalService()\"></button>\n" +
     "</div>");
 }]);
@@ -4712,11 +4730,11 @@ angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
     "<tabset>\n" +
-    "    <tab heading=\"Upcoming reminders\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
+    "    <tab heading=\"Upcoming\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
     "        <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\"></div>\n" +
     "    </tab>\n" +
     "\n" +
-    "    <tab heading=\"Past reminders\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
+    "    <tab heading=\"Past\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
     "        <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\"></div>\n" +
     "    </tab>\n" +
     "</tabset>");
@@ -4782,6 +4800,10 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "\n" +
     "        <!--Submit form button-->\n" +
     "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update reminder\"}}</button>\n" +
+    "\n" +
+    "        <div class=\"reminder-modal__form__cancel\">\n" +
+    "            <a href=\"javascript:void(0)\" ng-click=\"dismissCurrentOpenedModal()\">Nevermind</a>\n" +
+    "        </div>\n" +
     "    </form>\n" +
     "</div>");
 }]);
@@ -4797,7 +4819,7 @@ angular.module("app/reminders/partials/reminderModal/reminder_delete_modal.html"
     "            <strong>{{reminder.model.dueOn | friendlyDate}}</strong> anymore?\n" +
     "        </div>\n" +
     "        <div class=\"reminder-form-container__form__recommend\">\n" +
-    "            <a href=\"#\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
+    "            <a href=\"javascript:void(0)\" ng-click=\"dismiss()\">Keep calm and don't delete it!</a>\n" +
     "        </div>\n" +
     "        <button type=\"submit\" ladda=\"isDeleting\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--delete-reminder\" ng-click=\"reminder.isCreatedBy(user.model.email) ? deleteReminderAndClose(reminder) : unSubscribeFromReminderAndClose(reminder)\">Don't need it anymore</button>\n" +
     "    </div>\n" +
@@ -4843,7 +4865,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                <!-- Reset password -->\n" +
     "                <div class=\"form-group\">\n" +
-    "                    <a class=\"link-secondary link--lg-middle\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
+    "                    <a class=\"link-secondary link--lg-middle\" href=\"javascript:void(0)\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)\">Forgot login details?</a>\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
@@ -4851,7 +4873,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a class=\"link-primary link--lg\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
+    "        <a class=\"link-primary link--lg\" href=\"javascript:void(0)\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Don't have an account yet? Sign up!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -4891,7 +4913,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a class=\"link-primary link--lg\" href=\"#\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
+    "        <a class=\"link-primary link--lg\" href=\"javascript:void(0)\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Already have an account? Sign in here!</a>\n" +
     "\n" +
     "    </div>\n" +
     "\n" +
@@ -4905,7 +4927,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <span class=\"account__explain\">Please check your email to finish your account creation.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">I think I've misspelled my email</a>\n" +
+    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">I think I've misspelled my email</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Recover password section -->\n" +
@@ -4948,7 +4970,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
-    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Nevermind, take me back!</a>\n" +
+    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Nevermind, take me back!</a>\n" +
     "    </div>\n" +
     "\n" +
     "    <!-- Password recovery email sent section -->\n" +
@@ -4961,7 +4983,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "        <span class=\"account__explain\">Please check your email. We've sent you a link to reset your password.</span>\n" +
     "\n" +
     "        <!-- Button container -->\n" +
-    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Actually I remember the password</a>\n" +
+    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)\">Actually I remember the password</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>");
@@ -5028,8 +5050,8 @@ angular.module("app/account/partials/settings/settings.preferences.html", []).ru
     "            <div class=\"account__controls__form-groups account__controls__form-groups--last\">\n" +
     "\n" +
     "                <!-- Form group -->\n" +
-    "                <div class=\"form-group\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
-    "                    <select chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
+    "                <div class=\"form-group form-group--timezone\" ng-class=\"{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}\">\n" +
+    "                    <select class=\"form-control\" chosen=\"{inherit_select_classes:true}\" ng-options=\"timezone.key as timezone.value for timezone in timezones\" ng-model=\"preferencesData.timezone\" required> </select>\n" +
     "                    <span class=\"help-message\" ng-if=\"preferencesForm.timezone.$invalid && preferencesForm.$submitted\">Please tell us your email.</span>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -5084,7 +5106,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "        </div>\n" +
     "    </form>\n" +
     "\n" +
-    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password</a>\n" +
+    "    <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updatePassword)\">Change password</a>\n" +
     "</div>\n" +
     "\n" +
     "<!-- Update password section -->\n" +
@@ -5129,7 +5151,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "        </div>\n" +
     "    </form>\n" +
     "\n" +
-    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Nevermind, take me back!</a>\n" +
+    "    <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Nevermind, take me back!</a>\n" +
     "\n" +
     "</div>\n" +
     "\n" +
@@ -5143,7 +5165,7 @@ angular.module("app/account/partials/settings/settings.profile.html", []).run(["
     "    <span class=\"account__explain\">We've successfully updated your new password.</span>\n" +
     "\n" +
     "    <!-- Button container -->\n" +
-    "    <a href=\"#\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
+    "    <a href=\"javascript:void(0)\" ng-click=\"ProfileFormToggle.setState(ACCOUNT_FORM_STATE.updateProfile)\">Continue</a>\n" +
     "</div>");
 }]);
 
@@ -5163,7 +5185,7 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
     "        <span class=\"account__explain\">\n" +
     "            Sorry, we couldn't validate your email. Maybe the link in the email is too old..\n" +
     "        </span>\n" +
-    "        <a href=\"#\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Request the email again</a>\n" +
+    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Request the email again</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -5257,7 +5279,7 @@ angular.module("app/account/partials/validate_password_reset_token_invalid.html"
     "    <br />\n" +
     "\n" +
     "    <!-- Button container -->\n" +
-    "    <a href=\"#\" ng-click=\"continueToResetPassword()\">Let me try again.</a>\n" +
+    "    <a href=\"javascript:void(0)\" ng-click=\"continueToResetPassword()\">Let me try again.</a>\n" +
     "    <br />\n" +
     "    <span ng-if=\"isUserAuthenticated\">\n" +
     "        You are authenticated. You will be logged off if you want to try again.\n" +
@@ -5328,12 +5350,12 @@ angular.module("app/common/partials/emailList/emailList.html", []).run(["$templa
     "            <input class=\"form-control form-control--friend-email\" type=\"email\" placeholder=\"{{$index === 0 ? 'Your email' : 'Your friend\\'s email address'}}\" name=\"email\" ng-model=\"emails[$index].email\" required ng-disabled=\"$index === 0\" />\n" +
     "\n" +
     "            <!--Remove emails buttons-->\n" +
-    "            <a href=\"#\" ng-if=\"$index > 0\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
+    "            <a href=\"javascript:void(0)\" ng-if=\"$index > 0\" class=\"close\" tabindex=\"-1\" ng-click=\"removeEmail($index)\">×</a>\n" +
     "        </div>\n" +
     "    </ng-form>\n" +
     "</div>\n" +
     "\n" +
-    "<a class=\"btn-add-emails\" href=\"#\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
+    "<a class=\"btn-add-emails\" href=\"javascript:void(0)\" ng-click=\"addEmail()\" ng-show=\"canAddEmail\">Add another email recipient</a>");
 }]);
 
 angular.module("app/common/partials/flash-messages.html", []).run(["$templateCache", function($templateCache) {
@@ -5469,7 +5491,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "            </button>\n" +
     "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
-    "                <span class=\"navbar__wrapper__brand__text\">Reme</span>\n" +
+    "                <span class=\"navbar__wrapper__brand__text\"></span>\n" +
     "            </a>\n" +
     "        </div>\n" +
     "\n" +
@@ -5477,7 +5499,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "        <div class=\"collapse navbar-collapse\" id=\"navbar-collapse-target\">\n" +
     "            <ul class=\"nav navbar-nav navbar-right\">\n" +
     "                <li>\n" +
-    "                    <a id=\"feedback-trigger\" class=\"navbar__wrapper__feedback navbar__link\" href=\"#\">\n" +
+    "                    <a id=\"feedback-trigger\" class=\"navbar__wrapper__feedback navbar__link\" href=\"javascript:void(0)\">\n" +
     "                        <span class=\"icon-comment-2\"></span> Send feedback\n" +
     "                    </a>\n" +
     "                </li>\n" +
