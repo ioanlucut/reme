@@ -12395,7 +12395,7 @@ td.visible-print {
 }
 
 /* line 83, ../../src/sass/fonts/_app-icons.scss */
-.icon-checkmark:before {
+.icon-checkmark:before, .home__signup__sections__section--success:before {
   content: "c";
 }
 
@@ -12990,7 +12990,7 @@ textarea.form-control--account {
 }
 /* line 1, ../../src/app/common/sass/_footer.scss */
 .footer {
-  background-color: #e6e9eb;
+  background-color: #8471B1;
   margin: 0;
   padding: 0;
   height: 180px;
@@ -13012,11 +13012,11 @@ textarea.form-control--account {
 }
 /* line 16, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar ul li a {
-  color: #83929c;
+  color: #fff;
 }
 /* line 19, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar ul li a:hover {
-  color: #525e66;
+  color: #d9d9d9;
 }
 /* line 27, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar__section-left {
@@ -13025,7 +13025,7 @@ textarea.form-control--account {
 /* line 31, ../../src/app/common/sass/_footer.scss */
 .footer .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #919ea7;
+  color: #fff;
   display: table-cell;
   vertical-align: middle;
 }
@@ -13054,7 +13054,7 @@ textarea.form-control--account {
 
 /* line 1, ../../src/app/common/sass/_footer_home.scss */
 .footer-home {
-  background-color: #f5f6f7;
+  background-color: #8471B1;
   margin: 0;
   padding: 0;
   height: 180px;
@@ -13077,11 +13077,11 @@ textarea.form-control--account {
 }
 /* line 17, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a {
-  color: #929da8;
+  color: #fff;
 }
 /* line 20, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar ul li a:hover {
-  color: #5e6a75;
+  color: #d9d9d9;
 }
 
 /* line 28, ../../src/app/common/sass/_footer_home.scss */
@@ -13092,7 +13092,7 @@ textarea.form-control--account {
 /* line 32, ../../src/app/common/sass/_footer_home.scss */
 .footer__navbar__section-left__copyright {
   height: 180px;
-  color: #a0aab3;
+  color: #fff;
   display: table-cell;
   vertical-align: middle;
 }
@@ -13572,7 +13572,7 @@ html, body {
   line-height: 1.33;
   border-radius: 3px;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
 }
 /* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
@@ -13600,7 +13600,12 @@ html, body {
   border-color: transparent;
 }
 
-/* line 198, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 197, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-group--reminder-text label {
+  font-weight: 300;
+}
+
+/* line 205, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder--saving {
   width: 150px;
   margin: 20px auto;
@@ -13612,7 +13617,7 @@ html, body {
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
-/* line 210, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date:before {
   position: absolute;
   z-index: 999;
@@ -13632,7 +13637,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 224, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time:before {
   position: absolute;
   z-index: 999;
@@ -13652,11 +13657,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 224, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 231, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .btn.btn--reminder-popup {
   border: 1px solid #b94a48;
 }
-/* line 228, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 235, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .has-error-messages {
   display: block;
   margin-bottom: 10px;
@@ -13664,7 +13669,7 @@ html, body {
   color: #b94a48;
 }
 
-/* line 237, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 244, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-group--email-icon:before {
   position: absolute;
   z-index: 999;
@@ -13704,12 +13709,12 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 247, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 254, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
-  font-weight: 300;
+  font-weight: 700;
 }
 
-/* line 251, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 258, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
   background-color: #ededed;
   border: 0;
@@ -13742,7 +13747,7 @@ textarea.form-control--reminder {
 .form-control--friend-email {
   height: 34px;
   padding: 10px 16px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.33;
   border-radius: 4px;
 }
@@ -13758,7 +13763,7 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 264, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 271, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
   background-color: #ededed;
@@ -13784,19 +13789,19 @@ textarea.form-control--friend-email {
 .form-control--friend-email::-webkit-input-placeholder {
   color: #9fa5ab;
 }
-/* line 273, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 280, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email:hover, .form-control--friend-email:focus {
   background-color: #e0e0e0;
 }
 
 /*Add border on error*/
-/* line 280, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 287, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .form-control--friend-email {
   border: 1px solid #b94a48;
 }
 
 /*First input - the user email*/
-/* line 285, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 292, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email.form-control[disabled] {
   background-color: #ededed;
   border: 0;
@@ -14582,24 +14587,33 @@ textarea.form-control--friend-email {
 }
 
 /* line 9, ../../src/app/site/sass/_site_layout.scss */
+.centered-section-logged {
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* line 17, ../../src/app/site/sass/_site_layout.scss */
 .home {
   min-height: 100%;
   padding-bottom: 180px;
 }
-/* line 13, ../../src/app/site/sass/_site_layout.scss */
+/* line 21, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
   height: 700px;
 }
-/* line 16, ../../src/app/site/sass/_site_layout.scss */
+/* line 24, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 250px 15px 20px;
-  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 48px;
   font-weight: 700;
   text-align: center;
   margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 25, ../../src/app/site/sass/_site_layout.scss */
+/* line 33, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
@@ -14619,27 +14633,31 @@ textarea.form-control--friend-email {
 @media (max-width: 768px) {
   /* line 16, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h1.home__signup__title {
-    padding-top: 100px;
+    padding-top: 150px;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 35px;
+    font-size: 45px;
   }
   /* line 23, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h3.home__signup__description {
     padding-right: 50px;
     padding-left: 50px;
-    padding-bottom: 30px;
   }
 
-  /* line 30, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 29, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 750px;
   }
 }
 @media (max-width: 480px) {
-  /* line 37, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 36, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 800px;
+  }
+
+  /* line 42, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h3.home__signup__description {
+    padding-bottom: 30px;
   }
 }
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
@@ -14654,14 +14672,36 @@ textarea.form-control--friend-email {
   margin: 0 auto 0;
   text-align: center;
   border-radius: 3px;
+  padding-left: 60px;
+}
+/* line 16, ../../src/app/site/sass/_site_signup.scss */
+.home__signup__sections__section--success:before {
+  position: absolute;
+  z-index: 999;
+  left: 15px;
+  bottom: 0;
+  top: 0;
+  font-size: 20px;
+  height: 40px;
+  font-family: "reme-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 40px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: auto;
+  font-size: 40px;
 }
 
-/* line 16, ../../src/app/site/sass/_site_signup.scss */
+/* line 24, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls {
   text-align: center;
 }
 
-/* line 20, ../../src/app/site/sass/_site_signup.scss */
+/* line 28, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__alert {
   width: 300px;
   text-align: center;
@@ -14688,7 +14728,7 @@ textarea.home__signup__sections__section__controls__email {
   height: auto;
 }
 
-/* line 28, ../../src/app/site/sass/_site_signup.scss */
+/* line 36, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email {
   height: 50px;
   width: 100%;
@@ -14697,37 +14737,37 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 300;
   display: inline-block;
 }
-/* line 36, ../../src/app/site/sass/_site_signup.scss */
+/* line 44, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__email.has-error {
   border-color: #b94a48;
 }
 
-/* line 41, ../../src/app/site/sass/_site_signup.scss */
+/* line 49, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information {
   position: relative;
   width: 300px;
   display: inline-block;
 }
-/* line 46, ../../src/app/site/sass/_site_signup.scss */
+/* line 54, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .information {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 20px;
 }
-/* line 53, ../../src/app/site/sass/_site_signup.scss */
+/* line 61, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .icon-info {
   height: 50px;
   line-height: 50px;
   font-size: 16px;
 }
-/* line 58, ../../src/app/site/sass/_site_signup.scss */
+/* line 66, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls--information .icon-info:before {
   height: 50px;
   line-height: 50px;
 }
 
-/* line 65, ../../src/app/site/sass/_site_signup.scss */
+/* line 73, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__controls__button {
   color: #fff;
   background-color: #8471B1;
@@ -14763,20 +14803,20 @@ textarea.home__signup__sections__section__controls__email {
   border-color: #8471B1;
 }
 
-/* line 73, ../../src/app/site/sass/_site_signup.scss */
+/* line 81, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: #b94a48;
 }
 
-/* line 78, ../../src/app/site/sass/_site_signup.scss */
+/* line 86, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__checking-availability {
   text-align: center;
   color: #8471B1;
   padding: 10px;
 }
 
-/* line 84, ../../src/app/site/sass/_site_signup.scss */
+/* line 92, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-title {
   margin-bottom: 20px;
   line-height: 25px;
@@ -14785,22 +14825,23 @@ textarea.home__signup__sections__section__controls__email {
   font-weight: 400;
 }
 
-/* line 92, ../../src/app/site/sass/_site_signup.scss */
+/* line 100, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section__submitted-message {
   display: block;
   margin-bottom: 20px;
   line-height: 20px;
   font-weight: 300;
-  font-size: 14px;
-  color: #848b91;
+  font-size: 16px;
+  color: #468847;
 }
 
-/* line 101, ../../src/app/site/sass/_site_signup.scss */
+/* line 109, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section--migration {
   margin-top: 10px;
-  font-size: 12px;
   padding-left: 10px;
   padding-right: 10px;
+  font-size: 12px;
+  color: #28a1c5;
 }
 
 @media (max-width: 650px) {
@@ -14838,7 +14879,7 @@ textarea.home__signup__sections__section__controls__email {
 /* line 13, ../../src/app/site/sass/_site_testimonials.scss */
 .press_logo {
   height: 80px;
-  width: 300px;
+  width: 295px;
   display: inline-block;
   margin: 65px 7px;
 }
@@ -14878,7 +14919,7 @@ textarea.home__signup__sections__section__controls__email {
   background-position: -125px -470px;
   display: block;
   height: 50px;
-  width: 200px;
+  width: 210px;
   margin: 80px auto 0 auto;
   padding: 7px 0 0 55px;
   font-size: 16px;
@@ -15069,23 +15110,6 @@ textarea.home__signup__sections__section__controls__email {
   box-shadow: 0 2px 1px #f4f7f9;
 }
 
-/* line 75, ../../src/app/site/sass/_site_about.scss */
-.footer-about .footer-home {
-  background-color: #8471B1;
-}
-/* line 79, ../../src/app/site/sass/_site_about.scss */
-.footer-about .footer__navbar__section-left__copyright {
-  color: #fff;
-}
-/* line 87, ../../src/app/site/sass/_site_about.scss */
-.footer-about .footer__navbar ul li a {
-  color: #fff;
-}
-/* line 90, ../../src/app/site/sass/_site_about.scss */
-.footer-about .footer__navbar ul li a:hover {
-  color: #d9d9d9;
-}
-
 @media (max-width: 768px) {
   /* line 3, ../../src/app/site/sass/_site_about_responsive.scss */
   .about__sections__team {
@@ -15125,6 +15149,27 @@ textarea.home__signup__sections__section__controls__email {
     margin-bottom: 20px;
   }
 }
+/* line 1, ../../src/app/site/sass/_site_privacy.scss */
+.view-container--terms {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
+}
+
+/* line 12, ../../src/app/site/sass/_site_privacy.scss */
+.privacy__sections {
+  position: relative;
+  padding-top: 71px;
+  margin: 0 auto;
+  max-width: 100%;
+  color: black;
+}
+
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
 .chosen-select {
   width: 100%;

@@ -26,5 +26,5 @@ angular
     .run(function () {
 
         // Set the base API URL
-        URLTo.apiBase("http://dev-api.reme.io");
+        URLTo.apiBase("http://api.reme.io");
     });

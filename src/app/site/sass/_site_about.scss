@@ -69,29 +69,3 @@
   -webkit-box-shadow: 0 2px 1px #f4f7f9;
   box-shadow: 0 2px 1px #f4f7f9;
 }
-
-.footer-about {
-
-  .footer-home {
-    background-color: $brand-primary;
-  }
-
-  .footer__navbar__section-left__copyright {
-    color: $white;
-  }
-
-  .footer__navbar {
-    ul {
-      li {
-
-        a {
-          color: $white;
-
-          &:hover {
-            color: darken($white, 15%);
-          }
-        }
-      }
-    }
-  }
-}
