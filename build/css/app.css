@@ -14587,24 +14587,33 @@ textarea.form-control--friend-email {
 }
 
 /* line 9, ../../src/app/site/sass/_site_layout.scss */
+.centered-section-logged {
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* line 17, ../../src/app/site/sass/_site_layout.scss */
 .home {
   min-height: 100%;
   padding-bottom: 180px;
 }
-/* line 13, ../../src/app/site/sass/_site_layout.scss */
+/* line 21, ../../src/app/site/sass/_site_layout.scss */
 .home__signup {
   height: 700px;
 }
-/* line 16, ../../src/app/site/sass/_site_layout.scss */
+/* line 24, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 250px 15px 20px;
-  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 48px;
   font-weight: 700;
   text-align: center;
   margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 25, ../../src/app/site/sass/_site_layout.scss */
+/* line 33, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
@@ -15140,6 +15149,27 @@ textarea.home__signup__sections__section__controls__email {
     margin-bottom: 20px;
   }
 }
+/* line 1, ../../src/app/site/sass/_site_privacy.scss */
+.view-container--terms {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
+}
+
+/* line 12, ../../src/app/site/sass/_site_privacy.scss */
+.privacy__sections {
+  position: relative;
+  padding-top: 71px;
+  margin: 0 auto;
+  max-width: 100%;
+  color: black;
+}
+
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
 .chosen-select {
   width: 100%;
