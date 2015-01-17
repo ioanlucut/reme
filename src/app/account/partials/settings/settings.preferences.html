@@ -1,32 +1,30 @@
-<!-- Preferences sections -->
-<div class="account__sections">
+<!-- Profile section -->
+<div class="account__section" ng-controller="PreferencesCtrl">
 
-    <!-- Profile section -->
-    <div class="account__section" ng-controller="PreferencesCtrl">
+    <!-- Title -->
+    <h1 class="account__title">Modify timezone</h1>
 
-        <!-- Title -->
-        <h1 class="account__title">Modify timezone</h1>
+    <!-- Profile form -->
+    <form name="preferencesForm" ng-submit="updatePreferences(preferencesData)" novalidate>
 
-        <!-- Profile form -->
-        <form name="preferencesForm" ng-submit="updatePreferences(preferencesData)" novalidate>
+        <!-- Account controls -->
+        <div class="account__controls">
 
-            <!-- Account controls -->
-            <div class="account__controls">
+            <!-- Flash messages. -->
+            <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
-                <!-- Form groups -->
-                <div class="account__controls__form-groups account__controls__form-groups--last">
+            <!-- Form groups -->
+            <div class="account__controls__form-groups account__controls__form-groups--last">
 
-                    <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}">
-                        <select chosen="{inherit_select_classes:true}" ng-options="timezone.key as timezone.value for timezone in timezones" ng-model="preferencesData.timezone" required> </select>
-                        <span class="help-block" ng-if="preferencesForm.timezone.$invalid && preferencesForm.$submitted">Please tell us your email.</span>
-                    </div>
+                <!-- Form group -->
+                <div class="form-group form-group--timezone" ng-class="{'has-error': preferencesForm.timezone.$invalid && preferencesForm.$submitted}">
+                    <select class="form-control" chosen="{inherit_select_classes:true}" ng-options="timezone.key as timezone.value for timezone in timezones" ng-model="preferencesData.timezone" required> </select>
+                    <span class="help-message" ng-if="preferencesForm.timezone.$invalid && preferencesForm.$submitted">Please tell us your email.</span>
                 </div>
-
-                <!-- Button container -->
-                <button class="btn account__button" type="submit">Save changes</button>
             </div>
-        </form>
-    </div>
 
+            <!-- Button container -->
+            <button class="btn account__button" type="submit">Save changes</button>
+        </div>
+    </form>
 </div>

@@ -1,0 +1,49 @@
+<!--Reminder form-->
+<div class="reminder-modal">
+
+    <!-- Flash messages. -->
+    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
+    <!--Reminder form-->
+    <form class="reminder-modal__form" name="reminderForm" ng-submit="saveReminder(reminderForm)" novalidate focus-first-error>
+
+        <!--Reminder text-->
+        <div class="form-group form-group--reminder-text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
+            <label>Remind me to:</label>
+            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" auto-focus="isModalOpened" required />
+        </div>
+
+        <!--Reminder info-->
+        <div class="reminder-modal__form__info" ng-class="{'has-error': reminderForm.selectedDate.$invalid}">
+
+            <!--Hidden input of the reminder chosen date-->
+            <input type="hidden" name="selectedDate" ng-model="reminder.model.dueOn" valid-date />
+
+            <!--Reminder date picker-->
+            <div class="reminder-modal__form__info--date">
+                <button type="button" class="btn btn--reminder-popup" datepicker-popup min="minDate" ng-model="reminder.model.dueOn" show-weeks="false" datepicker-options="{starting_day:1}" animate animate-on="nlpDate:dateChange" animate-class="highlight-button"> {{reminder.model.dueOn | friendlyDate}}</button>
+            </div>
+
+            <!--Reminder time picker-->
+            <div class="reminder-modal__form__info--time" timepicker-popup dropdown ng-model="reminder.model.dueOn" step="30"></div>
+
+            <!--Error messages-->
+            <div class="has-error-messages" ng-messages="reminderForm.selectedDate.$error">
+                <div ng-message="validDate">Please make sure that the date and time are in the future.</div>
+            </div>
+        </div>
+
+        <!--Reminder addresses-->
+        <div class="reminder-modal__form__addressees">
+
+            <div email-list ng-model="reminder.model.recipients" max-emails="6" parent-form="reminderForm"></div>
+        </div>
+
+        <!--Submit form button-->
+        <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update reminder"}}</button>
+
+        <div class="reminder-modal__form__cancel">
+            <a href="javascript:void(0)" ng-click="dismissCurrentOpenedModal()">Nevermind</a>
+        </div>
+    </form>
+</div>

@@ -7,34 +7,37 @@
     <div class="account__section">
 
         <!-- Title -->
-        <h1 class="account__title">Finalize your account!</h1>
+        <h1 class="account__title">Let's finalize your account!</h1>
 
         <!-- Sign-up form -->
-        <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error-on-submit>
+        <form name="signUpForm" ng-submit="signUp(signUpData)" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
 
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                 <!-- Form groups -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || signUpForm.$invalid)}">
-                    <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" required />
-                    <span class="help-block" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.firstName.$invalid || badPostSubmitResponse)}">
+                    <input class="form-control form-control--account" type="text" placeholder="First Name" name="firstName" ng-model="signUpData.firstName" auto-focus required />
+                    <span class="help-message" ng-if="signUpForm.firstName.$invalid && signUpForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
-                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || signUpForm.$invalid)}">
+                <div class="form-group" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.lastName.$invalid || badPostSubmitResponse)}">
                     <input class="form-control form-control--account" type="text" placeholder="Last Name" name="lastName" ng-model="signUpData.lastName" required />
-                    <span class="help-block" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
+                    <span class="help-message" ng-if="signUpForm.lastName.$invalid && signUpForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--medium-offset">
 
                     <!-- Form group -->
-                    <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || signUpForm.$invalid)}">
+                    <div class="form-group form-group--small-offset" ng-class="{'has-error': signUpForm.$submitted && (signUpForm.password.$invalid || badPostSubmitResponse)}">
                         <input class="form-control form-control--account" type="password" placeholder="Choose a password" name="password" ng-model="signUpData.password" required strong-password />
 
-                        <div class="help-block" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
+                        <div class="help-message" ng-messages="signUpForm.password.$error" ng-if="signUpForm.$submitted">
                             <div ng-message="required">Please choose a password.</div>
                             <div ng-message="strongPassword">Your password needs to be at least 7 characters long.</div>
                         </div>
@@ -43,7 +46,7 @@
 
                 <div class="account__controls__form__info">
                     <div class="account__controls__form__info__left">Timezone</div>
-                    <div class="account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Timezone automatically detected. This can be further customized on preferences page.">{{timezoneDetails.value}}</div>
+                    <div class="account__controls__form__info__right simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="We automatically detected your timezone. You can change this later in the Settings page.">{{timezoneDetails.value}}</div>
                 </div>
 
                 <!-- Button container -->
@@ -51,6 +54,11 @@
             </div>
         </form>
 
+    </div>
+
+    <div class="account__section__terms">
+        * By singing up you agree to our
+        <a href="javascript:void(0)" ui-sref="privacy" class="account__section__terms__link">Terms and Privacy policy</a>
     </div>
 
 </div>

@@ -1,75 +1,133 @@
 .link--brand-bg {
-  color: lighten($brand-primary, 20%);
+  color: lighten($brand-primary, 10%);
 
   &:hover,
   &:active,
   &:focus {
-    color: lighten($brand-primary, 40%)
+    color: lighten($brand-primary, 20%)
   }
 }
 
-.header {
-  background-color: $brand-primary;
-  margin: 0;
-  height: $header-height;
-  line-height: $header-height;
+.navbar__link {
+  color: lighten($brand-primary, 10%);
 
-  .header__wrapper {
-    @include clearfix;
-    width: $container-reminders-width;
-    margin: 0 auto;
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 20%)
+  }
+}
 
-    .header__wrapper__logo {
-      float: left;
-      color: #ffffff;
-      display: block;
+.navbar--white {
+  background-color: $white;
+  border-radius: 0;
+
+  .navbar--white .navbar-nav > .open > a {
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent;
     }
+  }
+}
 
-    .header__wrapper__feedback {
-      display: block;
-      float: right;
-      margin-right: 30px;
-      padding-left: 20px;
-      position: relative;
+.navbar--home {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 70px;
+}
 
-      span {
-        vertical-align: middle;
+.navbar--white .navbar-nav > li > a {
+  color: lighten($brand-primary, 10%);
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($brand-primary, 20%)
+  }
+}
+
+.navbar__wrapper {
+  max-width: $container-reminders-width;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.navbar__wrapper--home {
+  max-width: $container-home-width;
+}
+
+.navbar__wrapper__feedback {
+  display: block;
+  margin-right: 30px;
+  padding-left: 20px;
+  position: relative;
+
+  span {
+    vertical-align: middle;
+  }
+}
+
+.navbar__wrapper__brand {
+  display: block;
+  position: relative;
+  padding-left: 50px;
+
+  .navbar__wrapper__brand__logo {
+    background: url("../assets/img/logo.svg") no-repeat top left;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .navbar__wrapper__brand__text {
+    color: $brand-primary;
+    font-size: $font-size-large;
+    margin-left: 5px;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+}
+
+.navbar--white .navbar-nav > li {
+
+  &.btn__wrapper {
+    margin-right: 20px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+
+    & > a {
+      &.btn--login,
+      &.btn--logout {
+        @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+        height: $form-height-xs;
+        width: 90px;
       }
 
-      .icon-comment {
-        //font-size: 20px;
-        //position: absolute;
-        //display: inline-block;
-        //top: 2px;
-        //padding-top: 5px;
-      }
-    }
-
-    .header__wrapper__menu {
-      float: right;
-      position: relative;
-
-      a {
-        padding: 4px 8px;
+      &.btn--to-reminders {
+        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        border-radius: $border-radius-small;
+        height: $form-height-xs;
+        width: 156px;
       }
 
-      .header__wrapper__menu__dropdown {
-        @include fadeInDown($duration: 0.2s);
-        right: 10px;
-        top: 36px;
-        left: inherit;
-
-        .header__version {
-          color: $gray11;
-          cursor: default;
-        }
-      }
-    }
-
-    .header__wrapper__menu__email {
-
-      .caret {
-        border-top: 4px solid lighten($brand-primary, 20%);
+      &.btn--login,
+      &.btn--logout,
+      &.btn--to-reminders {
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding: 6px 12px;
       }
     }
 

@@ -1,4 +1,4 @@
-<div header-home></div>
+<div header-home class="view-container__header"></div>
 
 <div class="home">
 
@@ -7,7 +7,7 @@
 
             <h1 class="home__signup__title">Create email reminders in seconds!</h1>
 
-            <h3 class="home__signup__description">Those reminders that you don't want to see in your calendar... Give them to Reme and please do forget about them! Reme will not.</h3>
+            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. Create a reminder and forget about it! Reme will not.</h3>
 
             <!-- Register  section -->
             <div class="home__signup__sections" account-form-toggle>
@@ -15,38 +15,42 @@
                 <!-- Request registration section -->
                 <div class="home__signup__sections__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
+                    <!-- Flash messages. -->
+                    <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
+
                     <!-- Request registration form -->
-                    <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error-on-submit>
+                    <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error>
 
                         <!-- Account controls -->
                         <div class="home__signup__sections__section__controls">
 
-                            <!-- Flash messages. -->
-                            <div flash-alert active-class="in alert home__signup__sections__section__controls__alert" class="fade">
-                                <span class="alert-message">{{flash.message}}</span>
+                            <!-- Email input -->
+                            <div class="home__signup__sections__section__controls--information">
+                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 450 }" required valid-email unique-email />
+
+                                <!-- Error messages -->
+                                <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
+                                    <div ng-message="required">Your email address is mandatory.</div>
+                                    <div ng-message="validEmail">This email address is not valid.</div>
+                                    <div ng-message="uniqueEmail">This email address is already used.</div>
+                                </div>
                             </div>
 
-                            <!-- Email input -->
-                            <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
-
                             <!-- Button container -->
-                            <button class="btn home__signup__sections__section__controls__button" type="submit">Get started for FREE!</button>
-                        </div>
-
-                        <!-- Error messages -->
-                        <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
-                            <div ng-message="required">Your email address is mandatory.</div>
-                            <div ng-message="validEmail">This email address is not valid.</div>
-                            <div ng-message="uniqueEmail">This email address is already used.</div>
+                            <button type="submit" ladda="requestSignUpRegistrationForm.email.$pending" data-style="expand-left" data-spinner-size="20" class="btn home__signup__sections__section__controls__button">{{requestSignUpRegistrationForm.email.$pending ? "Checking availability..." : "Get started for FREE!"}}</button>
                         </div>
                     </form>
+
+                    <div class="text-center text-muted home__signup__sections__section--migration">
+                        Rest assured, the reminders created in old Reme will be imported in your account after you sign up.
+                    </div>
                 </div>
 
                 <!-- Request registration email sent section -->
-                <div class="home__signup__sections__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
+                <div class="home__signup__sections__section home__signup__sections__section--success alert alert-success" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
                     <!-- Title -->
-                    <h1 class="home__signup__sections__section__submitted-title">Thank you for signing up!</h1>
+                    <h1 class="home__signup__sections__section__submitted-title">Thanks for signing up!</h1>
 
                     <!-- Explain -->
                     <span class="home__signup__sections__section__submitted-message">
@@ -74,5 +78,5 @@
 
 </div>
 
-<div footer-home></div>
+<div footer-home class="view-container__footer"></div>
 

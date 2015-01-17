@@ -3,7 +3,17 @@
  */
 angular
     .module("account")
-    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash) {
+    .controller("ProfileCtrl", function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.updateProfile;
+
+        /**
+         * Track event.
+         */
+        mixpanel.track(MIXPANEL_EVENTS.settings);
 
         /**
          * Set default state.
@@ -22,7 +32,6 @@ angular
         $scope.profileData = {
             firstName: $scope.user.model.firstName,
             lastName: $scope.user.model.lastName,
-            email: $scope.user.model.email,
             timezone: $scope.user.model.timezone
         };
 
@@ -40,12 +49,12 @@ angular
                         $scope.user.$refresh().then(function () {
                             $scope.profileForm.$setPristine();
 
-                            flash.success = 'We\'ve successfully updated your account!';
+                            flash.to($scope.alertIdentifierId).success = 'We\'ve successfully updated your account!';
                         });
                     })
                     .catch(function () {
 
-                        flash.error = 'We\'ve encountered an error while trying to update your account.';
+                        flash.to($scope.alertIdentifierId).error = 'We\'ve encountered an error while trying to update your account.';
                     });
             }
         };

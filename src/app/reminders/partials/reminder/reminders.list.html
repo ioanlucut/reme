@@ -1,13 +1,9 @@
-<div class="centered-section-reminders">
+<tabset>
+    <tab heading="Upcoming" active="reminderTabs.upcomingRemindersTabActive">
+        <div class="reminder-list" reminder-list reminders="upcomingReminders"></div>
+    </tab>
 
-    <tabset>
-        <tab heading="Upcoming reminders" active="reminderTabs.upcomingRemindersTabActive">
-            <div reminder-list reminders="upcomingReminders"></div>
-        </tab>
-
-        <tab heading="Past reminders" active="reminderTabs.pastRemindersTabActive">
-            <div reminder-list reminders="pastReminders"></div>
-        </tab>
-    </tabset>
-
-</div>
+    <tab heading="Past" active="reminderTabs.pastRemindersTabActive">
+        <div class="reminder-list" reminder-list reminders="pastReminders"></div>
+    </tab>
+</tabset>

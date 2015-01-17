@@ -5,13 +5,27 @@
   text-align: center;
 }
 
+.home__signup__sections__section--success {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 0;
+  text-align: center;
+  border-radius: 3px;
+  padding-left: 60px;
+
+  &:before {
+    @include icon-font-base(40px);
+    @extend .icon-checkmark;
+    margin: auto;
+    font-size: 40px;
+  }
+}
+
 .home__signup__sections__section__controls {
   text-align: center;
 }
 
 .home__signup__sections__section__controls__alert {
-  /*  @extend .alert;
-    @extend .alert-danger;*/
   width: 300px;
   text-align: center;
   margin: 10px auto;
@@ -21,7 +35,7 @@
 
 .home__signup__sections__section__controls__email {
   height: $form-height;
-  width: 300px;
+  width: 100%;
   margin-right: 12px;
   font-size: $font-size-extra;
   font-weight: $font-weight-light;
@@ -32,11 +46,27 @@
   }
 }
 
-@media (max-width: 550px) {
-  .home__signup__sections__section__controls__email {
-    width: 100%;
-    margin-bottom: 6px;
-    margin-right: 0;
+.home__signup__sections__section__controls--information {
+  position: relative;
+  width: 300px;
+  display: inline-block;
+
+  .information {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 20px;
+  }
+
+  .icon-info {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+
+    &:before {
+      height: 50px;
+      line-height: 50px;
+    }
   }
 }
 
@@ -48,19 +78,9 @@
   width: 300px;
 }
 
-@media (max-width: 550px) {
-  .home__signup__sections__section__controls__button {
-    width: 100%;
-  }
-}
-
 .home__signup__sections__section__validation-messages {
   text-align: center;
   color: $state-danger-text;
-
-  div {
-    padding: 10px;
-  }
 }
 
 .home__signup__sections__section__checking-availability {
@@ -79,9 +99,17 @@
 
 .home__signup__sections__section__submitted-message {
   display: block;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   line-height: 20px;
   font-weight: 300;
-  font-size: $font-size-base;
-  color: #848b91;
+  font-size: 16px;
+  color: #468847;
+}
+
+.home__signup__sections__section--migration {
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  color: darken($brand-info, 15%);
 }

@@ -2,9 +2,23 @@
 <html ng-app="app" ng-controller="AppCtrl" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/build/css/app.css" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Create email reminders in seconds with Reme!" />
+    <meta property="og:description" content="The sole purpose of Reme is to remind you the things that matter. Check it out at www.reme.io." />
+    <meta property="og:image" content="http://reme.io/build/assets/img/logo.png" />
+    <meta property="og:url" content="http://reme.io" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link rel="apple-touch-icon" sizes="57x57" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-152x152.png">
+    <link rel="stylesheet" href="/build/css/app.min.css" />
     <script src="/build/js/frameworks.js"></script>
-    <script src="/build/js/app.js"></script>
+    <script src="/build/js/app.min.js"></script>
     <title ng-bind="$state.current.title" class="ng-binding">reme.io</title>
 
     <!-- Mixpanel -->
@@ -27,11 +41,11 @@
 </head>
 <body>
 
-<!-- Flash messages. -->
-<div flash-messages flash="flash"></div>
-
 <!-- View container -->
     <div class="view-container" ui-view autoscroll="true"></div>
+
+<!-- Loading bar -->
+<div class="loading-bar" loading-bar></div>
 
 <!-- Reamaze -->
     <script type="text/javascript">

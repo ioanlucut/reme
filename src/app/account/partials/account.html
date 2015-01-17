@@ -8,30 +8,33 @@
         <h1 class="account__title">Welcome!</h1>
 
         <!-- Login form -->
-        <form name="loginForm" ng-submit="login(loginData)" novalidate>
+        <form name="loginForm" ng-submit="login(loginData)" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || loginForm.$invalid)}">
-                        <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" required />
-                        <span class="help-block" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.email.$invalid || badPostSubmitResponse)}">
+                        <input class="form-control form-control--account" type="email" placeholder="email" name="email" ng-model="loginData.email" auto-focus required />
+                        <span class="help-message" ng-if="loginForm.email.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
                     </div>
 
                     <!-- Form group -->
-                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || loginForm.$invalid)}">
+                    <div class="form-group" ng-class="{'has-error': loginForm.$submitted && (loginForm.password.$invalid || badPostSubmitResponse)}">
                         <input class="form-control form-control--account" type="password" placeholder="password" name="password" ng-model="loginData.password" required />
-                        <span class="help-block" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your email address is mandatory.</span>
+                        <span class="help-message" ng-if="loginForm.password.$invalid && loginForm.$submitted">Your password is mandatory.</span>
                     </div>
                 </div>
 
                 <!-- Reset password -->
                 <div class="form-group">
-                    <a class="link-secondary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
+                    <a class="link-secondary link--lg-middle" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword)">Forgot login details?</a>
                 </div>
 
                 <!-- Button container -->
@@ -39,7 +42,7 @@
             </div>
         </form>
 
-        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
+        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">Don't have an account yet? Sign up!</a>
 
     </div>
 
@@ -47,20 +50,23 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration" ng-controller="RequestSignUpRegistrationCtrl">
 
         <!-- Title -->
-        <h1 class="account__title">Get started!</h1>
+        <h1 class="account__title">Let's get you started!</h1>
 
         <!-- Sign-up form -->
-        <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error-on-submit>
+        <form name="requestSignUpRegistrationForm" ng-submit="requestSignUpRegistration()" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 800 }" required valid-email unique-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="requestSignUpRegistrationData.email" ng-model-options="{ debounce: 450 }" auto-focus required valid-email unique-email />
 
                         <!-- Error messages -->
                         <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
@@ -76,7 +82,7 @@
             </div>
         </form>
 
-        <a class="link-primary" href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
+        <a class="link-primary link--lg" href="javascript:void(0)" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Already have an account? Sign in here!</a>
 
     </div>
 
@@ -84,13 +90,13 @@
     <div class="account__section" ng-if="AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent">
 
         <!-- Title -->
-        <h1 class="account__title">Email has been sent!</h1>
+        <h1 class="account__title">Yey! Email has been sent!</h1>
 
         <!-- Explain -->
-        <span class="account__explain">We've sent you an email with the instructions on how to confirm your registration.</span>
+        <span class="account__explain">Please check your email to finish your account creation.</span>
 
         <!-- Button container -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+        <a href="javascript:void(0)" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)">I think I've misspelled my email</a>
     </div>
 
     <!-- Recover password section -->
@@ -106,19 +112,22 @@
         </span>
 
         <!-- Forgot password form -->
-        <form name="forgotPasswordForm" ng-submit="requestPasswordReset(forgotPasswordData.email)" novalidate focus-first-error-on-submit>
+        <form name="forgotPasswordForm" ng-submit="requestPasswordReset(forgotPasswordData.email)" novalidate focus-first-error>
 
             <!-- Account controls -->
             <div class="account__controls">
+
+                <!-- Flash messages. -->
+                <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
                 <!-- Form groups -->
                 <div class="account__controls__form-groups--last">
 
                     <!-- Form group -->
                     <div class="form-group" ng-class="{'has-error': forgotPasswordForm.email.$invalid && forgotPasswordForm.$submitted }">
-                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" required valid-email />
+                        <input class="form-control form-control--account" type="email" placeholder="Your email address" name="email" ng-model="forgotPasswordData.email" auto-focus required valid-email />
 
-                        <div class="help-block" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
+                        <div class="help-message" ng-messages="forgotPasswordForm.email.$error" ng-if="forgotPasswordForm.$submitted">
                             <div ng-message="required">Your email address is mandatory.</div>
                             <div ng-message="validEmail">This email address is not valid.</div>
                         </div>
@@ -130,7 +139,7 @@
             </div>
         </form>
 
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Nevermind, take me back!</a>
+        <a href="javascript:void(0)" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Nevermind, take me back!</a>
     </div>
 
     <!-- Password recovery email sent section -->
@@ -140,10 +149,10 @@
         <h1 class="account__title">Email has been sent!</h1>
 
         <!-- Explain -->
-        <span class="account__explain">We've sent you an email with the instructions on how to reset your password.</span>
+        <span class="account__explain">Please check your email. We've sent you a link to reset your password.</span>
 
         <!-- Button container -->
-        <a href="#" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Continue</a>
+        <a href="javascript:void(0)" class="link-secondary link--lg" ng-click="AccountFormToggle.setState(ACCOUNT_FORM_STATE.login)">Actually I remember the password</a>
     </div>
 
 </div>

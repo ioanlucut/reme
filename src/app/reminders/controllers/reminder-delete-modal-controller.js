@@ -1,6 +1,6 @@
 angular
     .module("reminders")
-    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, $, URLTo, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex) {
+    .controller("ReminderDeleteModalCtrl", function ($scope, $rootScope, $stateParams, $window, ReminderDeleteModalService, $timeout, StatesHandler, REMINDER_EVENTS, reminder, reminderIndex, MIXPANEL_EVENTS) {
 
         /**
          * Reminder to be created (injected with few default values)
@@ -25,7 +25,7 @@ angular
         $scope.dismiss = function () {
             ReminderDeleteModalService.modalInstance.dismiss("cancel");
 
-            $scope.isOpen = false;
+            $scope.isModalOpened = false;
         };
 
         /**
@@ -40,6 +40,11 @@ angular
                 // Destroy reminder
                 $scope.reminder.destroy()
                     .then(function () {
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.reminderDeleted);
 
                         // Wait 2 seconds, and close the modal
                         $timeout(function () {
@@ -71,6 +76,11 @@ angular
 
                 $scope.reminder.unSubscribe()
                     .then(function () {
+
+                        /**
+                         * Track event.
+                         */
+                        mixpanel.track(MIXPANEL_EVENTS.reminderUnSubscribed);
 
                         $timeout(function () {
                             ReminderDeleteModalService.modalInstance.close();

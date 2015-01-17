@@ -3,7 +3,12 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, flash, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+
+        /**
+         * Alert identifier
+         */
+        $scope.alertIdentifierId = ALERTS_CONSTANTS.login;
 
         /**
          * Set default state.
@@ -33,9 +38,10 @@ angular
                         StatesHandler.goToReminders();
                     })
                     .catch(function () {
-                        $scope.loginForm.$invalid = true;
+                        /* If bad feedback from server */
+                        $scope.badPostSubmitResponse = true;
 
-                        flash.error = "Your email or password are wrong. Please try again.";
+                        flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
                     });
             }
         }
