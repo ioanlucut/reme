@@ -116,15 +116,19 @@ angular.module("common").
 
                     // Calculate and apply scrollTop
                     var visibleItems = Math.round(dropdownMenu.height() / selectedItem.outerHeight());
-                    var scrollTop = selectedItem.position().top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
-                    dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Highlight the selected item
-                    scope.highlightSelected = true;
-                    scope.$apply();
+                    var position = selectedItem.position();
+                    if ( position && position.top ) {
+                        var scrollTop = position.top - (Math.round(0.5 * visibleItems) - 1) * selectedItem.outerHeight();
+                        dropdownMenu.scrollTop(Math.max(scrollTop, 0));
 
-                    // Update the perfect scrollbar
-                    scope.$broadcast("perfectScrollbar:update", null);
+                        // Highlight the selected item
+                        scope.highlightSelected = true;
+                        scope.$apply();
+
+                        // Update the perfect scrollbar
+                        scope.$broadcast("perfectScrollbar:update", null);
+                    }
                 });
 
                 /**
