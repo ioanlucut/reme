@@ -127,6 +127,12 @@
   font-weight: bold;
 }
 
-.form-control--timezone {
-  width: 100%;
+.form-group--timezone {
+
+  .chosen-container {
+    height: 34px;
+    padding: 0;
+    border: 0;
+  }
 }
+
