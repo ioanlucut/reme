@@ -36,10 +36,6 @@ angular
 
                     'preferences@settings': {
                         templateUrl: "app/account/partials/settings/settings.preferences.html"
-                    },
-
-                    'billing@settings': {
-                        templateUrl: "app/account/partials/settings/settings.billing.html"
                     }
                 },
                 title: "Settings - Reme.io"
