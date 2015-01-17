@@ -24,7 +24,7 @@
 
     <!--Reminder edit/delete-->
     <div class="reminder__menu">
-        <a class="reminder__menu__option reminder__menu__option--delete simptip-position-top simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="#" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();"><span class="icon-trash"></span></a>
+        <a class="reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="javascript:void(0)" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();"><span class="icon-trash"></span></a>
     </div>
 
     <!--Reminder info-->
