@@ -13121,7 +13121,7 @@ textarea.form-control--account {
   height: 26px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 580px) {
   /* line 3, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer__navbar__section-left {
     width: 35%;
@@ -13131,21 +13131,21 @@ textarea.form-control--account {
     text-align: center;
   }
 
-  /* line 12, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 11, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-right {
+    width: 60%;
+  }
+
+  /* line 16, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list {
     width: 50%;
   }
-  /* line 15, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 19, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 20px;
   }
 }
 @media (max-width: 480px) {
-  /* line 24, ../../src/app/common/sass/_footer_home_responsive.scss */
-  .footer__navbar__section-right {
-    width: 60%;
-  }
-
   /* line 31, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 10px;
@@ -14981,6 +14981,148 @@ textarea.home__signup__sections__section__controls__email {
   .error__sections__reason {
     margin-left: 35px;
     margin-right: 35px;
+  }
+}
+/* line 1, ../../src/app/site/sass/_site_about.scss */
+.view-container--about {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
+}
+
+/* line 12, ../../src/app/site/sass/_site_about.scss */
+.about__sections {
+  position: relative;
+  padding-top: 71px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+  color: black;
+}
+
+/* line 21, ../../src/app/site/sass/_site_about.scss */
+.about__sections__heading {
+  font-size: 36px;
+  text-align: center;
+  max-width: 100%;
+  margin-left: 90px;
+  margin-right: 90px;
+  margin-top: 100px;
+}
+
+/* line 30, ../../src/app/site/sass/_site_about.scss */
+.about__sections__description {
+  font-size: 14px;
+  text-align: center;
+  max-width: 100%;
+  margin: 60px 200px;
+  color: #bbbfc4;
+}
+
+/* line 38, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team {
+  font-size: 16px;
+  text-align: center;
+  max-width: 100%;
+  margin: 150px 90px 0 90px;
+}
+/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:before, .about__sections__team:after {
+  content: " ";
+  display: table;
+}
+/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:after {
+  clear: both;
+}
+
+/* line 46, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry {
+  position: relative;
+  float: left;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 33.33333%;
+}
+
+/* line 56, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__link a {
+  font-size: 12px;
+}
+
+/* line 61, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry__img {
+  position: relative;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  margin-bottom: 5px;
+  -webkit-box-shadow: 0 2px 1px #f4f7f9;
+  box-shadow: 0 2px 1px #f4f7f9;
+}
+
+/* line 75, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer-home {
+  background-color: #8471B1;
+}
+/* line 79, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar__section-left__copyright {
+  color: #fff;
+}
+/* line 87, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar ul li a {
+  color: #fff;
+}
+/* line 90, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar ul li a:hover {
+  color: #d9d9d9;
+}
+
+@media (max-width: 768px) {
+  /* line 3, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  /* line 8, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 100px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 15, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+  }
+
+  /* line 22, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__heading {
+    max-width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  /* line 28, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 30px;
+  }
+
+  /* line 32, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team__entry {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */
