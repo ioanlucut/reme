@@ -28,7 +28,45 @@ angular.module("app/site/partials/500.html", []).run(["$templateCache", function
 
 angular.module("app/site/partials/about.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/about.html",
-    "ABOUT");
+    "<div header-home class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container--about\">\n" +
+    "    <div class=\"about__sections\">\n" +
+    "        <h1 class=\"about__sections__heading\">About us</h1>\n" +
+    "\n" +
+    "        <h1 class=\"about__sections__description\">We are building Reme in our free time out of our geeky-nerdy passion for development and for neat application.</h1>\n" +
+    "\n" +
+    "        <div class=\"about__sections__team\">\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4162760-9cf2-11e4-9312-dbead076a43a.png\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Sorin Pantiş</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/sorinpantis\">@sorinpantis</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c418c0b0-9cf2-11e4-80a4-abd6c14b15d2.png\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Tamás Pap</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/paptamas\">@paptamas</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4105efc-9cf2-11e4-99aa-22889cb05bd0.jpeg\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Ioan Lucuţ</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/ioanlucut\">@ioanlucut</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer-home class=\"view-container__footer footer-about\"></div>");
 }]);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
