@@ -30,9 +30,10 @@
 .about__sections__description {
   font-size: 16px;
   font-weight: $font-weight-light;
-  text-align: center;
+  text-align: justify;
   max-width: 100%;
-  margin: 60px 200px;
+  margin: 60px 120px;
+  line-height: 20px;
   //color: $gray9;
 }
 
