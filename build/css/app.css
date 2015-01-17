@@ -14829,9 +14829,10 @@ textarea.home__signup__sections__section__controls__email {
 /* line 109, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section--migration {
   margin-top: 10px;
-  font-size: 12px;
   padding-left: 10px;
   padding-right: 10px;
+  font-size: 12px;
+  color: #28a1c5;
 }
 
 @media (max-width: 650px) {
@@ -14869,7 +14870,7 @@ textarea.home__signup__sections__section__controls__email {
 /* line 13, ../../src/app/site/sass/_site_testimonials.scss */
 .press_logo {
   height: 80px;
-  width: 300px;
+  width: 295px;
   display: inline-block;
   margin: 65px 7px;
 }
@@ -14909,7 +14910,7 @@ textarea.home__signup__sections__section__controls__email {
   background-position: -125px -470px;
   display: block;
   height: 50px;
-  width: 200px;
+  width: 210px;
   margin: 80px auto 0 auto;
   padding: 7px 0 0 55px;
   font-size: 16px;
