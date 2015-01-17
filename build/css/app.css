@@ -13121,7 +13121,7 @@ textarea.form-control--account {
   height: 26px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 580px) {
   /* line 3, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer__navbar__section-left {
     width: 35%;
@@ -13131,21 +13131,21 @@ textarea.form-control--account {
     text-align: center;
   }
 
-  /* line 12, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 11, ../../src/app/common/sass/_footer_home_responsive.scss */
+  .footer__navbar__section-right {
+    width: 60%;
+  }
+
+  /* line 16, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list {
     width: 50%;
   }
-  /* line 15, ../../src/app/common/sass/_footer_home_responsive.scss */
+  /* line 19, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 20px;
   }
 }
 @media (max-width: 480px) {
-  /* line 24, ../../src/app/common/sass/_footer_home_responsive.scss */
-  .footer__navbar__section-right {
-    width: 60%;
-  }
-
   /* line 31, ../../src/app/common/sass/_footer_home_responsive.scss */
   .footer .footer__navbar__section-right__list ul {
     padding-left: 10px;
@@ -14593,13 +14593,12 @@ textarea.form-control--friend-email {
 /* line 16, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h1.home__signup__title {
   padding: 250px 15px 20px;
-  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 48px;
   font-weight: 700;
   text-align: center;
   margin: 0;
 }
-/* line 25, ../../src/app/site/sass/_site_layout.scss */
+/* line 24, ../../src/app/site/sass/_site_layout.scss */
 .home__signup h3.home__signup__description {
   margin: 0;
   padding: 0 190px 90px;
@@ -14619,27 +14618,31 @@ textarea.form-control--friend-email {
 @media (max-width: 768px) {
   /* line 16, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h1.home__signup__title {
-    padding-top: 100px;
+    padding-top: 150px;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 35px;
+    font-size: 45px;
   }
   /* line 23, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home h3.home__signup__description {
     padding-right: 50px;
     padding-left: 50px;
-    padding-bottom: 30px;
   }
 
-  /* line 30, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 29, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 750px;
   }
 }
 @media (max-width: 480px) {
-  /* line 37, ../../src/app/site/sass/_site_layout_responsive.scss */
+  /* line 36, ../../src/app/site/sass/_site_layout_responsive.scss */
   .home__signup {
     height: 800px;
+  }
+
+  /* line 42, ../../src/app/site/sass/_site_layout_responsive.scss */
+  .home h3.home__signup__description {
+    padding-bottom: 30px;
   }
 }
 /* line 4, ../../src/app/site/sass/_site_signup.scss */
@@ -14798,9 +14801,10 @@ textarea.home__signup__sections__section__controls__email {
 /* line 101, ../../src/app/site/sass/_site_signup.scss */
 .home__signup__sections__section--migration {
   margin-top: 10px;
-  font-size: 12px;
   padding-left: 10px;
   padding-right: 10px;
+  font-size: 12px;
+  color: #28a1c5;
 }
 
 @media (max-width: 650px) {
@@ -14838,7 +14842,7 @@ textarea.home__signup__sections__section__controls__email {
 /* line 13, ../../src/app/site/sass/_site_testimonials.scss */
 .press_logo {
   height: 80px;
-  width: 300px;
+  width: 295px;
   display: inline-block;
   margin: 65px 7px;
 }
@@ -14878,7 +14882,7 @@ textarea.home__signup__sections__section__controls__email {
   background-position: -125px -470px;
   display: block;
   height: 50px;
-  width: 200px;
+  width: 210px;
   margin: 80px auto 0 auto;
   padding: 7px 0 0 55px;
   font-size: 16px;
@@ -14981,6 +14985,147 @@ textarea.home__signup__sections__section__controls__email {
   .error__sections__reason {
     margin-left: 35px;
     margin-right: 35px;
+  }
+}
+/* line 1, ../../src/app/site/sass/_site_about.scss */
+.view-container--about {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100%;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 180px;
+}
+
+/* line 12, ../../src/app/site/sass/_site_about.scss */
+.about__sections {
+  position: relative;
+  padding-top: 71px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+  color: black;
+}
+
+/* line 21, ../../src/app/site/sass/_site_about.scss */
+.about__sections__heading {
+  font-size: 36px;
+  text-align: center;
+  max-width: 100%;
+  margin-left: 90px;
+  margin-right: 90px;
+  margin-top: 20px;
+}
+
+/* line 30, ../../src/app/site/sass/_site_about.scss */
+.about__sections__description {
+  font-size: 16px;
+  font-weight: 300;
+  text-align: justify;
+  max-width: 100%;
+  margin: 60px 110px;
+  line-height: 20px;
+}
+
+/* line 40, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team {
+  font-size: 16px;
+  text-align: center;
+  max-width: 100%;
+  margin: 80px 90px 0 90px;
+}
+/* line 20, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:before, .about__sections__team:after {
+  content: " ";
+  display: table;
+}
+/* line 25, ../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/_mixins.scss */
+.about__sections__team:after {
+  clear: both;
+}
+
+/* line 48, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry {
+  position: relative;
+  float: left;
+  min-height: 1px;
+  padding: 0 15px;
+  width: 33.33333%;
+}
+
+/* line 57, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__link a {
+  font-size: 14px;
+  color: #5bc0de;
+}
+
+/* line 63, ../../src/app/site/sass/_site_about.scss */
+.about__sections__team__entry__img {
+  position: relative;
+  border-radius: 50%;
+  border: 10px solid #fff;
+  width: 170px;
+  height: 170px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* line 75, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer-home {
+  background-color: #8471B1;
+}
+/* line 79, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar__section-left__copyright {
+  color: #fff;
+}
+/* line 87, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar ul li a {
+  color: #fff;
+}
+/* line 90, ../../src/app/site/sass/_site_about.scss */
+.footer-about .footer__navbar ul li a:hover {
+  color: #d9d9d9;
+}
+
+@media (max-width: 768px) {
+  /* line 3, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  /* line 8, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 100px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 15, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    padding: 10px;
+  }
+
+  /* line 22, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__heading {
+    max-width: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  /* line 28, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__description {
+    margin: 60px 30px;
+  }
+
+  /* line 32, ../../src/app/site/sass/_site_about_responsive.scss */
+  .about__sections__team__entry {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 /* line 12, ../../bower_components/bootstrap-chosen/bootstrap-chosen.scss */

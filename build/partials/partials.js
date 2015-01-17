@@ -28,7 +28,48 @@ angular.module("app/site/partials/500.html", []).run(["$templateCache", function
 
 angular.module("app/site/partials/about.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/about.html",
-    "ABOUT");
+    "<div header-home class=\"view-container__header\"></div>\n" +
+    "\n" +
+    "<div class=\"view-container--about\">\n" +
+    "    <div class=\"about__sections\">\n" +
+    "        <h1 class=\"about__sections__heading\">About us</h1>\n" +
+    "\n" +
+    "        <h1 class=\"about__sections__description\">\n" +
+    "            We are a small team of 3 and we're really passioned about building Reme. Our main goal is to make our users happy (that's you!)\n" +
+    "            and we hope you like using it. If you'd like to send us your feedback or just drop us a line, here we are.\n" +
+    "        </h1>\n" +
+    "\n" +
+    "        <div class=\"about__sections__team\">\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4162760-9cf2-11e4-9312-dbead076a43a.png\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Sorin Pantiş</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/sorinpantis\" target=\"_blank\">@sorinpantis</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c418c0b0-9cf2-11e4-80a4-abd6c14b15d2.png\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Tamás Pap</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/paptamas\" target=\"_blank\">@paptamas</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"about__sections__team__entry\">\n" +
+    "                <img class=\"about__sections__team__entry__img\" src=\"/build/assets/img/c4105efc-9cf2-11e4-99aa-22889cb05bd0.jpeg\">\n" +
+    "\n" +
+    "                <div class=\"about__sections__team__desc\">Ioan Lucuţ</div>\n" +
+    "                <div class=\"about__sections__team__link\">\n" +
+    "                    <a href=\"https://twitter.com/ioanlucut\" target=\"_blank\">@ioanlucut</a>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div footer-home class=\"view-container__footer footer-about\"></div>");
 }]);
 
 angular.module("app/site/partials/home.html", []).run(["$templateCache", function($templateCache) {
@@ -77,8 +118,8 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                    </form>\n" +
     "                </div>\n" +
     "\n" +
-    "                <div class=\"text-center text-muted home__signup__sections__section--migration\">\n" +
-    "                    Rest assured, you'll see reminders created in old Reme after you sign up!\n" +
+    "                <div class=\"text-center home__signup__sections__section--migration\">\n" +
+    "                    Rest assured, the reminders created in old Reme will be imported in your account after you sign up.\n" +
     "                </div>\n" +
     "\n" +
     "                <!-- Request registration email sent section -->\n" +
