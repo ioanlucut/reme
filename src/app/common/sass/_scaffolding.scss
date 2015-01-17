@@ -1,0 +1,19 @@
+html, body {
+  height: 100%;
+}
+
+.view-container {
+  min-height: 100%;
+  position: relative;
+}
+
+.view-container__header {
+
+}
+
+.view-container__footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 180px;
+}
