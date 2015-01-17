@@ -13572,7 +13572,7 @@ html, body {
   line-height: 1.33;
   border-radius: 3px;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
 }
 /* line 10, ../../src/sass/_mixins.scss */
 .reminder-modal__form .btn--reminder-popup:hover, .reminder-modal__form .btn--reminder-popup:focus, .reminder-modal__form .btn--reminder-popup:active, .reminder-modal__form .btn--reminder-popup.active {
@@ -13600,7 +13600,12 @@ html, body {
   border-color: transparent;
 }
 
-/* line 198, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 197, ../../src/app/reminders/sass/_reminders_form.scss */
+.form-group--reminder-text label {
+  font-weight: 300;
+}
+
+/* line 205, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder--saving {
   width: 150px;
   margin: 20px auto;
@@ -13612,7 +13617,7 @@ html, body {
   background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
-/* line 210, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--date:before {
   position: absolute;
   z-index: 999;
@@ -13632,7 +13637,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 217, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 224, ../../src/app/reminders/sass/_reminders_form.scss */
 .reminder-modal__form__info--time:before {
   position: absolute;
   z-index: 999;
@@ -13652,11 +13657,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* line 224, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 231, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .btn.btn--reminder-popup {
   border: 1px solid #b94a48;
 }
-/* line 228, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 235, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .has-error-messages {
   display: block;
   margin-bottom: 10px;
@@ -13664,7 +13669,7 @@ html, body {
   color: #b94a48;
 }
 
-/* line 237, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 244, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-group--email-icon:before {
   position: absolute;
   z-index: 999;
@@ -13704,12 +13709,12 @@ textarea.form-control--reminder {
   height: auto;
 }
 
-/* line 247, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 254, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--reminder {
-  font-weight: 300;
+  font-weight: 700;
 }
 
-/* line 251, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 258, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--user-email {
   background-color: #ededed;
   border: 0;
@@ -13742,7 +13747,7 @@ textarea.form-control--reminder {
 .form-control--friend-email {
   height: 34px;
   padding: 10px 16px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.33;
   border-radius: 4px;
 }
@@ -13758,7 +13763,7 @@ textarea.form-control--friend-email {
   height: auto;
 }
 
-/* line 264, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 271, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email {
   font-weight: 300;
   background-color: #ededed;
@@ -13784,19 +13789,19 @@ textarea.form-control--friend-email {
 .form-control--friend-email::-webkit-input-placeholder {
   color: #9fa5ab;
 }
-/* line 273, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 280, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email:hover, .form-control--friend-email:focus {
   background-color: #e0e0e0;
 }
 
 /*Add border on error*/
-/* line 280, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 287, ../../src/app/reminders/sass/_reminders_form.scss */
 .has-error .form-control--friend-email {
   border: 1px solid #b94a48;
 }
 
 /*First input - the user email*/
-/* line 285, ../../src/app/reminders/sass/_reminders_form.scss */
+/* line 292, ../../src/app/reminders/sass/_reminders_form.scss */
 .form-control--friend-email.form-control[disabled] {
   background-color: #ededed;
   border: 0;
