@@ -95,7 +95,10 @@ angular
             $scope.isModalOpened = false;
         };
 
-        // Save the reminder
+        /**
+         * Saves the reminder or updates it.
+         * @param reminderForm
+         */
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {
 
