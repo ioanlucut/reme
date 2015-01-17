@@ -85,6 +85,16 @@ angular
             );
         }
 
+        /**
+         * Dismiss the create/update modal.
+         */
+        $scope.dismissCurrentOpenedModal = function () {
+            var currentModal = $scope.isNew ? ReminderModalService.modalInstance : ReminderUpdateModalService.modalInstance;
+            currentModal.dismiss("cancel");
+
+            $scope.isModalOpened = false;
+        };
+
         // Save the reminder
         $scope.saveReminder = function (reminderForm) {
             if ( reminderForm.$valid && !$scope.isSaving ) {

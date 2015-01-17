@@ -29,6 +29,13 @@
   margin-top: 50px;
 }
 
+.reminder-modal__form__cancel {
+  margin: 20px auto 0;
+  width: 100%;
+  border-radius: 3px;
+  text-align: center;
+}
+
 .btn--delete-reminder {
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
   float: right;

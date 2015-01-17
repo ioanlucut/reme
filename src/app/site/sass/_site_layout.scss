@@ -6,9 +6,7 @@
 
 .home {
   min-height: 100%;
-  height: auto;
-  margin: 0 auto -180px;
-  padding: 0 0 180px;
+  padding-bottom: $footer-home-height;
 
   &__signup {
     height: 700px;
