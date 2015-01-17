@@ -1,7 +1,9 @@
 .centered-section-home {
   max-width: $container-home-width;
-  width: 96%;
   margin: 0 auto;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .home {
