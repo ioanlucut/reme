@@ -188,7 +188,14 @@
     line-height: $line-height-large;
     border-radius: $border-radius-small;
     font-weight: $font-weight-light;
-    font-size: 16px;
+    font-size: 14px;
+  }
+}
+
+.form-group--reminder-text {
+
+  label {
+    font-weight: $font-weight-light;
   }
 }
 
@@ -245,7 +252,7 @@
 @include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--reminder {
-  font-weight: $font-weight-light;
+  font-weight: $font-weight-bold;
 }
 
 .form-control--user-email {
@@ -259,7 +266,7 @@
   @include placeholder($gray8);
 }
 
-@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
+@include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-base, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
   font-weight: $font-weight-light;
