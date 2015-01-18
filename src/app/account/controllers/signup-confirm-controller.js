@@ -68,6 +68,6 @@ angular
                         flash.to($scope.alertIdentifierId).error = "Sorry, something went wrong.";
                     });
             }
-
         };
+
     });
