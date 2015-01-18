@@ -93,7 +93,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'development',
-                        apiEndpoint: 'http://api-dev.reme.io',
+                        apiEndpoint: 'http://dev-api.reme.io',
                         mixPanelId: '216177bcdddef0cf2edd1650e63a3449'
                     }
                 }
@@ -105,7 +105,7 @@ module.exports = function (grunt) {
                 constants: {
                     ENV: {
                         name: 'production',
-                        apiEndpoint: 'http://api.reme.iox',
+                        apiEndpoint: 'http://api.reme.io',
                         mixPanelId: '56fe410177092150db2338e36196a1ff'
                     }
                 }
