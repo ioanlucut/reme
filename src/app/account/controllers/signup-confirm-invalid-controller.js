@@ -15,5 +15,5 @@ angular
                 AuthService.logout();
             }
             StatesHandler.goHome();
-        }
+        };
     });

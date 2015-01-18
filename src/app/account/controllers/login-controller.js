@@ -44,5 +44,5 @@ angular
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
                     });
             }
-        }
+        };
     });

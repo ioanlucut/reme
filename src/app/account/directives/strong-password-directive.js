@@ -20,7 +20,7 @@ angular
 
                 ngModel.$validators.strongPassword = function (password) {
                     return isStrongPassword(password);
-                }
+                };
             }
         };
     });

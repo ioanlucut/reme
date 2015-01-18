@@ -20,7 +20,7 @@ angular
 
                 ngModel.$validators.validEmail = function (email) {
                     return isValidEmail(email);
-                }
+                };
             }
         };
     });

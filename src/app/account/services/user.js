@@ -125,9 +125,8 @@ angular
                         return $http.post(URLTo.api(AUTH_URLS.update), account);
                     }
 
-                }
+                };
             }
 
-        }
-    })
-;
+        };
+    });

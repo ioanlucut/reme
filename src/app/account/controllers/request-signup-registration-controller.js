@@ -39,5 +39,5 @@ angular
                         flash.to($scope.alertIdentifierId).error = "We encountered a problem.";
                     });
             }
-        }
+        };
     });
