@@ -3,12 +3,17 @@
  */
 angular
     .module("app")
-    .controller("AppCtrl", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR) {
+    .controller("AppCtrl", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
 
         /**
          * Save the state on root scope
          */
         $rootScope.$state = $state;
+
+        /**
+         * Environment
+         */
+        $rootScope.ENV = ENV;
 
         /**
          * On app load, retrieve user profile previously saved (if exists).
@@ -72,7 +77,7 @@ angular
         /**
          * Development debug listeners
          */
-        if ( URLTo.apiBase() !== "http://reme-api.reme.io" ) {
+        if ( ENV.name === "development" ) {
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 $log.log('$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams);
             });
