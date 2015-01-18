@@ -260,7 +260,6 @@ module.exports = function (grunt) {
         [
             'ngconstant:development',
             "html2js",
-            "jshint",
             "sass",
             "concat",
             "copy"

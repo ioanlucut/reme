@@ -31,6 +31,5 @@ angular
                         flash.to($scope.alertIdentifierId).error = response.data && response.data.errors && response.data.errors[0];
                     });
             }
-
-        }
+        };
     });
