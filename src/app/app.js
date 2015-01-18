@@ -3,6 +3,7 @@
  */
 angular
     .module("app", [
+        "config",
         "ngAnimate",
         "ngMessages",
         "ui.router",
@@ -23,8 +24,7 @@ angular
             requireBase: false
         });
     })
-    .run(function () {
+    .run(function (ENV) {
 
-        // Set the base API URL
-        URLTo.apiBase("http://api.reme.io");
+        URLTo.apiBase(ENV.apiEndpoint);
     });
