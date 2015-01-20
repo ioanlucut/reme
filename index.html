@@ -36,11 +36,12 @@
         e.parentNode.insertBefore(a, e)
     }
     })(document, window.mixpanel || []);
-    mixpanel.init("216177bcdddef0cf2edd1650e63a3449");
     </script>
 
 </head>
 <body>
+<!-- Mixpanel initializer -->
+<div mixpanel-initializer></div>
 
 <!-- View container -->
     <div class="view-container" ui-view autoscroll="true"></div>
