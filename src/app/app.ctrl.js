@@ -62,9 +62,7 @@ angular
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
         });
         $rootScope.$on('$viewContentLoaded', function () {
-            $timeout(function () {
-                $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
-            }, 2000);
+            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });
 
         /**
