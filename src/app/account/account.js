@@ -148,7 +148,7 @@ angular
                 templateUrl: "app/account/partials/signup_confirm_invalid.html",
                 controller: "SignUpConfirmInvalidCtrl",
                 title: "Register - Reme.io"
-            })
+            });
     })
 
     .run(function ($rootScope, AuthFilter) {

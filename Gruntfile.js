@@ -54,6 +54,8 @@ module.exports = function (grunt) {
             },
             app: {
                 src: [
+                    "src/app/app.env.config.js",
+
                     "src/app/common/common.js",
                     "src/app/common/**/*.js",
 
@@ -73,6 +75,40 @@ module.exports = function (grunt) {
                     '!**/*_test.js'
                 ],
                 dest: "build/js/app.js"
+            }
+        },
+
+        ngconstant: {
+            // Options for all targets
+            options: {
+                space: ' ',
+                wrap: '"use strict";\n\n {%= __ngModule %}',
+                name: 'config'
+            },
+            // Environment targets
+            development: {
+                options: {
+                    dest: 'src/app/app.env.config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'development',
+                        apiEndpoint: 'http://dev-api.reme.io',
+                        mixPanelId: '216177bcdddef0cf2edd1650e63a3449'
+                    }
+                }
+            },
+            production: {
+                options: {
+                    dest: 'src/app/app.env.config.js'
+                },
+                constants: {
+                    ENV: {
+                        name: 'production',
+                        apiEndpoint: 'http://api.reme.io',
+                        mixPanelId: '56fe410177092150db2338e36196a1ff'
+                    }
+                }
             }
         },
 
@@ -217,9 +253,48 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-ng-annotate");
+    grunt.loadNpmTasks("grunt-ng-constant");
     grunt.loadNpmTasks("grunt-html2js");
 
-    grunt.registerTask("default", ["html2js", "sass", "concat", "copy"]);
-    grunt.registerTask("test", ["jshint"]);
-    grunt.registerTask("build", ["html2js", "sass", "concat", "ngAnnotate", "uglify", "cssmin", "copy"]);
+    grunt.registerTask("default",
+        [
+            'ngconstant:development',
+            "html2js",
+            "sass",
+            "concat",
+            "copy"
+        ]
+    );
+
+    grunt.registerTask("test",
+        [
+            "jshint"
+        ]
+    );
+
+    grunt.registerTask("build",
+        [
+            'ngconstant:development',
+            "html2js",
+            "sass",
+            "concat",
+            "ngAnnotate",
+            "uglify",
+            "cssmin",
+            "copy"
+        ]
+    );
+
+    grunt.registerTask("build-prod",
+        [
+            'ngconstant:production',
+            "html2js",
+            "sass",
+            "concat",
+            "ngAnnotate",
+            "uglify",
+            "cssmin",
+            "copy"
+        ]
+    );
 };

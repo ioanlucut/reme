@@ -1,6 +1,11 @@
 <!--Reminder form-->
 <div class="reminder-modal">
 
+    <div class="reminder-modal__form__cancel">
+        <button type="button" class="close" ng-click="dismissCurrentOpenedModal()" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+    </div>
+
     <!-- Flash messages. -->
     <div flash-messages flash="flash" identifier-id="{{alertIdentifierId}}"></div>
 
@@ -41,9 +46,5 @@
 
         <!--Submit form button-->
         <button type="submit" ladda="isSaving" data-style="expand-left" data-spinner-size="20" class="btn btn--create-reminder">{{isNew ? "Create reminder" : "Update reminder"}}</button>
-
-        <div class="reminder-modal__form__cancel">
-            <a href="javascript:void(0)" ng-click="dismissCurrentOpenedModal()">Nevermind</a>
-        </div>
     </form>
 </div>

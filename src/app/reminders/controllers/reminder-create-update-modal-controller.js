@@ -113,7 +113,10 @@ angular
                 // Is saving reminder
                 $scope.isSaving = true;
 
-                $scope.reminder.save()
+                // Ok, update master reminder.
+                angular.copy($scope.reminder, $scope.masterReminder);
+
+                $scope.masterReminder.save()
                     .then(function () {
 
                         /**
@@ -127,7 +130,7 @@ angular
 
                                 ReminderModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isCreated, {
-                                    reminder: $scope.reminder,
+                                    reminder: $scope.masterReminder,
                                     message: 'Reminder successfully saved!'
                                 });
                             }, 800);
@@ -136,13 +139,10 @@ angular
                             $timeout(function () {
                                 $scope.isSaving = false;
 
-                                // Ok, update master reminder.
-                                angular.copy($scope.reminder, $scope.masterReminder);
-
                                 // Close the modal
                                 ReminderUpdateModalService.modalInstance.close();
                                 $rootScope.$broadcast(REMINDER_EVENTS.isUpdated, {
-                                    reminder: $scope.reminder,
+                                    reminder: $scope.masterReminder,
                                     reminderIndex: reminderIndex,
                                     message: 'Reminder successfully updated!'
                                 });

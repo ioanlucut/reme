@@ -16,7 +16,6 @@
   right: 50px;
 
   input {
-    border: 1px solid $white;
     border-radius: $border-radius-small;
   }
 }
@@ -61,7 +60,6 @@
   margin-bottom: 15px;
   position: relative;
   background-color: $white;
-  @include transition(all 0.3s);
   min-height: 60px;
   height: 100%;
 

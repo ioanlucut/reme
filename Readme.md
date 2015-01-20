@@ -2,7 +2,9 @@
 0. Call `sudo npm install`
 1. Call `bower install`
 2. Start apache (e.g. `sudo /etc/init.d/apache2 start`)
-3 Do not forget about `grunt && grunt watch` if you want to keep js files always updated in your browser
+3. Do not forget about `grunt && grunt watch` if you want to keep js files always updated in your browser
+4. Build in dev : `grunt build`
+5. Build in prod : `grunt build-prod`
 
 #Others
 0. Our commit conventions can be found here : https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit

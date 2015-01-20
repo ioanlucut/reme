@@ -15,11 +15,11 @@ angular
             var reminderDto = {};
 
             TransformerUtils.copyKeysFromTo(reminder.model, reminderDto, skipKeys);
-            if ( reminderDto["dueOn"] ) {
-                reminderDto["dueOn"] = reminderDto["dueOn"].format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
+            if ( reminderDto.dueOn ) {
+                reminderDto.dueOn = reminderDto.dueOn.format("{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}");
             }
-            reminderDto["text"] = $.trim(reminderDto["text"].split("@")[0]);
-            reminderDto["recipients"] = TransformerUtils.sanitizeRecipients(reminderDto["recipients"]);
+            reminderDto.text = $.trim(reminderDto.text.split("@")[0]);
+            reminderDto.recipients = TransformerUtils.sanitizeRecipients(reminderDto.recipients);
 
             return reminderDto;
         };
@@ -37,16 +37,16 @@ angular
             TransformerUtils.copyKeysFromTo(reminderDto, reminder.model, skipKeys);
 
             // handle date conversion
-            if ( reminder.model["dueOn"] ) {
-                reminder.model["dueOn"] = moment(reminder.model["dueOn"]).toDate();
+            if ( reminder.model.dueOn ) {
+                reminder.model.dueOn = moment(reminder.model.dueOn).toDate();
             }
             //handle addresses conversion
-            var recipient = reminder.model["recipients"];
+            var recipient = reminder.model.recipients;
             if ( _.isEmpty(recipient) ) {
-                reminder.model["recipients"] = [];
+                reminder.model.recipients = [];
             }
             else if ( _.isArray(recipient) ) {
-                reminder.model["recipients"] = recipient;
+                reminder.model.recipients = recipient;
             }
 
             return reminder;
