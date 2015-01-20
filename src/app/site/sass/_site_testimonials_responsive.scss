@@ -1,10 +1,14 @@
 @media (max-width: $screen-tablet) {
 
   .home__testimonials {
-    padding-top: 30px;
+    padding: 30px 0;
   }
 
   .press_logo {
-    margin: 30px 7px;
+    margin: 10px 7px;
+  }
+
+  .chromewebstore {
+    display: none;
   }
 }

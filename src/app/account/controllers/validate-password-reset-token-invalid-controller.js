@@ -16,5 +16,6 @@ angular
             }
             ProfileFormToggle.setState(ACCOUNT_FORM_STATE.forgotPassword);
             StatesHandler.goToLogin();
-        }
+        };
+
     });

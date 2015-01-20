@@ -59,6 +59,17 @@ angular
          * On reminder updated.
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
+            var result = _.some($scope.pastReminders, function (topic) {
+                return topic.model.reminderId === args.reminder.model.reminderId;
+            });
+
+            if ( result ) {
+                removeReminderFrom($scope.pastReminders, args.reminder);
+                $scope.upcomingReminders.push(args.reminder);
+
+                $scope.reminderTabs.setUpcomingRemindersTabActive();
+            }
+
         });
 
         /**

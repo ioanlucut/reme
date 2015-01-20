@@ -30,10 +30,13 @@
 }
 
 .reminder-modal__form__cancel {
-  margin: 20px auto 0;
-  width: 100%;
-  border-radius: 3px;
-  text-align: center;
+  position: relative;
+
+  button {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+  }
 }
 
 .btn--delete-reminder {
