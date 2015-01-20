@@ -11,10 +11,11 @@ angular
                 // Prevent transition
                 event.preventDefault();
                 StatesHandler.goToReminders();
-            } else if ( (toState.url === '/profile' || toState.url.indexOf("/reminders") > -1) && !AuthService.isAuthenticated() ) {
+            } else if ( (toState.url.indexOf("/settings") > -1 || toState.url.indexOf("/reminders") > -1) && !AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
+                AuthService.saveAttemptUrl();
                 StatesHandler.goToLogin();
             }
         };

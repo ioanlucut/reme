@@ -27,6 +27,7 @@ angular
          */
         $scope.$on(AUTH_EVENTS.loginSuccess, function () {
             $rootScope.currentUser = User.$new().loadFromSession();
+            AuthService.redirectToAttemptedUrl();
             $log.log("Logged in: ", $rootScope.currentUser);
         });
 
@@ -43,7 +44,9 @@ angular
          */
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
             $log.log("Not authenticated.");
+
             AuthService.logout();
+            AuthService.saveAttemptUrl();
             StatesHandler.goToLogin();
         });
 

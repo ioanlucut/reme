@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .service("AuthService", function ($rootScope, $q, $http, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
+    .service("AuthService", function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
         /**
          * Is User already authenticated ?
@@ -149,4 +149,18 @@ angular
                     return response.data;
                 });
         };
+
+        this.saveAttemptUrl = function () {
+            if ( $location.path().toLowerCase() !== '/account' ) {
+                redirectToUrlAfterLogin.url = $location.path();
+            }
+        };
+
+        this.redirectToAttemptedUrl = function () {
+            if ( redirectToUrlAfterLogin.url ) {
+                $location.path(redirectToUrlAfterLogin.url);
+
+                redirectToUrlAfterLogin.url = undefined;
+            }
+        }
     });
