@@ -1,5 +1,3 @@
-/* Animate */
-
 angular
     .module("common")
     .directive("animate", function () {

@@ -17,7 +17,7 @@ angular
                     if ( attrs.required && text && attrs.separator ) {
 
                         // Make sure there is text before the separator
-                        ctrl.$setValidity('nlp-required', $.trim(text).indexOf(attrs.separator) != 0);
+                        ctrl.$setValidity('nlp-required', $.trim(text).indexOf(attrs.separator) !== 0);
                     }
 
                     // If a separator was specified, use it

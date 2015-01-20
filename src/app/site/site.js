@@ -41,5 +41,5 @@ angular
                 templateUrl: "app/site/partials/500.html",
                 controller: "Error500PageCtrl",
                 title: "Oops... You found a 500"
-            })
+            });
     });

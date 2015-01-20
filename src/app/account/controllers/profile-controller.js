@@ -61,5 +61,5 @@ angular
 
         $scope.getMeBack = function () {
             StatesHandler.goToReminders();
-        }
+        };
     });

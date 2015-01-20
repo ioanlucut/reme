@@ -17,5 +17,5 @@ angular
          */
         $scope.goToHomePage = function () {
             StatesHandler.goHome();
-        }
+        };
     });

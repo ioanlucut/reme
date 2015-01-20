@@ -36,7 +36,7 @@ angular.module("app/site/partials/about.html", []).run(["$templateCache", functi
     "\n" +
     "        <h1 class=\"about__sections__description\">\n" +
     "            We are a small team of 3 and we're really passioned about building Reme. Our main goal is to make our users happy (that's you!)\n" +
-    "            and we hope you like using it. If you'd like to send us your feedback or just drop us a line, here we are.\n" +
+    "            and we hope you like using it. If you'd like to say hi, here we are.\n" +
     "        </h1>\n" +
     "\n" +
     "        <div class=\"about__sections__team\">\n" +
@@ -113,7 +113,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
+    "                            <button ng-cloak type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "\n" +
@@ -315,6 +315,11 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
     "\n" +
+    "    <div class=\"reminder-modal__form__cancel\">\n" +
+    "        <button type=\"button\" class=\"close\" ng-click=\"dismissCurrentOpenedModal()\" aria-label=\"Close\">\n" +
+    "            <span aria-hidden=\"true\">×</span></button>\n" +
+    "    </div>\n" +
+    "\n" +
     "    <!-- Flash messages. -->\n" +
     "    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
     "\n" +
@@ -355,10 +360,6 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "\n" +
     "        <!--Submit form button-->\n" +
     "        <button type=\"submit\" ladda=\"isSaving\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn btn--create-reminder\">{{isNew ? \"Create reminder\" : \"Update reminder\"}}</button>\n" +
-    "\n" +
-    "        <div class=\"reminder-modal__form__cancel\">\n" +
-    "            <a href=\"javascript:void(0)\" ng-click=\"dismissCurrentOpenedModal()\">Nevermind</a>\n" +
-    "        </div>\n" +
     "    </form>\n" +
     "</div>");
 }]);
@@ -740,7 +741,7 @@ angular.module("app/account/partials/signup_confirm_invalid.html", []).run(["$te
     "        <span class=\"account__explain\">\n" +
     "            Sorry, we couldn't validate your email. Maybe the link in the email is too old..\n" +
     "        </span>\n" +
-    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistration)\">Request the email again</a>\n" +
+    "        <a href=\"javascript:void(0)\" class=\"link-secondary link--lg\" ng-click=\"goHome()\">Request the email again</a>\n" +
     "    </div>\n" +
     "\n" +
     "</div>\n" +
@@ -930,11 +931,11 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "        <div class=\"footer__navbar\">\n" +
     "            <div class=\"footer__navbar__section-left\">\n" +
     "                <div class=\"footer__navbar__section-left__copyright\">\n" +
-    "                    Made with <span class=\"icon-heart\"></span> in Cluj-Napoca.\n" +
+    "                    Made with <span class=\"icon-heart-2\"></span> in Cluj-Napoca.\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"footer__navbar__section-right\">\n" +
-    "                <div class=\"footer__navbar__section-right__list\">\n" +
+    "                <div class=\"footer__navbar__section-right__list footer__navbar__section-right__list--first\">\n" +
     "                    <ul>\n" +
     "                        <li><a href=\"javascript:void(0)\" ui-sref=\"about\">About</a></li>\n" +
     "                        <li><a href=\"javascript:void(0)\">Press kit</a></li>\n" +
