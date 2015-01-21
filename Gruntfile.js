@@ -112,6 +112,25 @@ module.exports = function (grunt) {
             }
         },
 
+        processhtml: {
+            dev: {
+                options: {
+                    data: {}
+                },
+                files: {
+                    'index.html': ['template.index.html']
+                }
+            },
+            prod: {
+                options: {
+                    data: {}
+                },
+                files: {
+                    'index.html': ['template.index.html']
+                }
+            }
+        },
+
         ngAnnotate: {
             app: {
                 files: {
@@ -252,6 +271,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-ng-constant");
     grunt.loadNpmTasks("grunt-html2js");
@@ -262,7 +282,8 @@ module.exports = function (grunt) {
             "html2js",
             "sass",
             "concat",
-            "copy"
+            "copy",
+            "processhtml:dev"
         ]
     );
 
@@ -281,7 +302,8 @@ module.exports = function (grunt) {
             "ngAnnotate",
             "uglify",
             "cssmin",
-            "copy"
+            "copy",
+            "processhtml:dev"
         ]
     );
 
@@ -294,7 +316,8 @@ module.exports = function (grunt) {
             "ngAnnotate",
             "uglify",
             "cssmin",
-            "copy"
+            "copy",
+            "processhtml:prod"
         ]
     );
 };
