@@ -25,12 +25,7 @@
 
 @media (max-width: $screen-phone) {
 
-  .footer {
-    .footer__navbar__section-right__list {
-
-      ul {
-        padding-left: 10px;
-      }
-    }
+  .footer__navbar__section-right__list--first {
+    visibility: hidden;
   }
 }
