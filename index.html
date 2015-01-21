@@ -17,7 +17,9 @@
     <link rel="apple-touch-icon" sizes="76x76" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="152x152" href="http://reme.io/build/assets/img/favicons/apple-touch-icon-152x152.png">
     <link rel="icon" type="image/png" href="http://romaniaone.org/Content/favicons/apple-touch-icon-196x196.png" sizes="196x196">
-    <link rel="stylesheet" href="/build/css/app.css" />    <script src="/build/js/frameworks.min.js"></script>    <script src="/build/js/app.min.js"></script>
+    <link rel="stylesheet" href="/build/css/app.css" />
+    <script src="/build/js/frameworks.js"></script>
+    <script src="/build/js/app.js"></script>
     <title ng-bind="$state.current.title" class="ng-binding">reme.io</title>
 
     <!-- Mixpanel -->
@@ -37,17 +39,17 @@
     </script>
 
 </head>
-<body>
-<!-- Mixpanel initializer -->
-<div mixpanel-initializer></div>
+    <body>
+    <!-- Mixpanel initializer -->
+    <div mixpanel-initializer></div>
 
-<!-- View container -->
+    <!-- View container -->
     <div class="view-container" ui-view autoscroll="true"></div>
 
-<!-- Loading bar -->
-<div class="loading-bar" loading-bar></div>
+    <!-- Loading bar -->
+    <div class="loading-bar" loading-bar></div>
 
-<!-- Reamaze -->
+    <!-- Reamaze -->
     <script type="text/javascript">
         (function () {
             function async_load() {
