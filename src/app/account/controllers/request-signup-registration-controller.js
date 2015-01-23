@@ -18,6 +18,10 @@ angular
         $scope.requestSignUpRegistration = function () {
 
             if ( $scope.requestSignUpRegistrationForm.$valid ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
@@ -27,7 +31,10 @@ angular
                         mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
 
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
-                    });
+                    }).finally(function () {
+                        // Stop the loading bar
+                        $scope.isRequestPending = false;
+                    })
             }
         };
     });
