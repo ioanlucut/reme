@@ -12,44 +12,29 @@
 .form-group--search {
   max-width: 140px;
   position: absolute;
-  top: 1px;
-  right: 50px;
+  top: 0;
+  right: 190px;
 
   input {
     border-radius: $border-radius-small;
+    border: solid 1px $gray11;
+    background: $body-bg;
+    height: 33px;
+    @include placeholder($gray9);
+
+    &:focus {
+      background: $white;
+    }
   }
 }
 
 .reminders__header {
   position: absolute;
   right: 10px;
-  height: 34px;
-  width: 34px;
 }
 
 .reminders__header__btn {
-  display: block;
-  position: fixed;
-  z-index: 999;
-  background: $brand-primary url("../assets/img/add_reminder.png") no-repeat top left;
-  background-size: 24px;
-  background-position-x: 50%;
-  background-position-y: 50%;
-  height: 34px;
-  width: 34px;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
-  box-sizing: content-box;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  pointer-events: auto;
-  -webkit-user-drag: none;
 
-  &:active {
-    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
-  }
 }
 
 .reminder {
