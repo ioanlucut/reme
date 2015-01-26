@@ -62,7 +62,7 @@ angular.module("common").
                     else if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 && !date[DATE_SOURCE.isFromNlp] ) {
+                    else if ( moment().diff(date, 'day') < 0 && !(date[DATE_SOURCE.isFromNlp] || date[DATE_SOURCE.isFromUpdateAction]) ) {
                         scope.setTime(scope.times[0]);
                     }
 
