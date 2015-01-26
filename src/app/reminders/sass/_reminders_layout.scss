@@ -47,17 +47,24 @@
   background-color: $white;
   min-height: 60px;
   height: 100%;
+  @include box-shadow(0 2px 0 $gray11);
 
   &.reminder--owner:hover {
     cursor: pointer;
   }
 
   &:hover {
-    outline: solid 3px $gray11;
+    outline: solid 3px $gray10;
+    //background-color: lighten($brand-primary, 40%);
 
     .reminder__title {
       color: $brand-primary;
     }
+
+    .reminder__info {
+      color: $gray7;
+    }
+
     .reminder__menu {
       opacity: 1;
     }
@@ -78,9 +85,9 @@
 
     &__option {
       display: inline-block;
-      height: 30px;
-      width: 30px;
-      margin: 3px 5px;
+      height: 25px;
+      width: 25px;
+      margin: 3px 3px;
       border-radius: 3px;
       padding: 3px;
 
@@ -91,7 +98,7 @@
       span {
         display: block;
         margin: 0;
-        font-size: 30px;
+        font-size: 25px;
         text-align: center;
       }
     }
