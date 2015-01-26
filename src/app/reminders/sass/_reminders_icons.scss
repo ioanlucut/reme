@@ -13,8 +13,9 @@
 .reminder__info {
   position: absolute;
   bottom: 5px;
-  color: $gray8;
+  color: $gray9;
   font-weight: $font-weight-light;
+  font-size: 12px;
   width: 100%;
   padding-right: 10px;
   @include clearfix();
