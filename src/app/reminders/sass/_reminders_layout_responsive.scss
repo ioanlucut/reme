@@ -41,6 +41,11 @@
   .reminder__info__item--additional {
     width: 50%;
   }
+
+  .form-group--search {
+    right: 145px;
+    width: 100px;
+  }
 }
 
 @media (max-width: $screen-phone) {
