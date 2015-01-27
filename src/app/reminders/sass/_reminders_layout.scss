@@ -106,7 +106,7 @@
 }
 
 .reminder__title {
-  word-break: break-all;
+  @include word-wrap();
   max-width: 90%;
   font-weight: bold;
 }
