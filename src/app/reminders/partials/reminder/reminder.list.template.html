@@ -17,7 +17,7 @@
                  'reminder--last': $index === remindersLimit - 1,
                  'reminder--filter-activated': isSearchByActivated(),
                  'reminder--owner': reminder.isCreatedBy(currentUserEmail) }"
-     ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
+     ng-repeat="reminder in reminders | orderObjectBy : 'dueOn' : sortAscendent | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
 
     <!--Reminder title-->
     <div class="reminder__title" ng-bind-html="reminder.model.text | highlightSearch:searchByText"></div>
