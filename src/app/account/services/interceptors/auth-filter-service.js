@@ -3,10 +3,10 @@
  */
 angular
     .module("account")
-    .service("AuthFilter", function (AuthService, StatesHandler) {
+    .service("AuthFilter", function (AuthService, StatesHandler, $stateParams, $location) {
 
         return function (event, toState) {
-            if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
+            if ( (toState.url === '/account' || (toState.name === 'home' && $location.url().indexOf("?no-redirect") === -1) && AuthService.isAuthenticated() ) ) {
 
                 // Prevent transition
                 event.preventDefault();

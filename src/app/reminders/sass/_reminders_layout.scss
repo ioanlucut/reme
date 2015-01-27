@@ -12,44 +12,29 @@
 .form-group--search {
   max-width: 140px;
   position: absolute;
-  top: 1px;
-  right: 50px;
+  top: 0;
+  right: 190px;
 
   input {
     border-radius: $border-radius-small;
+    border: solid 1px $gray11;
+    background: $body-bg;
+    height: 33px;
+    @include placeholder($gray9);
+
+    &:focus {
+      background: $white;
+    }
   }
 }
 
 .reminders__header {
   position: absolute;
   right: 10px;
-  height: 34px;
-  width: 34px;
 }
 
 .reminders__header__btn {
-  display: block;
-  position: fixed;
-  z-index: 999;
-  background: $brand-primary url("../assets/img/add_reminder.png") no-repeat top left;
-  background-size: 24px;
-  background-position-x: 50%;
-  background-position-y: 50%;
-  height: 34px;
-  width: 34px;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
-  box-sizing: content-box;
-  cursor: pointer;
-  outline: none;
-  padding: 0;
-  pointer-events: auto;
-  -webkit-user-drag: none;
 
-  &:active {
-    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
-  }
 }
 
 .reminder {
@@ -62,17 +47,24 @@
   background-color: $white;
   min-height: 60px;
   height: 100%;
+  @include box-shadow(0 2px 0 $gray11);
 
   &.reminder--owner:hover {
     cursor: pointer;
   }
 
   &:hover {
-    outline: solid 3px $gray11;
+    //outline: solid 3px $gray10;
+    //background-color: lighten($brand-primary, 40%);
 
     .reminder__title {
       color: $brand-primary;
     }
+
+    .reminder__info {
+      color: $gray7;
+    }
+
     .reminder__menu {
       opacity: 1;
     }
@@ -93,9 +85,9 @@
 
     &__option {
       display: inline-block;
-      height: 30px;
-      width: 30px;
-      margin: 3px 5px;
+      height: 25px;
+      width: 25px;
+      margin: 3px 3px;
       border-radius: 3px;
       padding: 3px;
 
@@ -106,7 +98,7 @@
       span {
         display: block;
         margin: 0;
-        font-size: 30px;
+        font-size: 25px;
         text-align: center;
       }
     }
@@ -114,7 +106,7 @@
 }
 
 .reminder__title {
-  word-break: break-all;
+  @include word-wrap();
   max-width: 90%;
   font-weight: bold;
 }
