@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://dev-api.reme.io',mixPanelId:'e9ba9ca056ce11433777e3c8f59014b4'})
+.constant('ENV', {name:'production',apiEndpoint:'http://api.reme.io',mixPanelId:'56fe410177092150db2338e36196a1ff'})
 
 ;
