@@ -2839,10 +2839,10 @@ angular
  */
 angular
     .module("account")
-    .service("AuthFilter", ["AuthService", "StatesHandler", "$stateParams", "$location", function (AuthService, StatesHandler, $stateParams, $location) {
+    .service("AuthFilter", ["AuthService", "StatesHandler", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
-            if ( (toState.url === '/account' || (toState.name === 'home' && $location.url().indexOf("?no-redirect") === -1) && AuthService.isAuthenticated() ) ) {
+            if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();
@@ -5580,7 +5580,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "            </button>\n" +
-    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"/?no-redirect\">\n" +
+    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
     "                <span class=\"navbar__wrapper__brand__text\"></span>\n" +
     "            </a>\n" +
