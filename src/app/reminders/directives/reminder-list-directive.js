@@ -12,6 +12,12 @@ angular
             link: function (scope, el, attrs) {
 
                 /**
+                 * The way of sort
+                 * @type {boolean}
+                 */
+                scope.sortAscendent = attrs.sort === "asc";
+
+                /**
                  * Current user email.
                  * @type {User.$new.model.email|*|.$new.model.email}
                  */
