@@ -1,0 +1,5 @@
+[data-tooltip] {
+  &:before, &:after {
+    z-index: 1049;
+  }
+}
