@@ -1042,7 +1042,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "            </button>\n" +
-    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"/?no-redirect\">\n" +
+    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
     "                <span class=\"navbar__wrapper__brand__text\"></span>\n" +
     "            </a>\n" +
