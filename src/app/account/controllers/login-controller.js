@@ -3,7 +3,7 @@
  */
 angular
     .module("account")
-    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -31,6 +31,9 @@ angular
         $scope.login = function (loginData) {
             if ( $scope.loginForm.$valid ) {
 
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
                 AuthService
                     .login(loginData.email, loginData.password)
                     .then(function () {
@@ -42,7 +45,12 @@ angular
                         $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
-                    });
+                    }).finally(function () {
+                        // Stop the loading bar
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, 2000);
+                    })
             }
         };
     });

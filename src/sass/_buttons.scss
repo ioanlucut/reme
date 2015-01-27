@@ -7,6 +7,16 @@
 
 // Core styles
 // --------------------------------------------------
+.btn-complement {
+  background-color: $brand-complement;
+  color: $white;
+
+  &:hover {
+    background-color: lighten($brand-complement, 5%);
+    color: $white;
+  }
+}
+
 .btn-outline {
   text-align: center;
   line-height: 100%;

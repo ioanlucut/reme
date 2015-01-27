@@ -1,3 +1,3 @@
 angular
     .module("account")
-    .value('redirectToUrlAfterLogin', { url: '/' });
+    .value('redirectToUrlAfterLogin', { url: undefined });

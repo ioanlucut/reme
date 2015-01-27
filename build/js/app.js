@@ -2,7 +2,7 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://dev-api.reme.io',mixPanelId:'216177bcdddef0cf2edd1650e63a3449'})
+.constant('ENV', {name:'development',apiEndpoint:'http://dev-api.reme.io',mixPanelId:'e9ba9ca056ce11433777e3c8f59014b4'})
 
 ;;/**
  * Main common module declaration including ui templates.
@@ -798,6 +798,21 @@ angular.
             }
         }
     }]);
+;angular
+    .module("common")
+    .directive("mixpanelInitializer", ["$window", "ENV", function ($window, ENV) {
+        return {
+            restrict: "A",
+            compile: function compile() {
+                return {
+                    pre: function preLink() {
+                        var mixpanel = $window.mixpanel || {};
+                        mixpanel.init(ENV.mixPanelId);
+                    }
+                };
+            }
+        }
+    }]);
 ;/* Natural Language Date Input */
 
 angular
@@ -1007,7 +1022,7 @@ angular.module("common").
                     else if ( moment().diff(date, 'day') === 0 ) {
                         date = DatesUtils.prepareDate(date);
                     }
-                    else if ( moment().diff(date, 'day') < 0 && !date[DATE_SOURCE.isFromNlp] ) {
+                    else if ( moment().diff(date, 'day') < 0 && !(date[DATE_SOURCE.isFromNlp] || date[DATE_SOURCE.isFromUpdateAction]) ) {
                         scope.setTime(scope.times[0]);
                     }
 
@@ -2058,7 +2073,7 @@ angular
  */
 angular
     .module("account")
-    .controller("LoginCtrl", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler) {
+    .controller("LoginCtrl", ["$scope", "flash", "ALERTS_CONSTANTS", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "StatesHandler", "$timeout", function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
 
         /**
          * Alert identifier
@@ -2086,6 +2101,9 @@ angular
         $scope.login = function (loginData) {
             if ( $scope.loginForm.$valid ) {
 
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
                 AuthService
                     .login(loginData.email, loginData.password)
                     .then(function () {
@@ -2097,7 +2115,12 @@ angular
                         $scope.badPostSubmitResponse = true;
 
                         flash.to($scope.alertIdentifierId).error = "Your email or password are wrong. Please try again.";
-                    });
+                    }).finally(function () {
+                        // Stop the loading bar
+                        $timeout(function () {
+                            $scope.isRequestPending = false;
+                        }, 2000);
+                    })
             }
         };
     }]);
@@ -2242,12 +2265,7 @@ angular
  */
 angular
     .module("account")
-    .controller("RequestSignUpRegistrationCtrl", ["$state", "flash", "ALERTS_CONSTANTS", "$scope", "AuthService", "AUTH_EVENTS", "ACCOUNT_FORM_STATE", "AccountFormToggle", "$timeout", "MIXPANEL_EVENTS", function ($state, flash, ALERTS_CONSTANTS, $scope, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, $timeout, MIXPANEL_EVENTS) {
-
-        /**
-         * Alert identifier
-         */
-        $scope.alertIdentifierId = ALERTS_CONSTANTS.requestSignUpRegistration;
+    .controller("RequestSignUpRegistrationCtrl", ["$scope", "AuthService", "ACCOUNT_FORM_STATE", "AccountFormToggle", "MIXPANEL_EVENTS", function ($scope, AuthService, ACCOUNT_FORM_STATE, AccountFormToggle, MIXPANEL_EVENTS) {
 
         /**
          * Request registration up user information.
@@ -2262,6 +2280,10 @@ angular
         $scope.requestSignUpRegistration = function () {
 
             if ( $scope.requestSignUpRegistrationForm.$valid ) {
+
+                // Show the loading bar
+                $scope.isRequestPending = true;
+
                 AuthService
                     .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
                     .then(function () {
@@ -2271,12 +2293,10 @@ angular
                         mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
 
                         AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
+                    }).finally(function () {
+                        // Stop the loading bar
+                        $scope.isRequestPending = false;
                     })
-                    .catch(function () {
-                        $scope.requestSignUpRegistrationForm.email.$invalid = true;
-
-                        flash.to($scope.alertIdentifierId).error = "We encountered a problem.";
-                    });
             }
         };
     }]);
@@ -2552,32 +2572,60 @@ angular
             link: function (scope, el, attr, ngModel) {
 
                 /**
+                 * Check whether a string is a valid email address.
+                 *
+                 * @param email
+                 * @returns {boolean}
+                 */
+                function isValidEmail(email) {
+                    return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
+                }
+
+                /**
                  * Check whether an email address is unique.
                  *
                  * @param email
                  * @returns {promise|defer.promise}
                  */
-                ngModel.$asyncValidators.uniqueEmail = function (email) {
+                function isUniqueEmail(email) {
+
+                    // Create deferred
                     var deferred = $q.defer();
 
-                    UserService
-                        .isUnique(email)
-                        .then(function (response) {
-                            if ( !response.isUnique ) {
-                                deferred.reject();
-                            }
-                            else {
-                                deferred.resolve(response.isUnique);
-                            }
-                        });
+                    if ( !isValidEmail(email) ) {
+                        deferred.resolve(false);
+                    } else {
+                        UserService
+                            .isUnique(email)
+
+                            .then(function (isUnique) {
+                                deferred.resolve(isUnique);
+                            });
+                    }
 
                     return deferred.promise;
+                }
 
-                };
+                // Re-validate on change
+                scope.$watch("ngModel", function (value) {
+
+                    if ( isValidEmail(value) ) {
+
+                        // Set validity
+                        isUniqueEmail(value)
+                            .then(function (data) {
+
+                                // Make sure we are validating the latest value of the model (asynchronous responses)
+                                if ( data.email == ngModel.$viewValue ) {
+                                    ngModel.$setValidity('uniqueEmail', data.isUnique);
+                                }
+                            });
+                    }
+                });
+
             }
         };
-    }]);
-;/**
+    }]);;/**
  * Directive responsible for checking of an email is valid.
  */
 angular
@@ -2620,7 +2668,7 @@ angular
 
 ;angular
     .module("account")
-    .value('redirectToUrlAfterLogin', { url: '/' });;/**
+    .value('redirectToUrlAfterLogin', { url: undefined });;/**
  * Authentication service which encapsulates the whole logic account related of a user.
  */
 angular
@@ -2791,10 +2839,10 @@ angular
  */
 angular
     .module("account")
-    .service("AuthFilter", ["AuthService", "StatesHandler", function (AuthService, StatesHandler) {
+    .service("AuthFilter", ["AuthService", "StatesHandler", "$stateParams", "$location", function (AuthService, StatesHandler, $stateParams, $location) {
 
         return function (event, toState) {
-            if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
+            if ( (toState.url === '/account' || (toState.name === 'home' && $location.url().indexOf("?no-redirect") === -1) && AuthService.isAuthenticated() ) ) {
 
                 // Prevent transition
                 event.preventDefault();
@@ -4581,9 +4629,6 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <!-- Request registration section -->\n" +
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
-    "                    <!-- Flash messages. -->\n" +
-    "                    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
     "                    <!-- Request registration form -->\n" +
     "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error>\n" +
     "\n" +
@@ -4592,7 +4637,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "                            <!-- Email input -->\n" +
     "                            <div class=\"home__signup__sections__section__controls--information\">\n" +
-    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" required valid-email unique-email />\n" +
+    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" required valid-email unique-email />\n" +
     "\n" +
     "                                <!-- Error messages -->\n" +
     "                                <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -4603,7 +4648,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button ng-cloak type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
+    "                            <button type=\"submit\" ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "\n" +
@@ -4767,8 +4812,8 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 
 angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
-    "<div class=\"reminders__header simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Compose\">\n" +
-    "    <button class=\"reminders__header__btn\" ng-click=\"openReminderModalService()\"></button>\n" +
+    "<div class=\"reminders__header\">\n" +
+    "    <button class=\"btn btn-complement reminders__header__btn\" ng-click=\"openReminderModalService()\">New reminder</button>\n" +
     "</div>");
 }]);
 
@@ -4915,7 +4960,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Sign in</button>\n" +
+    "                <button ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn account__button\" type=\"submit\">Sign in</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -4943,7 +4988,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" auto-focus required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" auto-focus required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -4955,7 +5000,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Create new account</button>\n" +
+    "                <button class=\"btn account__button\" ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" type=\"submit\">Create new account</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -5535,7 +5580,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "            </button>\n" +
-    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
+    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"/?no-redirect\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
     "                <span class=\"navbar__wrapper__brand__text\"></span>\n" +
     "            </a>\n" +
