@@ -255,7 +255,9 @@
 @include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--reminder {
-  font-weight: $font-weight-bold;
+  font-weight: $font-weight-regular;
+  color: $text-color;
+  @include placeholder($gray10);
 }
 
 .form-control--user-email {
