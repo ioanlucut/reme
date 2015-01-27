@@ -91,9 +91,6 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                <!-- Request registration section -->\n" +
     "                <div class=\"home__signup__sections__section\" ng-if=\"AccountFormToggle.state == ACCOUNT_FORM_STATE.requestSignUpRegistration\" ng-controller=\"RequestSignUpRegistrationCtrl\">\n" +
     "\n" +
-    "                    <!-- Flash messages. -->\n" +
-    "                    <div flash-messages flash=\"flash\" identifier-id=\"{{alertIdentifierId}}\"></div>\n" +
-    "\n" +
     "                    <!-- Request registration form -->\n" +
     "                    <form name=\"requestSignUpRegistrationForm\" ng-submit=\"requestSignUpRegistration()\" novalidate focus-first-error>\n" +
     "\n" +
@@ -102,7 +99,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "\n" +
     "                            <!-- Email input -->\n" +
     "                            <div class=\"home__signup__sections__section__controls--information\">\n" +
-    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" required valid-email unique-email />\n" +
+    "                                <input class=\"form-control home__signup__sections__section__controls__email\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" type=\"email\" placeholder=\"Email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" required valid-email unique-email />\n" +
     "\n" +
     "                                <!-- Error messages -->\n" +
     "                                <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -113,7 +110,7 @@ angular.module("app/site/partials/home.html", []).run(["$templateCache", functio
     "                            </div>\n" +
     "\n" +
     "                            <!-- Button container -->\n" +
-    "                            <button ng-cloak type=\"submit\" ladda=\"requestSignUpRegistrationForm.email.$pending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">{{requestSignUpRegistrationForm.email.$pending ? \"Checking availability...\" : \"Get started for FREE!\"}}</button>\n" +
+    "                            <button type=\"submit\" ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn home__signup__sections__section__controls__button\">Get started for FREE!</button>\n" +
     "                        </div>\n" +
     "                    </form>\n" +
     "\n" +
@@ -277,8 +274,8 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
 
 angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
-    "<div class=\"reminders__header simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Compose\">\n" +
-    "    <button class=\"reminders__header__btn\" ng-click=\"openReminderModalService()\"></button>\n" +
+    "<div class=\"reminders__header\">\n" +
+    "    <button class=\"btn btn-complement reminders__header__btn\" ng-click=\"openReminderModalService()\">New reminder</button>\n" +
     "</div>");
 }]);
 
@@ -425,7 +422,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Sign in</button>\n" +
+    "                <button ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" class=\"btn account__button\" type=\"submit\">Sign in</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -453,7 +450,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "\n" +
     "                    <!-- Form group -->\n" +
     "                    <div class=\"form-group\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\">\n" +
-    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" ng-model-options=\"{ debounce: 450 }\" auto-focus required valid-email unique-email />\n" +
+    "                        <input class=\"form-control form-control--account\" type=\"email\" placeholder=\"Your email address\" name=\"email\" ng-model=\"requestSignUpRegistrationData.email\" auto-focus required valid-email unique-email />\n" +
     "\n" +
     "                        <!-- Error messages -->\n" +
     "                        <div class=\"home__signup__sections__section__validation-messages\" ng-class=\"{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}\" ng-messages=\"requestSignUpRegistrationForm.email.$error\" ng-if=\"requestSignUpRegistrationForm.$submitted\">\n" +
@@ -465,7 +462,7 @@ angular.module("app/account/partials/account.html", []).run(["$templateCache", f
     "                </div>\n" +
     "\n" +
     "                <!-- Button container -->\n" +
-    "                <button class=\"btn account__button\" type=\"submit\">Create new account</button>\n" +
+    "                <button class=\"btn account__button\" ladda=\"isRequestPending\" data-style=\"expand-left\" data-spinner-size=\"20\" type=\"submit\">Create new account</button>\n" +
     "            </div>\n" +
     "        </form>\n" +
     "\n" +
@@ -1045,7 +1042,7 @@ angular.module("app/common/partials/header.html", []).run(["$templateCache", fun
     "                <span class=\"icon-bar\"></span>\n" +
     "                <span class=\"icon-bar\"></span>\n" +
     "            </button>\n" +
-    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"javascript:void(0)\" ui-sref=\"reminders.regular\">\n" +
+    "            <a class=\"navbar-brand navbar__wrapper__brand\" href=\"/?no-redirect\">\n" +
     "                <span class=\"navbar__wrapper__brand__logo\"></span>\n" +
     "                <span class=\"navbar__wrapper__brand__text\"></span>\n" +
     "            </a>\n" +

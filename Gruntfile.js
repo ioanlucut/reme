@@ -94,7 +94,7 @@ module.exports = function (grunt) {
                     ENV: {
                         name: 'development',
                         apiEndpoint: 'http://dev-api.reme.io',
-                        mixPanelId: '216177bcdddef0cf2edd1650e63a3449'
+                        mixPanelId: 'e9ba9ca056ce11433777e3c8f59014b4'
                     }
                 }
             },
@@ -108,6 +108,25 @@ module.exports = function (grunt) {
                         apiEndpoint: 'http://api.reme.io',
                         mixPanelId: '56fe410177092150db2338e36196a1ff'
                     }
+                }
+            }
+        },
+
+        processhtml: {
+            dev: {
+                options: {
+                    data: {}
+                },
+                files: {
+                    'index.html': ['template.index.html']
+                }
+            },
+            prod: {
+                options: {
+                    data: {}
+                },
+                files: {
+                    'index.html': ['template.index.html']
                 }
             }
         },
@@ -252,6 +271,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-jshint");
     grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks("grunt-ng-annotate");
     grunt.loadNpmTasks("grunt-ng-constant");
     grunt.loadNpmTasks("grunt-html2js");
@@ -262,7 +282,8 @@ module.exports = function (grunt) {
             "html2js",
             "sass",
             "concat",
-            "copy"
+            "copy",
+            "processhtml:dev"
         ]
     );
 
@@ -281,7 +302,8 @@ module.exports = function (grunt) {
             "ngAnnotate",
             "uglify",
             "cssmin",
-            "copy"
+            "copy",
+            "processhtml:dev"
         ]
     );
 
@@ -294,7 +316,8 @@ module.exports = function (grunt) {
             "ngAnnotate",
             "uglify",
             "cssmin",
-            "copy"
+            "copy",
+            "processhtml:prod"
         ]
     );
 };

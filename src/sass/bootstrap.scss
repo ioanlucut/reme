@@ -6,12 +6,14 @@
 
 @import "variables";
 @import "variables_extra";
+@import "word_wrap";
 //---------------- REME specific styles - END
 //---------------- VENDOR specific styles - START
 // Animate SCSS
 @import "../../bower_components/animate.css-scss/animate";
 // Simtip
 @import "../../bower_components/simptip/simptip";
+@import "simtip";
 // Ladda
 @import "../../bower_components/ladda/css/ladda";
 @import "../../bower_components/ladda/css/ladda-themed";

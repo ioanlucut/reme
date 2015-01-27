@@ -11,11 +11,12 @@
 }
 
 .reminder__info {
-  position: absolute;
-  bottom: 5px;
-  color: $gray8;
+  position: relative;
+  color: $gray9;
   font-weight: $font-weight-light;
+  font-size: 12px;
   width: 100%;
+  padding-top: 10px;
   padding-right: 10px;
   @include clearfix();
 }
