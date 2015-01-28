@@ -10,15 +10,29 @@
 .modal {
   // When fading in the modal, animate it to slide down
   &.reminder-modal--animate .modal-dialog {
-    @include fadeIn(0.5s);
+    @include fadeIn(0.3s);
   }
+}
+
+.modal {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-dialog {
+  margin-top: 100px;
+}
+
+.modal-content {
+  border-width: 0;
+  border-radius: 3px;
+  @include box-shadow(none);
 }
 
 // Modal background
 .modal-backdrop {
   // Fade for backdrop
   &.fade {
-    @include opacity(0);
+    @include opacity(0.5);
   }
   &.in {
     @include opacity(.5);
