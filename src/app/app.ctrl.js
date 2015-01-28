@@ -64,6 +64,20 @@ angular
         $rootScope.$on('$stateChangeStart', function () {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
         });
+
+        /**
+         * Interceptor - always go to reminders page if logged in.
+         */
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
+
+            if ( toState.name === "home" && toParams.redirect !== "false" && AuthService.isAuthenticated() ) {
+
+                event.preventDefault();
+                StatesHandler.goToReminders();
+            }
+        });
+
         $rootScope.$on('$viewContentLoaded', function () {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });
