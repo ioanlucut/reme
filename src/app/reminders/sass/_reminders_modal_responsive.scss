@@ -1,18 +1,15 @@
 @media (max-width: 480px) {
 
   .modal {
-    //border: solid 2px red;
     background-color: $white;
   }
 
   .modal-dialog {
-    //border: solid 2px blue;
     margin: 0;
     width: 100%;
   }
 
   .modal-content {
-    //border: solid 2px green;
     @include box-shadow(none);
     border-width: 0;
   }
