@@ -15,7 +15,7 @@ angular
                  * The way of sort
                  * @type {boolean}
                  */
-                scope.sortAscendent = attrs.sort === "asc";
+                scope.reverseOrder = attrs.sort === "desc";
 
                 /**
                  * Current user email.
