@@ -15,7 +15,7 @@ angular
 
             // Home page
             .state("home", {
-                url: "/?redirect",
+                url: "/",
                 templateUrl: "app/site/partials/home.html",
                 controller: "LandingPageCtrl",
                 title: "Create email reminders in seconds - Reme"

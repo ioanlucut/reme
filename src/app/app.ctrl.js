@@ -71,7 +71,7 @@ angular
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
 
-            if ( toState.name === "home" && toParams.redirect !== "false" && AuthService.isAuthenticated() ) {
+            if ( toState.name === "home" && AuthService.isAuthenticated() ) {
 
                 event.preventDefault();
                 StatesHandler.goToReminders();
