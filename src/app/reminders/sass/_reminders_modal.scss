@@ -10,7 +10,7 @@
 .modal {
   // When fading in the modal, animate it to slide down
   &.reminder-modal--animate .modal-dialog {
-    @include fadeIn(0.3s);
+    @include fadeInDown(0.3s);
   }
 }
 
@@ -23,6 +23,7 @@
 }
 
 .modal-content {
+  padding-top: 35px;
   border-width: 0;
   border-radius: 3px;
   @include box-shadow(none);
