@@ -34,7 +34,12 @@
 }
 
 .reminders__header__btn {
+  @include box-shadow(0 2px 0 darken($brand-complement,5%));
 
+  &:focus {
+    @include box-shadow(none);
+    @include translate(0, 2px);
+  }
 }
 
 .reminder {
