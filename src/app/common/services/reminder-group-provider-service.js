@@ -6,25 +6,49 @@ angular
             var now = moment();
 
             return [
-                { name: 'Today', diff: { date: moment().set('day', now.day()), unit: 'day' } },
-                { name: 'Tomorrow', diff: { date: moment().set('day', now.day() + 1), unit: 'day' } },
-                { name: 'Yesterday', diff: { date: moment().set('day', now.day() - 1), unit: 'day' } },
-                { name: 'This month', diff: { date: moment().set('month', now.month()), unit: 'month' } },
-                { name: 'Next month', diff: { date: moment().set('month', now.month() + 1), unit: 'month' } },
-                { name: 'Last month', diff: { date: moment().set('month', now.month() - 1), unit: 'month' } }
+                {
+                    name: 'Today',
+                    diff: { date: moment().set('day', now.day()), unit: 'day', priority: 0 }
+                },
+                {
+                    name: 'Tomorrow',
+                    diff: { date: moment().set('day', now.day() + 1), unit: 'day', priority: 1 }
+                },
+                {
+                    name: 'Yesterday',
+                    diff: { date: moment().set('day', now.day() - 1), unit: 'day', priority: 1 }
+                },
+                {
+                    name: 'This month',
+                    diff: { date: moment().set('month', now.month()), unit: 'month', priority: 2 }
+                },
+                {
+                    name: 'Next month',
+                    diff: { date: moment().set('month', now.month() + 1), unit: 'month', priority: 3 }
+                },
+                {
+                    name: 'Last month',
+                    diff: { date: moment().set('month', now.month() - 1), unit: 'month', priority: 3 }
+                }
             ];
         };
 
         this.getPastGroup = function () {
             var now = moment();
 
-            return { name: 'Past', diff: { date: moment().set('year', now.year() - 1), unit: 'year' } };
+            return {
+                name: 'Past',
+                diff: { date: moment().set('year', now.year() - 1), unit: 'year', priority: 4 }
+            };
         };
 
         this.getFutureGroup = function () {
             var now = moment();
 
-            return { name: 'Upcoming', diff: { date: moment().set('year', now.year() + 1), unit: 'year' } };
+            return {
+                name: 'Upcoming',
+                diff: { date: moment().set('year', now.year() + 1), unit: 'year', priority: 4 }
+            };
         };
 
         /**

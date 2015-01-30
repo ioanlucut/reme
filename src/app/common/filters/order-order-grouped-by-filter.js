@@ -1,7 +1,7 @@
 angular
     .module('common')
     .filter('groupReminders', function ($parse, filterWatcher) {
-        return function (reminders, reversed) {
+        return function (reminders) {
 
             var isObject = angular.isObject,
                 forEach = angular.forEach;
@@ -35,17 +35,15 @@ angular
                 });
 
                 function remindersSortComparator(a, b) {
-                    if ( a.matchingGroup.diff.date < b.matchingGroup.diff.date )
+                    if ( a.matchingGroup.diff.priority < b.matchingGroup.diff.priority )
                         return -1;
-                    if ( a.matchingGroup.diff.date > b.matchingGroup.diff.date )
+                    if ( a.matchingGroup.diff.priority > b.matchingGroup.diff.priority )
                         return 1;
                     return 0;
                 }
 
+                // Priorities are 0-n, 0 being the biggest (top) - so by default we user reverse.
                 groupedReminders.sort(remindersSortComparator);
-                if ( reversed ) {
-                    groupedReminders.reverse();
-                }
 
                 return groupedReminders;
             }
