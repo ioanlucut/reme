@@ -64,6 +64,7 @@ angular
         $rootScope.$on('$stateChangeStart', function () {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityStart);
         });
+
         $rootScope.$on('$viewContentLoaded', function () {
             $rootScope.$broadcast(ACTIVITY_INTERCEPTOR.activityEnd);
         });

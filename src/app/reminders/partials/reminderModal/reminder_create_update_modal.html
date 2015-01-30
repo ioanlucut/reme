@@ -1,6 +1,8 @@
 <!--Reminder form-->
 <div class="reminder-modal">
 
+    <div class="reminder-modal__header">Create a new reminder</div>
+
     <div class="reminder-modal__form__cancel">
         <button type="button" class="close" ng-click="dismissCurrentOpenedModal()" aria-label="Close">
             <span aria-hidden="true">×</span></button>
@@ -15,7 +17,7 @@
         <!--Reminder text-->
         <div class="form-group form-group--reminder-text" ng-class="{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}">
             <label>Remind me to:</label>
-            <input class="form-control form-control--reminder" type="text" placeholder="e.g. {{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" auto-focus="isModalOpened" required />
+            <input class="form-control form-control--reminder" type="text" placeholder="{{randomExample}}" name="text" maxlength="140" ng-model="reminder.model.text" nlp-date date="reminder.model.dueOn" separator="@" min-date="{{minDate}}" max-date="2018-01-01" auto-focus="isModalOpened" required />
         </div>
 
         <!--Reminder info-->

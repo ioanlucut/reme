@@ -3,6 +3,7 @@
  */
 angular
     .module("common", [
+        "a8m.filter-watcher",
         "ui.router",
         "restmod",
         "ui.bootstrap.transition",

@@ -34,7 +34,24 @@
 }
 
 .reminders__header__btn {
+  @include box-shadow(0 2px 0 darken($brand-complement, 5%));
 
+  &:focus {
+    @include box-shadow(none);
+    @include translate(0, 2px);
+  }
+}
+
+.reminder-group {
+  width: 100%;
+  position: relative;
+  color: #999;
+  margin-top: 20px;
+  padding: 5px 10px 10px 20px;
+}
+
+.reminder-group:only-child {
+  display: none;
 }
 
 .reminder {
@@ -47,15 +64,13 @@
   background-color: $white;
   min-height: 60px;
   height: 100%;
-  @include box-shadow(0 2px 0 $gray11);
+  @include box-shadow(0 2px 0 $gray10);
 
   &.reminder--owner:hover {
     cursor: pointer;
   }
 
   &:hover {
-    //outline: solid 3px $gray10;
-    //background-color: lighten($brand-primary, 40%);
 
     .reminder__title {
       color: $brand-primary;

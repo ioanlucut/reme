@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, ReminderGroupsProvider, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -25,11 +25,13 @@ angular
          * Upcoming reminders
          */
         $scope.upcomingReminders = pastAndUpcomingReminders.upcomingReminders;
+        ReminderGroupsProvider.populateRemindersWithMatchingGroups($scope.upcomingReminders, false);
 
         /**
          * Past reminders
          */
         $scope.pastReminders = pastAndUpcomingReminders.pastReminders;
+        ReminderGroupsProvider.populateRemindersWithMatchingGroups($scope.pastReminders, true);
 
         /**
          * Reminders tabs.
@@ -51,6 +53,7 @@ angular
          * On reminder created, display a success message, and add reminder to the list.
          */
         $scope.$on(REMINDER_EVENTS.isCreated, function (event, args) {
+            ReminderGroupsProvider.populateReminderWithMatchingGroup(args.reminder, false);
             $scope.upcomingReminders.push(args.reminder);
             $scope.reminderTabs.setUpcomingRemindersTabActive();
         });
@@ -59,6 +62,8 @@ angular
          * On reminder updated.
          */
         $scope.$on(REMINDER_EVENTS.isUpdated, function (event, args) {
+            ReminderGroupsProvider.populateReminderWithMatchingGroup(args.reminder, false);
+
             var result = _.some($scope.pastReminders, function (topic) {
                 return topic.model.reminderId === args.reminder.model.reminderId;
             });
