@@ -204,7 +204,14 @@ module.exports = function (grunt) {
                 cwd: "src",
                 src: ["assets/fonts/**/*"],
                 dest: "build"
+            },
+            press: {
+                expand: true,
+                cwd: "src",
+                src: ["assets/press/**/*"],
+                dest: "build"
             }
+
         },
 
         html2js: {
