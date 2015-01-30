@@ -14,7 +14,8 @@ angular
         "site",
         "common",
         "reminders",
-        "account"
+        "account",
+        "angular.filter"
     ])
     .config(function ($locationProvider) {
 

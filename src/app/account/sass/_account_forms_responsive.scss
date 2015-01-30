@@ -1,5 +1,14 @@
 @media (max-width: 580px) {
 
+  .brand-logo-block {
+    padding-top: 10px;
+
+    a {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   .account__sections {
     max-width: 100%;
     margin-left: 15px;
@@ -21,7 +30,21 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 400px) {
+
+  .account__sections {
+    margin: 10px 0;
+    padding: 10px 10px 20px;
+  }
+
+  .account__title {
+    margin-bottom: 15px;
+    font-size: $font-size-h2;
+  }
+
+  .account__controls {
+    padding-top: 20px;
+  }
 
   .account__section__terms {
     margin-left: 0;

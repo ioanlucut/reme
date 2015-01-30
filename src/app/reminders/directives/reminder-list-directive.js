@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupsProvider, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {
@@ -10,6 +10,12 @@ angular
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
+
+                /**
+                 * The way of sort
+                 * @type {boolean}
+                 */
+                scope.reverseOrder = attrs.sort === "desc";
 
                 /**
                  * Current user email.

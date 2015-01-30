@@ -1,0 +1,17 @@
+@media (max-width: 480px) {
+
+  .modal {
+    background-color: $white;
+  }
+
+  .modal-dialog {
+    margin: 0;
+    width: 100%;
+  }
+
+  .modal-content {
+    @include box-shadow(none);
+    border-width: 0;
+  }
+
+}

@@ -32,6 +32,7 @@
     "animate.css-scss": "~3.1.0",
     "angular-chosen-localytics": "~1.0.6",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
-    "bootstrap-chosen": "~1.0.0"
+    "bootstrap-chosen": "~1.0.0",
+    "angular-filter": "~0.5.2"
   }
 }
