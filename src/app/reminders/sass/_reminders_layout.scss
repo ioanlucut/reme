@@ -34,12 +34,24 @@
 }
 
 .reminders__header__btn {
-  @include box-shadow(0 2px 0 darken($brand-complement,5%));
+  @include box-shadow(0 2px 0 darken($brand-complement, 5%));
 
   &:focus {
     @include box-shadow(none);
     @include translate(0, 2px);
   }
+}
+
+.reminder-group {
+  width: 100%;
+  position: relative;
+  color: #999;
+  margin-top: 20px;
+  padding: 5px 10px 10px 20px;
+}
+
+.reminder-group:only-child {
+  display: none;
 }
 
 .reminder {

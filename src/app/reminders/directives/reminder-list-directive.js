@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupsProvider, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {

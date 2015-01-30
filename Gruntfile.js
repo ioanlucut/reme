@@ -48,7 +48,8 @@ module.exports = function (grunt) {
                     "bower_components/chosen/chosen.jquery.js",
                     "bower_components/angular-chosen-localytics/chosen.js",
                     "bower_components/bootstrap/js/collapse.js",
-                    "bower_components/bootstrap/js/dropdown.js"
+                    "bower_components/bootstrap/js/dropdown.js",
+                    "bower_components/angular-filter/dist/angular-filter.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
@@ -234,7 +235,7 @@ module.exports = function (grunt) {
 
         watch: {
             options: {
-                livereload: true
+                livereload: false
             },
             images: {
                 files: ["src/assets/img/**/*"],
