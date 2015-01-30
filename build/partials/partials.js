@@ -216,55 +216,56 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "    <input class=\"form-control\" type=\"text\" placeholder=\"Search\" name=\"text\" maxlength=\"140\" ng-model=\"searchByText\" />\n" +
     "</div>\n" +
     "\n" +
-    "<!--Reminder list-->\n" +
-    "<div class=\"reminder\"\n" +
-    "     ng-click=\"openUpdateReminderModalService(reminder, $index)\"\n" +
-    "     ng-class=\"{ 'reminder--first': $first,\n" +
-    "                 'reminder--removed': removedReminderIndex === $index,\n" +
-    "                 'reminder--loaded': $index > defaultRemindersLimit - 1 ,\n" +
-    "                 'reminder--last': $index === remindersLimit - 1,\n" +
-    "                 'reminder--filter-activated': isSearchByActivated(),\n" +
-    "                 'reminder--owner': reminder.isCreatedBy(currentUserEmail) }\"\n" +
-    "     ng-repeat=\"reminder in reminders | orderObjectBy : 'dueOn' : true | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders\">\n" +
+    "<div class=\"reminder-groups\"\n" +
+    "     ng-repeat=\"remindersGrouped in reminders | groupReminders\">\n" +
     "\n" +
-    "    <!--Reminder title-->\n" +
-    "    <div class=\"reminder__title\" ng-bind-html=\"reminder.model.text | highlightSearch:searchByText\"></div>\n" +
+    "    <!--Reminder group-->\n" +
+    "    <div class=\"reminder-group\"> {{remindersGrouped.name}}</div>\n" +
     "\n" +
-    "    <!--Reminder edit/delete-->\n" +
-    "    <div class=\"reminder__menu\">\n" +
-    "        <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"javascript:void(0)\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
-    "    </div>\n" +
+    "    <!--Reminder list-->\n" +
+    "    <div class=\"reminder\"\n" +
+    "         ng-click=\"openUpdateReminderModalService(reminder, $index)\"\n" +
+    "         ng-repeat=\"reminder in remindersGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders\">\n" +
     "\n" +
-    "    <!--Reminder info-->\n" +
-    "    <div class=\"reminder__info\">\n" +
+    "        <!--Reminder title-->\n" +
+    "        <div class=\"reminder__title\" ng-bind-html=\"reminder.model.text | highlightSearch:searchByText\"></div>\n" +
     "\n" +
-    "        <!--Reminder date-->\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--date\">\n" +
-    "            <span class=\"icon-calendar\"></span>\n" +
-    "            {{reminder.model.dueOn | friendlyDate}}\n" +
+    "        <!--Reminder edit/delete-->\n" +
+    "        <div class=\"reminder__menu\">\n" +
+    "            <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"javascript:void(0)\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
     "        </div>\n" +
     "\n" +
-    "        <!--Reminder hour-->\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--time\">\n" +
-    "            <span class=\"icon-clock\"></span>\n" +
-    "            {{reminder.model.dueOn | friendlyHour}}\n" +
-    "        </div>\n" +
+    "        <!--Reminder info-->\n" +
+    "        <div class=\"reminder__info\">\n" +
     "\n" +
-    "        <!--Reminder icons-->\n" +
-    "        <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
-    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
+    "            <!--Reminder date-->\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--date\">\n" +
+    "                <span class=\"icon-calendar\"></span>\n" +
+    "                {{reminder.model.dueOn | friendlyDate}}\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!--Reminder hour-->\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--time\">\n" +
+    "                <span class=\"icon-clock\"></span>\n" +
+    "                {{reminder.model.dueOn | friendlyHour}}\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <!--Reminder icons-->\n" +
+    "            <div class=\"reminder__info__item reminder__info__item--additional\">\n" +
+    "                <div class=\"reminder__info__item__icon reminder__info__item__icon--user\">\n" +
     "                <span ng-if=\"! reminder.isCreatedBy(currentUserEmail)\" class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}\">\n" +
     "                    <span class=\"icon-user\"></span>\n" +
     "                </span>\n" +
-    "            </div>\n" +
-    "            <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
+    "                </div>\n" +
+    "                <div class=\"reminder__info__item__icon reminder__info__item__icon--email\">\n" +
     "                <span ng-if=\"reminder.isManyRecipients()\" class=\"simptip-position-bottom simptip-fade simptip-smooth simptip-multiline\" data-tooltip=\"Recipients: {{reminder.model.recipients | friendlyRecipients}}\">\n" +
     "                    <span class=\"icon-email\"></span>\n" +
     "                </span>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "    </div>\n" +
     "\n" +
+    "    </div>\n" +
     "</div>\n" +
     "\n" +
     "<div ng-if=\"filteredReminders.length >= defaultRemindersLimit && isStillRemindersToBeLoaded()\" class=\"load-more-reminders\">\n" +
@@ -283,11 +284,11 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
     "<tabset>\n" +
     "    <tab heading=\"Upcoming\" active=\"reminderTabs.upcomingRemindersTabActive\">\n" +
-    "        <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\"></div>\n" +
+    "        <div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\" sort=\"asc\"></div>\n" +
     "    </tab>\n" +
     "\n" +
     "    <tab heading=\"Past\" active=\"reminderTabs.pastRemindersTabActive\">\n" +
-    "        <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\"></div>\n" +
+    "        <div class=\"reminder-list\" reminder-list reminders=\"pastReminders\" sort=\"desc\"></div>\n" +
     "    </tab>\n" +
     "</tabset>");
 }]);
@@ -312,6 +313,8 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "<!--Reminder form-->\n" +
     "<div class=\"reminder-modal\">\n" +
     "\n" +
+    "    <div class=\"reminder-modal__header\">Create a new reminder</div>\n" +
+    "\n" +
     "    <div class=\"reminder-modal__form__cancel\">\n" +
     "        <button type=\"button\" class=\"close\" ng-click=\"dismissCurrentOpenedModal()\" aria-label=\"Close\">\n" +
     "            <span aria-hidden=\"true\">×</span></button>\n" +
@@ -326,7 +329,7 @@ angular.module("app/reminders/partials/reminderModal/reminder_create_update_moda
     "        <!--Reminder text-->\n" +
     "        <div class=\"form-group form-group--reminder-text\" ng-class=\"{'has-error': reminderForm.text.$invalid && reminderForm.$submitted}\">\n" +
     "            <label>Remind me to:</label>\n" +
-    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"e.g. {{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" auto-focus=\"isModalOpened\" required />\n" +
+    "            <input class=\"form-control form-control--reminder\" type=\"text\" placeholder=\"{{randomExample}}\" name=\"text\" maxlength=\"140\" ng-model=\"reminder.model.text\" nlp-date date=\"reminder.model.dueOn\" separator=\"@\" min-date=\"{{minDate}}\" max-date=\"2018-01-01\" auto-focus=\"isModalOpened\" required />\n" +
     "        </div>\n" +
     "\n" +
     "        <!--Reminder info-->\n" +
@@ -382,6 +385,9 @@ angular.module("app/reminders/partials/reminderModal/reminder_delete_modal.html"
 
 angular.module("app/account/partials/account.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/account/partials/account.html",
+    "<!-- Brand logo -->\n" +
+    "<div class=\"brand-logo-block\"><a ui-sref=\"home\"></a></div>\n" +
+    "\n" +
     "<!-- Account sections -->\n" +
     "<div class=\"account__sections\" account-form-toggle>\n" +
     "\n" +
@@ -935,7 +941,7 @@ angular.module("app/common/partials/footer-home.html", []).run(["$templateCache"
     "                <div class=\"footer__navbar__section-right__list footer__navbar__section-right__list--first\">\n" +
     "                    <ul>\n" +
     "                        <li><a href=\"javascript:void(0)\" ui-sref=\"about\">About</a></li>\n" +
-    "                        <li><a href=\"javascript:void(0)\">Press kit</a></li>\n" +
+    "                        <li><a href=\"build/assets/press/press_kit.zip\">Press kit</a></li>\n" +
     "                        <li><a href=\"javascript:void(0)\" ui-sref=\"privacy\">Privacy and Terms</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
@@ -961,14 +967,14 @@ angular.module("app/common/partials/footer.html", []).run(["$templateCache", fun
     "        <div class=\"footer__navbar\">\n" +
     "            <div class=\"footer__navbar__section-left\">\n" +
     "                <div class=\"footer__navbar__section-left__copyright\">\n" +
-    "                    Made with <span class=\"icon-heart\"></span> in Cluj-Napoca.\n" +
+    "                    Made with <span class=\"icon-heart-2\"></span> in Cluj-Napoca.\n" +
     "                </div>\n" +
     "            </div>\n" +
     "            <div class=\"footer__navbar__section-right\">\n" +
     "                <div class=\"footer__navbar__section-right__list\">\n" +
     "                    <ul>\n" +
     "                        <li><a href=\"javascript:void(0)\" ui-sref=\"about\">About</a></li>\n" +
-    "                        <li><a href=\"javascript:void(0)\">Press kit</a></li>\n" +
+    "                        <li><a href=\"build/assets/press/press_kit.zip\">Press kit</a></li>\n" +
     "                        <li><a href=\"javascript:void(0)\" ui-sref=\"privacy\">Privacy and Terms</a></li>\n" +
     "                    </ul>\n" +
     "                </div>\n" +
