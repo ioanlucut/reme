@@ -3982,6 +3982,28 @@ angular
                 scope.remindersLimit = scope.defaultRemindersLimit;
 
                 /**
+                 * Show past reminders block content
+                 * @type {boolean}
+                 */
+                scope.showRemindersContent = true;
+
+                if ( attrs.toggleContent === "true" ) {
+
+                    /**
+                     * Set reminders content settings
+                     * @type {boolean}
+                     */
+                    scope.showRemindersContent = false;
+
+                    /**
+                     * Toggle past reminders content
+                     */
+                    scope.togglePastRemindersContent = function () {
+                        scope.showRemindersContent = !scope.showRemindersContent;
+                    };
+                }
+
+                /**
                  * Load more upcoming reminders.
                  */
                 scope.loadMoreReminders = function () {
@@ -4906,9 +4928,9 @@ angular.module("app/site/partials/privacy.html", []).run(["$templateCache", func
 
 angular.module("app/reminders/partials/reminder/reminder.list.template.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminder.list.template.html",
-    "<div class=\"reminder-list-box\" ng-class=\"{ 'reminder-list-box--past-reminders': reverseOrder}\">\n" +
+    "<div class=\"reminder-list-box__header\" ng-click=\"togglePastRemindersContent()\" ng-bind-html=\"reminders.length | remindersHeader : reverseOrder\"></div>\n" +
     "\n" +
-    "    <div class=\"reminder-list-box__header\" ng-bind-html=\"reminders.length | remindersHeader : reverseOrder\"></div>\n" +
+    "<div ng-show=\"showRemindersContent\" class=\"reminder-list-box\" ng-class=\"{ 'reminder-list-box--past-reminders': reverseOrder}\">\n" +
     "\n" +
     "    <!--Reminder list is empty-->\n" +
     "    <div class=\"reminder__empty empty-state--text\" ng-if=\"!reminders.length\">\n" +
@@ -4992,7 +5014,7 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "<div class=\"reminder-list\" reminder-list reminders=\"upcomingReminders\" search-by-text=\"searchByText\" sort=\"asc\"></div>\n" +
     "\n" +
     "<!--Past reminders-->\n" +
-    "<div class=\"reminder-list\" reminder-list reminders=\"pastReminders\" search-by-text=\"searchByText\" sort=\"desc\"></div>\n" +
+    "<div class=\"reminder-list\" reminder-list reminders=\"pastReminders\" search-by-text=\"searchByText\" sort=\"desc\" toggle-content=\"true\"></div>\n" +
     "");
 }]);
 
