@@ -7,11 +7,6 @@
         You have no reminders. Don't be shy, go ahead and create one! :)
     </div>
 
-    <!--Search in reminder list-->
-    <div class="form-group form-group--search">
-        <input class="form-control" type="text" placeholder="Search" name="text" maxlength="140" ng-model="searchByText" />
-    </div>
-
     <div class="reminder-groups"
          ng-repeat="remindersGrouped in reminders | groupReminders | groupLimit:reminders:remindersLimit track by remindersGrouped.name">
 
