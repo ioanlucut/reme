@@ -13,7 +13,7 @@
     </div>
 
     <div class="reminder-groups"
-         ng-repeat="remindersGrouped in reminders | groupReminders">
+         ng-repeat="remindersGrouped in reminders | groupReminders | groupLimit:reminders:remindersLimit track by remindersGrouped.name">
 
         <!--Reminder group-->
         <div class="reminder-group"> {{remindersGrouped.name}}</div>
@@ -21,7 +21,7 @@
         <!--Reminder list-->
         <div class="reminder"
              ng-click="openUpdateReminderModalService(reminder, $index)"
-             ng-repeat="reminder in remindersGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
+             ng-repeat="reminder in remindersGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | filter:{model:{text:searchByText}} as filteredReminders track by reminder.model.reminderId">
 
             <!--Reminder title-->
             <div class="reminder__title" ng-bind-html="reminder.model.text | highlightSearch:searchByText"></div>

@@ -2,40 +2,29 @@ angular
     .module("reminders")
     .filter('groupLimit', function () {
         return function (inputGrouped, input, limit) {
-            var out = [],
-                i, n;
-
             if ( limit > input.length )
                 limit = input.length;
             else if ( limit < -input.length )
                 limit = -input.length;
 
-            if ( limit > 0 ) {
-                i = 0;
-                n = limit;
-            } else {
-                i = input.length + limit;
-                n = input.length;
-            }
-
+            // Should not exceed the limit
+            var commonSumIndex = 0;
             var inputGroupedReminders;
-            var idx = 0;
-            var idxReminders = 0;
-            for ( ; idx < inputGrouped.length; idx++ ) {
+            var currentGroupIndex;
+
+            // Remove every reminder from grouped reminders which are more than the limit
+            for ( var idx = 0; idx < inputGrouped.length; idx++ ) {
                 inputGroupedReminders = inputGrouped[idx].values;
 
-                for ( ; idxReminders < inputGroupedReminders.length; idxReminders++ ) {
-                    if ( out.length === n ) {
-                        inputGroupedReminders.splice(idxReminders, 1);
-                    }
-                }
+                for ( currentGroupIndex = 0; currentGroupIndex < inputGroupedReminders.length; currentGroupIndex++ ) {
+                    commonSumIndex += 1;
 
-                // If current group is empty, remove it
-                if ( inputGroupedReminders === 0 ) {
-                    inputGrouped.splice(idx, 1);
+                    if ( commonSumIndex > limit ) {
+                        inputGroupedReminders.splice(currentGroupIndex, 1);
+                    }
                 }
             }
 
-            return out;
+            return inputGrouped;
         };
     });
