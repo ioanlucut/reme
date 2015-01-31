@@ -1,6 +1,6 @@
-<div class="reminder-list-box" ng-class="{ 'reminder-list-box--past-reminders': reverseOrder}">
+<div class="reminder-list-box__header" ng-click="togglePastRemindersContent()" ng-bind-html="reminders.length | remindersHeader : reverseOrder"></div>
 
-    <div class="reminder-list-box__header" ng-bind-html="reminders.length | remindersHeader : reverseOrder"></div>
+<div ng-show="showRemindersContent" class="reminder-list-box" ng-class="{ 'reminder-list-box--past-reminders': reverseOrder}">
 
     <!--Reminder list is empty-->
     <div class="reminder__empty empty-state--text" ng-if="!reminders.length">
