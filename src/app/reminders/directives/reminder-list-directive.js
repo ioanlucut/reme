@@ -69,7 +69,7 @@ angular
                     scope.showRemindersContent = false;
 
                     /**
-                     * Toggle past reminders content
+                     * Toggle past reminders content.
                      */
                     scope.togglePastRemindersContent = function () {
                         scope.showRemindersContent = !scope.showRemindersContent;
