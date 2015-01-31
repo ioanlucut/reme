@@ -22,6 +22,12 @@ angular
         $scope.user = $rootScope.currentUser;
 
         /**
+         * Search by text
+         * @type {string}
+         */
+        $scope.searchByText = "";
+
+        /**
          * Upcoming reminders
          */
         $scope.upcomingReminders = pastAndUpcomingReminders.upcomingReminders;
