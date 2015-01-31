@@ -10,7 +10,7 @@ module.exports = function (grunt) {
             frameworks: {
                 src: [
                     "bower_components/jquery/dist/jquery.js",
-                    "bower_components/lodash/dist/lodash.js",
+                    "bower_components/lodash/lodash.js",
                     "bower_components/underscore.string/dist/underscore.string.min.js",
                     "bower_components/mousetrap/mousetrap.js",
                     "bower_components/uploader/uploader.js",

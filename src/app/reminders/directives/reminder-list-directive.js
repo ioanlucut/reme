@@ -6,7 +6,8 @@ angular
         return {
             restrict: "A",
             scope: {
-                reminders: "="
+                reminders: "=",
+                searchByText: "="
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
@@ -27,18 +28,12 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                scope.defaultRemindersLimit = 15;
+                scope.defaultRemindersLimit = 5;
 
                 /**
                  * Number of the filtered reminders
                  */
                 scope.filteredReminders = 0;
-
-                /**
-                 * Search by text
-                 * @type {string}
-                 */
-                scope.searchByText = "";
 
                 /**
                  * Tells if the search by is activated;
@@ -106,26 +101,6 @@ angular
                         ReminderUpdateModalService.open(reminder, reminderIndex);
                     }
                 };
-
-                /**
-                 * After last element is removed, perform a 1,5 second pause.
-                 */
-                scope.$watch("reminders.length", function (newValue, oldValue) {
-
-                    // Is new reminder created while having empty list ?
-                    scope.firstReminderCreated = !!(newValue === 1 && oldValue === 0);
-
-                    //Hook to check when we deleted the last reminder
-                    if ( newValue === 0 ) {
-                        $timeout(function () {
-                            scope.isReminderListEmpty = true;
-                        }, 1500);
-                    } else {
-                        $timeout(function () {
-                            scope.isReminderListEmpty = false;
-                        })
-                    }
-                });
 
                 /**
                  * On reminder deleted flag the deleted index.

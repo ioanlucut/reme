@@ -1,65 +1,71 @@
-<!--Reminder list is empty-->
-<div class="reminder__empty empty-state--text" ng-class="{'reminder__empty--revived':firstReminderCreated}" ng-if="isReminderListEmpty">
-    You have no reminders. Don't be shy, go ahead and create one! :)
-</div>
+<div class="reminder-list-box" ng-class="{ 'reminder-list-box--past-reminders': reverseOrder}">
 
-<!--Search in reminder list-->
-<div class="form-group form-group--search">
-    <input class="form-control" type="text" placeholder="Search" name="text" maxlength="140" ng-model="searchByText" />
-</div>
+    <div class="reminder-list-box__header" ng-bind-html="reminders.length | remindersHeader : reverseOrder"></div>
 
-<div class="reminder-groups"
-     ng-repeat="remindersGrouped in reminders | groupReminders">
+    <!--Reminder list is empty-->
+    <div class="reminder__empty empty-state--text" ng-if="!reminders.length">
+        You have no reminders. Don't be shy, go ahead and create one! :)
+    </div>
 
-    <!--Reminder group-->
-    <div class="reminder-group"> {{remindersGrouped.name}}</div>
+    <!--Search in reminder list-->
+    <div class="form-group form-group--search">
+        <input class="form-control" type="text" placeholder="Search" name="text" maxlength="140" ng-model="searchByText" />
+    </div>
 
-    <!--Reminder list-->
-    <div class="reminder"
-         ng-click="openUpdateReminderModalService(reminder, $index)"
-         ng-repeat="reminder in remindersGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
+    <div class="reminder-groups"
+         ng-repeat="remindersGrouped in reminders | groupReminders">
 
-        <!--Reminder title-->
-        <div class="reminder__title" ng-bind-html="reminder.model.text | highlightSearch:searchByText"></div>
+        <!--Reminder group-->
+        <div class="reminder-group"> {{remindersGrouped.name}}</div>
 
-        <!--Reminder edit/delete-->
-        <div class="reminder__menu">
-            <a class="reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="javascript:void(0)" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();"><span class="icon-trash"></span></a>
-        </div>
+        <!--Reminder list-->
+        <div class="reminder"
+             ng-click="openUpdateReminderModalService(reminder, $index)"
+             ng-repeat="reminder in remindersGrouped.values | orderObjectBy : 'model.dueOn' : reverseOrder | limitTo:remindersLimit | filter:{model:{text:searchByText}} as filteredReminders">
 
-        <!--Reminder info-->
-        <div class="reminder__info">
+            <!--Reminder title-->
+            <div class="reminder__title" ng-bind-html="reminder.model.text | highlightSearch:searchByText"></div>
 
-            <!--Reminder date-->
-            <div class="reminder__info__item reminder__info__item--date">
-                <span class="icon-calendar"></span>
-                {{reminder.model.dueOn | friendlyDate}}
+            <!--Reminder edit/delete-->
+            <div class="reminder__menu">
+                <a class="reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="javascript:void(0)" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();"><span class="icon-trash"></span></a>
             </div>
 
-            <!--Reminder hour-->
-            <div class="reminder__info__item reminder__info__item--time">
-                <span class="icon-clock"></span>
-                {{reminder.model.dueOn | friendlyHour}}
-            </div>
+            <!--Reminder info-->
+            <div class="reminder__info">
 
-            <!--Reminder icons-->
-            <div class="reminder__info__item reminder__info__item--additional">
-                <div class="reminder__info__item__icon reminder__info__item__icon--user">
+                <!--Reminder date-->
+                <div class="reminder__info__item reminder__info__item--date">
+                    <span class="icon-calendar"></span>
+                    {{reminder.model.dueOn | friendlyDate}}
+                </div>
+
+                <!--Reminder hour-->
+                <div class="reminder__info__item reminder__info__item--time">
+                    <span class="icon-clock"></span>
+                    {{reminder.model.dueOn | friendlyHour}}
+                </div>
+
+                <!--Reminder icons-->
+                <div class="reminder__info__item reminder__info__item--additional">
+                    <div class="reminder__info__item__icon reminder__info__item__icon--user">
                 <span ng-if="! reminder.isCreatedBy(currentUserEmail)" class="simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Created by: {{reminder.model.createdByUser.firstName}} {{reminder.model.createdByUser.lastName}} {{reminder.model.createdByUser.email}}">
                     <span class="icon-user"></span>
                 </span>
-                </div>
-                <div class="reminder__info__item__icon reminder__info__item__icon--email">
+                    </div>
+                    <div class="reminder__info__item__icon reminder__info__item__icon--email">
                 <span ng-if="reminder.isManyRecipients()" class="simptip-position-bottom simptip-fade simptip-smooth simptip-multiline" data-tooltip="Recipients: {{reminder.model.recipients | friendlyRecipients}}">
                     <span class="icon-email"></span>
                 </span>
+                    </div>
                 </div>
             </div>
+
         </div>
-
     </div>
-</div>
 
-<div ng-if="filteredReminders.length >= defaultRemindersLimit && isStillRemindersToBeLoaded()" class="load-more-reminders">
-    <button type="submit" ladda="isLoadingMore" data-style="expand-left" data-spinner-size="20" class="btn btn--load-more" ng-click="loadMoreReminders()">LOAD MORE</button>
+    <div ng-if="isStillRemindersToBeLoaded()" class="load-more-reminders">
+        <button type="submit" ladda="isLoadingMore" data-style="expand-left" data-spinner-size="20" class="btn btn--load-more" ng-click="loadMoreReminders()">LOAD MORE</button>
+    </div>
+
 </div>

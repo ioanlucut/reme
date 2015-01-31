@@ -54,6 +54,15 @@
   display: none;
 }
 
+.reminder-list-box__header {
+  display: block;
+  font-weight: bold;
+}
+
+.reminder-list-box__header__past {
+  color: #28a1c5;
+}
+
 .reminder {
   border: solid 0 $white;
   border-radius: 3px;
