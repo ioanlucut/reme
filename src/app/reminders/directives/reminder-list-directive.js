@@ -55,6 +55,28 @@ angular
                 scope.remindersLimit = scope.defaultRemindersLimit;
 
                 /**
+                 * Show past reminders block content
+                 * @type {boolean}
+                 */
+                scope.showRemindersContent = true;
+
+                if ( attrs.toggleContent === "true" ) {
+
+                    /**
+                     * Set reminders content settings
+                     * @type {boolean}
+                     */
+                    scope.showRemindersContent = false;
+
+                    /**
+                     * Toggle past reminders content
+                     */
+                    scope.togglePastRemindersContent = function () {
+                        scope.showRemindersContent = !scope.showRemindersContent;
+                    };
+                }
+
+                /**
                  * Load more upcoming reminders.
                  */
                 scope.loadMoreReminders = function () {
