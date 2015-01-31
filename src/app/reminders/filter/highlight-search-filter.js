@@ -1,5 +1,5 @@
 angular
-    .module("account")
+    .module("reminders")
     .filter('highlightSearch', function ($sce) {
         return function (text, phrase) {
             if ( phrase ) text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
