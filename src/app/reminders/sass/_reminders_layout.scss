@@ -10,16 +10,15 @@
 }
 
 .form-group--search {
-  max-width: 140px;
+  max-width: 250px;
   position: absolute;
   top: 0;
-  right: 190px;
+  right: 140px;
+  width: 100%;
 
   input {
     border-radius: $border-radius-small;
-    border: solid 1px $gray11;
     background: $body-bg;
-    height: 33px;
     @include placeholder($gray9);
 
     &:focus {

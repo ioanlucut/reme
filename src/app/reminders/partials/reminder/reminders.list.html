@@ -1,5 +1,13 @@
+<!--Search in all reminders-->
+<div class="form-group form-group--search">
+    <div id="sb-search" class="sb-search" search-widget>
+        <input id="search" class="form-control sb-search-input" type="search" placeholder="Search..." name="search" maxlength="140" ng-model="searchByText" />
+        <span class="sb-icon-search icon-search"></span>
+    </div>
+</div>
+
 <!--Upcoming reminders-->
-<div class="reminder-list" reminder-list reminders="upcomingReminders" search-by-text="searchByText" sort="asc"></div>
+<div class="reminder-list" reminder-list reminders="upcomingReminders" search-by-text="searchByText" sort="asc" show-empty-content="true"></div>
 
 <!--Past reminders-->
 <div class="reminder-list" reminder-list reminders="pastReminders" search-by-text="searchByText" sort="desc" toggle-content="true"></div>

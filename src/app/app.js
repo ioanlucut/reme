@@ -12,6 +12,7 @@ angular
         "ngStorage",
         "partials",
         "site",
+        "feedback",
         "common",
         "reminders",
         "account",

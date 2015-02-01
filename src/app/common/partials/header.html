@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-target">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a id="feedback-trigger" class="navbar__wrapper__feedback navbar__link" href="javascript:void(0)">
+                    <a ng-controller="FeedbackModalCtrl" id="feedback-trigger" class="navbar__wrapper__feedback navbar__link" href="javascript:void(0)" ng-click="openFeedbackModal()">
                         <span class="icon-comment-2"></span> Send feedback
                     </a>
                 </li>

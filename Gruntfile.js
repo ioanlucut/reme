@@ -49,7 +49,10 @@ module.exports = function (grunt) {
                     "bower_components/angular-chosen-localytics/chosen.js",
                     "bower_components/bootstrap/js/collapse.js",
                     "bower_components/bootstrap/js/dropdown.js",
-                    "bower_components/angular-filter/dist/angular-filter.js"
+                    "bower_components/angular-filter/dist/angular-filter.js",
+                    "src/js/modernizr.custom.js",
+                    "src/js/classie.js",
+                    "src/js/uisearch.js"
                 ],
                 dest: "build/js/frameworks.js"
             },
@@ -59,6 +62,9 @@ module.exports = function (grunt) {
 
                     "src/app/common/common.js",
                     "src/app/common/**/*.js",
+
+                    "src/app/feedback/feedback.js",
+                    "src/app/feedback/**/*.js",
 
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
@@ -234,6 +240,7 @@ module.exports = function (grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/feedback/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
@@ -242,7 +249,7 @@ module.exports = function (grunt) {
 
         watch: {
             options: {
-                livereload: false
+                livereload: true
             },
             images: {
                 files: ["src/assets/img/**/*"],
@@ -260,6 +267,7 @@ module.exports = function (grunt) {
                 files: [
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/feedback/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
