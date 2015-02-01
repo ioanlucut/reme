@@ -3,11 +3,10 @@
   min-width: 34px;
   height: 34px;
   float: right;
+  margin-right: 15px;
   width: 0%;
   overflow: hidden;
-  -webkit-transition: width 0.3s;
-  -moz-transition: width 0.3s;
-  transition: width 0.3s;
+  @include transition(width 0.2s);
   -webkit-backface-visibility: hidden;
 
   .sb-search-input {
@@ -30,24 +29,28 @@
   cursor: pointer;
   line-height: 34px;
   border-radius: 3px;
-}
 
-.sb-icon-search {
-  color: #e69400;
+  color: $gray9;
   z-index: 90;
-  font-size: 22px;
-  background: white;
+  font-size: 26px;
+  background: $body-bg;
+
+  &:hover {
+    color: $gray6;
+  }
 }
 
 /* Open state */
 .sb-search.sb-search-open,
 .no-js .sb-search {
-  width: 100%;
+  width: 60%;
 }
 
 .sb-search.sb-search-open .sb-icon-search,
 .no-js .sb-search .sb-icon-search {
   z-index: 11;
+  color: $brand-complement;
+  background-color: $white;
 }
 
 .sb-search.sb-search-open .sb-search-submit,
