@@ -1,6 +1,6 @@
 angular
     .module("common")
-    .service("ReminderGroupsProvider", function () {
+    .service("ReminderMatchingGroupService", function () {
 
         this.getRemindersGroups = function () {
             var now = moment();
@@ -8,47 +8,29 @@ angular
             return [
                 {
                     name: 'Today',
-                    diff: { date: moment().set('day', now.day()), unit: 'day', priority: 0 }
+                    diff: { date: moment().set('day', now.day()), unit: 'day' }
                 },
                 {
                     name: 'Tomorrow',
-                    diff: { date: moment().set('day', now.day() + 1), unit: 'day', priority: 1 }
+                    diff: { date: moment().set('day', now.day() + 1), unit: 'day' }
                 },
                 {
                     name: 'Yesterday',
-                    diff: { date: moment().set('day', now.day() - 1), unit: 'day', priority: 1 }
+                    diff: { date: moment().set('day', now.day() - 1), unit: 'day' }
                 },
                 {
                     name: 'This month',
-                    diff: { date: moment().set('month', now.month()), unit: 'month', priority: 2 }
+                    diff: { date: moment().set('month', now.month()), unit: 'month' }
                 },
                 {
                     name: 'Next month',
-                    diff: { date: moment().set('month', now.month() + 1), unit: 'month', priority: 3 }
+                    diff: { date: moment().set('month', now.month() + 1), unit: 'month' }
                 },
                 {
                     name: 'Last month',
-                    diff: { date: moment().set('month', now.month() - 1), unit: 'month', priority: 3 }
+                    diff: { date: moment().set('month', now.month() - 1), unit: 'month' }
                 }
             ];
-        };
-
-        this.getPastGroup = function () {
-            var now = moment();
-
-            return {
-                name: 'Past',
-                diff: { date: moment().set('year', now.year() - 1), unit: 'year', priority: 4 }
-            };
-        };
-
-        this.getFutureGroup = function () {
-            var now = moment();
-
-            return {
-                name: 'Upcoming',
-                diff: { date: moment().set('year', now.year() + 1), unit: 'year', priority: 4 }
-            };
         };
 
         /**
@@ -56,8 +38,6 @@ angular
          */
         this.populateRemindersWithMatchingGroups = function (reminders, reverseOrder) {
             var remindersGroup = this.getRemindersGroups();
-            var past = this.getPastGroup();
-            var future = this.getFutureGroup();
 
             _.each(reminders, function (reminder) {
                 var matchingGroupFound = _.find(remindersGroup, function (remindersGroup) {
@@ -65,7 +45,19 @@ angular
                 });
 
                 if ( !matchingGroupFound ) {
-                    reminder.matchingGroup = reverseOrder ? past : future;
+                    var reminderDueOn = moment(reminder.model.dueOn);
+                    var isSameYear = moment(moment().year()).isSame(reminderDueOn.year());
+
+                    // ---
+                    // If no matching group is found, create one with reminders month.
+                    // ---
+
+                    reminder.matchingGroup = {
+                        name: reminderDueOn.format(isSameYear ? 'MMMM' : 'MMMM, YYYY'),
+                        diff: {
+                            date: moment(reminderDueOn), unit: 'month'
+                        }
+                    };
                 }
                 else {
                     reminder.matchingGroup = matchingGroupFound;
