@@ -63,6 +63,9 @@ module.exports = function (grunt) {
                     "src/app/common/common.js",
                     "src/app/common/**/*.js",
 
+                    "src/app/feedback/feedback.js",
+                    "src/app/feedback/**/*.js",
+
                     "src/app/account/account.js",
                     "src/app/account/**/*.js",
 
@@ -237,6 +240,7 @@ module.exports = function (grunt) {
                     "src/app/site/partials/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/feedback/**/*.html",
                     "src/app/common/**/*.html"
                 ],
                 dest: "build/partials/partials.js"
@@ -263,6 +267,7 @@ module.exports = function (grunt) {
                 files: [
                     "src/app/site/partials/**/*.html",
                     "src/app/account/partials/**/*.html",
+                    "src/app/feedback/**/*.html",
                     "src/app/reminders/partials/**/*.html",
                     "src/app/common/**/*.html"
                 ],
