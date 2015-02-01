@@ -1,14 +1,16 @@
+<!--// Reminder list box header-->
 <div class="reminder-list-box__header" ng-click="togglePastRemindersContent()" ng-bind-html="reminders.length | remindersHeader : reverseOrder"></div>
 
+<!--Reminder list content.-->
 <div ng-show="showRemindersContent" class="reminder-list-box" ng-class="{ 'reminder-list-box--past-reminders': reverseOrder}">
 
     <!--Reminder list is empty-->
-    <div class="reminder__empty empty-state--text" ng-if="!reminders.length">
+    <div class="reminder__empty empty-state--text" ng-if="showEmptyRemindersContent && ! reminders.length">
         You have no reminders. Don't be shy, go ahead and create one! :)
     </div>
 
     <div class="reminder-groups"
-         ng-repeat="remindersGrouped in reminders | groupReminders | groupLimit:reminders:remindersLimit track by remindersGrouped.name">
+         ng-repeat="remindersGrouped in reminders | groupReminders:reverseOrder | groupLimit:reminders:1111 track by remindersGrouped.name">
 
         <!--Reminder group-->
         <div class="reminder-group"> {{remindersGrouped.name}}</div>

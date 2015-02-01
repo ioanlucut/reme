@@ -2,7 +2,7 @@
 
 angular
     .module("reminders")
-    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupsProvider, REMINDER_EVENTS) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderMatchingGroupService, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {
@@ -60,6 +60,16 @@ angular
                  */
                 scope.showRemindersContent = true;
 
+                /**
+                 * If empty reminders content message should be shown
+                 * @type {boolean}
+                 */
+                scope.showEmptyRemindersContent = attrs.showEmptyContent === "true";
+
+                // ---
+                // Set up the toggle reminders content functionality.
+                // ---
+
                 if ( attrs.toggleContent === "true" ) {
 
                     /**
@@ -75,6 +85,8 @@ angular
                         scope.showRemindersContent = !scope.showRemindersContent;
                     };
                 }
+
+                scope.allGroups = [];
 
                 /**
                  * Load more upcoming reminders.
@@ -119,6 +131,12 @@ angular
                  * @param reminderIndex
                  */
                 scope.openUpdateReminderModalService = function (reminder, reminderIndex) {
+                    if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
+                    }
+                };
+
+                scope.showGroupIfFirst = function (reminder, reminderIndex) {
                     if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
                         ReminderUpdateModalService.open(reminder, reminderIndex);
                     }

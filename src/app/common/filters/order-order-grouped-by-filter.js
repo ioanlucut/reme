@@ -1,7 +1,7 @@
 angular
     .module('common')
     .filter('groupReminders', function ($parse, filterWatcher) {
-        return function (reminders) {
+        return function (reminders, reverse) {
 
             var isObject = angular.isObject,
                 forEach = angular.forEach;
@@ -13,6 +13,10 @@ angular
             return filterWatcher.isMemoized('groupBy', arguments) ||
                 filterWatcher.memoize('groupBy', arguments, this,
                     _groupBy(reminders));
+
+            // ---
+            // Group by reminders function.
+            // ---
 
             function _groupBy(reminders) {
                 var groupedReminders = [];
@@ -34,16 +38,33 @@ angular
                     }).values.push(reminder);
                 });
 
+                // ---
+                // Comparator to sort reminders.
+                // ---
+
                 function remindersSortComparator(a, b) {
-                    if ( a.matchingGroup.diff.priority < b.matchingGroup.diff.priority )
+                    // A less than B
+                    if ( a.matchingGroup.diff.date < b.matchingGroup.diff.date )
                         return -1;
-                    if ( a.matchingGroup.diff.priority > b.matchingGroup.diff.priority )
+                    // A greater than B
+                    if ( a.matchingGroup.diff.date > b.matchingGroup.diff.date )
                         return 1;
+                    // A greater than B
+                    if ( a.matchingGroup.name === 'Today' && b.matchingGroup.name === 'This month' ) {
+                        return -1;
+                    }
                     return 0;
                 }
 
-                // Priorities are 0-n, 0 being the biggest (top) - so by default we user reverse.
+                // ---
+                // Sort reminders - +-reversed.
+                // ---
+
                 groupedReminders.sort(remindersSortComparator);
+
+                if ( reverse ) {
+                    groupedReminders.reverse();
+                }
 
                 return groupedReminders;
             }
