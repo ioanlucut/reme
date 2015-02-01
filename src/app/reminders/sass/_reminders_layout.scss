@@ -41,12 +41,16 @@
   }
 }
 
+.reminder-list {
+  margin-bottom: 50px;
+}
+
 .reminder-group {
   width: 100%;
   position: relative;
   color: #999;
-  margin-top: 20px;
-  padding: 5px 10px 10px 20px;
+  margin-top: 15px;
+  padding: 5px 10px 10px 10px;
 }
 
 .reminder-group:only-child {
@@ -55,11 +59,10 @@
 
 .reminder-list-box__header {
   display: block;
-  font-weight: bold;
 }
 
 .reminder-list-box__header__past {
-  color: #28a1c5;
+  color: $brand-info;
 }
 
 .reminder {
