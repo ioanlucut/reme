@@ -88,7 +88,7 @@ angular
         /**
          * Dismiss the create/update modal.
          */
-        $scope.dismissCurrentOpenedModal = function () {
+        $scope.dismissFeedbackModal = function () {
             var currentModal = $scope.isNew ? ReminderModalService.modalInstance : ReminderUpdateModalService.modalInstance;
             currentModal.dismiss("cancel");
 
