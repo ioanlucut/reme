@@ -1,5 +1,5 @@
 <!--// Reminder list box header-->
-<div class="reminder-list-box__header" ng-click="togglePastRemindersContent()" ng-bind-html="reminders.length | remindersHeader : reverseOrder"></div>
+<div class="reminder-list-box__header" ng-click="togglePastRemindersContent()" ng-bind-html="reminders.length | remindersHeader : reverseOrder" ng-show="reminders.length"></div>
 
 <!--Reminder list content.-->
 <div ng-show="showRemindersContent" class="reminder-list-box" ng-class="{ 'reminder-list-box--past-reminders': reverseOrder}">
