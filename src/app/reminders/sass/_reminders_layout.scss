@@ -79,6 +79,7 @@
   }
 
   &:hover {
+    cursor: pointer;
 
     .reminder__title {
       color: $brand-primary;
