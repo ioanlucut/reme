@@ -306,7 +306,7 @@ angular.module("app/reminders/partials/reminder/reminders.template.html", []).ru
     "\n" +
     "<div class=\"centered-section-reminders\">\n" +
     "\n" +
-    "    <div ui-view=\"list\"></div>\n" +
+    "    <div class=\"list-wrapper\" ui-view=\"list\"></div>\n" +
     "\n" +
     "</div>\n" +
     "\n" +
