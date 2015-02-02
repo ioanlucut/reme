@@ -908,40 +908,6 @@ angular
             }
         }
     });
-;/* Animate */
-
-angular
-    .module("common")
-    .directive("reamazeInitializer", ["$rootScope", "$window", function ($rootScope, $window) {
-        return {
-            restrict: "A",
-            link: function (scope, el, attrs) {
-
-                /**
-                 * Current user email.
-                 * @type {User.$new.model.email|*|.$new.model.email}
-                 */
-                scope.currentUser = $rootScope.currentUser;
-
-                // Add a custom trigger to replace the default bottom-right widget
-                var _support = $window._support || {};
-                _support['account'] = 'remeio';
-                _support['ui'] = {
-                    widget: false,
-                    trigger: '#feedback-trigger',
-                    mailbox: 'Reme Hello'
-                };
-
-                // Authenticate User on Reamaze
-                _support['id'] = scope.currentUser.model.userId;
-                _support['authkey'] = scope.currentUser.model.helpdeskAuthToken;
-                _support['name'] = scope.currentUser.model.firstName + ' ' + scope.currentUser.model.lastName;
-                _support['email'] = scope.currentUser.model.email;
-
-                $window._support = _support;
-            }
-        }
-    }]);
 ;/* Scroll to an element on the page */
 
 angular
@@ -1493,11 +1459,25 @@ angular
     .service("DatesUtils", function () {
 
         this.prepareDate = function (givenDate) {
-            var step = 30;
-            var minute = moment().minutes();
-            var hours = moment().hours();
 
-            if ( minute > step ) {
+            // ---
+            // Minutes.
+            // ---
+            var step = 30;
+
+            // ---
+            // Current values.
+            // ---
+
+            var now = moment();
+            var minute = now.minutes();
+            var hours = now.hours();
+
+            // ---
+            // Compute the date.
+            // ---
+
+            if ( minute >= step ) {
                 minute = 0;
                 hours += 1;
             }
@@ -2138,7 +2118,10 @@ angular
 
         this.sendFeedback = function (feedback) {
             return $http
-                .post(URLTo.api(FEEDBACK_URLS.feedback), { message: feedback.model.message });
+                .post(URLTo.api(FEEDBACK_URLS.feedback), {
+                    subject: feedback.model.subject,
+                    message: feedback.model.message
+                });
         };
     }]);
 ;/**
@@ -3691,17 +3674,6 @@ angular
     }]);
 ;angular
     .module("reminders")
-    .controller("ReminderCtrl", ["$scope", "ReminderModalService", function ($scope, ReminderModalService) {
-
-        /**
-         * Open reminder modal service.
-         */
-        $scope.openReminderModalService = function () {
-            ReminderModalService.open();
-        };
-    }]);
-;angular
-    .module("reminders")
     .controller("ReminderModalCtrl", ["$scope", "$rootScope", "$stateParams", "$window", "ReminderModalService", "ReminderUpdateModalService", "reminder", "reminderIndex", "$timeout", "StatesHandler", "REMINDER_EVENTS", "flash", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", "DATE_SOURCE", function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS, DATE_SOURCE) {
 
         /**
@@ -3972,7 +3944,7 @@ angular
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", ["$scope", "$rootScope", "flash", "ReminderDeleteModalService", "ReminderUpdateModalService", "ReminderGroupService", "ReminderMatchingGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ReminderListCtrl", ["$scope", "$rootScope", "flash", "ReminderDeleteModalService", "ReminderModalService", "ReminderUpdateModalService", "ReminderGroupService", "ReminderMatchingGroupService", "REMINDER_EVENTS", "$timeout", "pastAndUpcomingReminders", "MIXPANEL_EVENTS", "ALERTS_CONSTANTS", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -3995,6 +3967,10 @@ angular
          * @type {string}
          */
         $scope.searchByText = "";
+
+        $scope.openReminderModalService = function () {
+            ReminderModalService.open();
+        };
 
         /**
          * Upcoming reminders
@@ -4312,7 +4288,7 @@ angular
     .module("reminders")
     .filter('remindersHeader', ["$sce", function ($sce) {
         return function (text, reverse) {
-            var template = reverse ? '<a class="reminder-list-box__header__past" href="#">$1 past reminders</a>' : '<span class="reminder-list-box__header__upcoming">You have $1 upcoming reminders</span>';
+            var template = reverse ? '<a class="reminder-list-box__header__past" href="#">You have $1 past reminders</a>' : '<span class="reminder-list-box__header__upcoming">You have $1 upcoming reminders</span>';
 
             return $sce.trustAsHtml(template.replace('$1', text || '0'))
         };
@@ -4922,7 +4898,7 @@ angular
             $state.go('500');
         });
     }]);
-;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.action.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminder/reminders.template.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
+;angular.module('partials', ['app/site/partials/404.html', 'app/site/partials/500.html', 'app/site/partials/about.html', 'app/site/partials/home.html', 'app/site/partials/privacy.html', 'app/reminders/partials/reminder/reminder.list.template.html', 'app/reminders/partials/reminder/reminders.list.html', 'app/reminders/partials/reminder/reminders.template.html', 'app/reminders/partials/reminderModal/reminder_create_update_modal.html', 'app/reminders/partials/reminderModal/reminder_delete_modal.html', 'app/account/partials/account.html', 'app/account/partials/logout.html', 'app/account/partials/settings/settings.html', 'app/account/partials/settings/settings.preferences.html', 'app/account/partials/settings/settings.profile.html', 'app/account/partials/signup_confirm_abstract.html', 'app/account/partials/signup_confirm_invalid.html', 'app/account/partials/signup_confirm_valid.html', 'app/account/partials/validate_password_reset_token_abstract.html', 'app/account/partials/validate_password_reset_token_invalid.html', 'app/account/partials/validate_password_reset_token_valid.html', 'app/feedback/partials/feedback-modal.html', 'app/common/partials/emailList/emailList.html', 'app/common/partials/flash-messages.html', 'app/common/partials/footer-home.html', 'app/common/partials/footer.html', 'app/common/partials/header-home.html', 'app/common/partials/header.html', 'app/common/partials/timepickerPopup/timepickerPopup.html', 'template/datepicker/datepicker.html', 'template/datepicker/popup.html', 'template/modal/backdrop.html', 'template/modal/window.html', 'template/popover/popover.html', 'template/tabs/tab.html', 'template/tabs/tabset.html', 'template/tooltip/tooltip-html-unsafe-popup.html', 'template/tooltip/tooltip-popup.html']);
 
 angular.module("app/site/partials/404.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/site/partials/404.html",
@@ -5157,7 +5133,9 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "\n" +
     "            <!--Reminder edit/delete-->\n" +
     "            <div class=\"reminder__menu\">\n" +
-    "                <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"javascript:void(0)\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\"><span class=\"icon-trash\"></span></a>\n" +
+    "                <a class=\"reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth\" data-tooltip=\"Delete reminder\" href=\"javascript:void(0)\" ng-click=\"reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();\">\n" +
+    "                    <span class=\"icon-trash\"></span>\n" +
+    "                </a>\n" +
     "            </div>\n" +
     "\n" +
     "            <!--Reminder info-->\n" +
@@ -5200,13 +5178,6 @@ angular.module("app/reminders/partials/reminder/reminder.list.template.html", []
     "</div>");
 }]);
 
-angular.module("app/reminders/partials/reminder/reminders.action.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("app/reminders/partials/reminder/reminders.action.html",
-    "<div class=\"reminders__header\">\n" +
-    "    <button class=\"btn btn-complement reminders__header__btn\" ng-click=\"openReminderModalService()\">New reminder</button>\n" +
-    "</div>");
-}]);
-
 angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("app/reminders/partials/reminder/reminders.list.html",
     "<!--Search in all reminders-->\n" +
@@ -5215,6 +5186,11 @@ angular.module("app/reminders/partials/reminder/reminders.list.html", []).run(["
     "        <input id=\"search\" class=\"form-control sb-search-input\" type=\"search\" placeholder=\"Search...\" name=\"search\" maxlength=\"140\" ng-model=\"searchByText\" />\n" +
     "        <span class=\"sb-icon-search icon-search\"></span>\n" +
     "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--Add a new reminder-->\n" +
+    "<div class=\"reminders__header\">\n" +
+    "    <button class=\"btn btn-complement reminders__header__btn\" ng-click=\"openReminderModalService()\">New reminder</button>\n" +
     "</div>\n" +
     "\n" +
     "<!--Upcoming reminders-->\n" +
@@ -5229,8 +5205,6 @@ angular.module("app/reminders/partials/reminder/reminders.template.html", []).ru
     "<div class=\"view-container__header\" header></div>\n" +
     "\n" +
     "<div class=\"centered-section-reminders\">\n" +
-    "\n" +
-    "    <div ui-view=\"action\"></div>\n" +
     "\n" +
     "    <div ui-view=\"list\"></div>\n" +
     "\n" +
@@ -5852,11 +5826,11 @@ angular.module("app/feedback/partials/feedback-modal.html", []).run(["$templateC
     "    </div>\n" +
     "\n" +
     "    <div class=\"modal-body\" ng-if=\"isSending\">\n" +
-    "        <div class=\"sending-status\">Sending your message..</div>\n" +
+    "        <div class=\"sending-status\">Sending your message...</div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"modal-body\" ng-if=\"isSent\">\n" +
-    "        <div class=\"sending-status\">Thank you! You are awesome.</div>\n" +
+    "        <div class=\"sending-status\">Thanks! We'll get back to you.</div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"modal-footer\">\n" +
