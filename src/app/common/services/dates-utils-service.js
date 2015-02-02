@@ -6,11 +6,25 @@ angular
     .service("DatesUtils", function () {
 
         this.prepareDate = function (givenDate) {
-            var step = 30;
-            var minute = moment().minutes();
-            var hours = moment().hours();
 
-            if ( minute > step ) {
+            // ---
+            // Minutes.
+            // ---
+            var step = 30;
+
+            // ---
+            // Current values.
+            // ---
+
+            var now = moment();
+            var minute = now.minutes();
+            var hours = now.hours();
+
+            // ---
+            // Compute the date.
+            // ---
+
+            if ( minute >= step ) {
                 minute = 0;
                 hours += 1;
             }

@@ -1,0 +1,136 @@
+.sb-search {
+  position: relative;
+  min-width: 34px;
+  height: 34px;
+  float: right;
+  margin-right: 15px;
+  width: 0%;
+  overflow: hidden;
+  @include transition(width 0.2s);
+  -webkit-backface-visibility: hidden;
+
+  .sb-search-input {
+    border: 0;
+    z-index: 10;
+    background: #fff;
+  }
+}
+
+.sb-icon-search {
+  width: 34px;
+  height: 34px;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 2px;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+  line-height: 34px;
+  border-radius: 3px;
+
+  color: $gray9;
+  z-index: 90;
+  font-size: 26px;
+  background: $body-bg;
+
+  &:hover {
+    color: $gray6;
+  }
+}
+
+/* Open state */
+.sb-search.sb-search-open,
+.no-js .sb-search {
+  width: 60%;
+}
+
+.sb-search.sb-search-open .sb-icon-search,
+.no-js .sb-search .sb-icon-search {
+  z-index: 11;
+  color: $brand-complement;
+  background-color: $white;
+}
+
+.sb-search.sb-search-open .sb-search-submit,
+.no-js .sb-search .sb-search-submit {
+  z-index: 90;
+}
+
+/* To Navigation Style */
+.codrops-top {
+  background: #566472;
+  background: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 0.69em;
+  line-height: 2.2;
+}
+
+.codrops-top a {
+  padding: 0 1em;
+  letter-spacing: 0.1em;
+  color: #fff;
+  display: inline-block;
+}
+
+.codrops-top a:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: #2c3e50;
+}
+
+.codrops-top span.right {
+  float: right;
+}
+
+.codrops-top span.right a {
+  float: left;
+  display: block;
+}
+
+.codrops-icon:before {
+  font-family: 'codropsicons';
+  margin: 0 4px;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.codrops-icon-drop:before {
+  content: "\e001";
+}
+
+.codrops-icon-prev:before {
+  content: "\e004";
+}
+
+@media screen and (max-width: 46.0625em) {
+  .column {
+    width: 100%;
+    min-width: auto;
+    min-height: auto;
+    padding: 1em;
+  }
+
+  .column p {
+    text-align: left;
+    font-size: 1.5em;
+  }
+
+  .column:nth-child(2) {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media screen and (max-width: 25em) {
+
+  .codrops-icon span {
+    display: none;
+  }
+
+}

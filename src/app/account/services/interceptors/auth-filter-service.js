@@ -6,7 +6,7 @@ angular
     .service("AuthFilter", function (AuthService, StatesHandler) {
 
         return function (event, toState) {
-            if ( (toState.url === '/account') && AuthService.isAuthenticated() ) {
+            if ( (toState.url === '/account' || toState.name === "home") && AuthService.isAuthenticated() ) {
 
                 // Prevent transition
                 event.preventDefault();

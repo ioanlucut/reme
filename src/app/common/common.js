@@ -3,6 +3,7 @@
  */
 angular
     .module("common", [
+        "a8m.filter-watcher",
         "ui.router",
         "restmod",
         "ui.bootstrap.transition",
@@ -23,7 +24,7 @@ angular
          * @returns {string}
          */
         function callbackCalendarFormatter() {
-            var isSameYear = moment(moment().year()).isSame(this.years());
+            var isSameYear = moment(moment().year()).isSame(this.year());
 
             return isSameYear ? 'dddd, D MMMM' : 'dddd, D MMMM YYYY';
         }
