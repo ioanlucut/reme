@@ -2,14 +2,21 @@
 
 angular
     .module("reminders")
-    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, REMINDER_EVENTS) {
+    .directive("reminderList", function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderMatchingGroupService, REMINDER_EVENTS) {
         return {
             restrict: "A",
             scope: {
-                reminders: "="
+                reminders: "=",
+                searchByText: "="
             },
             templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
+
+                /**
+                 * The way of sort
+                 * @type {boolean}
+                 */
+                scope.reverseOrder = attrs.sort === "desc";
 
                 /**
                  * Current user email.
@@ -21,18 +28,12 @@ angular
                  * Default number of reminders to be displayed.
                  * @type {number}
                  */
-                scope.defaultRemindersLimit = 15;
+                scope.defaultRemindersLimit = 5;
 
                 /**
                  * Number of the filtered reminders
                  */
                 scope.filteredReminders = 0;
-
-                /**
-                 * Search by text
-                 * @type {string}
-                 */
-                scope.searchByText = "";
 
                 /**
                  * Tells if the search by is activated;
@@ -52,6 +53,38 @@ angular
                  * @type {number}
                  */
                 scope.remindersLimit = scope.defaultRemindersLimit;
+
+                /**
+                 * Show past reminders block content
+                 * @type {boolean}
+                 */
+                scope.showRemindersContent = true;
+
+                /**
+                 * If empty reminders content message should be shown
+                 * @type {boolean}
+                 */
+                scope.showEmptyRemindersContent = attrs.showEmptyContent === "true";
+
+                // ---
+                // Set up the toggle reminders content functionality.
+                // ---
+
+                if ( attrs.toggleContent === "true" ) {
+
+                    /**
+                     * Set reminders content settings
+                     * @type {boolean}
+                     */
+                    scope.showRemindersContent = false;
+
+                    /**
+                     * Toggle past reminders content.
+                     */
+                    scope.togglePastRemindersContent = function () {
+                        scope.showRemindersContent = !scope.showRemindersContent;
+                    };
+                }
 
                 /**
                  * Load more upcoming reminders.
@@ -101,25 +134,11 @@ angular
                     }
                 };
 
-                /**
-                 * After last element is removed, perform a 1,5 second pause.
-                 */
-                scope.$watch("reminders.length", function (newValue, oldValue) {
-
-                    // Is new reminder created while having empty list ?
-                    scope.firstReminderCreated = !!(newValue === 1 && oldValue === 0);
-
-                    //Hook to check when we deleted the last reminder
-                    if ( newValue === 0 ) {
-                        $timeout(function () {
-                            scope.isReminderListEmpty = true;
-                        }, 1500);
-                    } else {
-                        $timeout(function () {
-                            scope.isReminderListEmpty = false;
-                        })
+                scope.showGroupIfFirst = function (reminder, reminderIndex) {
+                    if ( reminder.isCreatedBy(scope.currentUserEmail) ) {
+                        ReminderUpdateModalService.open(reminder, reminderIndex);
                     }
-                });
+                };
 
                 /**
                  * On reminder deleted flag the deleted index.

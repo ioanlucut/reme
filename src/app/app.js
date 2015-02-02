@@ -12,9 +12,11 @@ angular
         "ngStorage",
         "partials",
         "site",
+        "feedback",
         "common",
         "reminders",
-        "account"
+        "account",
+        "angular.filter"
     ])
     .config(function ($locationProvider) {
 

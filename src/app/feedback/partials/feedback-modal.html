@@ -1,0 +1,33 @@
+<form name="feedbackForm" ng-submit="sendFeedbackAndClose(feedbackForm)" novalidate focus-first-error>
+
+    <div class="feedback-modal__header">Feedback</div>
+
+    <div class="reminder-modal__form__cancel">
+        <button type="button" class="close" ng-click="dismissFeedbackModal()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body" ng-if="! isSending && ! isSent">
+        <div class="form-group" ng-class="{'has-error': feedbackForm.subject.$invalid && feedbackForm.$submitted}">
+            <input class="form-control" type="text" name="subject" ng-model="feedback.model.subject" placeholder="Subject" required />
+        </div>
+        <div class="form-group" ng-class="{'has-error': feedbackForm.message.$invalid && feedbackForm.$submitted}">
+            <textarea class="form-control" rows="6" name="message" ng-model="feedback.model.message" placeholder="Your message" required></textarea>
+        </div>
+    </div>
+
+    <div class="modal-body" ng-if="isSending">
+        <div class="sending-status">Sending your message...</div>
+    </div>
+
+    <div class="modal-body" ng-if="isSent">
+        <div class="sending-status">Thanks! We'll get back to you.</div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-link" type="button" ng-click="dismissFeedbackModal()">Cancel</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="isSending || isSent">Send</button>
+    </div>
+
+</form>

@@ -74,6 +74,7 @@
   height: $line-height;
   @include icon-fonts($line-height);
 }
+
 .icon-recurring:before {
   content: "a";
 }
@@ -101,15 +102,6 @@
 .icon-user:before {
   content: "i";
 }
-.icon-coffee:before {
-  content: "j";
-}
-.icon-comment:before {
-  content: "k";
-}
-.icon-info:before {
-  content: "l";
-}
 .icon-heart:before {
   content: "m";
 }
@@ -121,4 +113,7 @@
 }
 .icon-comment-2:before {
   content: "p";
+}
+.icon-search:before {
+  content: "s";
 }

@@ -10,16 +10,16 @@
 }
 
 .form-group--search {
-  max-width: 140px;
+  max-width: 250px;
   position: absolute;
   top: 0;
-  right: 190px;
+  right: 140px;
+  width: 100%;
+  z-index: 10;
 
   input {
     border-radius: $border-radius-small;
-    border: solid 1px $gray11;
     background: $body-bg;
-    height: 33px;
     @include placeholder($gray9);
 
     &:focus {
@@ -31,10 +31,46 @@
 .reminders__header {
   position: absolute;
   right: 10px;
+  z-index: 10;
 }
 
 .reminders__header__btn {
+  @include box-shadow(0 2px 0 darken($brand-complement, 5%));
 
+  &:focus {
+    @include box-shadow(none);
+    @include translate(0, 2px);
+  }
+}
+
+.reminder-list {
+  margin-bottom: 50px;
+}
+
+.reminder-group {
+  width: 100%;
+  position: relative;
+  color: #999;
+  margin-top: 15px;
+  padding: 5px 10px 10px 10px;
+}
+
+.reminder-group:only-child {
+  display: none;
+}
+
+.reminder-list-box__header {
+  display: block;
+  padding: 6px 12px 6px 0;
+}
+
+.reminder-list-box__header__upcoming {
+  color: #d8d8d8;
+  font-size: 22px;
+}
+
+.reminder-list-box__header__past {
+  color: $brand-info;
 }
 
 .reminder {
@@ -47,15 +83,14 @@
   background-color: $white;
   min-height: 60px;
   height: 100%;
-  @include box-shadow(0 2px 0 $gray11);
+  @include box-shadow(0 2px 0 $gray10);
 
   &.reminder--owner:hover {
     cursor: pointer;
   }
 
   &:hover {
-    //outline: solid 3px $gray10;
-    //background-color: lighten($brand-primary, 40%);
+    cursor: pointer;
 
     .reminder__title {
       color: $brand-primary;
@@ -70,37 +105,38 @@
     }
   }
 
-  &__title {
+  .reminder__title {
     font-size: $font-size-large;
     @include transition(all 0.2s);
   }
 
-  &__menu {
+  .reminder__menu {
     position: absolute;
     top: 0;
     right: 0;
     opacity: 0;
     text-align: right;
     @include transition(all 0.2s);
+  }
 
-    &__option {
-      display: inline-block;
-      height: 25px;
-      width: 25px;
-      margin: 3px 3px;
-      border-radius: 3px;
-      padding: 3px;
+  .reminder__menu__option {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    margin: 3px 3px;
+    border-radius: 3px;
+    padding: 3px;
+    color: $gray9;
 
-      &:hover {
-        color: $black;
-      }
+    &:hover {
+      color: $brand-danger;
+    }
 
-      span {
-        display: block;
-        margin: 0;
-        font-size: 25px;
-        text-align: center;
-      }
+    span {
+      display: block;
+      margin: 0;
+      font-size: 25px;
+      text-align: center;
     }
   }
 }
@@ -117,4 +153,15 @@
   padding: 1px 4px;
   border-radius: 3px;
   line-height: 1;
+}
+
+.reminder-list-box--past-reminders {
+
+  .reminder {
+    border: solid 1px $gray10;
+    background-color: lighten($body-bg, 3%);
+  }
+  .reminder__title {
+    color: $gray6;
+  }
 }

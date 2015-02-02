@@ -4,7 +4,7 @@
   "dependencies": {
     "bootstrap-sass": "3.0.3-0",
     "jquery": "2.1.1",
-    "lodash": "2.4.1",
+    "lodash": "3.0.1",
     "underscore.string": "2.3.3",
     "mousetrap": "1.4.6",
     "uploader": "0.9.1",
@@ -32,6 +32,7 @@
     "animate.css-scss": "~3.1.0",
     "angular-chosen-localytics": "~1.0.6",
     "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
-    "bootstrap-chosen": "~1.0.0"
+    "bootstrap-chosen": "~1.0.0",
+    "angular-filter": "~0.5.2"
   }
 }
