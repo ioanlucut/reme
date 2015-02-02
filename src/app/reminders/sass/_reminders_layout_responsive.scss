@@ -41,16 +41,6 @@
     right: 145px;
     width: 100px;
   }
-}
-
-@media (max-width: $screen-phone) {
-
-  .centered-section-reminders {
-
-    .tab-content {
-      padding-top: 30px;
-    }
-  }
 
   .list-wrapper {
     padding-top: 40px;
@@ -73,6 +63,10 @@
     .sb-icon-search {
       display: none;
     }
+  }
+
+  .navbar.navbar-default.navbar--white {
+    margin-bottom: 5px;
   }
 }
 
