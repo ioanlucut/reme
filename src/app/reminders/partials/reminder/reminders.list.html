@@ -6,6 +6,11 @@
     </div>
 </div>
 
+<!--Add a new reminder-->
+<div class="reminders__header">
+    <button class="btn btn-complement reminders__header__btn" ng-click="openReminderModalService()">New reminder</button>
+</div>
+
 <!--Upcoming reminders-->
 <div class="reminder-list" reminder-list reminders="upcomingReminders" search-by-text="searchByText" sort="asc" show-empty-content="true"></div>
 
