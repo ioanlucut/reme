@@ -3,7 +3,7 @@
  */
 angular
     .module("reminders")
-    .controller("ReminderListCtrl", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
+    .controller("ReminderListCtrl", function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS) {
 
         /**
          * Alert identifier
@@ -26,6 +26,10 @@ angular
          * @type {string}
          */
         $scope.searchByText = "";
+
+        $scope.openReminderModalService = function () {
+            ReminderModalService.open();
+        };
 
         /**
          * Upcoming reminders
