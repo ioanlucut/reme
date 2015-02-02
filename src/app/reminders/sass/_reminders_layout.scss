@@ -146,3 +146,14 @@
   border-radius: 3px;
   line-height: 1;
 }
+
+.reminder-list-box--past-reminders {
+
+  .reminder {
+    border: solid 1px $gray10;
+    background-color: lighten($body-bg, 3%);
+  }
+  .reminder__title {
+    color: $gray6;
+  }
+}
