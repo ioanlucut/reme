@@ -86,8 +86,6 @@ angular
                     };
                 }
 
-                scope.allGroups = [];
-
                 /**
                  * Load more upcoming reminders.
                  */
