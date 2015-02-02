@@ -4172,8 +4172,6 @@ angular
                     };
                 }
 
-                scope.allGroups = [];
-
                 /**
                  * Load more upcoming reminders.
                  */
@@ -4288,7 +4286,7 @@ angular
     .module("reminders")
     .filter('remindersHeader', ["$sce", function ($sce) {
         return function (text, reverse) {
-            var template = reverse ? '<a class="reminder-list-box__header__past" href="#">You have $1 past reminders</a>' : '<span class="reminder-list-box__header__upcoming">You have $1 upcoming reminders</span>';
+            var template = reverse ? '<a class="reminder-list-box__header__past" href="#">You have $1 past reminders</a>' : '<span class="reminder-list-box__header__upcoming">Your upcoming reminders</span>';
 
             return $sce.trustAsHtml(template.replace('$1', text || '0'))
         };
@@ -5206,7 +5204,7 @@ angular.module("app/reminders/partials/reminder/reminders.template.html", []).ru
     "\n" +
     "<div class=\"centered-section-reminders\">\n" +
     "\n" +
-    "    <div ui-view=\"list\"></div>\n" +
+    "    <div class=\"list-wrapper\" ui-view=\"list\"></div>\n" +
     "\n" +
     "</div>\n" +
     "\n" +

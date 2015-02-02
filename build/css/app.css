@@ -13547,7 +13547,7 @@ html, body {
   margin-top: 50px;
   border-radius: 3px;
   height: 34px;
-  width: 200px;
+  width: 210px;
 }
 /* line 10, ../../src/sass/_mixins.scss */
 .btn--delete-reminder:hover, .btn--delete-reminder:focus, .btn--delete-reminder:active, .btn--delete-reminder.active {
@@ -14248,8 +14248,9 @@ textarea.form-control--friend-email {
   top: 0;
   right: 140px;
   width: 100%;
+  z-index: 10;
 }
-/* line 19, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 20, ../../src/app/reminders/sass/_reminders_layout.scss */
 .form-group--search input {
   border-radius: 3px;
   background: #ECECEC;
@@ -14271,23 +14272,24 @@ textarea.form-control--friend-email {
 .form-group--search input::-webkit-input-placeholder {
   color: #bbbfc4;
 }
-/* line 24, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 25, ../../src/app/reminders/sass/_reminders_layout.scss */
 .form-group--search input:focus {
   background: #fff;
 }
 
-/* line 30, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 31, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header {
   position: absolute;
   right: 10px;
+  z-index: 10;
 }
 
-/* line 35, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 37, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn {
   -webkit-box-shadow: 0 2px 0 #e69400;
   box-shadow: 0 2px 0 #e69400;
 }
-/* line 38, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 40, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminders__header__btn:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -14296,12 +14298,12 @@ textarea.form-control--friend-email {
   transform: translate(0, 2px);
 }
 
-/* line 44, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 46, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-list {
   margin-bottom: 50px;
 }
 
-/* line 48, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 50, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-group {
   width: 100%;
   position: relative;
@@ -14310,22 +14312,29 @@ textarea.form-control--friend-email {
   padding: 5px 10px 10px 10px;
 }
 
-/* line 56, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 58, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-group:only-child {
   display: none;
 }
 
-/* line 60, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 62, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-list-box__header {
   display: block;
+  padding: 6px 12px 6px 0;
 }
 
-/* line 64, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 67, ../../src/app/reminders/sass/_reminders_layout.scss */
+.reminder-list-box__header__upcoming {
+  color: #d8d8d8;
+  font-size: 22px;
+}
+
+/* line 72, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-list-box__header__past {
   color: #5bc0de;
 }
 
-/* line 68, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 76, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder {
   border: solid 0 #fff;
   border-radius: 3px;
@@ -14339,33 +14348,33 @@ textarea.form-control--friend-email {
   -webkit-box-shadow: 0 2px 0 #d7dbde;
   box-shadow: 0 2px 0 #d7dbde;
 }
-/* line 80, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 88, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder.reminder--owner:hover {
   cursor: pointer;
 }
-/* line 84, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 92, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover {
   cursor: pointer;
 }
-/* line 87, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 95, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover .reminder__title {
   color: #8471B1;
 }
-/* line 91, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 99, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover .reminder__info {
   color: #848b91;
 }
-/* line 95, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 103, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder:hover .reminder__menu {
   opacity: 1;
 }
-/* line 100, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 108, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder .reminder__title {
   font-size: 20px;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
-/* line 105, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 113, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder .reminder__menu {
   position: absolute;
   top: 0;
@@ -14375,7 +14384,7 @@ textarea.form-control--friend-email {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
-/* line 114, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 122, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder .reminder__menu__option {
   display: inline-block;
   height: 25px;
@@ -14385,11 +14394,11 @@ textarea.form-control--friend-email {
   padding: 3px;
   color: #bbbfc4;
 }
-/* line 123, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 131, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder .reminder__menu__option:hover {
   color: #d9534f;
 }
-/* line 127, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 135, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder .reminder__menu__option span {
   display: block;
   margin: 0;
@@ -14397,7 +14406,7 @@ textarea.form-control--friend-email {
   text-align: center;
 }
 
-/* line 136, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 144, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title {
   -ms-word-break: break-all;
   word-break: break-all;
@@ -14409,7 +14418,7 @@ textarea.form-control--friend-email {
   font-weight: bold;
 }
 
-/* line 142, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 150, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder__title--highlighted {
   display: inline-block;
   background: rgba(255, 230, 0, 0.5);
@@ -14418,71 +14427,75 @@ textarea.form-control--friend-email {
   line-height: 1;
 }
 
-/* line 152, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 160, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-list-box--past-reminders .reminder {
   border: solid 1px #d7dbde;
   background-color: #f4f4f4;
 }
-/* line 156, ../../src/app/reminders/sass/_reminders_layout.scss */
+/* line 164, ../../src/app/reminders/sass/_reminders_layout.scss */
 .reminder-list-box--past-reminders .reminder__title {
   color: #6b7178;
 }
 
 @media (max-width: 580px) {
   /* line 3, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .reminder-list-box__header__upcoming {
+    font-size: 18px;
+  }
+
+  /* line 7, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder-modal__form__info--date, .reminder-modal__form__info--time {
     width: 100%;
     margin-right: 0;
   }
 
-  /* line 10, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 14, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder-modal__form .btn--reminder-popup, .reminder-modal__form .form-control--friend-email {
     padding-left: 40px;
   }
 
-  /* line 15, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 19, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .btn--delete-reminder {
     width: 100%;
   }
 
-  /* line 19, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 23, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder__info__item {
     width: 100%;
     padding-left: 5px;
     padding-right: 5px;
   }
 
-  /* line 25, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 29, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder__info__item--date {
     float: none;
     width: 100%;
     text-align: left;
   }
 
-  /* line 31, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 35, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder__info__item--time {
     text-align: left;
     width: 50%;
   }
 
-  /* line 36, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 40, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminder__info__item--additional {
     width: 50%;
   }
 
-  /* line 40, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 44, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .form-group--search {
     right: 145px;
     width: 100px;
   }
-}
-@media (max-width: 480px) {
-  /* line 50, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
-  .centered-section-reminders .tab-content {
-    padding-top: 30px;
+
+  /* line 49, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .list-wrapper {
+    padding-top: 40px;
   }
 
-  /* line 55, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 53, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .form-group--search {
     width: 100%;
     height: 33px;
@@ -14490,11 +14503,30 @@ textarea.form-control--friend-email {
     right: 0;
     padding-left: 10px;
     padding-right: 10px;
-    top: 60px;
+    top: 0;
+  }
+  /* line 62, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .form-group--search .sb-search {
+    margin: 0;
+    width: 100%;
+  }
+  /* line 67, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .form-group--search .sb-icon-search {
+    display: none;
+  }
+
+  /* line 72, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .navbar.navbar-default.navbar--white {
+    margin-bottom: 5px;
   }
 }
 @media (max-width: 400px) {
-  /* line 68, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  /* line 79, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
+  .reminder-list-box__header__upcoming {
+    font-size: 14px;
+  }
+
+  /* line 83, ../../src/app/reminders/sass/_reminders_layout_responsive.scss */
   .reminders__header__btn {
     background: #FFA400 url("../assets/img/add_reminder.png") no-repeat 50% 50%;
     background-size: 24px;
@@ -14654,6 +14686,22 @@ textarea.form-control--friend-email {
     display: none;
   }
 }
+/* line 1, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+.empty-state--text {
+  font-weight: 300;
+  font-size: 20px;
+  color: #999999;
+  font-family: "Indie Flower", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* line 8, ../../src/app/reminders/sass/_reminders_empty_state.scss */
+.reminder__empty {
+  position: relative;
+  padding: 100px 30px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 /* line 1, ../../src/app/reminders/sass/components/_datepicker.scss */
 .datepicker {
   width: 100%;
