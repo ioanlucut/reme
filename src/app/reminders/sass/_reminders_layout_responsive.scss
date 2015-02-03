@@ -1,5 +1,9 @@
 @media (max-width: 580px) {
 
+  .reminder-list-box__header__upcoming {
+    font-size: 18px;
+  }
+
   .reminder-modal__form__info--date, .reminder-modal__form__info--time {
     width: 100%;
     margin-right: 0;
@@ -71,6 +75,10 @@
 }
 
 @media (max-width: 400px) {
+
+  .reminder-list-box__header__upcoming {
+    font-size: 14px;
+  }
 
   .reminders__header__btn {
     background: $brand-complement url("../assets/img/add_reminder.png") no-repeat 50% 50%;
