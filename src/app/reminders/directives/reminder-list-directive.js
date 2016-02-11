@@ -9,7 +9,7 @@ angular
                 reminders: "=",
                 searchByText: "="
             },
-            templateUrl: "app/reminders/partials/reminder/reminder.list.template.html",
+            templateUrl: "/app/reminders/partials/reminder/reminder.list.template.html",
             link: function (scope, el, attrs) {
 
                 /**

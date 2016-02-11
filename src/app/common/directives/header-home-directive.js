@@ -6,7 +6,7 @@ angular
     .directive("headerHome", function ($rootScope) {
         return {
             restrict: "A",
-            templateUrl: "app/common/partials/header-home.html",
+            templateUrl: "/app/common/partials/header-home.html",
             link: function (scope, el) {
 
                 /**

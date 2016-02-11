@@ -7,7 +7,7 @@ angular.module("common").
             scope: {
                 date: "=ngModel"
             },
-            templateUrl: "app/common/partials/timepickerPopup/timepickerPopup.html",
+            templateUrl: "/app/common/partials/timepickerPopup/timepickerPopup.html",
             restrict: "A",
             link: function (scope, el, attrs) {
 

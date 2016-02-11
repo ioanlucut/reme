@@ -1,0 +1,8 @@
+{
+    "preset": "crockford",
+    "disallowSpacesInAnonymousFunctionExpression": null,
+    "excludeFiles": [
+        "node_modules/**",
+        "gulpfile.js"
+    ]
+}

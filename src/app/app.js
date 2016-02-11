@@ -10,7 +10,6 @@ angular
         "angular-flash.service",
         "angular-flash.flash-alert-directive",
         "ngStorage",
-        "partials",
         "site",
         "feedback",
         "common",

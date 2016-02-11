@@ -28,12 +28,12 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
                         controller: "ReminderCtrl"
                     },
 
                     'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
                             pastAndUpcomingReminders: function (ReminderService) {
@@ -52,7 +52,7 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
                         controller: "ReminderAutoEditCtrl",
                         resolve: {
                             reminderToReview: function ($stateParams, $q, $state, ReminderService) {
@@ -78,7 +78,7 @@ angular
                     },
 
                     'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
                             pastAndUpcomingReminders: function (ReminderService) {
@@ -97,12 +97,12 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
                         controller: "ReminderAutoOpenCtrl"
                     },
 
                     'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.list.html",
                         controller: "ReminderListCtrl",
                         resolve: {
                             pastAndUpcomingReminders: function (ReminderService) {

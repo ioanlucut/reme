@@ -1,6 +1,11 @@
 .idea
-.sass-cache
-bower_components
+node_modules/
+bower_components/
+.sass-cache/
+.tmp/
+dist/
 build
-node_modules
 npm-debug.log
+.DS_Store
+reme-app-config.js
+.awspublish-*
