@@ -1,0 +1,17 @@
+{
+    "ENV": {
+        "name": "local",
+        "apiEndpoint": "http://dev-api.reme.io",
+        "isProduction": false,
+        "AWS": {
+            "params": {
+                "Bucket": ""
+            },
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "distributionId": "",
+            "region": ""
+        },
+        "CDN_DOMAIN": ""
+    }
+}

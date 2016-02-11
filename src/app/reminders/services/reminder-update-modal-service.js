@@ -12,7 +12,7 @@ angular
 
             // Create modal instance
             this.modalInstance = $modal.open({
-                templateUrl: "app/reminders/partials/reminderModal/reminder_create_update_modal.html",
+                templateUrl: "/app/reminders/partials/reminderModal/reminder_create_update_modal.html",
                 controller: "ReminderModalCtrl",
                 windowClass: "modal-feedback",
                 resolve: {

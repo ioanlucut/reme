@@ -10,7 +10,7 @@ angular
                 emails: "=ngModel",
                 parentForm: "="
             },
-            templateUrl: "app/common/partials/emailList/emailList.html",
+            templateUrl: "/app/common/partials/emailList/emailList.html",
             link: function (scope, el, attrs) {
 
                 scope.canAddEmail = true;
