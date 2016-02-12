@@ -1,10 +1,10 @@
 /* Friendly date filter */
 
 angular
-    .module("common")
+    .module('common')
     .filter('friendlyHour', function () {
-        return function (date) {
+      return function (date) {
 
-            return moment(date).format("h:mm A");
-        };
+        return moment(date).format('h:mm A');
+      };
     });
