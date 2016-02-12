@@ -11,64 +11,64 @@ var middleware = require('./proxy');
 
 module.exports = function (options) {
 
-    function browserSyncInit(baseDir, browser) {
-        browser = browser === undefined ? 'default' : browser;
+  function browserSyncInit(baseDir, browser) {
+    browser = browser === undefined ? 'default' : browser;
 
-        var routes = null;
-        if (baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
-            routes = {
-                '/bower_components': 'bower_components'
-            };
-        }
-
-        var server = {
-            baseDir: baseDir,
-            routes: routes
-        };
-
-        if (middleware.length > 0) {
-            server.middleware = middleware;
-        }
-
-        browserSync.instance = browserSync.init({
-            startPath: '/',
-            server: server,
-            browser: browser,
-            open: false,
-            middleware: [
-                modRewrite([
-                    '!\\.\\w+$ /index.html [L]'
-                ])
-            ]
-        });
+    var routes = null;
+    if (baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
+      routes = {
+        '/bower_components': 'bower_components',
+      };
     }
 
-    browserSync.use(browserSyncSpa({
-        selector: '[ng-app]'// Only needed for angular apps
-    }));
+    var server = {
+      baseDir: baseDir,
+      routes: routes,
+    };
 
-    gulp.task('serve', ['clean', 'config', 'watch'], function () {
-        browserSyncInit([options.tmp + '/serve', options.src]);
-    });
+    if (middleware.length > 0) {
+      server.middleware = middleware;
+    }
 
-    gulp.task('serve:dist', ['clean', 'config', 'build'], function () {
-        browserSyncInit(options.dist);
+    browserSync.instance = browserSync.init({
+      startPath: '/',
+      server: server,
+      browser: browser,
+      open: false,
+      middleware: [
+          modRewrite([
+              '!\\.\\w+$ /index.html [L]',
+          ]),
+      ],
     });
+  }
 
-    // ---
-    // Doesn't require config and inject.
-    // Assumes no one has changed the angular app.
-    // Is faster.
-    // ---
-    gulp.task('serve:e2e-quick', [], function () {
-        browserSyncInit([options.tmp + '/serve', options.src], []);
-    });
+  browserSync.use(browserSyncSpa({
+    selector: '[ng-app]'// Only needed for angular apps
+  }));
 
-    gulp.task('serve:e2e', ['config', 'inject'], function () {
-        browserSyncInit([options.tmp + '/serve', options.src], []);
-    });
+  gulp.task('serve', ['clean', 'config', 'watch'], function () {
+    browserSyncInit([options.tmp + '/serve', options.src]);
+  });
 
-    gulp.task('serve:e2e-dist', ['config', 'build'], function () {
-        browserSyncInit(options.dist, []);
-    });
+  gulp.task('serve:dist', ['clean', 'config', 'build'], function () {
+    browserSyncInit(options.dist);
+  });
+
+  // ---
+  // Doesn't require config and inject.
+  // Assumes no one has changed the angular app.
+  // Is faster.
+  // ---
+  gulp.task('serve:e2e-quick', [], function () {
+    browserSyncInit([options.tmp + '/serve', options.src], []);
+  });
+
+  gulp.task('serve:e2e', ['config', 'inject'], function () {
+    browserSyncInit([options.tmp + '/serve', options.src], []);
+  });
+
+  gulp.task('serve:e2e-dist', ['config', 'build'], function () {
+    browserSyncInit(options.dist, []);
+  });
 };
