@@ -1,6 +1,5 @@
 {
-    "preset": "crockford",
-    "disallowSpacesInAnonymousFunctionExpression": null,
+    "preset": "airbnb",
     "excludeFiles": [
         "node_modules/**",
         "gulpfile.js"

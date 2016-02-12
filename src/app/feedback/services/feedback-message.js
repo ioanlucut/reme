@@ -1,45 +1,45 @@
 angular
-    .module("feedback")
-    .factory("Feedback", function (FeedbackService) {
+    .module('feedback')
+    .factory('Feedback', function (FeedbackService) {
+
+      /**
+       * Feedback class.
+       * @constructor
+       */
+      function Feedback() {
 
         /**
-         * Feedback class.
-         * @constructor
+         * Represents the DTO model of the Feedback.
          */
-        function Feedback() {
+        this.model = {
 
-            /**
-             * Represents the DTO model of the Feedback.
-             */
-            this.model = {
+          /**
+           * Feedback subject
+           */
+          subject: '',
 
-                /**
-                 * Feedback subject
-                 */
-                subject: "",
-
-                /**
-                 * Feedback message
-                 */
-                message: ""
-            };
-
-            /**
-             * Sends a Feedback.
-             * @returns {*}
-             */
-            this.send = function () {
-                return FeedbackService.sendFeedback(this);
-            };
-        }
-
-        /**
-         * Builds a Feedback.
-         * @returns {Feedback}
-         */
-        Feedback.build = function () {
-            return new Feedback();
+          /**
+           * Feedback message
+           */
+          message: '',
         };
 
-        return Feedback;
+        /**
+         * Sends a Feedback.
+         * @returns {*}
+         */
+        this.send = function () {
+          return FeedbackService.sendFeedback(this);
+        };
+      }
+
+      /**
+       * Builds a Feedback.
+       * @returns {Feedback}
+       */
+      Feedback.build = function () {
+        return new Feedback();
+      };
+
+      return Feedback;
     });

@@ -2,68 +2,67 @@ angular
     .module('common')
     .service('JWTHelper', function () {
 
-        this.urlBase64Decode = function (str) {
-            var output = str.replace('-', '+').replace('_', '/');
-            switch ( output.length % 4 ) {
-                case 0:
-                {
-                    break;
-                }
-                case 2:
-                {
-                    output += '==';
-                    break;
-                }
-                case 3:
-                {
-                    output += '=';
-                    break;
-                }
-                default:
-                {
-                    throw 'Illegal base64url string!';
-                }
-            }
-            return window.atob(output);
-        };
+      this.urlBase64Decode = function (str) {
+        var output = str.replace('-', '+').replace('_', '/');
+        switch (output.length % 4) {
+          case 0: {
+            break;
+          }
 
-        this.decodeToken = function (token) {
-            var parts = token.split('.');
+          case 2: {
+            output += '==';
+            break;
+          }
 
-            if ( parts.length !== 3 ) {
-                throw new Error('JWT must have 3 parts');
-            }
+          case 3: {
+            output += '=';
+            break;
+          }
 
-            var decoded = this.urlBase64Decode(parts[1]);
-            if ( !decoded ) {
-                throw new Error('Cannot decode the token');
-            }
+          default: {
+            throw 'Illegal base64url string!';
+          }
+        }
+        return window.atob(output);
+      };
 
-            return JSON.parse(decoded);
-        };
+      this.decodeToken = function (token) {
+        var parts = token.split('.');
 
-        this.getTokenExpirationDate = function (token) {
-            var decoded;
-            decoded = this.decodeToken(token);
+        if (parts.length !== 3) {
+          throw new Error('JWT must have 3 parts');
+        }
 
-            if ( !decoded.exp ) {
-                return null;
-            }
+        var decoded = this.urlBase64Decode(parts[1]);
+        if (!decoded) {
+          throw new Error('Cannot decode the token');
+        }
 
-            var d = new Date(0); // The 0 here is the key, which sets the date to the epoch
-            d.setUTCSeconds(decoded.exp);
+        return JSON.parse(decoded);
+      };
 
-            return d;
-        };
+      this.getTokenExpirationDate = function (token) {
+        var decoded;
+        decoded = this.decodeToken(token);
 
-        this.isTokenExpired = function (token) {
-            var d = this.getTokenExpirationDate(token);
+        if (!decoded.exp) {
+          return null;
+        }
 
-            if ( !d ) {
-                return false;
-            }
+        var d = new Date(0); // The 0 here is the key, which sets the date to the epoch
+        d.setUTCSeconds(decoded.exp);
 
-            // Token expired?
-            return !(d.valueOf() > new Date().valueOf());
-        };
+        return d;
+      };
+
+      this.isTokenExpired = function (token) {
+        var d = this.getTokenExpirationDate(token);
+
+        if (!d) {
+          return false;
+        }
+
+        // Token expired?
+        return !(d.valueOf() > new Date().valueOf());
+      };
     });
