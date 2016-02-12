@@ -6,13 +6,13 @@
         "isProduction": false,
         "AWS": {
             "params": {
-                "Bucket": ""
+                "Bucket": "reme-web-dev"
             },
-            "accessKeyId": "",
-            "secretAccessKey": "",
-            "distributionId": "",
-            "region": ""
+            "accessKeyId": "AKIAIP3FRV6PXWFBWNVQ",
+            "secretAccessKey": "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",
+            "distributionId": "E38QX47Y9KHBUL",
+            "region": "us-east-1"
         },
-        "CDN_DOMAIN": ""
+        "CDN_DOMAIN": "d3ozbm6pi544u4.cloudfront.net"
     }
 }
