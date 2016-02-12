@@ -1,21 +1,21 @@
 angular
-    .module("common")
-    .factory("HumpsInterceptor", function (CamelCaseTransform) {
+    .module('common')
+    .factory('HumpsInterceptor', function (CamelCaseTransform) {
 
-        return {
+      return {
 
-            request: function (config) {
-                CamelCaseTransform.transform(config.data, CamelCaseTransform.TRANSFORMATION_TYPE.DECAMELIZE);
+        request: function (config) {
+          CamelCaseTransform.transform(config.data, CamelCaseTransform.TRANSFORMATION_TYPE.DECAMELIZE);
 
-                return config;
-            },
+          return config;
+        },
 
-            response: function (response) {
-                CamelCaseTransform.transform(response.data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
+        response: function (response) {
+          CamelCaseTransform.transform(response.data, CamelCaseTransform.TRANSFORMATION_TYPE.CAMELIZE);
 
-                return response;
-            }
+          return response;
+        },
 
-        };
+      };
 
     });
