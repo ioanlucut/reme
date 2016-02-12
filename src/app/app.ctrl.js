@@ -2,7 +2,7 @@
  * Main app controller declaration.
  */
 angular
-    .module("app")
+    .module("reme")
     .controller("AppCtrl", function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
 
         /**

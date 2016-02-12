@@ -1,7 +1,7 @@
 describe('Reminder', function () {
 
     // Inject app
-    beforeEach(module("app"));
+    beforeEach(module("reme"));
 
     it('Should inject the service', inject(function (Reminder) {
         expect(Reminder).toBeTruthy();

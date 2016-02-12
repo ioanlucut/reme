@@ -1,7 +1,7 @@
 describe('TimezoneProvider', function () {
 
     // Inject app
-    beforeEach(module("app"));
+    beforeEach(module("reme"));
 
     it('Should inject the service', inject(function (TimezoneProvider) {
         expect(TimezoneProvider).toBeTruthy();
