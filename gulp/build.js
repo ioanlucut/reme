@@ -12,7 +12,7 @@ var environment = argv.env || 'local-dev';
 module.exports = function (options) {
     gulp.task('partials', function () {
         return gulp.src([
-            options.src + '/app/**/*.html',
+            options.src + '/**/*.html',
             options.tmp + '/serve/app/**/*.html'
         ])
             .pipe($.minifyHtml({
@@ -24,6 +24,7 @@ module.exports = function (options) {
                 module: 'reme',
                 root: '/app'
             }))
+            .pipe($.replace('/app/template', 'template'))
             .pipe(gulp.dest(options.tmp + '/partials/'));
     });
 
