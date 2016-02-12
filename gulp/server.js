@@ -47,11 +47,11 @@ module.exports = function (options) {
         selector: '[ng-app]'// Only needed for angular apps
     }));
 
-    gulp.task('serve', ['config', 'watch'], function () {
+    gulp.task('serve', ['clean', 'config', 'watch'], function () {
         browserSyncInit([options.tmp + '/serve', options.src]);
     });
 
-    gulp.task('serve:dist', ['config', 'build'], function () {
+    gulp.task('serve:dist', ['clean', 'config', 'build'], function () {
         browserSyncInit(options.dist);
     });
 

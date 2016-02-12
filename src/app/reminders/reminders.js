@@ -18,7 +18,7 @@ angular
 
             .state("reminders", {
                 url: "/reminders",
-                templateUrl: 'app/reminders/partials/reminder/reminders.template.html',
+                templateUrl: '/app/reminders/partials/reminder/reminders.template.html',
                 abstract: true
             })
 
