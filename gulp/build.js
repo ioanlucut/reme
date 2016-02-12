@@ -25,6 +25,7 @@ module.exports = function (options) {
                 root: '/app'
             }))
             .pipe($.replace('/app/template', 'template'))
+            .pipe($.replace('/app/app/', '/app/'))
             .pipe(gulp.dest(options.tmp + '/partials/'));
     });
 
