@@ -3,16 +3,6 @@
         "name": "local-dev",
         "apiEndpoint": "http://dev-api.reme.io",
         "mixPanelId": "e9ba9ca056ce11433777e3c8f59014b4",
-        "isProduction": false,
-        "AWS": {
-            "params": {
-                "Bucket": ""
-            },
-            "accessKeyId": "",
-            "secretAccessKey": "",
-            "distributionId": "",
-            "region": ""
-        },
-        "CDN_DOMAIN": ""
+        "isProduction": false
     }
 }

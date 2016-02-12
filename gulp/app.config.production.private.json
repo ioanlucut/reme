@@ -1,0 +1,14 @@
+{
+    "ENV": {
+        "AWS": {
+            "params": {
+                "Bucket": ""
+            },
+            "accessKeyId": "",
+            "secretAccessKey": "",
+            "distributionId": "",
+            "region": ""
+        },
+        "CDN_DOMAIN": ""
+    }
+}
