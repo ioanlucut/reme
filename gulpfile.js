@@ -20,6 +20,9 @@ var options = {
         overrides: {
             "jstz-detect": {
                 "main": ["./jstz.js"]
+            },
+            "sugar-date": {
+                "main": ["./date.sugar.js"]
             }
         },
         exclude: ['bower_components/bootstrap-sass/assets/javascripts/bootstrap.js'],

@@ -28,7 +28,7 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.template.html",
                         controller: "ReminderCtrl"
                     },
 
@@ -52,7 +52,7 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.template.html",
                         controller: "ReminderAutoEditCtrl",
                         resolve: {
                             reminderToReview: function ($stateParams, $q, $state, ReminderService) {
@@ -97,7 +97,7 @@ angular
                 views: {
 
                     'action': {
-                        templateUrl: "/app/reminders/partials/reminder/reminders.action.html",
+                        templateUrl: "/app/reminders/partials/reminder/reminders.template.html",
                         controller: "ReminderAutoOpenCtrl"
                     },
 
