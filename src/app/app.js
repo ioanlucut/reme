@@ -2,7 +2,7 @@
  * Main app module declaration.
  */
 angular
-    .module("app", [
+    .module("reme", [
         "config",
         "ngAnimate",
         "ngMessages",
