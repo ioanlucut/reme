@@ -14,7 +14,7 @@ var gulp = require('gulp'),
     publisher,
     headers,
     deployTask = function (environment) {
-        myConfig = require('./app.config.' + environment + '.json');
+        myConfig = require('./app.config.' + environment + '.private.json');
         publisher = awspublish.create(myConfig.ENV.AWS);
         headers = {
             'Cache-Control': 'max-age=315360000, no-transform, public'
