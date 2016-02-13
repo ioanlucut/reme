@@ -19,28 +19,28 @@ module.exports = function (options) {
     var bowerDeps = wiredep(wiredepOptions);
 
     var specFiles = [
-        options.src + '/**/*.spec.js',
-        options.src + '/**/*test.js',
-        options.src + '/**/*.mock.js',
+      options.src + '/**/*.spec.js',
+      options.src + '/**/*test.js',
+      options.src + '/**/*.mock.js',
     ];
 
     var htmlFiles = [
-        options.src + '/**/*.html',
+      options.src + '/**/*.html',
     ];
 
     var srcFiles = [
-        options.src + '/app/**/*.js',
-        ].concat(specFiles.map(function (file) {
-          return '!' + file;
-        }));
+      options.src + '/app/**/*.js',
+    ].concat(specFiles.map(function (file) {
+      return '!' + file;
+    }));
 
     gulp.src(srcFiles)
-            .pipe(concat(function (files) {
-              callback(bowerDeps.js
-                  .concat(_.pluck(files, 'path'))
-                  .concat(htmlFiles)
-                  .concat(specFiles));
-            }));
+      .pipe(concat(function (files) {
+        callback(bowerDeps.js
+          .concat(_.pluck(files, 'path'))
+          .concat(htmlFiles)
+          .concat(specFiles));
+      }));
   }
 
   function runTests(singleRun, done) {
