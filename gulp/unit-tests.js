@@ -58,11 +58,11 @@ module.exports = function (options) {
     });
   }
 
-  gulp.task('test', ['scripts'], function (done) {
+  gulp.task('test', ['config', 'scripts'], function (done) {
     runTests(true, done);
   });
 
-  gulp.task('test:auto', ['watch'], function (done) {
+  gulp.task('test:auto', ['config', 'watch'], function (done) {
     runTests(false, done);
   });
 };
