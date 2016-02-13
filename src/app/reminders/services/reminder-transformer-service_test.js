@@ -1,7 +1,7 @@
 describe('ReminderTransformerService', function () {
 
   // Inject app
-  beforeEach(module('reme'));
+  beforeEach(angular.mock.module('reme'));
 
   it('Should inject the service', inject(function (ReminderTransformerService) {
     expect(ReminderTransformerService).toBeTruthy();
