@@ -2,39 +2,39 @@
 
 module.exports = function (config) {
 
-    var configuration = {
+  var configuration = {
 
-        autoWatch: false,
+    autoWatch: false,
 
-        colors: true,
+    colors: true,
 
-        frameworks: ['browserify', 'jasmine'],
+    frameworks: ['browserify', 'jasmine'],
 
-        ngHtml2JsPreprocessor: {
-            stripPrefix: 'src',
-            moduleName: 'gulpAngular'
-        },
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'src',
+      moduleName: 'gulpAngular',
+    },
 
-        browsers: ['PhantomJS'],
+    browsers: ['PhantomJS'],
 
-        plugins: [
-            'karma-phantomjs-launcher',
-            'karma-jasmine',
-            'karma-browserify',
-            'karma-ng-html2js-preprocessor'
-        ],
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine',
+      'karma-browserify',
+      'karma-ng-html2js-preprocessor',
+    ],
 
-        preprocessors: {
-            'src/**/*_test.js': ['browserify'],
-            'tests/**/*.js': ['browserify'],
-            'src/**/*.html': ['ng-html2js']
-        },
+    preprocessors: {
+      'src/**/*_test.js': ['browserify'],
+      'tests/**/*.js': ['browserify'],
+      'src/**/*.html': ['ng-html2js'],
+    },
 
-        browserify: {
-            debug: true,
-            paths: ['./node_modules', './src']
-        }
-    };
+    browserify: {
+      debug: true,
+      paths: ['./node_modules', './src'],
+    },
+  };
 
-    config.set(configuration);
+  config.set(configuration);
 };
