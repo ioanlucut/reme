@@ -8,7 +8,6 @@ var gulp = require('gulp'),
   awspublish = require('gulp-awspublish'),
   _ = require('lodash'),
   argv = require('yargs').argv,
-  es = require('event-stream'),
   myConfig,
   publisher,
   headers,
@@ -19,19 +18,18 @@ var gulp = require('gulp'),
       'Cache-Control': 'max-age=315360000, no-transform, public',
     };
 
+    var cloneSink = $.clone.sink();
+
     // ---
     // We need to upload the index.html also for the error page.
     // ---
-    var originalIndexFile = gulp
+    return gulp
       .src('dist/**')
-      .pipe($.filter('**/index.html'));
-
-    var filesWithRevision = gulp
-      .src('dist/**')
-      .pipe(revAll.revision());
-
-    return es
-      .merge(originalIndexFile, filesWithRevision)
+      .pipe(revAll.revision())
+      .pipe(cloneSink)
+      .pipe($.filter('**/index*.html'))
+      .pipe($.rename('index.html'))
+      .pipe(cloneSink.tap())
 
       // gzip, Set Content-Encoding headers and add .gz extension
       .pipe(awspublish.gzip())
