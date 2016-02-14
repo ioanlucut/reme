@@ -1,2 +1,2 @@
 angular
-    .module('feedback', []);
+  .module('feedback', []);

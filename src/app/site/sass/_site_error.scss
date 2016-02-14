@@ -1,47 +1,47 @@
 .error__sections {
-  position: relative;
-  margin: 120px auto 0;
-  padding: 20px;
-  text-align: center;
-  background-color: $brand-primary;
-  min-height: 330px;
-  max-width: $screen-phone;
-  color: $white;
-  border: solid 8px white;
-  border-radius: 3px;
+    position: relative;
+    margin: 120px auto 0;
+    padding: 20px;
+    text-align: center;
+    background-color: $brand-primary;
+    min-height: 330px;
+    max-width: $screen-phone;
+    color: $white;
+    border: solid 8px white;
+    border-radius: 3px;
 }
 
 .error__sections__heading {
-  font-size: 36px;
-  text-align: center;
-  max-width: 100%;
-  margin-left: 90px;
-  margin-right: 90px;
-  font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+    max-width: 100%;
+    margin-left: 90px;
+    margin-right: 90px;
+    font-weight: bold;
 }
 
 .error__sections__reason {
-  font-size: 16px;
-  font-weight: 200;
-  text-align: center;
-  max-width: 100%;
-  margin-top: 15px;
-  margin-left: 100px;
-  margin-right: 100px;
-  line-height: 1.4;
+    font-size: 16px;
+    font-weight: 200;
+    text-align: center;
+    max-width: 100%;
+    margin-top: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+    line-height: 1.4;
 }
 
 .error__sections__reason--last {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .error__sections__link {
-  display: block;
-  font-size: 16px;
-  text-decoration: underline;
-  color: white;
+    display: block;
+    font-size: 16px;
+    text-decoration: underline;
+    color: white;
 
-  &:hover {
-    color: lighten($brand-primary, 30%);
-  }
+    &:hover {
+        color: lighten($brand-primary, 30%);
+    }
 }

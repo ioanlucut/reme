@@ -1,47 +1,47 @@
 .reminder {
-  opacity: 1;
+    opacity: 1;
 }
 
 .reminder--first {
 
-  &.reminder.ng-enter {
-    opacity: 1;
-    background-color: $reminder-yellow;
-  }
+    &.reminder.ng-enter {
+        opacity: 1;
+        background-color: $reminder-yellow;
+    }
 
-  &.reminder.ng-enter-active {
-    background-color: $white;
-    opacity: 1;
-    @include transition(all 1s 1s ease-in);
-    @include fadeInDown();
-  }
+    &.reminder.ng-enter-active {
+        background-color: $white;
+        opacity: 1;
+        @include transition(all 1s 1s ease-in);
+        @include fadeInDown();
+    }
 }
 
 .reminder--removed {
 
-  &.reminder.ng-leave {
-    background-color: lighten($brand-danger, 30%);
-  }
+    &.reminder.ng-leave {
+        background-color: lighten($brand-danger, 30%);
+    }
 
-  &.reminder.ng-leave-active {
-    @include bounceOutRight();
-  }
+    &.reminder.ng-leave-active {
+        @include bounceOutRight();
+    }
 }
 
 /*If new reminder is added, the last reminder from list is deleted, so we skip transition*/
 .reminder--last {
 
-  &.reminder.ng-leave-active {
-    @include duration(0s !important);
-    display: none;
-  }
+    &.reminder.ng-leave-active {
+        @include duration(0s !important);
+        display: none;
+    }
 }
 
 .reminder--loaded {
-  //no transition
+    //no transition
 }
 
 /*During filtering we skip transition*/
 .reminder--filter-activated {
-  @include duration(0s !important);
+    @include duration(0s !important);
 }

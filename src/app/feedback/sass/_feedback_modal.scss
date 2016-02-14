@@ -3,84 +3,84 @@
 
 .modal-feedback {
 
-  // Modal header
-  // -------------
+    // Modal header
+    // -------------
 
-  .modal-header {
-    background: $brand-primary;
-    padding: 14px 0;
-    border-bottom-color: #999;
-    @include border-top-radius(2px);
+    .modal-header {
+        background: $brand-primary;
+        padding: 14px 0;
+        border-bottom-color: #999;
+        @include border-top-radius(2px);
 
-    // Modal header title
-    // -------------------
+        // Modal header title
+        // -------------------
 
-    h3 {
-      margin: 0;
-      padding: 0;
-      font-weight: 600;
-      font-size: 14px;
-      text-align: center;
-      color: #fff;
-    }
-  }
-
-  // Modal body
-  // ------------
-
-  .modal-body {
-    padding: 25px 25px 10px;
-
-    // Textarea
-    // ----------
-
-    textarea {
-      resize: vertical;
+        h3 {
+            margin: 0;
+            padding: 0;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            color: #fff;
+        }
     }
 
-    // Status message
-    // ----------------
+    // Modal body
+    // ------------
 
-    .sending-status {
-      margin: 60px 0 70px;
-      text-align: center;
-      font-size: 27px;
-      color: #ccc;
+    .modal-body {
+        padding: 25px 25px 10px;
+
+        // Textarea
+        // ----------
+
+        textarea {
+            resize: vertical;
+        }
+
+        // Status message
+        // ----------------
+
+        .sending-status {
+            margin: 60px 0 70px;
+            text-align: center;
+            font-size: 27px;
+            color: #ccc;
+        }
     }
-  }
 
-  // Modal footer
-  // ---------------
+    // Modal footer
+    // ---------------
 
-  .modal-footer {
-    margin-top: 0;
+    .modal-footer {
+        margin-top: 0;
 
-    // Buttons
-    // ---------
+        // Buttons
+        // ---------
 
-    .btn {
-      padding: 7px 16px;
+        .btn {
+            padding: 7px 16px;
+        }
     }
-  }
 }
 
 .feedback-modal__header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 45px;
-  padding: 10px;
-  background-color: $brand-primary;
-  text-align: center;
-  color: $white;
-  font-size: 16px;
-  line-height: 26px;
-  @include border-top-radius(3px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    background-color: $brand-primary;
+    text-align: center;
+    color: $white;
+    font-size: 16px;
+    line-height: 26px;
+    @include border-top-radius(3px);
 }
 
 .sending-status {
-  text-align: center;
-  padding: 20px;
-  font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
 }

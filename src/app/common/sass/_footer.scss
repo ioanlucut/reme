@@ -1,60 +1,60 @@
 .footer {
-  background-color: $brand-primary;
-  margin: 0;
-  padding: 0;
-  height: $footer-home-height;
-  vertical-align: top;
+    background-color: $brand-primary;
+    margin: 0;
+    padding: 0;
+    height: $footer-home-height;
+    vertical-align: top;
 
-  .footer__navbar {
-    @include clearfix();
+    .footer__navbar {
+        @include clearfix();
 
-    ul {
-      li {
-        list-style: none;
-        height: 20px;
+        ul {
+            li {
+                list-style: none;
+                height: 20px;
 
-        a {
-          color: $white;
+                a {
+                    color: $white;
 
-          &:hover {
-            color: darken($white, 15%);
-          }
+                    &:hover {
+                        color: darken($white, 15%);
+                    }
+                }
+            }
         }
-      }
     }
-  }
 
-  .footer__navbar__section-left {
-    float: left;
-  }
-
-  .footer__navbar__section-left__copyright {
-    height: $footer-home-height;
-    color: $white;
-    display: table-cell;
-    vertical-align: middle;
-
-    span {
-      color: #F4D03F;
-      margin-top: 5px;
-      display: inline-block;
+    .footer__navbar__section-left {
+        float: left;
     }
-  }
 
-  .footer__navbar__section-right {
-    float: right;
-  }
+    .footer__navbar__section-left__copyright {
+        height: $footer-home-height;
+        color: $white;
+        display: table-cell;
+        vertical-align: middle;
 
-  .footer__navbar__section-right__list {
-    height: $footer-home-height;
-    color: darken($brand-primary, 15%);
-    display: table-cell;
-    vertical-align: middle;
-    width: $footer-home-height;
-
-    ul li {
-      height: 26px;
+        span {
+            color: #F4D03F;
+            margin-top: 5px;
+            display: inline-block;
+        }
     }
-  }
+
+    .footer__navbar__section-right {
+        float: right;
+    }
+
+    .footer__navbar__section-right__list {
+        height: $footer-home-height;
+        color: darken($brand-primary, 15%);
+        display: table-cell;
+        vertical-align: middle;
+        width: $footer-home-height;
+
+        ul li {
+            height: 26px;
+        }
+    }
 
 }
