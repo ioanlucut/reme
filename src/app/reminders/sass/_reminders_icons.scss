@@ -1,68 +1,68 @@
 .reminder__info__item__icon {
-  position: absolute;
+    position: absolute;
 }
 
 .reminder__info__item__icon--user {
-  right: 50px;
+    right: 50px;
 }
 
 .reminder__info__item__icon--email {
-  right: 10px;
+    right: 10px;
 }
 
 .reminder__info {
-  position: relative;
-  color: $gray9;
-  font-weight: $font-weight-light;
-  font-size: 12px;
-  width: 100%;
-  padding-top: 10px;
-  padding-right: 10px;
-  @include clearfix();
+    position: relative;
+    color: $gray9;
+    font-weight: $font-weight-light;
+    font-size: 12px;
+    width: 100%;
+    padding-top: 10px;
+    padding-right: 10px;
+    @include clearfix();
 }
 
 .reminder__info__item {
-  position: relative;
-  float: left;
-  width: 33.33333%;
-  min-height: 1px;
-
-  span {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-    margin-right: 0;
-    vertical-align: middle;
-  }
-
-  &--date {
-  }
-
-  &--time {
-    text-align: center;
-  }
-
-  &--additional {
     position: relative;
-  }
+    float: left;
+    width: 33.33333%;
+    min-height: 1px;
+
+    span {
+        display: inline-block;
+        width: 20px;
+        text-align: center;
+        margin-right: 0;
+        vertical-align: middle;
+    }
+
+    &--date {
+    }
+
+    &--time {
+        text-align: center;
+    }
+
+    &--additional {
+        position: relative;
+    }
 }
 
 .reminder__menu__option--update {
-  color: $gray-light;
+    color: $gray-light;
 
-  &:hover {
-    color: $gray;
-  }
+    &:hover {
+        color: $gray;
+    }
 }
 
 .reminder__menu__option--disabled {
-  cursor: not-allowed;
+    cursor: not-allowed;
 }
 
 .reminder__menu__option--delete {
-  color: lighten($brand-danger, 15%);
+    color: lighten($brand-danger, 15%);
 
-  &:hover {
-    color: $brand-danger;
-  }
+    &:hover {
+        color: $brand-danger;
+    }
 }

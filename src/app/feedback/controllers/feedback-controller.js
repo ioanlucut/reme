@@ -1,76 +1,76 @@
 angular
-    .module('feedback')
-    .controller('FeedbackModalCtrl', function ($scope, FeedbackModalService, Feedback, $timeout) {
+  .module('feedback')
+  .controller('FeedbackModalCtrl', function ($scope, FeedbackModalService, Feedback, $timeout) {
+
+    /**
+     * Feedback.
+     */
+    $scope.feedback = new Feedback();
+
+    /**
+     * Flags during the lifetime of the feedback.
+     * @type {boolean}
+     */
+    $scope.isSending = false;
+    $scope.isSent = false;
+
+    $scope.openFeedbackModal = function () {
+      FeedbackModalService.open();
 
       /**
-       * Feedback.
+       * If send feedback modal is opened
        */
-      $scope.feedback = new Feedback();
+      FeedbackModalService.modalInstance
+        .opened
+        .then(function () {
+            $scope.isModalOpened = true;
+          }
+        );
+    };
 
-      /**
-       * Flags during the lifetime of the feedback.
-       * @type {boolean}
-       */
-      $scope.isSending = false;
-      $scope.isSent = false;
+    /**
+     * Dismiss the create/update modal.
+     */
+    $scope.dismissFeedbackModal = function () {
+      FeedbackModalService.modalInstance.dismiss('cancel');
 
-      $scope.openFeedbackModal = function () {
-        FeedbackModalService.open();
+      $scope.isModalOpened = false;
+    };
 
-        /**
-         * If send feedback modal is opened
-         */
-        FeedbackModalService.modalInstance
-            .opened
-                .then(function () {
-                  $scope.isModalOpened = true;
-                }
-            );
-      };
+    /**
+     * Sends the feedback.
+     * @param feedbackForm
+     */
+    $scope.sendFeedbackAndClose = function (feedbackForm) {
+      if (feedbackForm.$valid && !$scope.isSending) {
 
-      /**
-       * Dismiss the create/update modal.
-       */
-      $scope.dismissFeedbackModal = function () {
-        FeedbackModalService.modalInstance.dismiss('cancel');
+        // Is sending feedback
+        $scope.isSending = true;
 
-        $scope.isModalOpened = false;
-      };
+        $scope.feedback.send()
+          .then(function () {
 
-      /**
-       * Sends the feedback.
-       * @param feedbackForm
-       */
-      $scope.sendFeedbackAndClose = function (feedbackForm) {
-        if (feedbackForm.$valid && !$scope.isSending) {
+            $scope.isSent = true;
 
-          // Is sending feedback
-          $scope.isSending = true;
+            $timeout(function () {
+              $scope.isSending = false;
 
-          $scope.feedback.send()
-                    .then(function () {
+              FeedbackModalService.modalInstance.close();
+            }, 2500);
 
-                      $scope.isSent = true;
+          })
+          .catch(function () {
 
-                      $timeout(function () {
-                        $scope.isSending = false;
+            // Error
+            $scope.isSending = false;
+            alert('Something went wrong. Please try again.');
+          })
+          .finally(function () {
 
-                        FeedbackModalService.modalInstance.close();
-                      }, 2500);
+            $scope.isModalOpened = false;
+            $scope.isSending = false;
+          });
+      }
+    };
 
-                    })
-                    .catch(function () {
-
-                      // Error
-                      $scope.isSending = false;
-                      alert('Something went wrong. Please try again.');
-                    })
-                    .finally(function () {
-
-                      $scope.isModalOpened = false;
-                      $scope.isSending = false;
-                    });
-        }
-      };
-
-    });
+  });

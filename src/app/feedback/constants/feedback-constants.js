@@ -1,5 +1,5 @@
 angular
-    .module('feedback')
-    .constant('FEEDBACK_URLS', {
-      feedback: 'feedback/send',
-    });
+  .module('feedback')
+  .constant('FEEDBACK_URLS', {
+    feedback: 'feedback/send',
+  });

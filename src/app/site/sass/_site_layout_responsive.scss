@@ -1,61 +1,61 @@
 @media (max-width: $screen-desktop) {
 
-  .home {
+    .home {
 
-    h3.home__signup__description {
-      padding-right: 150px;
-      padding-left: 150px;
+        h3.home__signup__description {
+            padding-right: 150px;
+            padding-left: 150px;
+        }
     }
-  }
 }
 
 @media (max-width: $screen-tablet) {
 
-  .home {
+    .home {
 
-    h1.home__signup__title {
-      padding-top: 150px;
-      padding-left: 10px;
-      padding-right: 10px;
-      font-size: 45px;
+        h1.home__signup__title {
+            padding-top: 150px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 45px;
+        }
+
+        h3.home__signup__description {
+            padding-right: 50px;
+            padding-left: 50px;
+        }
     }
 
-    h3.home__signup__description {
-      padding-right: 50px;
-      padding-left: 50px;
+    .home__signup {
+        height: 750px;
     }
-  }
-
-  .home__signup {
-    height: 750px;
-  }
 }
 
 @media (max-width: $screen-phone) {
 
-  .centered-section-home {
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-
-  .home__signup {
-    height: 800px;
-  }
-
-  .home {
-
-    h1.home__signup__title {
-      padding: 95px 5px 0;
-      font-size: 32px;
+    .centered-section-home {
+        padding-left: 3px;
+        padding-right: 3px;
     }
 
-    h3.home__signup__description {
-      padding: 20px 15px;
-      font-size: 16px;
+    .home__signup {
+        height: 800px;
     }
-  }
 
-  .home__signup {
-    height: 570px;
-  }
+    .home {
+
+        h1.home__signup__title {
+            padding: 95px 5px 0;
+            font-size: 32px;
+        }
+
+        h3.home__signup__description {
+            padding: 20px 15px;
+            font-size: 16px;
+        }
+    }
+
+    .home__signup {
+        height: 570px;
+    }
 }
