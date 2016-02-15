@@ -27,11 +27,6 @@ angular
         url: '',
         views: {
 
-          action: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.template.html',
-            controller: 'ReminderCtrl',
-          },
-
           list: {
             templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
             controller: 'ReminderListCtrl',
@@ -39,6 +34,14 @@ angular
               pastAndUpcomingReminders: function (ReminderService) {
                 return ReminderService
                   .getAllRemindersGrouped();
+              },
+
+              reminderModalOptions: function () {
+                return {};
+              },
+
+              reminderToReview: function () {
+                return null;
               },
             },
           },
@@ -46,36 +49,10 @@ angular
         title: 'Reminders - Reme.io',
       })
 
-      // Review case
-      .state('reminders.update', {
-        url: '/{reminderId}/update',
+      // Opened modal
+      .state('reminders.new', {
+        url: '/new',
         views: {
-
-          action: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.template.html',
-            controller: 'ReminderAutoEditCtrl',
-            resolve: {
-              reminderToReview: function ($stateParams, $q, $state, ReminderService) {
-                var deferred = $q.defer();
-
-                ReminderService
-                  .getDetails($stateParams.reminderId)
-                  .then(function (response) {
-                    deferred.resolve(response);
-
-                    return response;
-                  })
-                  .catch(function (response) {
-
-                    $state.go('reminders.regular');
-                    return response;
-                  });
-
-                return deferred.promise;
-              },
-            },
-
-          },
 
           list: {
             templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
@@ -84,6 +61,16 @@ angular
               pastAndUpcomingReminders: function (ReminderService) {
                 return ReminderService
                   .getAllRemindersGrouped();
+              },
+
+              reminderModalOptions: function () {
+                return {
+                  autoOpen: true,
+                };
+              },
+
+              reminderToReview: function () {
+                return null;
               },
             },
           },
@@ -91,15 +78,10 @@ angular
         title: 'Preview reminder - Reme.io',
       })
 
-      // Opened modal
-      .state('reminders.new', {
-        url: '/new',
+      // Review case
+      .state('reminders.update', {
+        url: '/{reminderId}/update',
         views: {
-
-          action: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.template.html',
-            controller: 'ReminderAutoOpenCtrl',
-          },
 
           list: {
             templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
@@ -109,10 +91,35 @@ angular
                 return ReminderService
                   .getAllRemindersGrouped();
               },
+
+              reminderModalOptions: function () {
+                return {
+                  autoOpen: true,
+                  reminderToReview: function ($stateParams, $state, ReminderService) {
+                    return ReminderService
+                      .getDetails($stateParams.reminderId)
+                      .catch(function (response) {
+                        $state.go('reminders.regular');
+
+                        return response;
+                      });
+                  },
+                };
+              },
+
+              reminderToReview: function ($stateParams, $state, ReminderService) {
+                return ReminderService
+                  .getDetails($stateParams.reminderId)
+                  .catch(function (response) {
+                    $state.go('reminders.regular');
+
+                    return response;
+                  });
+              },
             },
           },
         },
         title: 'Preview reminder - Reme.io',
       });
-
-  }, ]);
+  },
+  ]);
