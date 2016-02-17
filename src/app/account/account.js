@@ -2,10 +2,10 @@
  * Main account module declaration including ui templates.
  */
 angular
-  .module('account', [
+  .module('reme.account', [
     'ui.router',
     'restmod',
-    'common',
+    'reme.common',
   ])
   .config(function ($stateProvider, $httpProvider) {
 

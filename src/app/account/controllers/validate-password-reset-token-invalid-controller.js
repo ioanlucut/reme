@@ -1,5 +1,5 @@
 angular
-  .module('account')
+  .module('reme.account')
   .controller('ValidatePasswordResetTokenInvalidCtrl', function ($scope, AuthService, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE) {
 
     /**

@@ -1,5 +1,5 @@
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .factory('Reminder', function ($q, $http, ReminderService, ReminderTransformerService) {
 
     /**

@@ -1,7 +1,7 @@
 /* Friendly date filter */
 
 angular
-  .module('common')
+  .module('reme.common')
   .filter('friendlyDate', function () {
     return function (date) {
 

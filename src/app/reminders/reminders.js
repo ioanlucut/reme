@@ -2,7 +2,7 @@
  * Main site module declaration including ui templates.
  */
 angular
-  .module('reminders', [
+  .module('reme.reminders', [
     'ui.router',
     'ui.bootstrap.transition',
     'ui.bootstrap.datepicker',
@@ -10,7 +10,7 @@ angular
     'ui.bootstrap.modal',
     'ui.bootstrap.tabs',
     'angular-ladda',
-    'common',
+    'reme.common',
   ])
   .config(['$stateProvider', function ($stateProvider) {
 

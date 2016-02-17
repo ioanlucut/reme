@@ -1,7 +1,7 @@
 /* Email list */
 
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .directive('reminderList', function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderMatchingGroupService, REMINDER_EVENTS) {
     return {
       restrict: 'A',

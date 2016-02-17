@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .factory('HumpsInterceptor', function (CamelCaseTransform) {
 
     return {

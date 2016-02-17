@@ -2,7 +2,7 @@
  * Account related constants.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .constant('AUTH_EVENTS', {
     isLoggedIn: 'auth-is-logged-in',
     loginSuccess: 'auth-login-success',

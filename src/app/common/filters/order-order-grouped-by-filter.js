@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .filter('groupReminders', function ($parse, filterWatcher) {
     return function (reminders, reverse) {
 

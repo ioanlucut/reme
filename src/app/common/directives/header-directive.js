@@ -2,7 +2,7 @@
  * Header directive responsible for header common template.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .directive('header', function ($rootScope) {
     return {
       restrict: 'A',

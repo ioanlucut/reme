@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .service('TimezoneProvider', function () {
 
     /**

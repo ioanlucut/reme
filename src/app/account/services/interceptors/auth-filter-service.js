@@ -2,7 +2,7 @@
  * Authentication service filter used to redirect user to the home page if it is already logged in.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .service('AuthFilter', function (AuthService, StatesHandler) {
 
     return function (event, toState) {

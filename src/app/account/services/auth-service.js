@@ -2,7 +2,7 @@
  * Authentication service which encapsulates the whole logic account related of a user.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .service('AuthService', function ($rootScope, $q, $http, $location, redirectToUrlAfterLogin, SessionService, AUTH_EVENTS, AUTH_URLS, AUTH_TOKEN_HEADER) {
 
     /**

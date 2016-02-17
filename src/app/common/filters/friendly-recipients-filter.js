@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .filter('friendlyRecipients', function ($rootScope) {
     return function (recipients) {
 

@@ -1,3 +1,3 @@
 angular
-  .module('account')
+  .module('reme.account')
   .value('redirectToUrlAfterLogin', { url: undefined });

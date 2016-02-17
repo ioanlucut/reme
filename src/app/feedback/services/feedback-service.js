@@ -1,5 +1,5 @@
 angular
-  .module('feedback')
+  .module('reme.feedback')
   .service('FeedbackService', function (FEEDBACK_URLS, $http) {
 
     this.sendFeedback = function (feedback) {

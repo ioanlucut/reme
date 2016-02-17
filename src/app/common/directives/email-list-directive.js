@@ -1,7 +1,7 @@
 /* Email list */
 
 angular
-  .module('common')
+  .module('reme.common')
   .directive('emailList', function () {
     return {
       restrict: 'A',

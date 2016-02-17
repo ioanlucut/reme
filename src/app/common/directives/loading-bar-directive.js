@@ -1,6 +1,6 @@
 /* Loading bar */
 
-angular.module('common').directive('loadingBar', function ($rootScope, ACTIVITY_INTERCEPTOR) {
+angular.module('reme.common').directive('loadingBar', function ($rootScope, ACTIVITY_INTERCEPTOR) {
   return {
     restrict: 'A',
     template: "<div class='loading-bar-progress'></div>",

@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .service('StatesHandler', function ($state, $stateParams, STATES) {
 
     this.goHome = function () {

@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .constant('ALERTS_CONSTANTS', {
     login: 'login',
     signUp: 'signUp',

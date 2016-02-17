@@ -2,7 +2,7 @@
  * Reminders constants.
  */
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .constant('REMINDER_URLS', {
     create: 'reminders',
     update: 'reminders/:reminderId',

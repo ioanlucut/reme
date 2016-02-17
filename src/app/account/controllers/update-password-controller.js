@@ -2,7 +2,7 @@
  * Update password controller.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .controller('UpdatePasswordCtrl', function ($scope, flash, AuthService, ACCOUNT_FORM_STATE, ALERTS_CONSTANTS, ProfileFormToggle) {
 
     /**

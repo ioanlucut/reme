@@ -1,7 +1,7 @@
 /* Auto focus */
 
 angular
-  .module('common')
+  .module('reme.common')
   .directive('autoFocus', function ($timeout) {
     return {
       restrict: 'A',

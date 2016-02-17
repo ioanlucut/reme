@@ -1,7 +1,7 @@
 /* Perfect scrollbar */
 
 angular
-  .module('common')
+  .module('reme.common')
   .directive('perfectScrollbar', function () {
     return {
       restrict: 'A',

@@ -2,8 +2,8 @@
  * Profile controller responsible for user update profile action.
  */
 angular
-  .module('account')
-  .controller('ProfileCtrl', function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, MIXPANEL_EVENTS) {
+  .module('reme.account')
+  .controller('ProfileCtrl', function ($q, $scope, $rootScope, StatesHandler, ProfileFormToggle, ACCOUNT_FORM_STATE, flash, ALERTS_CONSTANTS, USER_ACTIVITY_EVENTS) {
 
     /**
      * Alert identifier
@@ -13,7 +13,7 @@ angular
     /**
      * Track event.
      */
-    mixpanel.track(MIXPANEL_EVENTS.settings);
+    $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.settings);
 
     /**
      * Set default state.

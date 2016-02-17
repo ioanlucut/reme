@@ -2,7 +2,7 @@
  * Main common module declaration including ui templates.
  */
 angular
-  .module('common', [
+  .module('reme.common', [
     'a8m.filter-watcher',
     'ui.router',
     'restmod',

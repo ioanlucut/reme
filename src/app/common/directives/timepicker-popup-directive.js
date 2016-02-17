@@ -1,6 +1,6 @@
 /* Timepicker popup */
 
-angular.module('common').directive('timepickerPopup', function (DatesUtils, DATE_SOURCE) {
+angular.module('reme.common').directive('timepickerPopup', function (DatesUtils, DATE_SOURCE) {
   return {
     require: 'ngModel',
     scope: {

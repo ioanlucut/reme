@@ -2,7 +2,7 @@
  * Error service interceptor used to listen to ajax server responses.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .factory('ErrorInterceptor', function ($rootScope, $q, ERROR_INTERCEPTOR) {
 
     return {

@@ -2,7 +2,7 @@
  * Directive responsible for switching account forms between them.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .directive('accountFormToggle', function (AccountFormToggle, ACCOUNT_FORM_STATE) {
     return {
       restrict: 'A',

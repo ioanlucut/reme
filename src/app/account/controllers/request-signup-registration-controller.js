@@ -2,8 +2,8 @@
  * Request registration controller responsible for first sign up action on the home page, having only the email.
  */
 angular
-  .module('account')
-  .controller('RequestSignUpRegistrationCtrl', function ($scope, AuthService, ACCOUNT_FORM_STATE, AccountFormToggle, MIXPANEL_EVENTS) {
+  .module('reme.account')
+  .controller('RequestSignUpRegistrationCtrl', function ($scope, AuthService, ACCOUNT_FORM_STATE, AccountFormToggle, USER_ACTIVITY_EVENTS) {
 
     /**
      * Request registration up user information.
@@ -25,16 +25,13 @@ angular
         AuthService
           .requestSignUpRegistration($scope.requestSignUpRegistrationData.email)
           .then(function () {
-            /**
-             * Track event.
-             */
-            mixpanel.track(MIXPANEL_EVENTS.signUpRequested);
-
+            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.signUpRequested);
             AccountFormToggle.setState(ACCOUNT_FORM_STATE.requestSignUpRegistrationEmailSent);
-          }).finally(function () {
-          // Stop the loading bar
-          $scope.isRequestPending = false;
-        });
+          })
+          .finally(function () {
+            // Stop the loading bar
+            $scope.isRequestPending = false;
+          });
       }
     };
   });

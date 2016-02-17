@@ -1,5 +1,5 @@
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .filter('groupLimit', function () {
     return function (inputGrouped, input, limit) {
       if (limit > input.length)

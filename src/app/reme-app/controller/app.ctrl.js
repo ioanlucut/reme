@@ -3,7 +3,9 @@
  */
 angular
   .module('reme')
-  .controller('AppCtrl', function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV) {
+  .controller('AppCtrl', function ($rootScope, $scope, $state, $timeout, $log, AuthService, User, StatesHandler, AUTH_EVENTS, ACTIVITY_INTERCEPTOR, ERROR_INTERCEPTOR, ENV, IntercomUtilsService) {
+
+    var TRACK_EVENT = 'trackEvent';
 
     /**
      * Save the state on root scope
@@ -19,7 +21,17 @@ angular
      * On app load, retrieve user profile previously saved (if exists).
      */
     $rootScope.currentUser = User.$new().loadFromSession();
-    $log.log('Current user: ', $rootScope.currentUser);
+
+    // ---
+    // Bootstrap intercom.
+    // ---
+    if (AuthService.isAuthenticated()) {
+      IntercomUtilsService.bootIntercom($rootScope.currentUser);
+    }
+
+    if (!ENV.isProduction) {
+      $log.log('Current user: ', $rootScope.currentUser.model);
+    }
 
     /**
      * Listen to login success event. If user is properly logged in,
@@ -28,7 +40,15 @@ angular
     $scope.$on(AUTH_EVENTS.loginSuccess, function () {
       $rootScope.currentUser = User.$new().loadFromSession();
       AuthService.redirectToAttemptedUrl();
-      $log.log('Logged in: ', $rootScope.currentUser);
+
+      // ---
+      // Bootstrap intercom.
+      // ---
+      IntercomUtilsService.bootIntercom($rootScope.currentUser);
+
+      if (!ENV.isProduction) {
+        $log.log('Logged in: ', $rootScope.currentUser.model);
+      }
     });
 
     /**
@@ -59,6 +79,18 @@ angular
     });
 
     /**
+     * Track events.
+     */
+    $rootScope.$on(TRACK_EVENT, function (event, args) {
+      if (!ENV.isProduction) {
+        //return;
+      }
+
+      mixpanel.track(args);
+      IntercomUtilsService.trackEvent(args);
+    });
+
+    /**
      * Track activity - for animation loading bar
      */
     $rootScope.$on('$stateChangeStart', function () {
@@ -75,4 +107,5 @@ angular
     $scope.$on(ERROR_INTERCEPTOR.status500, function () {
       $state.go('500');
     });
+
   });

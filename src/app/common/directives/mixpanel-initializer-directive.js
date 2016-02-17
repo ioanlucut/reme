@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .directive('mixpanelInitializer', function ($window, ENV) {
     return {
       restrict: 'A',
