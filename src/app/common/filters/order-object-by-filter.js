@@ -1,6 +1,6 @@
 // See https://github.com/fmquaglia/ngOrderObjectB
 angular
-  .module('common')
+  .module('reme.common')
   .filter('orderObjectBy', function () {
     return function (items, field, reverse) {
       var filtered = [];

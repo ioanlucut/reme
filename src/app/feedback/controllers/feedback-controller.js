@@ -1,5 +1,5 @@
 angular
-  .module('feedback')
+  .module('reme.feedback')
   .controller('FeedbackModalCtrl', function ($scope, FeedbackModalService, Feedback, $timeout) {
 
     /**

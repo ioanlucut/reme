@@ -2,14 +2,14 @@
  * Abstract error page controller.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .controller('AbstractErrorPageCtrl', function ($scope, StatesHandler) {
 
     /**
      * Track event.
      */
     $scope.trackErrorEvent = function (event) {
-      mixpanel.track(event);
+      $scope.$emit('trackEvent', event);
     };
 
     /**

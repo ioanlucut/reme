@@ -2,7 +2,7 @@
  * Reminder transformer service which transforms a reminder DTO model object to a reminder business object.
  */
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .service('ReminderTransformerService', function ($injector, TransformerUtils) {
 
     /**

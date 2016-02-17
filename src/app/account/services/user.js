@@ -1,5 +1,5 @@
 angular
-  .module('account')
+  .module('reme.account')
   .factory('User', function (SessionService, TransformerUtils, $q, $http, AUTH_URLS) {
     return {
 

@@ -1,6 +1,6 @@
 angular
-  .module('account')
-  .controller('SignUpConfirmCtrl', function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, MIXPANEL_EVENTS) {
+  .module('reme.account')
+  .controller('SignUpConfirmCtrl', function ($scope, $timeout, flash, ALERTS_CONSTANTS, StatesHandler, User, AuthService, validateRegistrationResult, TimezoneProvider, USER_ACTIVITY_EVENTS) {
 
     /**
      * Alert identifier
@@ -49,10 +49,7 @@ angular
         User.$new()
           .$create(signUpData, token)
           .then(function () {
-            /**
-             * Track event.
-             */
-            mixpanel.track(MIXPANEL_EVENTS.signUpCompleted);
+            $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.signUpCompleted);
 
             // Log in the user
             AuthService

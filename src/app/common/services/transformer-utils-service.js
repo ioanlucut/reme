@@ -2,7 +2,7 @@
  * Transformer utils service.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .service('TransformerUtils', function () {
 
     /**

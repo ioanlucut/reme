@@ -1,7 +1,7 @@
 /* Feedback modal */
 
 angular
-  .module('feedback')
+  .module('reme.feedback')
   .service('FeedbackModalService', function ($modal) {
 
     /**

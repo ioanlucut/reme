@@ -2,7 +2,7 @@
  * Reminders service which encapsulates the whole logic related to reminders.
  */
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .service('ReminderService', function (REMINDER_URLS, $q, $http, $injector, ReminderGroupService, ReminderTransformerService) {
 
     /**
@@ -76,7 +76,8 @@ angular
         .then(function (response) {
 
           return ReminderTransformerService.toReminders(response.data);
-        }).catch(function (response) {
+        })
+        .catch(function (response) {
           return $q.reject(response);
         });
     };
@@ -92,9 +93,10 @@ angular
         .getAllReminders()
         .then(function (response) {
           deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders(response));
-        }).catch(function () {
-        deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders([]));
-      });
+        })
+        .catch(function () {
+          deferred.resolve(ReminderGroupService.getPastAndUpcomingReminders([]));
+        });
 
       return deferred.promise;
     };

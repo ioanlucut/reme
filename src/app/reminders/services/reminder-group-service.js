@@ -2,7 +2,7 @@
  * Reminder group service which computes the upcoming and past reminders from a list.
  */
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .service('ReminderGroupService', function () {
 
     /**

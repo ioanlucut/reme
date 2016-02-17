@@ -2,7 +2,7 @@
  * Common states.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .constant('ACTIVITY_INTERCEPTOR', {
     activityStart: 'activity-interceptor-start',
     activityEnd: 'activity-interceptor-end',

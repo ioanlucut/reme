@@ -1,5 +1,5 @@
 angular
-  .module('account')
+  .module('reme.account')
   .service('UserService', function ($http, $q, USER_URLS) {
 
     /**

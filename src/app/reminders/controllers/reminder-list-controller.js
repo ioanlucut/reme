@@ -2,8 +2,8 @@
  * Reminders controller.
  */
 angular
-  .module('reminders')
-  .controller('ReminderListCtrl', function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, MIXPANEL_EVENTS, ALERTS_CONSTANTS, reminderModalOptions, reminderToReview) {
+  .module('reme.reminders')
+  .controller('ReminderListCtrl', function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, reminderModalOptions, reminderToReview) {
 
     /**
      * Alert identifier
@@ -13,7 +13,7 @@ angular
     /**
      * Track event.
      */
-    mixpanel.track(MIXPANEL_EVENTS.remindersPage);
+    $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.remindersPage);
 
     /**
      * The current user

@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .provider('JWTInterceptor', function () {
 
     this.authHeader = 'Authorization';

@@ -1,6 +1,6 @@
 angular
-  .module('reminders')
-  .controller('ReminderModalCtrl', function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, MIXPANEL_EVENTS, ALERTS_CONSTANTS, DATE_SOURCE) {
+  .module('reme.reminders')
+  .controller('ReminderModalCtrl', function ($scope, $rootScope, $stateParams, $window, ReminderModalService, ReminderUpdateModalService, reminder, reminderIndex, $timeout, StatesHandler, REMINDER_EVENTS, flash, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, DATE_SOURCE) {
 
     /**
      * Alert identifier
@@ -116,13 +116,11 @@ angular
         // Ok, update master reminder.
         angular.copy($scope.reminder, $scope.masterReminder);
 
-        $scope.masterReminder.save()
+        $scope
+          .masterReminder
+          .save()
           .then(function () {
-
-            /**
-             * Track event.
-             */
-            mixpanel.track($scope.isNew ? MIXPANEL_EVENTS.reminderCreated : MIXPANEL_EVENTS.reminderUpdated);
+            $scope.$emit('trackEvent', $scope.isNew ? USER_ACTIVITY_EVENTS.reminderCreated : USER_ACTIVITY_EVENTS.reminderUpdated);
 
             if ($scope.isNew) {
               $timeout(function () {

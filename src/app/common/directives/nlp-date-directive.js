@@ -1,7 +1,7 @@
 /* Natural Language Date Input */
 
 angular
-  .module('common')
+  .module('reme.common')
   .directive('nlpDate', function ($rootScope, DATE_SOURCE) {
     return {
       require: 'ngModel',

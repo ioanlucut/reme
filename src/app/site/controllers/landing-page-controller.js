@@ -2,13 +2,13 @@
  * Landing page controller.
  */
 angular
-  .module('common')
-  .controller('LandingPageCtrl', function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, MIXPANEL_EVENTS) {
+  .module('reme.common')
+  .controller('LandingPageCtrl', function ($state, $scope, AccountFormToggle, ACCOUNT_FORM_STATE, USER_ACTIVITY_EVENTS) {
 
     /**
      * Track event.
      */
-    mixpanel.track(MIXPANEL_EVENTS.landingPageLoaded);
+    $scope.$emit('trackEvent', USER_ACTIVITY_EVENTS.landingPageLoaded);
 
     /**
      * Set default state.

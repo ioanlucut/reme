@@ -1,5 +1,5 @@
 angular
-  .module('account')
+  .module('reme.account')
   .controller('SignUpConfirmInvalidCtrl', function ($scope, AuthService, StatesHandler) {
 
     /**

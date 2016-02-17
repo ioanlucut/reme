@@ -2,7 +2,7 @@
  * Directive responsible for checking of an email is valid.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .directive('validEmail', function () {
     return {
       require: 'ngModel',

@@ -2,7 +2,7 @@
  * Session service which encapsulates the whole logic account related to the Local storage which contains currently logged in user.
  */
 angular
-  .module('common')
+  .module('reme.common')
   .service('SessionService', function ($localStorage, CamelCaseTransform) {
 
     /**

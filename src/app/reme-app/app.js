@@ -4,18 +4,19 @@
 angular
   .module('reme', [
     'config',
-    'ngAnimate',
-    'ngMessages',
     'ui.router',
+    'ngStorage',
     'angular-flash.service',
     'angular-flash.flash-alert-directive',
-    'ngStorage',
-    'site',
-    'feedback',
-    'common',
-    'reminders',
-    'account',
+    'ngAnimate',
+    'ngMessages',
     'angular.filter',
+    'reme.intercom',
+    'reme.site',
+    'reme.feedback',
+    'reme.common',
+    'reme.reminders',
+    'reme.account',
   ])
   .config(function ($locationProvider) {
 

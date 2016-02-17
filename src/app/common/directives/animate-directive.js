@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .directive('animate', function () {
     return {
       restrict: 'A',

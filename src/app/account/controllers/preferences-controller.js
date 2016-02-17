@@ -2,7 +2,7 @@
  * Preferences controller responsible for user update preferences action.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .controller('PreferencesCtrl', function ($q, $scope, $rootScope, TimezoneProvider, flash, ALERTS_CONSTANTS) {
 
     /**

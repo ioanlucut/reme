@@ -1,5 +1,5 @@
 angular
-  .module('feedback')
+  .module('reme.feedback')
   .factory('Feedback', function (FeedbackService) {
 
     /**

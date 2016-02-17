@@ -1,5 +1,5 @@
 angular
-  .module('common')
+  .module('reme.common')
   .service('JWTTokenRefresher', function ($injector, JWTHelper, SessionService) {
 
     this.refreshTokenIfExpired = function () {

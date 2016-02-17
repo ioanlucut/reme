@@ -1,7 +1,7 @@
 /* Scroll to an element on the page */
 
 angular
-  .module('common')
+  .module('reme.common')
   .directive('scrollTo', function ($window) {
     return {
       restrict: 'A',

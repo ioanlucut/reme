@@ -1,7 +1,7 @@
 /* Email list */
 
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .directive('bnLogDomCreation', function () {
 
     // I bind the UI to the $scope.

@@ -1,7 +1,7 @@
 /* Feedback modal */
 
 angular
-  .module('reminders')
+  .module('reme.reminders')
   .service('ReminderDeleteModalService', function ($modal) {
 
     // Init modal instance

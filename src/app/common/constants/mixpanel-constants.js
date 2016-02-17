@@ -2,8 +2,8 @@
  * Common mixpanel events.
  */
 angular
-  .module('common')
-  .constant('MIXPANEL_EVENTS', {
+  .module('reme.common')
+  .constant('USER_ACTIVITY_EVENTS', {
     landingPageLoaded: 'Landing page loaded',
     signUpRequested: 'Signup requested',
     signUpCompleted: 'Signup completed',

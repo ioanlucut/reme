@@ -2,8 +2,8 @@
  * 404 page controller.
  */
 angular
-  .module('common')
-  .controller('Error404PageCtrl', function ($scope, $controller, MIXPANEL_EVENTS) {
+  .module('reme.common')
+  .controller('Error404PageCtrl', function ($scope, $controller, USER_ACTIVITY_EVENTS) {
 
     /**
      * Inherit from this controller
@@ -13,5 +13,5 @@ angular
     /**
      * Track error event
      */
-    $scope.trackErrorEvent(MIXPANEL_EVENTS.error404);
+    $scope.trackErrorEvent(USER_ACTIVITY_EVENTS.error404);
   });

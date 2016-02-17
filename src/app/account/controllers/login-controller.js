@@ -2,7 +2,7 @@
  * Login controller responsible for user login actions.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .controller('LoginCtrl', function ($scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle, StatesHandler, $timeout) {
 
     /**

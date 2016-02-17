@@ -2,7 +2,7 @@
  * Forgot password controller responsible for user forgot password action.
  */
 angular
-  .module('account')
+  .module('reme.account')
   .controller('ForgotPasswordCtrl', function ($state, $scope, flash, ALERTS_CONSTANTS, AuthService, AUTH_EVENTS, ACCOUNT_FORM_STATE, AccountFormToggle) {
 
     /**
