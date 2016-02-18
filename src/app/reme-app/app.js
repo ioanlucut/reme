@@ -13,7 +13,6 @@ angular
     'angular.filter',
     'reme.intercom',
     'reme.site',
-    'reme.feedback',
     'reme.common',
     'reme.reminders',
     'reme.account',
