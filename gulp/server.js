@@ -38,7 +38,7 @@ module.exports = function (options) {
       middleware: [
         modRewrite([
           '!\\.\\w+$ /index.html [L]',
-          '/reminders/template/(.+)$ /template/$1 [L,NC]',
+          '^.*/template/(.*)$ /template/$1 [L,NC]',
         ]),
       ],
     });
