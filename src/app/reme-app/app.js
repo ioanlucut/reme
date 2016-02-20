@@ -11,11 +11,11 @@ angular
     'ngAnimate',
     'ngMessages',
     'angular.filter',
-    'reme.intercom',
-    'reme.site',
-    'reme.common',
-    'reme.reminders',
-    'reme.account',
+    'remeIntercom',
+    'remeSite',
+    'remeCommon',
+    'remeReminders',
+    'remeAccount',
   ])
   .config(function ($locationProvider) {
 

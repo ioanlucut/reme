@@ -2,10 +2,10 @@
  * Main account module declaration including ui templates.
  */
 angular
-  .module('reme.account', [
+  .module('remeAccount', [
     'ui.router',
     'restmod',
-    'reme.common',
+    'remeCommon',
   ])
   .config(function ($stateProvider, $httpProvider) {
 
@@ -31,11 +31,11 @@ angular
           '': { templateUrl: '/app/account/partials/settings/settings.html' },
 
           'profile@settings': {
-            templateUrl: '/app/account/partials/settings/settings.profile.html',
+            templateUrl: '/app/account/partials/settings/settingsProfile.html',
           },
 
           'preferences@settings': {
-            templateUrl: '/app/account/partials/settings/settings.preferences.html',
+            templateUrl: '/app/account/partials/settings/settingsPreferences.html',
           },
         },
         title: 'Settings - Reme.io',
@@ -65,7 +65,7 @@ angular
       .state({
         name: 'account:validatePasswordResetToken',
         url: '/account/reset-password',
-        templateUrl: '/app/account/partials/validate_password_reset_token_abstract.html',
+        templateUrl: '/app/account/partials/validatePasswordResetTokenAbstract.html',
         abstract: true,
       })
 
@@ -73,7 +73,7 @@ angular
       .state({
         name: 'account:validatePasswordResetToken.valid',
         url: '/{email}/{token}',
-        templateUrl: '/app/account/partials/validate_password_reset_token_valid.html',
+        templateUrl: '/app/account/partials/validatePasswordResetTokenValid.html',
         controller: 'ValidatePasswordResetTokenCtrl',
         resolve: {
           validateTokenResult: function ($stateParams, $q, AuthService, $state) {
@@ -100,7 +100,7 @@ angular
       .state({
         name: 'account:validatePasswordResetToken.invalid',
         url: '/invalid-token',
-        templateUrl: '/app/account/partials/validate_password_reset_token_invalid.html',
+        templateUrl: '/app/account/partials/validatePasswordResetTokenInvalid.html',
         controller: 'ValidatePasswordResetTokenInvalidCtrl',
         title: 'Reset password - Reme.io',
       })
@@ -114,7 +114,7 @@ angular
       .state({
         name: 'account:confirmRegistration',
         url: '/account/confirm-registration',
-        templateUrl: '/app/account/partials/signup_confirm_abstract.html',
+        templateUrl: '/app/account/partials/signupConfirmAbstract.html',
         abstract: true,
       })
 
@@ -122,7 +122,7 @@ angular
       .state({
         name: 'account:confirmRegistration.valid',
         url: '/{email}/{token}',
-        templateUrl: '/app/account/partials/signup_confirm_valid.html',
+        templateUrl: '/app/account/partials/signupConfirmValid.html',
         controller: 'SignUpConfirmCtrl',
         resolve: {
           validateRegistrationResult: function ($stateParams, $q, AuthService, $state) {
@@ -151,7 +151,7 @@ angular
       .state({
         name: 'account:confirmRegistration.invalid',
         url: '/registration-failed',
-        templateUrl: '/app/account/partials/signup_confirm_invalid.html',
+        templateUrl: '/app/account/partials/signupConfirmInvalid.html',
         controller: 'SignUpConfirmInvalidCtrl',
         title: 'Register - Reme.io',
       });
