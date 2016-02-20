@@ -2,8 +2,8 @@
  * Main site module declaration including ui templates.
  */
 angular
-  .module('reme.site', [
-    'reme.common',
+  .module('remeSite', [
+    'remeCommon',
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 

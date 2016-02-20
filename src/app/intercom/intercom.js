@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('reme.intercom', [
+    .module('remeIntercom', [
       'ngIntercom',
       'config',
     ])

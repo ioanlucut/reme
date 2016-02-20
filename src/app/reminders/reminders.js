@@ -2,7 +2,7 @@
  * Main site module declaration including ui templates.
  */
 angular
-  .module('reme.reminders', [
+  .module('remeReminders', [
     'ui.router',
     'ui.bootstrap.transition',
     'ui.bootstrap.datepicker',
@@ -10,7 +10,7 @@ angular
     'ui.bootstrap.modal',
     'ui.bootstrap.tabs',
     'angular-ladda',
-    'reme.common',
+    'remeCommon',
   ])
   .config(['$stateProvider', function ($stateProvider) {
 
@@ -18,7 +18,7 @@ angular
 
       .state('reminders', {
         url: '/reminders',
-        templateUrl: '/app/reminders/partials/reminder/reminders.template.html',
+        templateUrl: '/app/reminders/partials/reminder/remindersTemplate.html',
         abstract: true,
       })
 
@@ -28,7 +28,7 @@ angular
         views: {
 
           list: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
             controller: 'ReminderListCtrl',
             resolve: {
               pastAndUpcomingReminders: function (ReminderService) {
@@ -55,7 +55,7 @@ angular
         views: {
 
           list: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
             controller: 'ReminderListCtrl',
             resolve: {
               pastAndUpcomingReminders: function (ReminderService) {
@@ -84,7 +84,7 @@ angular
         views: {
 
           list: {
-            templateUrl: '/app/reminders/partials/reminder/reminders.list.html',
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
             controller: 'ReminderListCtrl',
             resolve: {
               pastAndUpcomingReminders: function (ReminderService) {
