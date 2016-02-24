@@ -1,0 +1,28 @@
+machine:
+  node:
+    version: 5.0.0
+test:
+  override:
+    - npm test
+deployment:
+  development:
+    branch: develop
+    commands:
+    - ruby -v
+    - gem install sass
+    - npm run-script build:dev
+    - npm run-script deploy:dev
+  master:
+    branch: master
+    commands:
+    - ruby -v
+    - gem install sass
+    - npm run-script build:dev
+    - npm run-script deploy:dev
+  production:
+    branch: production
+    commands:
+    - ruby -v
+    - gem install sass
+    - npm run-script build:prod
+    - npm run-script deploy:prod

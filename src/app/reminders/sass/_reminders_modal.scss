@@ -8,34 +8,34 @@
 // .modal-content   - actual modal w/ bg and corners and shit
 // Container that the modal scrolls within
 .modal {
-  // When fading in the modal, animate it to slide down
-  &.reminder-modal--animate .modal-dialog {
-    @include fadeInDown(0.3s);
-  }
+    // When fading in the modal, animate it to slide down
+    &.reminder-modal--animate .modal-dialog {
+        @include fadeInDown(0.3s);
+    }
 }
 
 .modal {
-  background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .modal-dialog {
-  margin-top: 100px;
+    margin-top: 100px;
 }
 
 .modal-content {
-  padding-top: 35px;
-  border-width: 0;
-  border-radius: 3px;
-  @include box-shadow(none);
+    padding-top: 35px;
+    border-width: 0;
+    border-radius: 3px;
+    @include box-shadow(none);
 }
 
 // Modal background
 .modal-backdrop {
-  // Fade for backdrop
-  &.fade {
-    @include opacity(0.5);
-  }
-  &.in {
-    @include opacity(.5);
-  }
+    // Fade for backdrop
+    &.fade {
+        @include opacity(0.5);
+    }
+    &.in {
+        @include opacity(.5);
+    }
 }

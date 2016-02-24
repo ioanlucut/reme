@@ -1,0 +1,14 @@
+{
+    "ENV": {
+        "AWS": {
+            "params": {
+                "Bucket": "reme-web-prod"
+            },
+            "accessKeyId": "AKIAIP3FRV6PXWFBWNVQ",
+            "secretAccessKey": "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",
+            "distributionId": "E3NBYNO2SMKZUH",
+            "region": "us-east-1"
+        },
+        "CDN_DOMAIN": "dphj8bv0k2erp.cloudfront.net"
+    }
+}

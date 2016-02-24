@@ -2,117 +2,124 @@
  * Main site module declaration including ui templates.
  */
 angular
-    .module("reminders", [
-        "ui.router",
-        "ui.bootstrap.transition",
-        "ui.bootstrap.datepicker",
-        "ui.bootstrap.dropdown",
-        "ui.bootstrap.modal",
-        "ui.bootstrap.tabs",
-        "angular-ladda",
-        "common"
-    ])
-    .config(["$stateProvider", function ($stateProvider) {
+  .module('remeReminders', [
+    'ui.router',
+    'ui.bootstrap.transition',
+    'ui.bootstrap.datepicker',
+    'ui.bootstrap.dropdown',
+    'ui.bootstrap.modal',
+    'ui.bootstrap.tabs',
+    'angular-ladda',
+    'remeCommon',
+  ])
+  .config(['$stateProvider', function ($stateProvider) {
 
-        $stateProvider
+    $stateProvider
 
-            .state("reminders", {
-                url: "/reminders",
-                templateUrl: 'app/reminders/partials/reminder/reminders.template.html',
-                abstract: true
-            })
+      .state('reminders', {
+        url: '/reminders',
+        templateUrl: '/app/reminders/partials/reminder/remindersTemplate.html',
+        abstract: true,
+      })
 
-            // Regular case
-            .state("reminders.regular", {
-                url: "",
-                views: {
+      // Regular case
+      .state('reminders.regular', {
+        url: '',
+        views: {
 
-                    'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
-                        controller: "ReminderCtrl"
-                    },
+          list: {
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
+            controller: 'ReminderListCtrl',
+            resolve: {
+              pastAndUpcomingReminders: function (ReminderService) {
+                return ReminderService
+                  .getAllRemindersGrouped();
+              },
 
-                    'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
-                        controller: "ReminderListCtrl",
-                        resolve: {
-                            pastAndUpcomingReminders: function (ReminderService) {
-                                return ReminderService
-                                    .getAllRemindersGrouped();
-                            }
-                        }
-                    }
-                },
-                title: "Reminders - Reme.io"
-            })
+              reminderModalOptions: function () {
+                return {};
+              },
 
-            // Review case
-            .state("reminders.update", {
-                url: "/{reminderId}/update",
-                views: {
+              reminderToReview: function () {
+                return null;
+              },
+            },
+          },
+        },
+        title: 'Reminders - Reme.io',
+      })
 
-                    'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
-                        controller: "ReminderAutoEditCtrl",
-                        resolve: {
-                            reminderToReview: function ($stateParams, $q, $state, ReminderService) {
-                                var deferred = $q.defer();
+      // Opened modal
+      .state('reminders.new', {
+        url: '/new',
+        views: {
 
-                                ReminderService
-                                    .getDetails($stateParams.reminderId)
-                                    .then(function (response) {
-                                        deferred.resolve(response);
+          list: {
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
+            controller: 'ReminderListCtrl',
+            resolve: {
+              pastAndUpcomingReminders: function (ReminderService) {
+                return ReminderService
+                  .getAllRemindersGrouped();
+              },
 
-                                        return response;
-                                    })
-                                    .catch(function (response) {
+              reminderModalOptions: function () {
+                return {
+                  autoOpen: true,
+                };
+              },
 
-                                        $state.go("reminders.regular");
-                                        return response;
-                                    });
+              reminderToReview: function () {
+                return null;
+              },
+            },
+          },
+        },
+        title: 'Preview reminder - Reme.io',
+      })
 
-                                return deferred.promise;
-                            }
-                        }
+      // Review case
+      .state('reminders.update', {
+        url: '/{reminderId}/update',
+        views: {
 
-                    },
+          list: {
+            templateUrl: '/app/reminders/partials/reminder/remindersList.html',
+            controller: 'ReminderListCtrl',
+            resolve: {
+              pastAndUpcomingReminders: function (ReminderService) {
+                return ReminderService
+                  .getAllRemindersGrouped();
+              },
 
-                    'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
-                        controller: "ReminderListCtrl",
-                        resolve: {
-                            pastAndUpcomingReminders: function (ReminderService) {
-                                return ReminderService
-                                    .getAllRemindersGrouped();
-                            }
-                        }
-                    }
-                },
-                title: "Preview reminder - Reme.io"
-            })
+              reminderModalOptions: function () {
+                return {
+                  autoOpen: true,
+                  reminderToReview: function ($stateParams, $state, ReminderService) {
+                    return ReminderService
+                      .getDetails($stateParams.reminderId)
+                      .catch(function (response) {
+                        $state.go('reminders.regular');
 
-            // Opened modal
-            .state("reminders.new", {
-                url: "/new",
-                views: {
+                        return response;
+                      });
+                  },
+                };
+              },
 
-                    'action': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.action.html",
-                        controller: "ReminderAutoOpenCtrl"
-                    },
+              reminderToReview: function ($stateParams, $state, ReminderService) {
+                return ReminderService
+                  .getDetails($stateParams.reminderId)
+                  .catch(function (response) {
+                    $state.go('reminders.regular');
 
-                    'list': {
-                        templateUrl: "app/reminders/partials/reminder/reminders.list.html",
-                        controller: "ReminderListCtrl",
-                        resolve: {
-                            pastAndUpcomingReminders: function (ReminderService) {
-                                return ReminderService
-                                    .getAllRemindersGrouped();
-                            }
-                        }
-                    }
-                },
-                title: "Preview reminder - Reme.io"
-            })
-
-    }]);
+                    return response;
+                  });
+              },
+            },
+          },
+        },
+        title: 'Preview reminder - Reme.io',
+      });
+  },
+  ]);
