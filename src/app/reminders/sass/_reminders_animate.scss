@@ -2,5 +2,5 @@
 // ----------------------------
 
 .highlight-button {
-  @include fadeIn($duration: 2s);
+    @include fadeIn($duration: 2s);
 }

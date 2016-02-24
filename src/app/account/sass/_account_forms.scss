@@ -1,156 +1,156 @@
 /* Account */
 
 .brand-logo-block {
-  width: 100%;
-  padding-top: 50px;
+    width: 100%;
+    padding-top: 50px;
 
-  a {
-    display: block;
-    margin: 0 auto;
-    width: 50px;
-    height: 50px;
-    background: url("../assets/img/logo.svg") no-repeat top center;
-    background-size: contain;
+    a {
+        display: block;
+        margin: 0 auto;
+        width: 50px;
+        height: 50px;
+        background: url("../assets/img/logo.svg") no-repeat top center;
+        background-size: contain;
 
-    &:hover {
-      opacity: 0.9;
+        &:hover {
+            opacity: 0.9;
+        }
     }
-  }
 }
 
 .account__sections {
-  position: relative;
-  width: auto;
-  max-width: 400px;
-  margin: 60px auto 0;
-  text-align: center;
-  padding: 50px;
-  background: white;
-  border-radius: 3px;
+    position: relative;
+    width: auto;
+    max-width: 400px;
+    margin: 60px auto 0;
+    text-align: center;
+    padding: 50px;
+    background: white;
+    border-radius: 3px;
 }
 
 .account__sections--request-registration {
-  max-width: 500px;
-  margin: 10px auto 0;
+    max-width: 500px;
+    margin: 10px auto 0;
 }
 
 .account__section__terms {
-  margin-left: -50px;
-  margin-right: -50px;
-  margin-top: 20px;
-  font-size: 12px;
+    margin-left: -50px;
+    margin-right: -50px;
+    margin-top: 20px;
+    font-size: 12px;
 }
 
 .account__section__terms__link {
-  display: inline-block;
+    display: inline-block;
 }
 
 .link--lg {
-  display: block;
-  margin-top: 40px;
+    display: block;
+    margin-top: 40px;
 }
 
 .link--lg-middle {
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .account__title {
-  margin-bottom: 25px;
-  line-height: 1.1;
-  text-align: center;
-  font-size: $font-size-h1;
-  font-weight: $font-weight-regular;
+    margin-bottom: 25px;
+    line-height: 1.1;
+    text-align: center;
+    font-size: $font-size-h1;
+    font-weight: $font-weight-regular;
 }
 
 .account__explain {
-  display: block;
-  margin-bottom: 25px;
-  line-height: 20px;
-  font-weight: $font-weight-light;
-  font-size: 15px;
-  color: $gray7;
+    display: block;
+    margin-bottom: 25px;
+    line-height: 20px;
+    font-weight: $font-weight-light;
+    font-size: 15px;
+    color: $gray7;
 }
 
 .account__controls {
-  position: relative;
-  padding-top: 40px;
+    position: relative;
+    padding-top: 40px;
 }
 
 @include input-size('.form-control--account', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--account {
-  font-weight: $font-weight-light;
+    font-weight: $font-weight-light;
 }
 
 .account__controls__form-groups--last {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .account__controls__form-groups--small-offset {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .account__controls__form-groups--medium-offset {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .form-group--small-offset {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .account__button {
-  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-  @extend .btn-block;
-  border-radius: $border-radius-small;
-  font-size: $font-size-medium;
-  height: $form-height;
-  width: 100%;
-  text-transform: uppercase;
+    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+    @extend .btn-block;
+    border-radius: $border-radius-small;
+    font-size: $font-size-medium;
+    height: $form-height;
+    width: 100%;
+    text-transform: uppercase;
 }
 
 .link-primary {
-  color: $gray-darker;
+    color: $gray-darker;
 }
 
 .link-secondary {
-  color: $gray9;
+    color: $gray9;
 }
 
 .centered-section-account {
-  min-height: 100%;
-  max-width: $container-reminders-width;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  padding-bottom: $footer-home-height;
+    min-height: 100%;
+    max-width: $container-reminders-width;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    padding-bottom: $footer-home-height;
 }
 
 .account__controls__form__info {
-  margin-bottom: 35px;
-  @include clearfix();
-  padding-left: 5px;
-  padding-right: 5px;
+    margin-bottom: 35px;
+    @include clearfix();
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .account__controls__form__info__left {
-  float: left;
-  color: $black;
+    float: left;
+    color: $black;
 }
 
 .account__controls__form__info__right {
-  float: right;
-  font-size: 16px;
-  font-weight: bold;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .form-group--timezone {
 
-  .chosen-container {
-    height: 34px;
-    padding: 0;
-    border: 0;
-  }
+    .chosen-container {
+        height: 34px;
+        padding: 0;
+        border: 0;
+    }
 }
 
