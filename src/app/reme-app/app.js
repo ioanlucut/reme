@@ -2,30 +2,31 @@
  * Main app module declaration.
  */
 angular
-    .module('reme', [
-        'config',
-        'ngAnimate',
-        'ngMessages',
-        'ui.router',
-        'angular-flash.service',
-        'angular-flash.flash-alert-directive',
-        'ngStorage',
-        'site',
-        'feedback',
-        'common',
-        'reminders',
-        'account',
-        'angular.filter',
-    ])
-    .config(function ($locationProvider) {
+  .module('reme', [
+    'config',
+    'ui.router',
+    'ngStorage',
+    'angular-flash.service',
+    'angular-flash.flash-alert-directive',
+    'ngAnimate',
+    'ngMessages',
+    'angular.filter',
+    'remeIntercom',
+    'remeSite',
+    'remeCommon',
+    'remeReminders',
+    'remeAccount',
+  ])
+  .config(function ($locationProvider) {
 
-      // Enable html5 mode
-      $locationProvider.html5Mode({
+    $locationProvider
+      .html5Mode({
         enabled: true,
         requireBase: false,
-      });
-    })
-    .run(function (ENV) {
+      })
+      .hashPrefix('!');
+  })
+  .run(function (ENV) {
 
-      URLTo.apiBase(ENV.apiEndpoint);
-    });
+    URLTo.apiBase(ENV.apiEndpoint);
+  });

@@ -4,7 +4,6 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
-build
 npm-debug.log
 .DS_Store
 reme-app-config.js

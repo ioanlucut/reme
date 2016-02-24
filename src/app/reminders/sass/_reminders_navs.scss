@@ -1,101 +1,101 @@
 /*Horizontal tabs*/
 .nav-tabs--horizontal {
-  margin-bottom: 30px;
-  > li {
-    display: inline-block;
-    > a {
-      margin-right: 40px;
-      line-height: $line-height-base;
-      border: 0;
+    margin-bottom: 30px;
+    > li {
+        display: inline-block;
+        > a {
+            margin-right: 40px;
+            line-height: $line-height-base;
+            border: 0;
 
-      &:hover,
-      &:focus {
-        background-color: transparent;
-        color: $black;
-      }
-    }
+            &:hover,
+            &:focus {
+                background-color: transparent;
+                color: $black;
+            }
+        }
 
-    // Active state, and it's :hover to override normal :hover
-    &.active > a {
-      &,
-      &:hover,
-      &:focus {
-        color: $nav-tabs-active-link-hover-color;
-        background-color: transparent;
-        border: 0;
-        cursor: default;
-      }
+        // Active state, and it's :hover to override normal :hover
+        &.active > a {
+            &,
+            &:hover,
+            &:focus {
+                color: $nav-tabs-active-link-hover-color;
+                background-color: transparent;
+                border: 0;
+                cursor: default;
+            }
+        }
     }
-  }
 }
 
 /*Vertical tabs*/
 .nav-tabs--vertical {
-  position: absolute;
-  margin-bottom: 0;
-  border-bottom: 0;
-  > li {
-    display: block;
-    margin-bottom: 10px;
-    // Actual tabs (as links)
-    > a {
-      line-height: $line-height-base;
-      border: 0;
+    position: absolute;
+    margin-bottom: 0;
+    border-bottom: 0;
+    > li {
+        display: block;
+        margin-bottom: 10px;
+        // Actual tabs (as links)
+        > a {
+            line-height: $line-height-base;
+            border: 0;
 
-      &:hover,
-      &:focus {
-        background-color: transparent;
-        color: $black;
-      }
-    }
+            &:hover,
+            &:focus {
+                background-color: transparent;
+                color: $black;
+            }
+        }
 
-    // Active state, and it's :hover to override normal :hover
-    &.active > a {
-      &,
-      &:hover,
-      &:focus {
-        color: $nav-tabs-active-link-hover-color;
-        background-color: transparent;
-        border: 0;
-        cursor: default;
-      }
+        // Active state, and it's :hover to override normal :hover
+        &.active > a {
+            &,
+            &:hover,
+            &:focus {
+                color: $nav-tabs-active-link-hover-color;
+                background-color: transparent;
+                border: 0;
+                cursor: default;
+            }
+        }
     }
-  }
 }
 
 /*Underlined styles*/
 .nav-tabs--underlined {
-  li {
-    color: $brand-primary;
-    border-radius: 0;
-    min-height: 42px;
-    position: relative;
-    text-decoration: none;
-    overflow: hidden;
-    -webkit-transition: .4s color cubic-bezier(.19, 1, .22, 1);
-    -moz-transition: .4s color cubic-bezier(.19, 1, .22, 1);
-    -o-transition: .4s color cubic-bezier(.19, 1, .22, 1);
-    transition: .4s color cubic-bezier(.19, 1, .22, 1);
+    li {
+        color: $brand-primary;
+        border-radius: 0;
+        min-height: 42px;
+        position: relative;
+        text-decoration: none;
+        overflow: hidden;
+        -webkit-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+        -moz-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+        -o-transition: .4s color cubic-bezier(.19, 1, .22, 1);
+        transition: .4s color cubic-bezier(.19, 1, .22, 1);
 
-    &.active {
-      &::after {
-        bottom: 0;
-      }
+        &.active {
+            &::after {
+                bottom: 0;
+            }
+        }
+
+        &::after {
+            position: absolute;
+            content: '';
+            left: 0;
+            right: 40px;
+            bottom: -4px;
+            height: 4px;
+            background: $brand-primary;
+            -webkit-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+            -moz-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+            -o-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+            transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
+        }
+
     }
-
-    &::after {
-      position: absolute;
-      content: '';
-      left: 0;
-      right: 40px;
-      bottom: -4px;
-      height: 4px;
-      background: $brand-primary;
-      -webkit-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
-      -moz-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
-      -o-transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
-      transition: .6s bottom cubic-bezier(.19, 1, .22, 1);
-    }
-
-  }
 }
