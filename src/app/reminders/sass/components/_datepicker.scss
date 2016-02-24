@@ -1,79 +1,79 @@
 .datepicker {
-  width: 100%;
-
-  .btn {
     width: 100%;
-    @include transition(none);
-  }
 
-  .btn-default {
-    background-color: $datepicker-bg;
-    border-color: transparent;
-
-    &:hover {
-      background-color: darken($datepicker-bg, 5%);
+    .btn {
+        width: 100%;
+        @include transition(none);
     }
-  }
 
-  .btn-primary {
-    .text-muted {
-      color: #fff;
+    .btn-default {
+        background-color: $datepicker-bg;
+        border-color: transparent;
+
+        &:hover {
+            background-color: darken($datepicker-bg, 5%);
+        }
     }
-  }
+
+    .btn-primary {
+        .text-muted {
+            color: #fff;
+        }
+    }
 }
 
 .datepicker-jump-controls {
-  background-color: $datepicker-header-bg;
-  border-bottom: 1px solid $datepicker-header-divider;
-  color: $datepicker-header-color;
-
-  th {
-    padding: 3px;
-
-    &:first-child {
-      border-top-left-radius: 3px;
-    }
-
-    &:last-child {
-      border-top-right-radius: 3px;
-    }
-  }
-
-  .btn {
     background-color: $datepicker-header-bg;
+    border-bottom: 1px solid $datepicker-header-divider;
     color: $datepicker-header-color;
-    @include transition(background-color 0.15s linear);
 
-    &:hover {
-      background-color: darken($datepicker-header-bg, 5%);
+    th {
+        padding: 3px;
+
+        &:first-child {
+            border-top-left-radius: 3px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 3px;
+        }
     }
-  }
+
+    .btn {
+        background-color: $datepicker-header-bg;
+        color: $datepicker-header-color;
+        @include transition(background-color 0.15s linear);
+
+        &:hover {
+            background-color: darken($datepicker-header-bg, 5%);
+        }
+    }
 }
 
 .datepicker-day-labels {
-  background-color: $datepicker-header-bg;
-  border-bottom: 1px solid $datepicker-header-divider;
-  margin-bottom: 5px;
-  color: $datepicker-header-color;
+    background-color: $datepicker-header-bg;
+    border-bottom: 1px solid $datepicker-header-divider;
+    margin-bottom: 5px;
+    color: $datepicker-header-color;
 
-  th {
-    padding: 3px;
-  }
+    th {
+        padding: 3px;
+    }
 }
 
 .datepicker-button-bar {
-  border-top: 1px solid $datepicker-divider;
+    border-top: 1px solid $datepicker-divider;
 
-  .btn {
-    background-color: $datepicker-bg;
-    border: none;
-    border-radius: 0;
-    padding: 8px;
+    .btn {
+        background-color: $datepicker-bg;
+        border: none;
+        border-radius: 0;
+        padding: 8px;
 
-    //.border-bottom-radius(@border-radius-base);
+        //.border-bottom-radius(@border-radius-base);
 
-    &:hover {
-      background-color: darken($datepicker-bg, 5%);
+        &:hover {
+            background-color: darken($datepicker-bg, 5%);
+        }
     }
-  }
 }

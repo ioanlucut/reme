@@ -36,9 +36,10 @@ module.exports = function (options) {
       browser: browser,
       open: false,
       middleware: [
-          modRewrite([
-              '!\\.\\w+$ /index.html [L]',
-          ]),
+        modRewrite([
+          '!\\.\\w+$ /index.html [L]',
+          '^.*/template/(.*)$ /template/$1 [L,NC]',
+        ]),
       ],
     });
   }

@@ -1,42 +1,42 @@
 .centered-section-home {
-  max-width: $container-home-width;
-  margin: 0 auto;
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+    max-width: $container-home-width;
+    margin: 0 auto;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .centered-section-logged {
-  max-width: $container-reminders-width;
-  margin: 0 auto;
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+    max-width: $container-reminders-width;
+    margin: 0 auto;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .home {
-  min-height: 100%;
-  padding-bottom: $footer-home-height;
+    min-height: 100%;
+    padding-bottom: $footer-home-height;
 
-  &__signup {
-    height: 700px;
+    &__signup {
+        height: 700px;
 
-    h1.home__signup__title {
-      padding: 250px 15px 20px;
-      font-size: 48px;
-      font-weight: $font-weight-bold;
-      text-align: center;
-      margin: 0;
-      font-family: $font-family-base;
+        h1.home__signup__title {
+            padding: 250px 15px 20px;
+            font-size: 48px;
+            font-weight: $font-weight-bold;
+            text-align: center;
+            margin: 0;
+            font-family: $font-family-base;
+        }
+
+        h3.home__signup__description {
+            margin: 0;
+            padding: 0 190px 90px;
+            font-size: 20px;
+            font-weight: $font-weight-light;
+            text-align: center;
+            line-height: 30px;
+        }
     }
-
-    h3.home__signup__description {
-      margin: 0;
-      padding: 0 190px 90px;
-      font-size: 20px;
-      font-weight: $font-weight-light;
-      text-align: center;
-      line-height: 30px;
-    }
-  }
 }

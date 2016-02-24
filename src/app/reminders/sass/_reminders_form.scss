@@ -5,264 +5,264 @@
 }
 
 .reminder-form-container__form {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 580px;
-  padding: 25px 30px;
-  background-color: $white;
-  position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 580px;
+    padding: 25px 30px;
+    background-color: $white;
+    position: relative;
 
-  @include clearfix();
+    @include clearfix();
 }
 
 .reminder-form-container__form__question {
-  font-size: $font-size-large;
-  font-weight: $font-weight-light;
-  text-align: center;
+    font-size: $font-size-large;
+    font-weight: $font-weight-light;
+    text-align: center;
 }
 
 .reminder-form-container__form__recommend {
-  float: left;
-  color: $gray9;
-  height: $form-height-xs;
-  line-height: $form-height-xs;
-  margin-top: 50px;
+    float: left;
+    color: $gray9;
+    height: $form-height-xs;
+    line-height: $form-height-xs;
+    margin-top: 50px;
 }
 
 .reminder-modal__header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 45px;
-  padding: 10px;
-  background-color: $brand-primary;
-  text-align: center;
-  color: $white;
-  font-size: 16px;
-  line-height: 26px;
-  @include border-top-radius(3px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    background-color: $brand-primary;
+    text-align: center;
+    color: $white;
+    font-size: 16px;
+    line-height: 26px;
+    @include border-top-radius(3px);
 }
 
 .reminder-modal__form__cancel {
-  position: absolute;
-  top: 6px;
-  right: 13px;
+    position: absolute;
+    top: 6px;
+    right: 13px;
 
-  button {
-    font-size: 32px;
-  }
+    button {
+        font-size: 32px;
+    }
 }
 
 .btn--delete-reminder {
-  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
-  float: right;
-  margin-top: 50px;
-  border-radius: $border-radius-small;
-  height: $form-height-xs;
-  width: 210px;
+    @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+    float: right;
+    margin-top: 50px;
+    border-radius: $border-radius-small;
+    height: $form-height-xs;
+    width: 210px;
 }
 
 .load-more-reminders {
-  display: block;
-  margin: 50px auto;
+    display: block;
+    margin: 50px auto;
 }
 
 .btn--load-more {
-  @include button-variant($gray7, $gray10, $gray10);
-  display: block;
-  margin: 30px auto 0;
-  width: 200px;
-  height: $form-height-small;
-  border-radius: $border-radius-small;
+    @include button-variant($gray7, $gray10, $gray10);
+    display: block;
+    margin: 30px auto 0;
+    width: 200px;
+    height: $form-height-small;
+    border-radius: $border-radius-small;
 }
 
 // Reminder form
 // ---------------
 
 .reminder-modal__form {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 580px;
-  padding: 25px 30px;
-  background-color: $white;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 580px;
+    padding: 25px 30px;
+    background-color: $white;
 
-  @include clearfix();
-
-  // Reminder datetime
-  // -------------------
-
-  &__info {
-    margin-top: 30px;
-    font-weight: $font-weight-light;
     @include clearfix();
 
-    // Reminder date and time
-    // -----------------------
+    // Reminder datetime
+    // -------------------
 
-    &--date,
-    &--time {
+    &__info {
+        margin-top: 30px;
+        font-weight: $font-weight-light;
+        @include clearfix();
 
-      & > .btn {
-        width: 100%;
-        padding-left: 50px;
-        text-align: left;
-      }
+        // Reminder date and time
+        // -----------------------
 
-      .dropdown-menu {
-        padding: 0;
-      }
-    }
+        &--date,
+        &--time {
 
-    // Reminder date
-    // ---------------
+            & > .btn {
+                width: 100%;
+                padding-left: 50px;
+                text-align: left;
+            }
 
-    &--date {
-      float: left;
-      position: relative;
-      width: 355px;
-      margin: 0 10px 10px 0;
-
-      .dropdown-menu {
-        min-width: 100%;
-      }
-    }
-
-    // Reminder time
-    // ---------------
-
-    &--time {
-      float: left;
-      position: relative;
-      margin-bottom: 10px;
-      width: 153px;
-    }
-  }
-
-  // Reminder addressees
-  // --------------------
-
-  &__addressees {
-    text-align: center;
-
-    // Form group
-    // -------------
-
-    .form-group {
-      position: relative;
-      margin-bottom: 6px;
-
-      &.has-error {
-        .form-control--reminder {
-          border: 1px solid $brand-danger;
+            .dropdown-menu {
+                padding: 0;
+            }
         }
-      }
+
+        // Reminder date
+        // ---------------
+
+        &--date {
+            float: left;
+            position: relative;
+            width: 355px;
+            margin: 0 10px 10px 0;
+
+            .dropdown-menu {
+                min-width: 100%;
+            }
+        }
+
+        // Reminder time
+        // ---------------
+
+        &--time {
+            float: left;
+            position: relative;
+            margin-bottom: 10px;
+            width: 153px;
+        }
     }
 
-    // Close button
-    // ---------------
+    // Reminder addressees
+    // --------------------
 
-    .close {
-      display: block;
-      width: 25px;
-      height: 25px;
-      line-height: 25px;
-      text-align: center;
-      position: absolute;
-      top: 8px;
-      right: -25px;
+    &__addressees {
+        text-align: center;
+
+        // Form group
+        // -------------
+
+        .form-group {
+            position: relative;
+            margin-bottom: 6px;
+
+            &.has-error {
+                .form-control--reminder {
+                    border: 1px solid $brand-danger;
+                }
+            }
+        }
+
+        // Close button
+        // ---------------
+
+        .close {
+            display: block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            position: absolute;
+            top: 8px;
+            right: -25px;
+        }
+
+        // Form control
+        // --------------
+
+        // Add emails button
+        // ------------------
+
+        .btn-add-emails {
+            display: inline-block;
+            font-size: 13px;
+        }
     }
 
-    // Form control
-    // --------------
+    // Buttons
+    //----------------
 
-    // Add emails button
-    // ------------------
-
-    .btn-add-emails {
-      display: inline-block;
-      font-size: 13px;
+    .btn--create-reminder {
+        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        display: block;
+        margin: 30px auto 0;
+        width: 200px;
+        line-height: $line-height-large;
+        border-radius: $border-radius-small;
+        text-transform: uppercase;
+        height: $form-height;
     }
-  }
 
-  // Buttons
-  //----------------
-
-  .btn--create-reminder {
-    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-    display: block;
-    margin: 30px auto 0;
-    width: 200px;
-    line-height: $line-height-large;
-    border-radius: $border-radius-small;
-    text-transform: uppercase;
-    height: $form-height;
-  }
-
-  .btn--reminder-popup {
-    @include button-variant($gray3, $gray-primary, transparent);
-    @extend .btn-block;
-    height: 40px;
-    line-height: $line-height-large;
-    border-radius: $border-radius-small;
-    font-weight: $font-weight-light;
-    font-size: 14px;
-  }
+    .btn--reminder-popup {
+        @include button-variant($gray3, $gray-primary, transparent);
+        @extend .btn-block;
+        height: 40px;
+        line-height: $line-height-large;
+        border-radius: $border-radius-small;
+        font-weight: $font-weight-light;
+        font-size: 14px;
+    }
 }
 
 .form-group--reminder-text {
 
-  label {
-    font-weight: $font-weight-light;
-  }
+    label {
+        font-weight: $font-weight-light;
+    }
 }
 
 // Saving state
 // --------------
 
 .reminder--saving {
-  width: 150px;
-  margin: 20px auto;
-  padding: 100px 0 0 0;
-  vertical-align: middle;
-  text-align: center;
-  font-size: $font-size-base;
-  color: $gray12;
-  background: url("../assets/img/loading.gif") no-repeat center center;
+    width: 150px;
+    margin: 20px auto;
+    padding: 100px 0 0 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: $font-size-base;
+    color: $gray12;
+    background: url("../assets/img/loading.gif") no-repeat center center;
 }
 
 .reminder-modal__form__info--date {
-  &:before {
-    @include icon-font-base(40px);
-    @extend .icon-calendar;
-  }
+    &:before {
+        @include icon-font-base(40px);
+        @extend .icon-calendar;
+    }
 }
 
 .reminder-modal__form__info--time {
-  &:before {
-    @include icon-font-base(40px);
-    @extend .icon-clock;
-  }
+    &:before {
+        @include icon-font-base(40px);
+        @extend .icon-clock;
+    }
 }
 
 .has-error {
-  .btn.btn--reminder-popup {
-    border: 1px solid $state-danger-text;
-  }
+    .btn.btn--reminder-popup {
+        border: 1px solid $state-danger-text;
+    }
 
-  .has-error-messages {
-    display: block;
-    margin-bottom: 10px;
-    text-align: center;
-    color: $state-danger-text;
-  }
+    .has-error-messages {
+        display: block;
+        margin-bottom: 10px;
+        text-align: center;
+        color: $state-danger-text;
+    }
 }
 
 .form-group--email-icon {
-  &:before {
-    @include icon-font-base(40px);
-    @extend .icon-email;
-  }
+    &:before {
+        @include icon-font-base(40px);
+        @extend .icon-email;
+    }
 }
 
 // Form control reminder
@@ -270,47 +270,47 @@
 @include input-size('.form-control--reminder', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
 
 .form-control--reminder {
-  font-weight: $font-weight-regular;
-  color: $text-color;
-  @include placeholder($gray10);
+    font-weight: $font-weight-regular;
+    color: $text-color;
+    @include placeholder($gray10);
 }
 
 .form-control--user-email {
-  background-color: $gray-primary;
-  border: 0;
-  height: 40px;
-  padding: 8px 20px 8px 20px;
-  text-align: left;
-  color: $black;
-  @include box-shadow(none);
-  @include placeholder($gray8);
+    background-color: $gray-primary;
+    border: 0;
+    height: 40px;
+    padding: 8px 20px 8px 20px;
+    text-align: left;
+    color: $black;
+    @include box-shadow(none);
+    @include placeholder($gray8);
 }
 
 @include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-base, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
-  font-weight: $font-weight-light;
-  background-color: $gray-primary;
-  height: 40px;
-  padding-left: 50px;
-  border: 0;
-  color: $black;
-  @include placeholder($gray8);
+    font-weight: $font-weight-light;
+    background-color: $gray-primary;
+    height: 40px;
+    padding-left: 50px;
+    border: 0;
+    color: $black;
+    @include placeholder($gray8);
 
-  &:hover,
-  &:focus {
-    background-color: $gray-primary-hover;
-  }
+    &:hover,
+    &:focus {
+        background-color: $gray-primary-hover;
+    }
 }
 
 /*Add border on error*/
 .has-error .form-control--friend-email {
-  border: 1px solid $state-danger-text;
+    border: 1px solid $state-danger-text;
 }
 
 /*First input - the user email*/
 .form-control--friend-email.form-control[disabled] {
-  background-color: $gray-primary;
-  border: 0;
+    background-color: $gray-primary;
+    border: 0;
 }
 
