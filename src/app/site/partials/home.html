@@ -8,6 +8,9 @@
             <source src="/assets/img/video/video01/video01.mp4" type="video/mp4">
             <source src="/assets/img/video/video01/video01.ogv" type="video/ogg">
         </video>
+        <div class="fullscreen-bg__overlay">
+            overlay
+        </div>
     </div>
 
     <div class="home__signup">
@@ -15,7 +18,8 @@
 
             <h1 class="home__signup__title">Create email reminders in seconds!</h1>
 
-            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. Create a reminder and forget about it! Reme will not.</h3>
+            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. <br>
+                <strong>Create a reminder and forget about it! Reme will not.</strong></h3>
 
             <!-- Register  section -->
             <div class="home__signup__sections" account-form-toggle>
@@ -31,7 +35,7 @@
 
                             <!-- Email input -->
                             <div class="home__signup__sections__section__controls--information">
-                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" required valid-email unique-email />
+                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Your Email" name="email" ng-model="requestSignUpRegistrationData.email" required valid-email unique-email />
 
                                 <!-- Error messages -->
                                 <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">

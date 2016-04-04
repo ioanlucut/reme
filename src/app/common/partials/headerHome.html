@@ -21,10 +21,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- For logged out users -->
                 <li ng-if="! currentUser.isAuthenticated()" class="btn__wrapper">
-                    <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Sign up</a>
+                    <a class="btn--login" href="javascript:void(0)" ui-sref="account">Sign up</a>
                 </li>
                 <li ng-if="! currentUser.isAuthenticated()" class="btn__wrapper">
-                    <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Log in</a>
+                    <a class="btn--login" href="javascript:void(0)" ui-sref="account">Log in</a>
                 </li>
                 <!-- For logged in users -->
                 <li class="narrow btn__wrapper" ng-if="currentUser.isAuthenticated()">

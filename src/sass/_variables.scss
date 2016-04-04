@@ -74,19 +74,28 @@ $font-family-monospace: Monaco, Menlo, Consolas, "Courier New", monospace !defau
 $font-family-base: $font-family-sans-serif !default;
 
 $font-size-base: 14px !default;
-$font-size-large: ceil($font-size-base * 1.4285714) !default;// ~18px
-$font-size-small: ceil($font-size-base * 0.85) !default;// ~12px
+$font-size-large: ceil($font-size-base * 1.4285714) !default;
+// ~18px
+$font-size-small: ceil($font-size-base * 0.85) !default;
+// ~12px
 
-$font-size-h1: floor($font-size-base * 2.6) !default;// ~36px
-$font-size-h2: floor($font-size-base * 2.15) !default;// ~30px
-$font-size-h3: ceil($font-size-base * 1.7) !default;// ~24px
-$font-size-h4: ceil($font-size-base * 1.25) !default;// ~18px
+$font-size-h1: floor($font-size-base * 2.6) !default;
+// ~36px
+$font-size-h2: floor($font-size-base * 2.15) !default;
+// ~30px
+$font-size-h3: ceil($font-size-base * 1.7) !default;
+// ~24px
+$font-size-h4: ceil($font-size-base * 1.25) !default;
+// ~18px
 $font-size-h5: $font-size-base !default;
-$font-size-h6: ceil($font-size-base * 0.85) !default;// ~12px
+$font-size-h6: ceil($font-size-base * 0.85) !default;
+// ~12px
 
 /*$line-height-base: 1.428571429 !default;*/
-$line-height-base: 1.428571429 !default;// 20/14
-$line-height-computed: floor($font-size-base * $line-height-base) !default;// ~20px
+$line-height-base: 1.428571429 !default;
+// 20/14
+$line-height-computed: floor($font-size-base * $line-height-base) !default;
+// ~20px
 
 $headings-font-family: $font-family-base !default;
 $headings-font-weight: 500 !default;
@@ -119,7 +128,7 @@ $line-height-large: 1.33 !default;
 $line-height-small: 1.5 !default;
 
 $border-radius-base: 4px !default;
-$border-radius-large: 6px !default;
+$border-radius-large: 8px !default;
 $border-radius-small: 3px !default;
 
 $component-active-color: #fff !default;
@@ -134,12 +143,15 @@ $caret-width-large: 5px !default;
 $table-cell-padding: 8px !default;
 $table-condensed-cell-padding: 5px !default;
 
-$table-bg: transparent !default;// overall background-color
-$table-bg-accent: #f9f9f9 !default;// for striping
+$table-bg: transparent !default;
+// overall background-color
+$table-bg-accent: #f9f9f9 !default;
+// for striping
 $table-bg-hover: #f5f5f5 !default;
 $table-bg-active: $table-bg-hover !default;
 
-$table-border-color: #ddd !default;// table and cell border
+$table-border-color: #ddd !default;
+// table and cell border
 
 // Buttons
 // -------------------------
