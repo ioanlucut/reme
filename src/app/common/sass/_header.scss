@@ -110,7 +110,6 @@
         & > a {
             &.btn--login,
             &.btn--logout {
-                //@include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
                 height: $form-height-xs;
                 width: 90px;
             }
@@ -128,6 +127,13 @@
                 margin-top: 7px;
                 margin-bottom: 7px;
                 padding: 6px 12px;
+                text-transform: uppercase;
+                font-weight: $font-weight-bold;
+                color: #888;
+
+                &:hover {
+                    color: #222;
+                }
             }
         }
 
