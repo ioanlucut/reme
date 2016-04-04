@@ -1,13 +1,4 @@
-.view-container--about {
-    position: relative;
-    max-width: $container-home-width;
-    margin: 0 auto;
-    min-height: 100%;
-    width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: $footer-home-height;
-}
+
 
 .about__sections {
     position: relative;
@@ -16,13 +7,6 @@
     text-align: center;
     max-width: 100%;
     color: black;
-}
-
-.about__sections__heading {
-    font-size: 42px;
-    text-align: center;
-    max-width: 100%;
-    margin: 30px 90px 0 90px;
 }
 
 .about__sections__description {
