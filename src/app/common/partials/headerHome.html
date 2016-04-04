@@ -19,11 +19,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-target">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="javascript:void(0)" ui-sref="about">About</a>
+                <!-- For logged out users -->
+                <li ng-if="! currentUser.isAuthenticated()" class="btn__wrapper">
+                    <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Sign up</a>
                 </li>
                 <li ng-if="! currentUser.isAuthenticated()" class="btn__wrapper">
-                    <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Login</a></li>
+                    <a class="btn btn--login" href="javascript:void(0)" ui-sref="account">Log in</a>
+                </li>
+                <!-- For logged in users -->
                 <li class="narrow btn__wrapper" ng-if="currentUser.isAuthenticated()">
                     <a class="btn btn--to-reminders" href="javascript:void(0)" ui-sref="reminders.regular">Go to my reminders</a>
                 </li>
