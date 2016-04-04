@@ -22,7 +22,12 @@
 }
 
 .home__signup__sections__section__controls {
+    @include clearfix();
+    width: 800px;
+    margin: 0 auto;
     text-align: center;
+
+    border: solid 1px red;
 }
 
 .home__signup__sections__section__controls__alert {
@@ -48,34 +53,20 @@
 
 .home__signup__sections__section__controls--information {
     position: relative;
-    width: 300px;
-    display: inline-block;
-
-    .information {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 20px;
-    }
-
-    .icon-info {
-        height: 50px;
-        line-height: 50px;
-        font-size: 16px;
-
-        &:before {
-            height: 50px;
-            line-height: 50px;
-        }
-    }
+    width: 65%;
+    display: block;
+    float: left;
 }
 
 .home__signup__sections__section__controls__button {
     @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-    border-radius: $border-radius-small;
+    @include border-left-radius(0);
+    @include border-right-radius($border-radius-small);
     font-size: $font-size-extra;
     height: $form-height;
-    width: 300px;
+    width: 35%;
+    display: block;
+    float: left;
 }
 
 .home__signup__sections__section__validation-messages {

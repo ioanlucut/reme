@@ -110,7 +110,7 @@
         & > a {
             &.btn--login,
             &.btn--logout {
-                @include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
+                //@include button-outline($brand-primary, $btn-primary-bg, $btn-primary-border);
                 height: $form-height-xs;
                 width: 90px;
             }
