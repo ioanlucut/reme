@@ -1,44 +1,46 @@
 .home__testimonials {
     background-color: #FFFFFF;
     text-align: center;
-    padding: 70px 0 70px 0;
+    padding: 40px 0 40px 0;
 }
 
 .img_sprite {
     background-image: url("../assets/img/sprites.png");
     background-repeat: no-repeat;
+    background-size: cover;
     text-indent: -9999px;
 }
 
 .press_logo {
-    height: 80px;
-    width: 295px;
-    display: inline-block;
-    margin: 15px 7px;
+    height: 40px;
+    width: 150px;
+    display: block;
+    float: left;
+    margin: 15px 1px;
 }
 
 .lifehacker {
-    background-position: 0 5px;
+    background-position: 0 3px;
 }
 
 .producthunt {
-    background-position: 0 -80px;
+    background-position: 0 -38px;
 }
 
 .makeuseof {
-    background-position: 0 -157px;
+    background-position: 0 -76px;
 }
 
 .feedmyapp {
-    background-position: 0 -230px;
+    background-position: 0 -111px;
 }
 
 .newstartups {
-    background-position: 0 -310px;
+    background-position: 0 -151px;
 }
 
 .addictivetips {
-    background-position: 0 -390px;
+    background-position: 0 -190px;
 }
 
 .chromewebstore {
