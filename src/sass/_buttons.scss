@@ -61,3 +61,12 @@
     background-image: none;
   }
 }
+
+.btn-cta {
+    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+    @include border-radius($border-radius-large);
+    font-size: $font-size-medium;
+    font-weight: $font-weight-bold;
+    height: $form-height;
+    min-width: 300px;
+}
