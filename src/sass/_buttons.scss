@@ -38,6 +38,8 @@
 // Remove outline from buttons
 // --------------------------------------------------
 .btn {
+    height: 45px;
+
   &:focus {
     outline: none;
   }
