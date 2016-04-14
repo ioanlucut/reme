@@ -6,7 +6,9 @@
 
     <!--Reminder list is empty-->
     <div class="reminder__empty empty-state--text" ng-if="showEmptyRemindersContent && ! reminders.length">
-        You have no reminders. Don't be shy, go ahead and create one! :)
+        <span></span>
+        You have no reminders<br>
+        <a href="#" ng-click="openReminderModalService()">Create one now</a>
     </div>
 
     <div class="reminder-groups"
