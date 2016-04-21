@@ -41,21 +41,6 @@ angular
         title: 'Settings - Reme.io',
       })
 
-      // Logout page
-      .state('account:logout', {
-        url: '/account/logout',
-        controller: 'LogoutCtrl',
-        templateUrl: '/app/account/partials/logout.html',
-        resolve: {
-          isSuccessfullyLoggedOut: function ($q, AuthService) {
-            AuthService.logout();
-
-            return true;
-          },
-        },
-        title: 'Logout - Reme.io',
-      })
-
       ///////////////////////////////////////////////
       /*Validate password reset token related views*/
 

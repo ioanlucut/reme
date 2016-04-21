@@ -31,7 +31,7 @@
                     <a class="btn btn--to-reminders" href="javascript:void(0)" ui-sref="reminders.regular">Go to my reminders</a>
                 </li>
                 <li class="btn__wrapper" ng-if="currentUser.isAuthenticated()">
-                    <a class="btn btn--logout" href="javascript:void(0)" ui-sref="account:logout">Logout</a>
+                    <a class="btn btn--logout" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a>
                 </li>
             </ul>
         </div>
