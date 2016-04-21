@@ -2,7 +2,7 @@
 
 angular
   .module('remeReminders')
-  .directive('reminderList', function ($rootScope, $timeout, ReminderDeleteModalService, ReminderUpdateModalService, ReminderMatchingGroupService, REMINDER_EVENTS) {
+  .directive('reminderList', function ($rootScope, $timeout, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderMatchingGroupService, REMINDER_EVENTS) {
     return {
       restrict: 'A',
       scope: {
@@ -112,6 +112,10 @@ angular
          */
         scope.openDeleteReminderModalService = function (reminder, reminderIndex) {
           ReminderDeleteModalService.open(reminder, reminderIndex);
+        };
+
+        scope.openReminderModalService = function () {
+          ReminderModalService.open();
         };
 
         /**
