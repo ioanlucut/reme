@@ -85,12 +85,12 @@
     border: solid 0 $white;
     border-radius: 3px;
     width: 100%;
+    height: 70px;
     padding: 5px 10px;
     margin-bottom: 15px;
     position: relative;
     background-color: $white;
-    min-height: 60px;
-    height: 100%;
+    @include transition(0.3s);
 
     &.reminder--owner:hover {
         cursor: pointer;
@@ -98,18 +98,7 @@
 
     &:hover {
         cursor: pointer;
-
-        .reminder__title {
-            color: $brand-primary;
-        }
-
-        .reminder__info {
-            color: $gray7;
-        }
-
-        .reminder__menu {
-
-        }
+        @include box-shadow(0 0 25px $gray10);
     }
 
     .reminder__title {
@@ -126,11 +115,11 @@
     }
 
     .reminder__menu__option {
-        height: 66px;
-        width: 66px;
+        height: 70px;
+        width: 70px;
         @include border-right-radius(3px);
         margin: 0;
-        padding: 18px 0 0 0;
+        padding: 25px 0 0 0;
         color: $gray9;
         background-color: $gray12;
         @include box-sizing(border-box);
@@ -141,8 +130,7 @@
 
         span {
             display: block;
-            margin: 0;
-            font-size: 25px;
+            font-size: 18px;
             text-align: center;
         }
     }
@@ -152,6 +140,9 @@
     @include word-wrap();
     max-width: 90%;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .reminder__title--highlighted {
@@ -163,12 +154,7 @@
 }
 
 .reminder-list-box--past-reminders {
-
-    .reminder {
-        border: solid 1px $gray10;
-        background-color: lighten($body-bg, 3%);
-    }
     .reminder__title {
-        color: $gray6;
+        color: $gray8;
     }
 }

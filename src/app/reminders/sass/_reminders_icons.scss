@@ -1,51 +1,51 @@
 .reminder__info__item__icon {
-    position: absolute;
+    float: right;
+    margin-left: 15px;
+    vertical-align: middle;
 }
 
 .reminder__info__item__icon--user {
-    right: 50px;
+
 }
 
 .reminder__info__item__icon--email {
-    right: 10px;
+
 }
 
 .reminder__info {
     position: relative;
-    color: $gray9;
-    font-weight: $font-weight-light;
-    font-size: 12px;
-    width: 80%;
-    padding-top: 10px;
-    padding-right: 10px;
+    color: $gray7;
+    width: 90%;
     @include clearfix();
+    padding-top: 8px;
 }
 
 .reminder__info__item {
     position: relative;
     float: left;
+    display: block;
     min-height: 1px;
+    min-width: 20px;
+    margin: 0 10px 0 0;
+    @include clearfix();
+    font-size: 12px;
 
     span {
-        display: inline-block;
+        display: block;
+        float: left;
         width: 20px;
         text-align: center;
         margin-right: 0;
+        margin-top: 2px;
         vertical-align: middle;
         color: $brand-complement;
         font-weight: $font-weight-bold;
     }
+}
 
-    &--date {
-    }
-
-    &--time {
-        text-align: center;
-    }
-
-    &--additional {
-        position: relative;
-    }
+.reminder__info__item--additional {
+    float: right;
+    @include clearfix();
 }
 
 .reminder__menu__option--update {
