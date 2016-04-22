@@ -23,10 +23,13 @@
 
 .reminder-form-container__form__recommend {
     float: left;
-    color: $gray9;
+    background-color: $gray12;
+    color: $gray5;
     height: $form-height-xs;
     line-height: $form-height-xs;
     margin-top: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .reminder-modal__header {
