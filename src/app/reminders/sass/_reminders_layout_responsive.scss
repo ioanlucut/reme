@@ -1,5 +1,9 @@
 @media (max-width: 580px) {
 
+    .reminder .reminder__menu__option {
+        width: 50px;
+    }
+
     .reminder-list-box__header__upcoming {
         font-size: 18px;
     }
@@ -38,35 +42,11 @@
     }
 
     .reminder__info__item--additional {
-        width: 50%;
-    }
-
-    .form-group--search {
-        right: 145px;
-        width: 100px;
+        width: 40%;
     }
 
     .list-wrapper {
         padding-top: 40px;
-    }
-
-    .form-group--search {
-        width: 100%;
-        height: 33px;
-        max-width: 100%;
-        right: 0;
-        padding-left: 10px;
-        padding-right: 10px;
-        top: 0;
-
-        .sb-search {
-            margin: 0;
-            width: 100%;
-        }
-
-        .sb-icon-search {
-            display: none;
-        }
     }
 
     .navbar.navbar-default.navbar--white {
