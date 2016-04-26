@@ -1,13 +1,16 @@
 // Reminder form container
 // -------------------------
 
+.modal-dialog {
+    width: 700px;
+}
+
 .reminder-form-container {
 }
 
 .reminder-form-container__form {
     margin: 0 auto;
     width: 100%;
-    max-width: 580px;
     padding: 25px 30px;
     background-color: $white;
     position: relative;
@@ -37,19 +40,20 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 45px;
-    padding: 10px;
-    background-color: $brand-primary;
-    text-align: center;
+    height: 60px;
+    padding: 10px 10px 10px 48px;
+    background-color: $brand-complement;
     color: $white;
-    font-size: 16px;
-    line-height: 26px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 42px;
+    text-transform: uppercase;
     @include border-top-radius(3px);
 }
 
 .reminder-modal__form__cancel {
     position: absolute;
-    top: 6px;
+    top: 12px;
     right: 13px;
 
     button {
@@ -86,8 +90,7 @@
 .reminder-modal__form {
     margin: 0 auto;
     width: 100%;
-    max-width: 580px;
-    padding: 25px 30px;
+    padding: 40px 50px;
     background-color: $white;
 
     @include clearfix();
@@ -110,6 +113,7 @@
                 width: 100%;
                 padding-left: 50px;
                 text-align: left;
+                color: $gray5;
             }
 
             .dropdown-menu {
@@ -123,7 +127,7 @@
         &--date {
             float: left;
             position: relative;
-            width: 355px;
+            width: 409px;
             margin: 0 10px 10px 0;
 
             .dropdown-menu {
@@ -138,7 +142,7 @@
             float: left;
             position: relative;
             margin-bottom: 10px;
-            width: 153px;
+            width: 180px;
         }
     }
 
@@ -167,13 +171,21 @@
 
         .close {
             display: block;
-            width: 25px;
-            height: 25px;
-            line-height: 25px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
             text-align: center;
             position: absolute;
-            top: 8px;
-            right: -25px;
+            top: 0px;
+            right: 0px;
+            background-color: #bbb;
+            font-size: 36px;
+            @include border-right-radius($border-radius-base);
+
+            &:hover {
+                background-color: #ccc;
+                color: $brand-danger;
+            }
         }
 
         // Form control
@@ -184,7 +196,12 @@
 
         .btn-add-emails {
             display: inline-block;
-            font-size: 13px;
+            font-size: 16px;
+            height: $form-height;
+            line-height: $form-height;
+            border: dashed 1px $gray10;
+            width: 100%;
+            @include border-radius($border-radius-base);
         }
     }
 
@@ -192,7 +209,8 @@
     //----------------
 
     .btn--create-reminder {
-        @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+        @include button-variant($btn-primary-color, $brand-complement, $brand-complement);
+        background-color: $brand-complement;
         display: block;
         margin: 30px auto 0;
         width: 200px;
@@ -203,13 +221,12 @@
     }
 
     .btn--reminder-popup {
-        @include button-variant($gray3, $gray-primary, transparent);
+        @include button-variant($gray5, $gray-primary, transparent);
         @extend .btn-block;
-        height: 40px;
+        height: 60px;
         line-height: $line-height-large;
-        border-radius: $border-radius-small;
-        font-weight: $font-weight-light;
-        font-size: 14px;
+        font-size: 16px;
+        font-weight: bold;
     }
 }
 
@@ -238,6 +255,7 @@
     &:before {
         @include icon-font-base(40px);
         @extend .icon-calendar;
+        line-height: $form-height;
     }
 }
 
@@ -245,6 +263,7 @@
     &:before {
         @include icon-font-base(40px);
         @extend .icon-clock;
+        line-height: $form-height;
     }
 }
 
@@ -265,6 +284,7 @@
     &:before {
         @include icon-font-base(40px);
         @extend .icon-email;
+        line-height: $form-height;
     }
 }
 
@@ -274,7 +294,9 @@
 
 .form-control--reminder {
     font-weight: $font-weight-regular;
+    font-size: 20px;
     color: $text-color;
+    height: 60px;
     @include placeholder($gray10);
 }
 
@@ -292,12 +314,13 @@
 @include input-size('.form-control--friend-email', $input-height-base, $padding-large-vertical, $padding-large-horizontal, $font-size-base, $line-height-large, $border-radius-base);
 
 .form-control--friend-email {
-    font-weight: $font-weight-light;
+    font-weight: bold;
     background-color: $gray-primary;
-    height: 40px;
+    height: $form-height;
     padding-left: 50px;
+    font-size: 16px;
     border: 0;
-    color: $black;
+    color: $gray5;
     @include placeholder($gray8);
 
     &:hover,
