@@ -1,8 +1,10 @@
-@media (max-width: 480px) {
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+        width: 700px;
+    }
+}
 
-    //  .reminder-form-container {
-    //    margin: 0;
-    //  }
+@media (max-width: 480px) {
 
     .form-group--reminder-text {
         padding-top: 20px;
