@@ -1,16 +1,10 @@
 // Reminder form container
 // -------------------------
 
-.modal-dialog {
-    width: 700px;
-}
-
-.reminder-form-container {
-}
-
 .reminder-form-container__form {
     margin: 0 auto;
     width: 100%;
+    max-width: 700px;
     padding: 25px 30px;
     background-color: $white;
     position: relative;
@@ -90,6 +84,7 @@
 .reminder-modal__form {
     margin: 0 auto;
     width: 100%;
+    max-width: 700px;
     padding: 40px 50px;
     background-color: $white;
 

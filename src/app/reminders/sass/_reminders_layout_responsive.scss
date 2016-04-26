@@ -8,18 +8,6 @@
         font-size: 18px;
     }
 
-    .reminder-modal__form__info--date, .reminder-modal__form__info--time {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .reminder-modal__form {
-
-        .btn--reminder-popup, .form-control--friend-email {
-            padding-left: 40px;
-        }
-    }
-
     .btn--delete-reminder {
         width: 100%;
     }
@@ -67,5 +55,20 @@
         height: 40px;
         border-radius: 50%;
         text-indent: -9999px;
+    }
+}
+
+@media (max-width: 720px) {
+
+    .reminder-modal__form__info--date, .reminder-modal__form__info--time {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .reminder-modal__form {
+
+        .btn--reminder-popup, .form-control--friend-email {
+            padding-left: 40px;
+        }
     }
 }
