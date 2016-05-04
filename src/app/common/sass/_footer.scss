@@ -1,5 +1,5 @@
 .footer {
-    background-color: $brand-primary;
+    background-color: $white;
     margin: 0;
     padding: 0;
     height: $footer-home-height;
@@ -7,25 +7,31 @@
 
     .footer__navbar {
         @include clearfix();
+        padding: 20px 5px;
 
-        ul {
-            li {
-                list-style: none;
-                height: 20px;
-
-                a {
-                    color: $white;
-
-                    &:hover {
-                        color: darken($white, 15%);
-                    }
-                }
-            }
-        }
+        //ul {
+        //    li {
+        //        list-style: none;
+        //        height: 20px;
+        //
+        //        a {
+        //            color: $white;
+        //
+        //            &:hover {
+        //                color: darken($white, 15%);
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     .footer__navbar__section-left {
         float: left;
+        color: $gray8;
+
+        span {
+            color: $brand-complement;
+        }
     }
 
     .footer__navbar__section-left__copyright {
@@ -43,6 +49,7 @@
 
     .footer__navbar__section-right {
         float: right;
+        font-size: 20px;
     }
 
     .footer__navbar__section-right__list {
