@@ -45,7 +45,7 @@
 
 .reminder-list-box__header {
     display: block;
-    padding: 6px 12px 6px 0;
+    padding: 40px 12px 6px 0;
 }
 
 .reminder-list-box__header__upcoming {
@@ -116,6 +116,7 @@
             display: block;
             font-size: 18px;
             text-align: center;
+            padding-top: 5px;
         }
     }
 }
