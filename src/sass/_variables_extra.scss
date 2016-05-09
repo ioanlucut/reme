@@ -1,15 +1,13 @@
 $font-weight-light: 300 !default;
-$font-weight-regular: 400 !default;
+$font-weight-regular: 300 !default;
 $font-weight-bold: 700 !default;
 $font-size-accent: 20px;
 
 $font-size-medium: 16px !default;
 $font-size-extra: 20px !default;
-$form-height: 50px !default;
+$form-height: 60px !default;
 $form-height-small: 40px !default;
 $form-height-xs: 34px !default;
-
-$font-family-hand: "Indie Flower", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
 // Scaffolding
 // -------------------------
@@ -23,7 +21,7 @@ $container-reminders-height: 600px;
 $container-home-width: 960px;
 $header-height: 50px;
 $header-home-height: 74px;
-$footer-home-height: 180px;
+$footer-home-height: 70px;
 
 // Brand colors
 // -------------------------
@@ -31,7 +29,7 @@ $footer-home-height: 180px;
 $text-color-secondary: $gray9;
 $color-light-bg: $gray12;
 
-$brand-complement: #FFA400;
+$brand-complement: #00D7B1;//#FFA400;
 
 
 // Brand colors

@@ -6,7 +6,9 @@
 
     <!--Reminder list is empty-->
     <div class="reminder__empty empty-state--text" ng-if="showEmptyRemindersContent && ! reminders.length">
-        You have no reminders. Don't be shy, go ahead and create one! :)
+        <span></span>
+        You have no reminders<br>
+        <a href="javascript:void(0)" ng-click="openReminderModalService()">Create one now</a>
     </div>
 
     <div class="reminder-groups"
@@ -26,7 +28,7 @@
             <!--Reminder edit/delete-->
             <div class="reminder__menu">
                 <a class="reminder__menu__option reminder__menu__option--delete simptip-position-left simptip-fade simptip-smooth" data-tooltip="Delete reminder" href="javascript:void(0)" ng-click="reminder.isCreatedBy(currentUserEmail) ? openDeleteReminderModalService(reminder, $index) : openUnSubscribeReminderModalService(reminder, $index); $event.stopPropagation();">
-                    <span class="icon-trash"></span>
+                    <span class="icon-delete"></span>
                 </a>
             </div>
 
