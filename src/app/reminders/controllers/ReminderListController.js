@@ -4,7 +4,6 @@
 angular
   .module('remeReminders')
   .controller('ReminderListCtrl', function ($scope, $rootScope, flash, ReminderDeleteModalService, ReminderModalService, ReminderUpdateModalService, ReminderGroupService, ReminderMatchingGroupService, REMINDER_EVENTS, $timeout, pastAndUpcomingReminders, USER_ACTIVITY_EVENTS, ALERTS_CONSTANTS, reminderModalOptions, reminderToReview) {
-
     /**
      * Alert identifier
      */

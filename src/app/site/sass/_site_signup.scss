@@ -22,6 +22,9 @@
 }
 
 .home__signup__sections__section__controls {
+    @include clearfix();
+    width: 800px;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -31,15 +34,19 @@
     margin: 10px auto;
 }
 
-@include input-size('.home__signup__sections__section__controls__email', $input-height-large, $padding-large-vertical, $padding-large-horizontal, $font-size-medium, $line-height-large, $border-radius-base);
+.home__signup__sections__section__controls__email,
+.home__signup__sections__section__controls__button {
+    font-size: $font-size-medium;
+    font-weight: $font-weight-bold;
+    height: $form-height;
+}
 
 .home__signup__sections__section__controls__email {
-    height: $form-height;
+    @include border-right-radius(0);
+    @include border-left-radius($border-radius-large);
     width: 100%;
-    margin-right: 12px;
-    font-size: $font-size-extra;
-    font-weight: $font-weight-light;
-    display: inline-block;
+    padding-left: 30px;
+    border: solid 0 $white;
 
     &.has-error {
         border-color: $state-danger-text;
@@ -48,34 +55,18 @@
 
 .home__signup__sections__section__controls--information {
     position: relative;
-    width: 300px;
-    display: inline-block;
-
-    .information {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 20px;
-    }
-
-    .icon-info {
-        height: 50px;
-        line-height: 50px;
-        font-size: 16px;
-
-        &:before {
-            height: 50px;
-            line-height: 50px;
-        }
-    }
+    width: 65%;
+    display: block;
+    float: left;
 }
 
 .home__signup__sections__section__controls__button {
     @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-    border-radius: $border-radius-small;
-    font-size: $font-size-extra;
-    height: $form-height;
-    width: 300px;
+    @include border-left-radius(0);
+    @include border-right-radius($border-radius-large);
+    width: 35%;
+    display: block;
+    float: left;
 }
 
 .home__signup__sections__section__validation-messages {

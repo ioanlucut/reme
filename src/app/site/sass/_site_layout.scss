@@ -4,6 +4,16 @@
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
+    @include clearfix();
+
+    h1 {
+        font-size: 42px;
+        font-weight: $font-weight-bold;
+        text-align: center;
+        max-width: 100%;
+        margin: 30px 90px 0 90px;
+
+    }
 }
 
 .centered-section-logged {
@@ -18,8 +28,37 @@
     min-height: 100%;
     padding-bottom: $footer-home-height;
 
-    &__signup {
+    .fullscreen-bg {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: -100;
+    }
+
+    .fullscreen-bg__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-indent: -9999px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .fullscreen-bg__video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        height: auto;
+    }
+
+    .home__signup {
         height: 700px;
+        color: $white;
 
         h1.home__signup__title {
             padding: 250px 15px 20px;
@@ -33,10 +72,58 @@
         h3.home__signup__description {
             margin: 0;
             padding: 0 190px 90px;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: $font-weight-light;
             text-align: center;
             line-height: 30px;
         }
     }
+}
+
+.home__how {
+    background-color: #eee;
+    text-align: center;
+    padding: 70px 0 70px 0;
+
+    .home__how__steps {
+        padding: 50px 0;
+        @include clearfix();
+
+        .home__how__steps__step {
+            height: 200px;
+            width: 25%;
+            padding-top: 170px;
+            text-align: center;
+            font-weight: $font-weight-bold;
+            float: left;
+            display: block;
+            margin: 39px;
+            text-transform: uppercase;
+            font-size: 16px;
+
+            background-image: url("../assets/img/sprites_how.png");
+            background-repeat: no-repeat;
+        }
+
+        .home__how__steps__step-1 {
+            background-position: 45px 0;
+        }
+
+        .home__how__steps__step-2 {
+            background-position: -198px 0;
+        }
+
+        .home__how__steps__step-3 {
+            background-position: -444px 0;
+        }
+    }
+}
+
+.home__team {
+    background-color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    padding: 100px 0 100px 0;
 }

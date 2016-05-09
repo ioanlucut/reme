@@ -70,8 +70,6 @@
         border-radius: 0;
         padding: 8px;
 
-        //.border-bottom-radius(@border-radius-base);
-
         &:hover {
             background-color: darken($datepicker-bg, 5%);
         }
