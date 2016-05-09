@@ -2,6 +2,10 @@
 
     .home__signup__sections__section__controls {
         width: 100%;
+
+        input, button {
+            @include border-radius($border-radius-base);
+        }
     }
 
     .home__signup__sections__section__controls--information,
@@ -21,7 +25,6 @@
         padding: 10px;
 
         &:before {
-            //@include icon-font-base(30px);
             opacity: 0;
         }
     }

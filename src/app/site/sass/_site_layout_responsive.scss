@@ -1,6 +1,6 @@
 @media (max-width: $screen-desktop) {
 
-    .home {
+    .home .home__signup {
 
         h3.home__signup__description {
             padding-right: 150px;
@@ -11,7 +11,7 @@
 
 @media (max-width: $screen-tablet) {
 
-    .home {
+    .home .home__signup {
 
         h1.home__signup__title {
             padding-top: 150px;
@@ -42,7 +42,7 @@
         height: 800px;
     }
 
-    .home {
+    .home .home__signup {
 
         h1.home__signup__title {
             padding: 95px 5px 0;
