@@ -25,7 +25,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a class="nav-link" href="javascript:void(0)" ui-sref="settings">Settings</a></li>
-                        <li><a class="nav-link" href="javascript:void(0)" ui-sref="account:logout">Logout</a></li>
+                        <li><a class="nav-link" href="javascript:void(0)" ng-controller="LogoutController as vm" ng-click="vm.logOut()">Logout</a></li>
                     </ul>
                 </li>
             </ul>

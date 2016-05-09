@@ -75,45 +75,36 @@
   @include icon-fonts($line-height);
 }
 
-.icon-recurring:before {
-  content: "a";
-}
-.icon-calendar:before {
-  content: "b";
-}
 .icon-checkmark:before {
-  content: "c";
-}
-.icon-pencil:before {
-  content: "d";
-}
-.icon-clock:before {
-  content: "e";
-}
-.icon-trash:before {
-  content: "f";
-}
-.icon-email:before {
-  content: "g";
-}
-.icon-smile:before {
-  content: "h";
-}
-.icon-user:before {
-  content: "i";
+    content: "\63";
 }
 .icon-heart:before {
-  content: "m";
+    content: "\6f";
 }
-.icon-comment-heart:before {
-  content: "n";
+.icon-arrow-left:before {
+    content: "\6a";
 }
-.icon-heart-2:before {
-  content: "o";
+.icon-arrow-right:before {
+    content: "\6b";
 }
-.icon-comment-2:before {
-  content: "p";
+.icon-delete:before {
+    content: "\71";
 }
-.icon-search:before {
-  content: "s";
+.icon-calendar:before {
+    content: "\6c";
+}
+.icon-clock:before {
+    content: "\74";
+}
+.icon-user:before {
+    content: "\62";
+}
+.icon-email:before {
+    content: "\61";
+}
+.icon-twitter:before {
+    content: "\64";
+}
+.icon-facebook:before {
+    content: "\65";
 }

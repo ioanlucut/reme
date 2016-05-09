@@ -2,12 +2,24 @@
 
 <div class="home">
 
+    <div class="fullscreen-bg">
+        <video loop muted autoplay poster="/assets/img/video/video01/video01.jpg" class="fullscreen-bg__video">
+            <source src="/assets/img/video/video01/video01.webm" type="video/webm">
+            <source src="/assets/img/video/video01/video01.mp4" type="video/mp4">
+            <source src="/assets/img/video/video01/video01.ogv" type="video/ogg">
+        </video>
+        <div class="fullscreen-bg__overlay">
+            overlay
+        </div>
+    </div>
+
     <div class="home__signup">
         <div class="centered-section-home">
 
             <h1 class="home__signup__title">Create email reminders in seconds!</h1>
 
-            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. Create a reminder and forget about it! Reme will not.</h3>
+            <h3 class="home__signup__description">The sole purpose of Reme is to remind you the things that matter. <br>
+                <strong>Create a reminder and forget about it! Reme will not.</strong></h3>
 
             <!-- Register  section -->
             <div class="home__signup__sections" account-form-toggle>
@@ -23,7 +35,7 @@
 
                             <!-- Email input -->
                             <div class="home__signup__sections__section__controls--information">
-                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Email address" name="email" ng-model="requestSignUpRegistrationData.email" required valid-email unique-email />
+                                <input class="form-control home__signup__sections__section__controls__email" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" type="email" placeholder="Your Email" name="email" ng-model="requestSignUpRegistrationData.email" required valid-email unique-email />
 
                                 <!-- Error messages -->
                                 <div class="home__signup__sections__section__validation-messages" ng-class="{'has-error': requestSignUpRegistrationForm.email.$invalid && requestSignUpRegistrationForm.$submitted}" ng-messages="requestSignUpRegistrationForm.email.$error" ng-if="requestSignUpRegistrationForm.$submitted">
@@ -64,9 +76,73 @@
             <div class="img_sprite press_logo feedmyapp">FeedMyApp</div>
             <div class="img_sprite press_logo newstartups">NewStartups</div>
             <div class="img_sprite press_logo addictivetips">AddictiveTips</div>
-            <a class="img_sprite chromewebstore" target="_blank" href="https://chrome.google.com/webstore/detail/remeio/jagdnkmjmgengjocecgcilbpgffmlmep">
-                <span class="">Reme</span> is available on <br> Chrome Web Store
-            </a>
+            <!--<a class="img_sprite chromewebstore" target="_blank" href="https://chrome.google.com/webstore/detail/remeio/jagdnkmjmgengjocecgcilbpgffmlmep">-->
+                <!--<span class="">Reme</span> is available on <br> Chrome Web Store-->
+            <!--</a>-->
+        </div>
+    </div>
+
+    <div class="home__how">
+        <div class="centered-section-home">
+            <h1>How it works</h1>
+        </div>
+
+        <div class="centered-section-home">
+            <div class="home__how__steps">
+                <div class="home__how__steps__step home__how__steps__step-1">Create an account</div>
+                <div class="home__how__steps__step home__how__steps__step-2">Create a reminder</div>
+                <div class="home__how__steps__step home__how__steps__step-3">Check your inbox</div>
+            </div>
+        </div>
+
+        <button type="submit" ui-sref="account"ladda="isRequestPending" data-style="expand-left" data-spinner-size="20" class="btn btn-cta">START NOW</button>
+
+    </div>
+
+    <div class="home__team">
+        <div class="centered-section-home">
+            <h1>Meet the team</h1>
+
+            <div class="about__sections__team">
+
+                <div class="about__sections__team__entry">
+                    <img class="about__sections__team__entry__img" src="/assets/img/team_ionel.jpg">
+
+                    <div class="about__sections__team__desc">Ioan Lucuţ</div>
+                    <div class="about__sections__team__link">
+                        <a href="https://twitter.com/ioanlucut" target="_blank">@ioanlucut</a>
+                    </div>
+                </div>
+
+                <div class="about__sections__team__entry">
+                    <img class="about__sections__team__entry__img" src="/assets/img/team_simina.jpg">
+
+                    <div class="about__sections__team__desc">Simina Pițur</div>
+                    <div class="about__sections__team__link">
+                        <a href="https://twitter.com/siminapitur" target="_blank">@siminapitur</a>
+                    </div>
+                </div>
+
+                <div class="about__sections__team__entry">
+                    <img class="about__sections__team__entry__img" src="/assets/img/team_sorin.jpg">
+
+                    <div class="about__sections__team__desc">Sorin Pantiş</div>
+                    <div class="about__sections__team__link">
+                        <a href="https://twitter.com/sorinpantis" target="_blank">@sorinpantis</a>
+                    </div>
+                </div>
+
+                <div class="about__sections__team__entry">
+                    <img class="about__sections__team__entry__img" src="/assets/img/team_tamas.png">
+
+                    <div class="about__sections__team__desc">Tamas Pap</div>
+                    <div class="about__sections__team__link">
+                        <a href="https://twitter.com/paptamas" target="_blank">@paptamas</a>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 

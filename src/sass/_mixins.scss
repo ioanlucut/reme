@@ -3,46 +3,48 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 @mixin button-variant($color, $background, $border) {
-  color: $color;
-  background-color: $background;
-  border-color: $border;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
     color: $color;
-    background-color: darken($background, 8%);
-    border-color: darken($border, 8%);
-  }
-  .open & {
-    &.dropdown-toggle {
-      color: $color;
-      background-color: darken($background, 8%);
-      border-color: darken($border, 8%);
-    }
-  }
-  &:active,
-  &.active {
-    background-image: none;
-  }
-  .open & {
-    &.dropdown-toggle {
-      background-image: none;
-    }
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &,
+    background-color: $background;
+    border-color: $border;
+    font-weight: bold;
+    font-size: 16px;
+
     &:hover,
     &:focus,
     &:active,
     &.active {
-      background-color: $background;
-      border-color: $border;
+        color: $color;
+        background-color: darken($background, 8%);
+        border-color: darken($border, 8%);
     }
-  }
+    .open & {
+        &.dropdown-toggle {
+            color: $color;
+            background-color: darken($background, 8%);
+            border-color: darken($border, 8%);
+        }
+    }
+    &:active,
+    &.active {
+        background-image: none;
+    }
+    .open & {
+        &.dropdown-toggle {
+            background-image: none;
+        }
+    }
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            background-color: $background;
+            border-color: $border;
+        }
+    }
 }
 
 // Form control focus state
@@ -59,12 +61,12 @@
 // contrast against a dark gray background.
 
 @mixin form-control-focus($color: $input-border-focus) {
-  $color-rgba: rgba(red($color), green($color), blue($color), .6);
-  &:focus {
-    border-color: $color;
-    outline: 0;
-    @include box-shadow(none);
-  }
+    $color-rgba: rgba(red($color), green($color), blue($color), .6);
+    &:focus {
+        border-color: $color;
+        outline: 0;
+        @include box-shadow(none);
+    }
 }
 
 // Form validation states
@@ -73,11 +75,11 @@
 // and successes.
 
 @mixin form-control-validation($text-color: #555, $border-color: #ccc, $background-color: #f5f5f5) {
-  // Set the border and box shadow on specific inputs to match
-  .form-control {
-    border-color: $border-color;
-    &:focus {
-      border-color: darken($border-color, 10%);
+    // Set the border and box shadow on specific inputs to match
+    .form-control {
+        border-color: $border-color;
+        &:focus {
+            border-color: darken($border-color, 10%);
+        }
     }
-  }
 }
