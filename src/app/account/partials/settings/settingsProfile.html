@@ -18,13 +18,13 @@
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': profileForm.firstName.$invalid && profileForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="Prenume" name="firstName" ng-model="profileData.firstName" required />
+                    <input class="form-control form-control--account" type="text" placeholder="First name" name="firstName" ng-model="profileData.firstName" required />
                     <span class="help-message" ng-if="profileForm.firstName.$invalid && profileForm.$submitted">Please tell us your First Name.</span>
                 </div>
 
                 <!-- Form group -->
                 <div class="form-group" ng-class="{'has-error': profileForm.lastName.$invalid && profileForm.$submitted}">
-                    <input class="form-control form-control--account" type="text" placeholder="Nume" name="lastName" ng-model="profileData.lastName" required />
+                    <input class="form-control form-control--account" type="text" placeholder="Last name" name="lastName" ng-model="profileData.lastName" required />
                     <span class="help-message" ng-if="profileForm.lastName.$invalid && profileForm.$submitted">Please tell us your Last Name.</span>
                 </div>
 
