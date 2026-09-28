@@ -1,0 +1,39 @@
+// The three animate.css mixins Reme used, from the animate.css-scss bower
+// package (Animate.css 3.1, MIT, Daniel Eden). The package's repository no
+// longer exists, so they are kept here with the same signatures.
+
+@mixin reme-animation($name, $duration, $count, $delay, $function, $fill) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-iteration-count: $count;
+  animation-delay: $delay;
+  animation-timing-function: $function;
+  animation-fill-mode: $fill;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@mixin fadeIn($duration: 1s, $count: 1, $delay: 0s, $function: ease, $fill: both) {
+  @include reme-animation(fadeIn, $duration, $count, $delay, $function, $fill);
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@mixin fadeInDown($duration: 1s, $count: 1, $delay: 0s, $function: ease, $fill: both) {
+  @include reme-animation(fadeInDown, $duration, $count, $delay, $function, $fill);
+}
+
+@keyframes bounceOutRight {
+  20% { opacity: 1; transform: translateX(-20px); }
+  100% { opacity: 0; transform: translateX(2000px); }
+}
+
+@mixin bounceOutRight($duration: 1s, $count: 1, $delay: 0s, $function: ease, $fill: both) {
+  @include reme-animation(bounceOutRight, $duration, $count, $delay, $function, $fill);
+}
