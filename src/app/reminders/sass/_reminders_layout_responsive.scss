@@ -72,3 +72,11 @@
         }
     }
 }
+
+// Hover tooltips have no use on touch screens, and the hidden ones still widened the page
+@media (max-width: 767px) {
+    .reminder-list [data-tooltip]:before,
+    .reminder-list [data-tooltip]:after {
+        display: none;
+    }
+}

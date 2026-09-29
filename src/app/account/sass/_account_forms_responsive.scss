@@ -23,10 +23,16 @@
         width: 100%;
     }
 
-    .nav-tabs--vertical {
-        top: -100px;
-        left: 20px;
-        z-index: 99;
+    // Scoped, as the reminders styles that set `position: absolute` load later
+    .centered-section-account .nav-tabs--vertical {
+        position: static;
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+
+        > li {
+            margin: 0 10px;
+        }
     }
 }
 

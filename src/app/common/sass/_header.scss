@@ -111,14 +111,14 @@
             &.btn--login,
             &.btn--logout {
                 height: $form-height-xs;
-                width: 90px;
+                min-width: 90px;
             }
 
             &.btn--to-reminders {
                 @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
                 border-radius: $border-radius-small;
                 height: $form-height-xs;
-                width: 156px;
+                min-width: 156px;
             }
 
             &.btn--login,
@@ -134,6 +134,11 @@
                 &:hover {
                     color: #222;
                 }
+            }
+
+            &.btn--to-reminders,
+            &.btn--to-reminders:hover {
+                color: $btn-primary-color;
             }
         }
 

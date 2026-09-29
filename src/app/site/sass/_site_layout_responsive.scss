@@ -59,3 +59,12 @@
         height: 570px;
     }
 }
+
+// The step icons come from one sprite, positioned for a wide step; stack the steps at that width
+@media (max-width: 767px) {
+    .home__how .home__how__steps .home__how__steps__step {
+        float: none;
+        width: 240px;
+        margin: 20px auto;
+    }
+}
