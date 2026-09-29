@@ -41,9 +41,10 @@ angular
             ctrl.$setValidity('nlp-required', $.trim(text).indexOf(attrs.separator) !== 0);
           }
 
-          // If a separator was specified, use it
-          if (text && attrs.separator && text.indexOf(attrs.separator) > -1) {
-            text = text.split(attrs.separator)[1];
+          // If a separator was specified, use it. It must start a word, so "bob@acme.com" is not one.
+          var afterSeparator = text && attrs.separator && text.match(new RegExp('(?:^|\\s)' + attrs.separator + '(\\S.*)$'));
+          if (afterSeparator) {
+            text = afterSeparator[1];
           } else if (text) {
 
             // Without a separator, look for the date at the end ("Meeting tomorrow at 3pm")
@@ -57,11 +58,16 @@ angular
           var date = Date.create(text);
           if (!date.isValid()) return;
 
+          // A date without a time ("tomorrow") keeps the time already picked, rather than midnight
+          if (!date.getHours() && !date.getMinutes() && !/midnight|12\s*am|\b0?0:00\b/i.test(text)) {
+            date.setHours(scope.date.getHours(), scope.date.getMinutes(), 0, 0);
+          }
+
           // Make sure date limits are respected
           if (attrs.minDate && date.isBefore(scope.$eval(attrs.minDate))) return;
-          if (attrs.maxDate && attrs.maxDate && date.isAfter(attrs.maxDate)) return;
+          if (attrs.maxDate && date.isAfter(attrs.maxDate)) return;
 
-          if (scope.date.getYear() != date.getYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDay() != date.getDay()) {
+          if (scope.date.getFullYear() != date.getFullYear() || scope.date.getMonth() != date.getMonth() || scope.date.getDate() != date.getDate()) {
 
             // Date was changed
             $rootScope.$broadcast('nlpDate:dateChange', null);

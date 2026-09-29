@@ -37,6 +37,17 @@ describe('ReminderTransformerService', function () {
     expect(actualReminderDto.recipients).toEqual([{ email: 'xx@xx' }, { email: 'yy@yy' }]);
   }));
 
+  it('Should keep the @ of an email address in the text', inject(function (ReminderTransformerService, Reminder) {
+
+    var reminder = Reminder.build({
+      reminderId: '1',
+      text: 'Email bob@acme.com about the invoice @tomorrow',
+      recipients: [{ email: 'xx@xx' }],
+    });
+
+    expect(ReminderTransformerService.toReminderDto(reminder).text).toEqual('Email bob@acme.com about the invoice');
+  }));
+
   it('Should transform a reminder to a reminder DTO', inject(function (ReminderTransformerService, Reminder) {
 
     var reminder = Reminder.build({
@@ -101,8 +112,6 @@ describe('ReminderTransformerService', function () {
     expect(actualReminderDto).toBeTruthy();
     expect(actualReminderDto.reminderId).toEqual(reminder.model.reminderId);
     expect(actualReminderDto.text).toEqual('ABC');
-
-    console.log(actualReminderDto.recipients);
     expect(actualReminderDto.recipients).toEqual([{ email: 'xx@xx' }, { email: 'tyxx@xx' }, { email: 'xxx@xx' }]);
   }));
 

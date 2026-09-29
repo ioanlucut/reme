@@ -19,7 +19,8 @@ angular
         reminderDto.dueOn = reminderDto.dueOn.format('{yyyy}-{MM}-{dd} {HH}:{mm}:{ss}');
       }
 
-      reminderDto.text = $.trim(reminderDto.text.split('@')[0]);
+      // Drop the date after the "@" separator, which starts a word (unlike in "bob@acme.com")
+      reminderDto.text = $.trim(reminderDto.text.split(/(?:^|\s)@(?=\S)/)[0]);
       reminderDto.recipients = TransformerUtils.sanitizeRecipients(reminderDto.recipients);
 
       return reminderDto;
