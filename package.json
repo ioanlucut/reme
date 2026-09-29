@@ -1,6 +1,6 @@
 {
   "name": "reme",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "description": "Create email reminders in seconds by typing them in plain English. The Reme front-end (2014-2016), an AngularJS app revived to run in the browser without its backend.",
   "keywords": [
