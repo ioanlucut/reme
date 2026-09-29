@@ -4,15 +4,15 @@
 
 # Reme
 
-**Natural-language reminders, years before typing to software was normal.**
+**Email reminders you write as a sentence, since February 2014.**
 
-Type _"Pay rent @tomorrow at 3pm"_ and Reme e-mails you on time. There was no form to fill in: the sentence was the interface. A small team built it and ran it on reme.io from 2014. It was revived in 2026 so it runs again, entirely in your browser.
+Type _"Pay rent @tomorrow at 3pm"_ and Reme emails you on time. No date picker, no form: the sentence is the interface. I co-founded Reme, wrote 648 of the 919 commits of Reme 2.0 (2014–2016), and revived it on my own in 2026, so it runs again, entirely in your browser.
 
 [![CI](https://github.com/ioanlucut/reme/actions/workflows/ci.yml/badge.svg)](https://github.com/ioanlucut/reme/actions/workflows/ci.yml)
 [![Live demo](https://img.shields.io/badge/live%20demo-GitHub%20Pages-8471B1)](https://ioanlucut.github.io/reme/)
-![Natural-language input](https://img.shields.io/badge/natural--language%20input-since%202014-00d7b2)
+[![Product Hunt: #6 of the day, February 2014](https://img.shields.io/badge/Product%20Hunt-%236%20of%20the%20day%2C%20Feb%202014-da552f)](https://www.producthunt.com/products/reme-io)
 ![AngularJS 1.3](https://img.shields.io/badge/AngularJS-1.3-dd1b16)
-![Commits](https://img.shields.io/badge/commits%202014%E2%80%932016-921-555)
+![Commits](https://img.shields.io/badge/commits%202014%E2%80%932016-919-555)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 <a href="https://ioanlucut.github.io/reme/"><img src="docs/images/reme-demo.gif" alt="Reme demo: enter an email on the landing page, land in the reminders list, type 'Book the dentist @next friday at 9am', watch the date and time fill themselves in, and see the reminder appear in the list." width="100%"></a>
@@ -25,15 +25,15 @@ Type _"Pay rent @tomorrow at 3pm"_ and Reme e-mails you on time. There was no fo
 
 The whole product is one idea: **a reminder should take less time to write than to forget.**
 
-1. **You write the reminder the way you'd say it.** Everything before the `@` is what to remember, and everything after it is when. Since the 2026 revival the `@` is optional, so `Meeting tomorrow at 3pm` works too. The date and time pickers update as you type, and you can still adjust them by hand. [How it reads a sentence](#talking-to-software-in-2014) is below.
-2. **Reme e-mails you when it's due.** The reminder is scheduled in the timezone of the browser it was written in.
+1. **You write the reminder the way you'd say it.** Everything before the `@` is what to remember, and everything after it is when. Since the 2026 revival the `@` is optional, so `Meeting tomorrow at 3pm` works too. The date and time pickers update as you type, and you can still adjust them by hand. [How it reads a sentence](#a-sentence-as-the-interface) is below.
+2. **Reme emails you when it's due.** The reminder is scheduled in the timezone of the browser it was written in.
 3. **You can remind other people too.** Add more recipients and they get the email as well. They see the reminder in their own list and can unsubscribe from it.
 4. **Your reminders stay organised.** They're grouped as _Today_, _Tomorrow_, _This month_, _Next month_ and so on, with upcoming and past reminders kept apart.
 
 <table>
 <tr>
-<td width="50%"><img src="docs/images/create.png" alt="The reminder dialog: the text 'Josh's birthday party @next friday at 6pm' has set the date picker to a Friday and the time picker to 06:00 PM"></td>
-<td width="50%"><img src="docs/images/reminders.png" alt="The reminders list, grouped under Tomorrow and Next month, with recipient and shared-reminder icons"></td>
+<td width="50%"><img src="docs/images/create.png" alt="The reminder dialog: the text 'Book the dentist @next friday at 9am' has set the date picker to a Friday and the time picker to 09:00 AM"></td>
+<td width="50%"><img src="docs/images/reminders.png" alt="The reminders list with the new dentist reminder, grouped under Tomorrow and This month, with recipient and shared-reminder icons"></td>
 </tr>
 <tr>
 <td><sub>The date and time are parsed from the text as you type.</sub></td>
@@ -41,9 +41,15 @@ The whole product is one idea: **a reminder should take less time to write than 
 </tr>
 </table>
 
-## Talking to software, in 2014
+## My part
 
-Today we type a sentence into a chat box and expect software to understand it. In 2014, apps asked you to pick a date from a calendar and a time from a dropdown. Reme asked for a sentence instead. It was live on reme.io by March 2014, and [dotTech's review of 8 April 2014](https://dottech.org/155679/web-review-reme-io-app/) walked readers through the `@` syntax.
+- **I co-founded Reme and built the Reme 2.0 front end.** That's 648 of its 919 commits: the module architecture, JWT authentication, the reminders list and its grouping, the natural-language editor, and the build and deployment.
+- **Reme 2.0 went from first commit to live in nine weeks.** The first commit landed on 15 November 2014, there were 501 commits by the end of the year, and it went live on 17 January 2015.
+- **I revived it alone in 2026.** That meant a new build, a demo that needs no backend, fixes for bugs that had lain dormant for a decade, the first end-to-end tests, and CI.
+
+## A sentence as the interface
+
+In 2014, most web apps asked for a date from a calendar widget and a time from a dropdown. A few tools, such as Google Calendar's Quick Add, could already read a date from text. Reme built the whole product around that idea: one sentence, no form and, in its first version, no account. It was featured on [Product Hunt](https://www.producthunt.com/products/reme-io) on 27 February 2014, and [dotTech's review of 8 April 2014](https://dottech.org/155679/web-review-reme-io-app/) walked readers through the `@` syntax.
 
 Reme split the sentence into two parts. Everything before the `@` became the text of the reminder, and everything after it was parsed as a date. It updated the date and time pickers on every keystroke, entirely in the browser.
 
@@ -61,9 +67,7 @@ Here is what Reme reads from the examples its own reminder dialog suggested. The
 
 The `@` split is what lets _"next month"_ stay part of the wedding's text rather than change its date.
 
-In 2026 the `@` became optional. Without one, Reme takes the longest run of words at the end of the sentence that reads as a date from today onwards. `Meeting tomorrow at 3pm` gets tomorrow at 15:00, and `Call the bank in 2 hours` gets a time two hours from now. `Read chapter 5` stays a plain reminder, because a bare number isn't taken as a date.
-
-It was a grammar, not a language model. [Sugar](https://sugarjs.com/) recognised a fixed set of date expressions in a few milliseconds, with no server round trip. Anything outside that set, such as `@next monday at noon`, simply wasn't understood, and the pickers stayed as they were. The whole feature is one small directive, [`nlpDateDirective.js`](src/app/common/directives/nlpDateDirective.js):
+It was a grammar, not a language model. [Sugar](https://sugarjs.com/) recognised a fixed set of date expressions in a few milliseconds, with no server round trip. It had no word for `noon`, for example: typing `@next monday at noon` set the date from the part it understood and left the time alone. The core of the directive, as it was in 2016 ([`nlpDateDirective.js`](https://github.com/ioanlucut/reme/blob/original-2016/src/app/common/directives/nlpDateDirective.js)):
 
 ```js
 // If a separator was specified, use it
@@ -80,6 +84,12 @@ if (!date.isValid()) return;
 ```
 
 The directive then checks that the date isn't in the past, and flashes the date picker, the time picker or both, depending on what changed.
+
+The 2026 revival taught it three more things, each covered by tests:
+
+- **The `@` is optional.** Without one, Reme takes the longest run of words at the end of the sentence that reads as a date from today onwards, so `Meeting tomorrow at 3pm` works. `Read chapter 5` stays a plain reminder, because a bare number isn't taken as a date.
+- **A day without a time keeps the time already picked.** `Call John @friday` used to be due at midnight.
+- **An `@` inside an email address is not the separator.** `Email bob@acme.com about the invoice tomorrow at 10am` keeps its full text.
 
 ## Run it locally
 
@@ -106,38 +116,45 @@ Reme is an AngularJS 1.3 single-page app of about 4,800 lines of JavaScript in 9
 - **Modules.** Each feature is its own Angular module: `remeSite` (landing, about, privacy and error pages), `remeAccount` (sign-up, login, password reset, profile and preferences), `remeReminders` (the list and the create, edit and delete dialogs) and `remeCommon` (the shared directives, filters, interceptors and session). Routing uses `ui-router` states, and an auth filter keeps signed-out users away from `/reminders` and `/account/settings`.
 - **Sign-up by email.** The landing page only asks for an email address. The account is created from the link in the verification email, with the timezone detected by `jstz`.
 - **Stateless auth.** The API returns a JWT in the `authtoken` response header. The app keeps it in `localStorage` and an `$http` interceptor attaches it as a `Bearer` token to every request. A second interceptor converts between the app's camelCase and the API's snake_case JSON.
-- **Natural-language dates.** The `nlp-date` directive splits the text at `@`, parses the rest with [Sugar](https://sugarjs.com/)'s `Date.create`, ignores dates before today, and broadcasts whether the date or the time changed so the matching picker can flash.
+- **Natural-language dates.** The `nlp-date` directive described above, built on [Sugar](https://sugarjs.com/)'s `Date.create`.
 - **Grouping.** Reminders are split into upcoming and past, then labelled by relative period, with long lists paged by _Load more_.
 - **Design.** The SCSS is BEM-style on top of Bootstrap 3, with a custom icon font and Ladda loading buttons.
 
 ## The 2026 revival
 
-The last commit landed in May 2016. Since then the API at `api.reme.io` has gone offline and the build has stopped working. The repository sat untouched until 2026, when it was brought back without rewriting the app itself:
+The last code change landed in May 2016, and the only later commits were two README edits in 2024. By 2026 the API at `api.reme.io` was offline and the build no longer ran. The revival brought it back without rewriting the app:
 
 |              | 2016                                                           | 2026                                                                                                                                                                          |
 | ------------ | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Build        | gulp 3, bower, Ruby Sass, PhantomJS, committed `build/` output | One dependency-free Node script ([`scripts/build.mjs`](scripts/build.mjs)) and Dart Sass                                                                                      |
 | Dependencies | bower packages, two of whose repositories no longer exist      | npm, pinned to the 2015 versions or the nearest published ones; one vendored file                                                                                             |
 | Backend      | Reme's API at `api.reme.io`                                    | An in-browser fake of the same API ([`src/demo/mock-api.js`](src/demo/mock-api.js)), on AngularJS's own `ngMockE2E`, and no sign-up: every way in signs you in as a demo user |
-| Hosting      | S3 and CloudFront, deployed from CircleCI                      | GitHub Pages, deployed by GitHub Actions                                                                                                                                      |
-| Tests        | 17 Jasmine specs on Karma and PhantomJS                        | The same 17 specs on Karma and headless Chrome, plus 5 new ones and Playwright end-to-end tests, on every push                                                                |
+| Hosting      | S3 and CloudFront, deployed from CircleCI                      | A static build on GitHub Pages                                                                                                                                                |
+| Tests        | 17 Jasmine specs on Karma and PhantomJS                        | The same 17 specs on Karma and headless Chrome, plus 8 new ones and Playwright end-to-end tests, run by GitHub Actions on every push                                          |
 | Analytics    | Mixpanel and Intercom                                          | Stubbed out; nothing leaves the browser                                                                                                                                       |
 
-It also fixed what had broken along the way:
+It also fixed what had broken, or had always been broken:
 
+- **A list that lost reminders.** The 2016 filter that shows the first five reminders removed items from shared, cached groups while looping over them. After a few new reminders it skipped the ones due soonest. It's now a pure filter sorted by due date, with a regression test.
+- **Groups out of order.** Each group was sorted by a reference date, and "This month" (now) came before "Tomorrow" (now plus a day). Groups are now ordered by their earliest reminder, with a test pinned to a fixed date.
 - **A date limit from 2014.** The reminder input, carried over from the first Reme, rejected every date after 1 January 2018 (`max-date="2018-01-01"`). From 2018 on, typing a date silently did nothing.
-- **Missing assets and leftovers.** These included a loading spinner that only existed in the old build output, two Romanian placeholders in the profile form, and a signup confirmation title whose lines overlapped.
+- **Layout.** A header button whose label overflowed it, settings tabs that covered the logo on phones, "How it works" illustrations cut in half on phones, and hidden tooltips that widened the page.
+- **Dead ends.** Links to the retired Twitter and Facebook accounts, and a contact address on a domain that has since changed hands, now point to this repository. A loading spinner that only existed in the old build output is back.
+- **Leftovers.** Two Romanian placeholders in the profile form, and a signup confirmation title whose lines overlapped.
 - **The fonts.** The Typekit kit for Proxima Nova is gone, so [Figtree](https://fonts.google.com/specimen/Figtree) stands in.
-- **The history.** It was cleaned for publishing: deploy credentials and personal data (e-mail addresses and photos) were removed from every commit. All 921 commits and their authors are kept.
+- **The history.** It was cleaned for publishing: deploy credentials and personal data (email addresses and photos) were removed from every commit. All 919 commits from 2014–2016 and their authors are kept.
 
 ## Project history
 
-<img src="docs/images/2015-landing.png" alt="The Reme landing page from the 2015 press kit: 'Create email reminders in seconds!' with an email field and a 'Get started for FREE!' button" width="100%">
+<img src="docs/images/2015-landing.png" alt="The Reme 2.0 landing page from the 2015 press kit: 'Create email reminders in seconds!' with an email field and a 'Get started for FREE!' button" width="100%">
 
-The first Reme was a single page with no sign-up: one text box, where you wrote the reminder as a sentence and added the email addresses to send it to. It was covered by [dotTech](https://dottech.org/155679/web-review-reme-io-app/) and [One Page Love](https://onepagelove.com/reme-io), and reached #6 of the day on [Product Hunt](https://www.producthunt.com/products/reme-io). This repository is **Reme 2.0**, the rewrite that added accounts, shared reminders and a reminders list, around the natural-language editor of the first version. Its landing page reassured first-generation users that _"the reminders created in old Reme will be imported in your account after you sign up."_
+The first Reme was a single page with no sign-up: one text box, where you wrote the reminder as a sentence and added the email addresses to send it to. It was covered by [dotTech](https://dottech.org/155679/web-review-reme-io-app/) and [One Page Love](https://onepagelove.com/reme-io). This repository is **Reme 2.0**, the rewrite that added accounts, shared reminders and a reminders list around the first version's natural-language editor, which it [imported in December 2014](https://github.com/ioanlucut/reme/commit/78ac2ce). The 2.0 landing page (above, from its 2015 press kit) reassured first-generation users that _"the reminders created in old Reme will be imported in your account after you sign up."_
 
-- **Early 2014.** The first Reme is live on reme.io (the Wayback Machine's first capture is from 2 March 2014). By April, reviewers are explaining how to write a reminder as a sentence with an `@`.
-- **November–December 2014.** The rewrite starts, with 501 commits in its first seven weeks: accounts, JWT authentication and the new reminders list, with the natural-language editor carried over from the first Reme.
+- **February–April 2014.** The first Reme launches:
+    - featured on Product Hunt on 27 February, finishing #6 of the day;
+    - first captured by the Wayback Machine on [2 March](https://web.archive.org/web/20140302100921/http://reme.io/);
+    - reviewed by dotTech on 8 April.
+- **November–December 2014.** The rewrite starts, with 501 commits by the end of the year: accounts, JWT authentication and the new reminders list.
 - **January–February 2015.** Version 2.0 goes live (`v2.0.0` on 17 January), followed by fixes up to `v2.0.4` on 2 February, including a home-grown feedback form that replaced a paid service.
 - **Late 2015 to February 2016.** Deployment moves to S3 and CloudFront with CircleCI (`v2.1.5`).
 - **April–May 2016.** The last redesign: a video landing page and a new reminders list.
@@ -161,11 +178,11 @@ vendor/            angular-flash 0.1.14, which is not published to npm
 
 ## The team
 
-|                                                |                                                                                                                    |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [Ioan Lucuț](https://github.com/ioanlucut)     | Front-end engineering: architecture, auth, reminders, natural-language dates, build and deployment. 650 commits.   |
-| [Sorin Pantiș](https://github.com/sorinpantis) | Design and front-end: the visual design, layouts and responsive styles. 270 commits.                               |
-| [Tamás Pap](https://github.com/tamaspap)       | The About page, and [`url-to`](https://github.com/tamaspap/url-to), the small library Reme uses to build API URLs. |
+|                                                |                                                                                                                                                                   |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Ioan Lucuț](https://github.com/ioanlucut)     | Co-founder. Front-end engineering: architecture, auth, reminders, natural-language dates, build and deployment. 648 commits, and the 2026 revival.                |
+| [Sorin Pantiș](https://github.com/sorinpantis) | Design and front end: the visual design, layouts and responsive styles. 270 commits.                                                                              |
+| [Tamás Pap](https://github.com/tamaspap)       | On the Product Hunt launch team of the first Reme. The About page, and [`url-to`](https://github.com/tamaspap/url-to), the small library Reme uses to build URLs. |
 
 ## License
 
