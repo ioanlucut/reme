@@ -1,30 +1,48 @@
 import { expect, test } from '@playwright/test';
 
-const logIn = async (page, email = 'ada@example.com') => {
-  await page.goto('/account');
-  await page.getByPlaceholder(/email/i).fill(email);
-  await page.getByPlaceholder(/password/i).fill('any password');
-  await page.getByRole('button', { name: /sign in/i }).click();
+const LANDING_HEADING = 'Create email reminders in seconds!';
+
+// The demo has no sign-up or log-in: every way in signs the visitor in.
+const enterApp = async (page) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: /log in/i }).click();
   await expect(page).toHaveURL(/\/reminders$/);
 };
 
 test('the landing page pitches Reme', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page.getByRole('heading', { name: 'Create email reminders in seconds!' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: LANDING_HEADING })).toBeVisible();
   await expect(page.getByText('Meet the team')).toBeVisible();
 });
 
-test('logging in lands on the upcoming reminders', async ({ page }) => {
-  await logIn(page);
-
+test('every way in opens the app without signing up', async ({ page }) => {
+  await enterApp(page);
   await expect(page.getByText('Pay rent')).toBeVisible();
-  await expect(page.getByText('Tomorrow').first()).toBeVisible();
+  await expect(page.getByRole('button', { name: /you@example.com/ })).toBeVisible();
+
+  await page.context().clearCookies();
+  await page.evaluate(() => window.localStorage.clear());
+  await page.goto('/');
+  await page.getByRole('link', { name: /sign up/i }).click();
+  await expect(page).toHaveURL(/\/reminders$/);
+
+  await page.evaluate(() => window.localStorage.clear());
+  await page.goto('/reminders');
+  await expect(page.getByText('Pay rent')).toBeVisible();
+});
+
+test('the landing page form opens the app with the typed address', async ({ page }) => {
+  await page.goto('/');
+  await page.getByPlaceholder('Your Email').fill('ada@example.com');
+  await page.getByRole('button', { name: /get started/i }).click();
+
+  await expect(page).toHaveURL(/\/reminders$/);
   await expect(page.getByRole('button', { name: /ada@example.com/ })).toBeVisible();
 });
 
 test('a reminder is created from natural language', async ({ page }) => {
-  await logIn(page);
+  await enterApp(page);
 
   await page.getByRole('button', { name: /create reminder/i }).click();
   const dialog = page.locator('.modal');
@@ -43,7 +61,7 @@ test('a reminder is created from natural language', async ({ page }) => {
 });
 
 test('a reminder is deleted', async ({ page }) => {
-  await logIn(page);
+  await enterApp(page);
 
   const reminder = page.locator('.reminder', { hasText: 'Pay rent' });
   await reminder.locator('.reminder__menu__option--delete').click();
@@ -52,11 +70,13 @@ test('a reminder is deleted', async ({ page }) => {
   await expect(page.locator('.reminder__title', { hasText: 'Pay rent' })).toBeHidden();
 });
 
-test('logging out returns to the landing page', async ({ page }) => {
-  await logIn(page);
+test('logging out returns to the landing page, and any button goes back in', async ({ page }) => {
+  await enterApp(page);
 
-  await page.getByRole('button', { name: /ada@example.com/ }).click();
+  await page.getByRole('button', { name: /you@example.com/ }).click();
   await page.getByRole('link', { name: /logout/i }).click();
+  await expect(page.getByRole('heading', { name: LANDING_HEADING })).toBeVisible();
 
-  await expect(page.getByRole('heading', { name: 'Create email reminders in seconds!' })).toBeVisible();
+  await page.getByRole('button', { name: /start now/i }).click();
+  await expect(page).toHaveURL(/\/reminders$/);
 });
