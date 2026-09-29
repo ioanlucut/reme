@@ -66,7 +66,7 @@ It was a grammar, not a language model. [Sugar](https://sugarjs.com/) recognised
 ```js
 // If a separator was specified, use it
 if (text && attrs.separator) {
-    text = text.split(attrs.separator)[1];
+  text = text.split(attrs.separator)[1];
 }
 
 // Don't parse empty strings
