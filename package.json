@@ -2,16 +2,17 @@
   "name": "reme",
   "version": "2.3.0",
   "private": true,
-  "description": "Create email reminders in seconds by typing them in plain English. The Reme front-end (2014-2016), an AngularJS app revived to run in the browser without its backend.",
+  "description": "A side project from 2014: email reminders you write as a sentence. The Reme front end (2014-2016), an AngularJS app revived in 2026 to run in the browser without its backend.",
   "keywords": [
     "angularjs",
-    "reminders",
     "email",
-    "natural-language",
-    "single-page-app",
     "jwt",
-    "ui-router",
-    "sass"
+    "natural-language",
+    "reminders",
+    "sass",
+    "side-project",
+    "single-page-app",
+    "ui-router"
   ],
   "license": "MIT",
   "author": "Ioan Lucuț (https://github.com/ioanlucut)",
