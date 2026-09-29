@@ -65,7 +65,8 @@ export const CONFIG = {
   ENV: {
     name: 'demo',
     apiEndpoint: '/api',
-    isProduction: false,
+    // Also silences the app's debug logging of the current user.
+    isProduction: true,
   },
 };
 

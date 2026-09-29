@@ -3,7 +3,7 @@
  *
  * Reme's API (api.reme.io) no longer exists. This module plugs AngularJS's own
  * ngMockE2E $httpBackend into the app, so every request is answered in the
- * browser by the fake API in mock-api.js. The app code itself is unchanged.
+ * browser by the fake API in mock-api.js, without changes to the app's code.
  *
  * There is no sign-up or log-in: every way into the app signs the visitor in
  * as a demo user.
@@ -116,7 +116,7 @@
     .run(function ($document) {
       var banner = angular.element(
         '<div class="reme-demo-banner" role="note">' +
-        '<strong>Demo</strong> · runs entirely in your browser · no sign-up needed' +
+        '<strong>Demo</strong> · no sign-up · try <em>Pay rent tomorrow at 3pm</em>' +
         '</div>'
       );
 
@@ -137,6 +137,7 @@
         pointerEvents: 'none',
       });
 
-      $document.find('body').append(banner);
+      // Keep the end of every page (the footer) clear of the banner.
+      $document.find('body').css('padding-bottom', '48px').append(banner);
     });
 })();
