@@ -25,7 +25,7 @@ Type _"Pay rent @tomorrow at 3pm"_ and Reme e-mails you on time. There was no fo
 
 The whole product is one idea: **a reminder should take less time to write than to forget.**
 
-1. **You write the reminder the way you'd say it.** Everything before the `@` is what to remember, and everything after it is when. The date and time pickers update as you type, and you can still adjust them by hand. [How it reads a sentence](#talking-to-software-in-2014) is below.
+1. **You write the reminder the way you'd say it.** Everything before the `@` is what to remember, and everything after it is when. Since the 2026 revival the `@` is optional, so `Meeting tomorrow at 3pm` works too. The date and time pickers update as you type, and you can still adjust them by hand. [How it reads a sentence](#talking-to-software-in-2014) is below.
 2. **Reme e-mails you when it's due.** The reminder is scheduled in the timezone of the browser it was written in.
 3. **You can remind other people too.** Add more recipients and they get the email as well. They see the reminder in their own list and can unsubscribe from it.
 4. **Your reminders stay organised.** They're grouped as _Today_, _Tomorrow_, _This month_, _Next month_ and so on, with upcoming and past reminders kept apart.
@@ -61,12 +61,14 @@ Here is what Reme reads from the examples its own reminder dialog suggested. The
 
 The `@` split is what lets _"next month"_ stay part of the wedding's text rather than change its date.
 
+In 2026 the `@` became optional. Without one, Reme takes the longest run of words at the end of the sentence that reads as a date from today onwards. `Meeting tomorrow at 3pm` gets tomorrow at 15:00, and `Call the bank in 2 hours` gets a time two hours from now. `Read chapter 5` stays a plain reminder, because a bare number isn't taken as a date.
+
 It was a grammar, not a language model. [Sugar](https://sugarjs.com/) recognised a fixed set of date expressions in a few milliseconds, with no server round trip. Anything outside that set, such as `@next monday at noon`, simply wasn't understood, and the pickers stayed as they were. The whole feature is one small directive, [`nlpDateDirective.js`](src/app/common/directives/nlpDateDirective.js):
 
 ```js
 // If a separator was specified, use it
 if (text && attrs.separator) {
-  text = text.split(attrs.separator)[1];
+    text = text.split(attrs.separator)[1];
 }
 
 // Don't parse empty strings
@@ -88,12 +90,12 @@ npm install
 npm start          # http://localhost:3000, rebuilds when src/ changes
 ```
 
-| Command            | What it does                                                        |
-| ------------------ | ------------------------------------------------------------------- |
-| `npm start`        | Build, serve on port 3000 and rebuild on every change under `src/`  |
-| `npm run build`    | Build into `dist/`; add `-- --base /reme/` to serve from a sub-path |
-| `npm test`         | Build, then run the original 2015 Jasmine unit tests in Chrome      |
-| `npm run test:e2e` | Run the Playwright end-to-end tests against the demo                |
+| Command            | What it does                                                            |
+| ------------------ | ----------------------------------------------------------------------- |
+| `npm start`        | Build, serve on port 3000 and rebuild on every change under `src/`      |
+| `npm run build`    | Build into `dist/`; add `-- --base /reme/` to serve from a sub-path     |
+| `npm test`         | Build, then run the Jasmine unit tests (17 of them from 2015) in Chrome |
+| `npm run test:e2e` | Run the Playwright end-to-end tests against the demo                    |
 
 Everything runs in the browser. There is no sign-up or log-in: every button signs you in as a demo user, and the landing page's email field uses the address you type. The demo keeps its state in `localStorage` and never sends an email.
 
@@ -118,7 +120,7 @@ The last commit landed in May 2016. Since then the API at `api.reme.io` has gone
 | Dependencies | bower packages, two of whose repositories no longer exist      | npm, pinned to the 2015 versions or the nearest published ones; one vendored file                                                                                             |
 | Backend      | Reme's API at `api.reme.io`                                    | An in-browser fake of the same API ([`src/demo/mock-api.js`](src/demo/mock-api.js)), on AngularJS's own `ngMockE2E`, and no sign-up: every way in signs you in as a demo user |
 | Hosting      | S3 and CloudFront, deployed from CircleCI                      | GitHub Pages, deployed by GitHub Actions                                                                                                                                      |
-| Tests        | 17 Jasmine specs on Karma and PhantomJS                        | The same 17 specs on Karma and headless Chrome, plus Playwright end-to-end tests, on every push                                                                               |
+| Tests        | 17 Jasmine specs on Karma and PhantomJS                        | The same 17 specs on Karma and headless Chrome, plus 5 new ones and Playwright end-to-end tests, on every push                                                                |
 | Analytics    | Mixpanel and Intercom                                          | Stubbed out; nothing leaves the browser                                                                                                                                       |
 
 It also fixed what had broken along the way:

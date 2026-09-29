@@ -60,6 +60,20 @@ test('a reminder is created from natural language', async ({ page }) => {
   await expect(page.getByText('Water the plants')).toBeVisible();
 });
 
+test('a sentence without an @ still gets its date', async ({ page }) => {
+  await enterApp(page);
+
+  await page.getByRole('button', { name: /create reminder/i }).click();
+  const dialog = page.locator('.modal');
+  await dialog.getByRole('textbox').first().fill('Meeting tomorrow at 3pm');
+
+  await expect(dialog.getByRole('button', { name: 'Tomorrow' })).toBeVisible();
+  await expect(dialog.getByRole('button', { name: '03:00 PM' })).toBeVisible();
+
+  await dialog.getByRole('button', { name: /create reminder/i }).click();
+  await expect(page.locator('.reminder', { hasText: 'Meeting tomorrow at 3pm' })).toContainText('3:00 PM');
+});
+
 test('a reminder is deleted', async ({ page }) => {
   await enterApp(page);
 
