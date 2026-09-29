@@ -18,7 +18,7 @@ test('the landing page pitches Reme', async ({ page }) => {
 
 test('every way in opens the app without signing up', async ({ page }) => {
   await enterApp(page);
-  await expect(page.getByText('Pay rent')).toBeVisible();
+  await expect(page.locator('.reminder__title', { hasText: 'Pay rent' })).toBeVisible();
   await expect(page.getByRole('button', { name: /you@example.com/ })).toBeVisible();
 
   await page.context().clearCookies();
@@ -29,7 +29,7 @@ test('every way in opens the app without signing up', async ({ page }) => {
 
   await page.evaluate(() => window.localStorage.clear());
   await page.goto('/reminders');
-  await expect(page.getByText('Pay rent')).toBeVisible();
+  await expect(page.locator('.reminder__title', { hasText: 'Pay rent' })).toBeVisible();
 });
 
 test('the landing page form opens the app with the typed address', async ({ page }) => {
@@ -72,6 +72,47 @@ test('a sentence without an @ still gets its date', async ({ page }) => {
 
   await dialog.getByRole('button', { name: /create reminder/i }).click();
   await expect(page.locator('.reminder', { hasText: 'Meeting tomorrow at 3pm' })).toContainText('3:00 PM');
+});
+
+test('many new reminders are all listed once, by due date', async ({ page }) => {
+  await enterApp(page);
+
+  const create = async (text) => {
+    await page.getByRole('button', { name: /create reminder/i }).first().click();
+    const dialog = page.locator('.modal');
+    await dialog.getByRole('textbox').first().fill(text);
+    await dialog.getByRole('button', { name: /create reminder/i }).click();
+    await expect(dialog).toBeHidden();
+  };
+
+  const listed = page.locator('.reminder-list').first().locator('.reminder__title');
+
+  await create('Alpha @in 1 hour');
+  await create('Beta @in 2 hours');
+
+  // Only the five due soonest are shown before "Load more".
+  await expect(listed).toHaveText(['Alpha', 'Beta', 'Pay rent', 'Demo day rehearsal', "Josh's birthday party"]);
+
+  await create('Gamma @tomorrow at 9am');
+  await create('Delta @in 3 hours');
+
+  const loadMore = page.getByRole('button', { name: /load more/i });
+  while (await loadMore.isVisible()) {
+    await loadMore.click();
+    await page.waitForTimeout(700);
+  }
+
+  await expect(listed).toHaveText([
+    'Alpha', 'Beta', 'Delta', 'Gamma', 'Pay rent', 'Demo day rehearsal', "Josh's birthday party", 'Renew the passport',
+  ]);
+});
+
+test('groups are listed in date order', async ({ page }) => {
+  // A Monday early in the month: "Tomorrow" and "This month" are both populated
+  await page.clock.install({ time: new Date('2026-10-05T09:10:00') });
+  await page.goto('/reminders');
+
+  await expect(page.locator('.reminder-list').first().locator('.reminder-group')).toHaveText(['Tomorrow', 'This month']);
 });
 
 test('a reminder is deleted', async ({ page }) => {

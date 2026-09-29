@@ -43,21 +43,16 @@ angular
         // Comparator to sort reminders.
         // ---
 
+        // Order groups by their earliest reminder. The 2016 version compared each group's reference
+        // date, and "This month" (now) sorted before "Tomorrow" (now + 1 day).
+        function firstDueOn(group) {
+          return _.min(_.map(group.values, function (reminder) {
+            return new Date(reminder.model.dueOn).getTime();
+          }));
+        }
+
         function remindersSortComparator(a, b) {
-          // A less than B
-          if (a.matchingGroup.diff.date < b.matchingGroup.diff.date)
-            return -1;
-
-          // A greater than B
-          if (a.matchingGroup.diff.date > b.matchingGroup.diff.date)
-            return 1;
-
-          // A greater than B
-          if (a.matchingGroup.name === 'Today' && b.matchingGroup.name === 'This month') {
-            return -1;
-          }
-
-          return 0;
+          return firstDueOn(a) - firstDueOn(b);
         }
 
         // ---
