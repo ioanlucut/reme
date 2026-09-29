@@ -6,8 +6,8 @@
 // pre-loaded into $templateCache, one stylesheet and the static assets.
 //
 // Usage: node scripts/build.mjs [--base /reme/]
-//   --base  the path the app is served from (default "/"), e.g. "/reme/" for
-//           GitHub Pages.
+//   --base  the path the app is served from (default "/"), e.g. "/reme/" when
+//           hosted under a sub-path.
 
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, relative, sep } from 'node:path';
@@ -147,9 +147,6 @@ export const build = async ({ base = '/' } = {}) => {
   await Promise.all([
     cp(join(src, 'assets'), join(dist, 'assets'), { recursive: true }),
     writeFile(join(dist, 'index.html'), index),
-    // GitHub Pages serves 404.html for unknown paths, which lets deep links
-    // such as /reme/reminders boot the single-page app.
-    writeFile(join(dist, '404.html'), index),
     writeFile(join(dist, 'styles', 'app.css'), styles()),
     writeFile(join(dist, 'scripts', 'vendor.js'), await concat(VENDOR_SCRIPTS)),
     writeFile(join(dist, 'scripts', 'config.js'), config()),

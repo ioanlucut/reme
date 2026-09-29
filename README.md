@@ -6,18 +6,17 @@
 
 **Email reminders you write as a sentence, since February 2014.**
 
-Type _"Pay rent @tomorrow at 3pm"_ and Reme emails you on time. No date picker, no form: the sentence is the interface. I co-founded Reme, wrote 648 of the 919 commits of Reme 2.0 (2014–2016), and revived it on my own in 2026, so it runs again, entirely in your browser.
+Type _"Pay rent @tomorrow at 3pm"_ and Reme emails you on time. No date picker, no form: the sentence is the interface. Sorin Pantiș and Tamás Pap founded Reme, and I joined them as a co-founder. I wrote 648 of the 919 commits of Reme 2.0 (2014–2016), and in 2026 I revived it on my own, so it runs again, entirely in your browser.
 
 [![CI](https://github.com/ioanlucut/reme/actions/workflows/ci.yml/badge.svg)](https://github.com/ioanlucut/reme/actions/workflows/ci.yml)
-[![Live demo](https://img.shields.io/badge/live%20demo-GitHub%20Pages-8471B1)](https://ioanlucut.github.io/reme/)
 [![Product Hunt: #6 of the day, February 2014](https://img.shields.io/badge/Product%20Hunt-%236%20of%20the%20day%2C%20Feb%202014-da552f)](https://www.producthunt.com/products/reme-io)
 ![AngularJS 1.3](https://img.shields.io/badge/AngularJS-1.3-dd1b16)
 ![Commits](https://img.shields.io/badge/commits%202014%E2%80%932016-919-555)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-<a href="https://ioanlucut.github.io/reme/"><img src="docs/images/reme-demo.gif" alt="Reme demo: enter an email on the landing page, land in the reminders list, type 'Book the dentist @next friday at 9am', watch the date and time fill themselves in, and see the reminder appear in the list." width="100%"></a>
+<a href="#run-it-locally"><img src="docs/images/reme-demo.gif" alt="Reme demo: enter an email on the landing page, land in the reminders list, type 'Book the dentist @next friday at 9am', watch the date and time fill themselves in, and see the reminder appear in the list." width="100%"></a>
 
-**[Try the live demo →](https://ioanlucut.github.io/reme/)** No sign-up needed.
+**[Run it locally →](#run-it-locally)** Two commands, no backend, no sign-up.
 
 </div>
 
@@ -43,7 +42,7 @@ The whole product is one idea: **a reminder should take less time to write than 
 
 ## My part
 
-- **I co-founded Reme and built the Reme 2.0 front end.** That's 648 of its 919 commits: the module architecture, JWT authentication, the reminders list and its grouping, the natural-language editor, and the build and deployment.
+- **I joined Reme as a co-founder and built the Reme 2.0 front end.** That's 648 of its 919 commits: the module architecture, JWT authentication, the reminders list and its grouping, the natural-language editor, and the build and deployment.
 - **Reme 2.0 went from first commit to live in nine weeks.** The first commit landed on 15 November 2014, there were 501 commits by the end of the year, and it went live on 17 January 2015.
 - **I revived it alone in 2026.** That meant a new build, a demo that needs no backend, fixes for bugs that had lain dormant for a decade, the first end-to-end tests, and CI.
 
@@ -129,7 +128,7 @@ The last code change landed in May 2016, and the only later commits were two REA
 | Build        | gulp 3, bower, Ruby Sass, PhantomJS, committed `build/` output | One dependency-free Node script ([`scripts/build.mjs`](scripts/build.mjs)) and Dart Sass                                                                                      |
 | Dependencies | bower packages, two of whose repositories no longer exist      | npm, pinned to the 2015 versions or the nearest published ones; one vendored file                                                                                             |
 | Backend      | Reme's API at `api.reme.io`                                    | An in-browser fake of the same API ([`src/demo/mock-api.js`](src/demo/mock-api.js)), on AngularJS's own `ngMockE2E`, and no sign-up: every way in signs you in as a demo user |
-| Hosting      | S3 and CloudFront, deployed from CircleCI                      | A static build on GitHub Pages                                                                                                                                                |
+| Hosting      | S3 and CloudFront, deployed from CircleCI                      | None needed: `npm start` runs it locally                                                                                                                                      |
 | Tests        | 17 Jasmine specs on Karma and PhantomJS                        | The same 17 specs on Karma and headless Chrome, plus 8 new ones and Playwright end-to-end tests, run by GitHub Actions on every push                                          |
 | Analytics    | Mixpanel and Intercom                                          | Stubbed out; nothing leaves the browser                                                                                                                                       |
 
@@ -178,11 +177,11 @@ vendor/            angular-flash 0.1.14, which is not published to npm
 
 ## The team
 
-|                                                |                                                                                                                                                                   |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Ioan Lucuț](https://github.com/ioanlucut)     | Co-founder. Front-end engineering: architecture, auth, reminders, natural-language dates, build and deployment. 648 commits, and the 2026 revival.                |
-| [Sorin Pantiș](https://github.com/sorinpantis) | Design and front end: the visual design, layouts and responsive styles. 270 commits.                                                                              |
-| [Tamás Pap](https://github.com/tamaspap)       | On the Product Hunt launch team of the first Reme. The About page, and [`url-to`](https://github.com/tamaspap/url-to), the small library Reme uses to build URLs. |
+|                                                |                                                                                                                                                                                   |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Ioan Lucuț](https://github.com/ioanlucut)     | Co-founder, joined after Reme was founded. Front-end engineering: architecture, auth, reminders, natural-language dates, build and deployment. 648 commits, and the 2026 revival. |
+| [Sorin Pantiș](https://github.com/sorinpantis) | Co-founder. Design and front end: the visual design, layouts and responsive styles. 270 commits.                                                                                  |
+| [Tamás Pap](https://github.com/tamaspap)       | Co-founder. The About page, and [`url-to`](https://github.com/tamaspap/url-to), the small library Reme uses to build URLs.                                                        |
 
 ## License
 
